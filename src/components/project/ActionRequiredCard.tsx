@@ -49,21 +49,21 @@ export const ActionRequiredCard: React.FC<ActionRequiredCardProps> = ({
           <AlertCircle size={18} />
         </div>
         <div className="action-required-content">
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '2px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '3px' }}>
             <span
               style={{
                 fontSize: '11px',
-                fontWeight: 600,
-                color: '#B45309',
-                backgroundColor: '#FEF3C7',
-                padding: '1px 6px',
-                borderRadius: '4px'
+                fontWeight: 700,
+                color: 'var(--text-primary)',
+                backgroundColor: 'var(--bg-subtle)',
+                padding: '2px 8px',
+                borderRadius: '6px'
               }}
             >
               {projectTitle}
             </span>
             {deadline && (
-              <span style={{ fontSize: '11px', color: '#92400E', display: 'flex', alignItems: 'center', gap: '3px' }}>
+              <span style={{ fontSize: '11px', color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: '3px' }}>
                 <Clock size={11} /> Deadline: {deadline}
               </span>
             )}
@@ -76,10 +76,6 @@ export const ActionRequiredCard: React.FC<ActionRequiredCardProps> = ({
       <button
         className="btn btn-primary btn-sm"
         style={{
-          backgroundColor: '#B45309',
-          borderColor: '#92400E',
-          color: '#FFFFFF',
-          boxShadow: 'none',
           marginLeft: 'var(--space-4)',
           flexShrink: 0
         }}

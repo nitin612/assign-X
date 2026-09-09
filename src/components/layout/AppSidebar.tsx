@@ -1,5 +1,3 @@
-/* Desktop and Drawer Sidebar Component */
-import React from 'react';
 import {
   LayoutDashboard,
   Briefcase,
@@ -9,6 +7,8 @@ import {
   Bell,
   HelpCircle,
   Settings,
+  Globe,
+  LogOut,
   X
 } from 'lucide-react';
 import { useNavigation } from '../../context/NavigationContext';
@@ -16,7 +16,7 @@ import { useApp } from '../../context/AppContext';
 
 export const AppSidebar: React.FC = () => {
   const { currentRoute, navigate } = useNavigation();
-  const { projects, notifications, mobileMenuOpen, setMobileMenuOpen } = useApp();
+  const { projects, notifications, mobileMenuOpen, setMobileMenuOpen, logout } = useApp();
 
   const activeWorkCount = projects.filter(
     p => p.status === 'In Progress' || p.status === 'Awaiting Action' || p.status === 'Under Review'
@@ -63,6 +63,11 @@ export const AppSidebar: React.FC = () => {
   ];
 
   const bottomNavItems = [
+    {
+      label: 'Landing Page',
+      path: '/landing',
+      icon: Globe
+    },
     {
       label: 'Support & Help',
       path: '/support',
@@ -132,11 +137,11 @@ export const AppSidebar: React.FC = () => {
             return (
               <div
                 key={item.path}
-                className={`sidebar-nav-item ${active ? 'active' : ''}`}
+                className={`sidebar-nav-item ${active ? 'active' : ''} ${item.isSpecial ? 'special-cta' : ''}`}
                 onClick={() => handleNavigate(item.path)}
               >
                 <div className="sidebar-nav-item-content">
-                  <Icon size={17} strokeWidth={active ? 2.2 : 1.8} />
+                  <Icon size={17} strokeWidth={active || item.isSpecial ? 2.2 : 1.8} />
                   <span>{item.label}</span>
                 </div>
                 {item.badge !== undefined && (
@@ -174,19 +179,43 @@ export const AppSidebar: React.FC = () => {
 
           <div
             className="sidebar-user-pill"
-            style={{ marginTop: 'var(--space-2)' }}
+            style={{ marginTop: 'var(--space-2)', justifyContent: 'space-between' }}
             onClick={() => handleNavigate('/settings')}
           >
-            <div className="user-avatar">
-              <img
-                src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&auto=format&fit=crop&q=80"
-                alt="Alex Vance"
-              />
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', minWidth: 0 }}>
+              <div className="user-avatar">
+                <img
+                  src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&auto=format&fit=crop&q=80"
+                  alt="Alex Vance"
+                />
+              </div>
+              <div className="user-details" style={{ overflow: 'hidden' }}>
+                <span className="user-name" style={{ textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap' }}>Alex Vance</span>
+                <span className="user-role" style={{ textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap' }}>Apex Hospitality</span>
+              </div>
             </div>
-            <div className="user-details">
-              <span className="user-name">Alex Vance</span>
-              <span className="user-role">Apex Hospitality Group</span>
-            </div>
+
+            <button
+              title="Sign Out to Landing Page"
+              style={{
+                background: 'transparent',
+                border: 'none',
+                cursor: 'pointer',
+                color: 'var(--text-muted)',
+                padding: '4px',
+                borderRadius: '6px',
+                display: 'flex',
+                alignItems: 'center',
+                flexShrink: 0
+              }}
+              onClick={(e) => {
+                e.stopPropagation();
+                logout();
+                navigate('/landing');
+              }}
+            >
+              <LogOut size={16} />
+            </button>
           </div>
         </div>
       </aside>

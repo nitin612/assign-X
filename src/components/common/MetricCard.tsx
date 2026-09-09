@@ -6,6 +6,7 @@ interface MetricCardProps {
   value: string | number;
   subtext?: string;
   icon?: React.ReactNode;
+  iconBg?: string;
   trend?: {
     value: string;
     isPositive?: boolean;
@@ -17,13 +18,21 @@ export const MetricCard: React.FC<MetricCardProps> = ({
   value,
   subtext,
   icon,
+  iconBg,
   trend
 }) => {
   return (
     <div className="metric-card">
       <div className="metric-header">
         <span className="metric-label">{label}</span>
-        {icon && <div className="metric-icon-wrap">{icon}</div>}
+        {icon && (
+          <div
+            className="metric-icon-wrap"
+            style={iconBg ? { backgroundColor: iconBg } : undefined}
+          >
+            {icon}
+          </div>
+        )}
       </div>
       <div className="metric-value">{value}</div>
       {(subtext || trend) && (

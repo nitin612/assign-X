@@ -1,128 +1,146 @@
-/* AssignX Modern Editorial Tokens - Sharp Dribbble Upnow Studio Benchmark */
+/* ═══════════════════════════════════════════════════════════
+   AssignX — Visual Design System Tokens
+   Reference: Freelance Match (Clean Modern Editorial / Startup Aesthetic)
+   Palette: Off-White Canvas · White Surfaces · Coral Primary · Blue Secondary · Lime Accent · Bold Black Borders & Offset Shadows
+   ═══════════════════════════════════════════════════════════ */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,700;1,800&display=swap');
+
 :root {
-  /* Color Palette - Neutrals & Canvas */
-  --bg-viewport: #EBEFF2;
-  --bg-canvas: #EBEFF2;
-  --bg-surface: #FFFFFF;
-  --bg-subtle: #F3F4F6;
-  --bg-muted: #E5E7EB;
-  --bg-hover: #F9FAFB;
-  --bg-active: #F3F4F6;
+  /* ── Canvas & Surfaces ───────────────────────────────────── */
+  --bg-canvas:     #F5F5F7;   /* Off-white / very light gray background */
+  --bg-viewport:   #F5F5F7;
+  --bg-surface:    #FFFFFF;   /* Pure white cards and containers */
+  --bg-surface-2:  #FAFAFC;   /* Very subtle off-white */
+  --bg-subtle:     #EFEFF4;   /* Secondary backgrounds, inactive tags */
+  --bg-muted:      #E4E4EC;   /* Track backgrounds, borders */
+  --bg-hover:      #EBEBF2;   /* Hover states */
 
-  /* Typography Colors - High Contrast Ink */
-  --text-primary: #111827;
-  --text-secondary: #4B5563;
-  --text-muted: #6B7280;
-  --text-tertiary: #9CA3AF;
-  --text-inverse: #FFFFFF;
+  /* ── Typography (Near-Black & Hierarchy) ─────────────────── */
+  --text-primary:   #111111;   /* Near-black bold typography */
+  --text-secondary: #555555;   /* Clean readable secondary text */
+  --text-muted:     #777777;   /* Muted captions & metadata */
+  --text-tertiary:  #999999;   /* Subtle placeholders */
+  --text-inverse:   #FFFFFF;   /* Text on solid black */
 
-  /* Borders */
-  --border-subtle: #F3F4F6;
-  --border-default: #E5E7EB;
-  --border-strong: #D1D5DB;
-  --border-focus: #16A34A;
+  /* ── Brand Colors (From Reference Image) ─────────────────── */
+  /* Primary: Coral / Orange */
+  --color-coral:        #FF6B5B;
+  --color-coral-hover:  #FF5542;
+  --color-coral-light:  #FFEBE8;
+  --color-coral-subtle: rgba(255, 107, 91, 0.12);
 
-  /* Brand Accent - Vibrant Emerald Green (Dribbble Upnow Ref) */
-  --brand-primary: #16A34A;
-  --brand-primary-bright: #22C55E;
-  --brand-hover: #15803D;
-  --brand-light: #4ADE80;
-  --brand-subtle: #F0FDF4;
-  --brand-border: #BBF7D0;
-  --brand-glow: rgba(22, 163, 74, 0.16);
-  --brand-gradient: linear-gradient(135deg, #16A34A 0%, #22C55E 100%);
-  --brand-gradient-hover: linear-gradient(135deg, #15803D 0%, #16A34A 100%);
+  /* Secondary: Blue */
+  --color-blue:         #6C8BFF;
+  --color-blue-hover:   #5475F5;
+  --color-blue-light:   #EEF2FF;
+  --color-blue-subtle:  rgba(108, 139, 255, 0.12);
 
-  /* High Contrast Obsidian */
-  --brand-dark: #111827;
-  --brand-dark-hover: #1F2937;
+  /* Accent: Lime Green */
+  --color-lime:         #C7FF3D;
+  --color-lime-hover:   #B5F220;
+  --color-lime-light:   #F5FFDB;
+  --color-lime-subtle:  rgba(199, 255, 61, 0.18);
 
-  /* Studio Portrait Tints for Bento Grid (from Dribbble Shot) */
-  --studio-peach: #FBD5CB;
-  --studio-sage: #9FB8A6;
-  --studio-mustard: #E2A740;
-  --studio-dark: #1A1F26;
-  --studio-terracotta: #D37A63;
-  --studio-cream: #FAF6EE;
+  /* Accent: Electric Violet / Purple (Reference Feature Accent) */
+  --color-purple:        #7B61FF;
+  --color-purple-hover:  #6849F5;
+  --color-purple-light:  #F3F0FF;
+  --color-purple-subtle: rgba(123, 97, 255, 0.14);
 
-  /* Semantic - Status Tints */
-  --status-success-bg: #F0FDF4;
-  --status-success-text: #166534;
-  --status-success-border: #BBF7D0;
-  --status-success-dot: #16A34A;
+  /* Solid Black */
+  --color-black:        #111111;
 
-  --status-warning-bg: #FFFBEB;
-  --status-warning-text: #92400E;
-  --status-warning-border: #FDE68A;
-  --status-warning-dot: #F59E0B;
+  /* Aliases for consistency */
+  --brand-primary:      var(--color-coral);
+  --brand-secondary:    var(--color-blue);
+  --brand-accent:       var(--color-lime);
+  --brand-dark:         #111111;
 
-  --status-danger-bg: #FEF2F2;
-  --status-danger-text: #991B1B;
-  --status-danger-border: #FECACA;
-  --status-danger-dot: #EF4444;
+  /* ── Borders & Outlines ──────────────────────────────────── */
+  --border-dark:        #111111;   /* The signature black outline for focal items */
+  --border-default:     #111111;
+  --border-subtle:      #ECECF2;   /* Light dividers for topbar, sidebar, and section lines */
+  --border-card:        #E6E6EE;   /* Soft border for calm metric cards and list cards */
+  --border-width:       2px;
 
-  --status-info-bg: #EFF6FF;
-  --status-info-text: #1E40AF;
-  --status-info-border: #BFDBFE;
-  --status-info-dot: #3B82F6;
+  /* ── 3D Offset Shadows (Signature Feature for Focal Elements) ── */
+  --shadow-offset-xs:   1px 1px 0px #111111;
+  --shadow-offset-sm:   2px 2px 0px #111111;
+  --shadow-offset-md:   3px 3px 0px #111111;
+  --shadow-offset-lg:   4px 4px 0px #111111;
+  --shadow-offset-xl:   6px 6px 0px #111111;
+  --shadow-modal:       8px 8px 0px #111111;
 
-  --status-neutral-bg: #F3F4F6;
-  --status-neutral-text: #4B5563;
-  --status-neutral-border: #E5E7EB;
-  --status-neutral-dot: #9CA3AF;
+  /* ── Soft Natural Shadows (For Eye-Soothing Atmosphere) ──────── */
+  --shadow-soft-sm:     0 1px 3px rgba(0, 0, 0, 0.04);
+  --shadow-soft-md:     0 2px 8px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+  --shadow-soft-lg:     0 6px 20px rgba(0, 0, 0, 0.06);
 
-  /* Typography Scale */
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-heading: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
-  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  /* Status Colors */
+  --status-success-bg:     #E8FDF0;
+  --status-success-text:   #0D7A3E;
+  --status-success-border: #111111;
 
-  --text-2xs: 11px;
-  --text-xs: 12px;
-  --text-sm: 13px;
+  --status-warning-bg:     #FFF8E6;
+  --status-warning-text:   #A15C00;
+  --status-warning-border: #111111;
+
+  --status-danger-bg:      #FEECEB;
+  --status-danger-text:    #C0241A;
+  --status-danger-border:  #111111;
+
+  --status-info-bg:        #EEF2FF;
+  --status-info-text:      #2A4ECC;
+  --status-info-border:    #111111;
+
+  --status-neutral-bg:     #F3F3F7;
+  --status-neutral-text:   #555555;
+  --status-neutral-border: #111111;
+
+  /* ── Typography Scale ────────────────────────────────────── */
+  --font-sans:    'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-heading: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-mono:    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  --text-2xs:  11px;
+  --text-xs:   12px;
+  --text-sm:   13px;
   --text-base: 14px;
-  --text-md: 15px;
-  --text-lg: 16px;
-  --text-xl: 18px;
-  --text-2xl: 22px;
-  --text-3xl: 28px;
-  --text-4xl: 36px;
-  --text-5xl: 46px;
+  --text-md:   15px;
+  --text-lg:   16px;
+  --text-xl:   18px;
+  --text-2xl:  22px;
+  --text-3xl:  28px;
+  --text-4xl:  36px;
+  --text-5xl:  48px;
 
-  /* Spacing Grid */
-  --space-1: 4px;
-  --space-2: 8px;
-  --space-3: 12px;
-  --space-4: 16px;
-  --space-5: 20px;
-  --space-6: 24px;
-  --space-8: 32px;
+  /* ── Spacing ─────────────────────────────────────────────── */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  20px;
+  --space-6:  24px;
+  --space-8:  32px;
   --space-10: 40px;
   --space-12: 48px;
   --space-16: 64px;
 
-  /* Border Radius - Sharp Editorial Smooth Curves */
-  --radius-xs: 6px;
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 16px;
-  --radius-xl: 22px;
-  --radius-2xl: 28px;
-  --radius-3xl: 36px;
-  --radius-full: 9999px;
+  /* ── Border Radius (12-18px Cards, 8-12px Buttons) ──────── */
+  --radius-xs:   6px;
+  --radius-sm:   8px;
+  --radius-md:   10px;  /* Buttons default */
+  --radius-lg:   14px;  /* Inputs & medium components */
+  --radius-xl:   16px;  /* Cards default */
+  --radius-2xl:  20px;  /* Prominent cards / Modals */
+  --radius-full: 9999px;/* Badges and avatar pills */
 
-  /* Shadows - Crisp Elevated Floating Shadow */
-  --shadow-subtle: 0 1px 3px 0 rgba(15, 23, 42, 0.04);
-  --shadow-sm: 0 2px 6px 0 rgba(15, 23, 42, 0.04);
-  --shadow-md: 0 8px 24px -4px rgba(15, 23, 42, 0.06);
-  --shadow-lg: 0 16px 36px -8px rgba(15, 23, 42, 0.08);
-  --shadow-frame: 0 24px 60px -12px rgba(15, 23, 42, 0.07), 0 2px 8px -2px rgba(15, 23, 42, 0.03);
-  --shadow-brand: 0 8px 20px -3px rgba(22, 163, 74, 0.3);
+  /* ── Transitions ─────────────────────────────────────────── */
+  --transition-fast:   120ms ease;
+  --transition-normal: 180ms ease;
 
-  /* Transitions */
-  --transition-fast: 150ms cubic-bezier(0.16, 1, 0.3, 1);
-  --transition-normal: 220ms cubic-bezier(0.16, 1, 0.3, 1);
-
-  /* Layout Constrains */
-  --navbar-height: 72px;
-  --max-content-width: 1360px;
+  /* ── Layout Constraints ──────────────────────────────────── */
+  --sidebar-width:      256px;
+  --topbar-height:      64px;
+  --max-content-width:  1320px;
 }

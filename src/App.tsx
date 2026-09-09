@@ -5,6 +5,7 @@ import { AppProvider } from './context/AppContext';
 import { AppLayout } from './components/layout/AppLayout';
 
 // Pages
+import { LandingPage } from './pages/LandingPage';
 import { DashboardPage } from './pages/DashboardPage';
 import { MyWorkPage } from './pages/MyWorkPage';
 import { CreateWorkFlow } from './pages/create-work/CreateWorkFlow';
@@ -15,9 +16,16 @@ import { CentralPaymentsPage } from './pages/CentralPaymentsPage';
 import { NotificationsPage } from './pages/NotificationsPage';
 import { ProfileSettingsPage } from './pages/ProfileSettingsPage';
 import { SupportDisputesPage } from './pages/SupportDisputesPage';
+import { useApp } from './context/AppContext';
 
 const AppRouter: React.FC = () => {
   const { currentRoute } = useNavigation();
+  const { isLoggedIn } = useApp();
+
+  // If not logged in, or on /landing, render full Landing Page
+  if (!isLoggedIn || currentRoute.path === '/landing') {
+    return <LandingPage />;
+  }
 
   const renderCurrentPage = () => {
     switch (currentRoute.path) {
@@ -32,6 +40,7 @@ const AppRouter: React.FC = () => {
         return <MyWorkPage />;
 
       case '/create':
+      case '/work/new':
         return <CreateWorkFlow />;
 
       case '/submitted':

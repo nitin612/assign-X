@@ -19,7 +19,7 @@ function parseHash(hash: string): RouteInfo {
   // Remove leading '#' or '#/'
   let clean = hash.replace(/^#\/?/, '');
   if (!clean) {
-    clean = 'dashboard';
+    clean = 'landing';
   }
 
   const [pathPart, queryPart] = clean.split('?');
@@ -43,7 +43,7 @@ function parseHash(hash: string): RouteInfo {
   }
 
   return {
-    path: '/' + (segments[0] || 'dashboard'),
+    path: '/' + (segments[0] || 'landing'),
     params,
     query
   };

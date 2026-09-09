@@ -6,7 +6,6 @@ import { ProjectRow } from '../components/project/ProjectRow';
 import { ProjectCard } from '../components/project/ProjectCard';
 import { EmptyState } from '../components/common/EmptyState';
 import {
-  PlusCircle,
   Search,
   Briefcase,
   LayoutGrid,
@@ -91,20 +90,25 @@ export const MyWorkPage: React.FC = () => {
         }}
       >
         <div>
-          <h1 style={{ fontSize: '28px', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '4px' }}>
-            My Work
-          </h1>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '6px' }}>
+            <h1 style={{ fontSize: '32px', fontWeight: 800, color: 'var(--text-primary)', letterSpacing: '-0.035em', margin: 0 }}>
+              My Work
+            </h1>
+            <span className="tilted-label lime" style={{ fontSize: '11px', padding: '2px 8px', transform: 'rotate(2deg)' }}>
+              On Track
+            </span>
+          </div>
           <p style={{ fontSize: '14px', color: 'var(--text-secondary)' }}>
-            Track everything you’ve assigned through AssignX.
+            Everything you’ve asked AssignX to get done.
           </p>
         </div>
 
         <button
-          className="btn btn-primary"
+          className="btn btn-primary btn-lg"
           onClick={() => navigate('/create')}
         >
-          <PlusCircle size={16} />
           <span>Create New Work</span>
+          <span>→</span>
         </button>
       </div>
 
@@ -130,18 +134,18 @@ export const MyWorkPage: React.FC = () => {
           justifyContent: 'space-between',
           flexWrap: 'wrap',
           gap: 'var(--space-3)',
-          marginBottom: 'var(--space-5)'
+          marginBottom: 'var(--space-6)'
         }}
       >
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap', flex: 1 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap', flex: 1 }}>
           {/* Search */}
-          <div style={{ position: 'relative', width: '240px' }}>
-            <Search size={14} color="var(--text-tertiary)" style={{ position: 'absolute', left: '10px', top: '10px' }} />
+          <div style={{ position: 'relative', width: '260px' }}>
+            <Search size={14} color="var(--text-muted)" style={{ position: 'absolute', left: '14px', top: '12px' }} />
             <input
               type="text"
-              className="form-input"
-              style={{ padding: '7px 12px 7px 30px', fontSize: '13px' }}
-              placeholder="Search work..."
+              className="filter-pill-input"
+              style={{ paddingLeft: '36px', width: '100%' }}
+              placeholder="Search work, tags..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
@@ -149,8 +153,7 @@ export const MyWorkPage: React.FC = () => {
 
           {/* Category Filter */}
           <select
-            className="form-select"
-            style={{ width: 'auto', padding: '7px 12px', fontSize: '13px' }}
+            className="filter-pill-select"
             value={selectedCategory}
             onChange={(e) => setSelectedCategory(e.target.value)}
           >
@@ -162,8 +165,7 @@ export const MyWorkPage: React.FC = () => {
 
           {/* Supervisor Filter */}
           <select
-            className="form-select"
-            style={{ width: 'auto', padding: '7px 12px', fontSize: '13px' }}
+            className="filter-pill-select"
             value={selectedSupervisor}
             onChange={(e) => setSelectedSupervisor(e.target.value)}
           >
@@ -180,18 +182,25 @@ export const MyWorkPage: React.FC = () => {
             display: 'flex',
             alignItems: 'center',
             backgroundColor: 'var(--bg-subtle)',
-            borderRadius: 'var(--radius-md)',
-            padding: '2px',
-            border: '1px solid var(--border-default)'
+            borderRadius: 'var(--radius-full)',
+            padding: '3px',
+            border: '1px solid var(--border-card)'
           }}
         >
           <button
-            className="topbar-icon-btn"
             style={{
-              width: '30px',
-              height: '30px',
-              backgroundColor: viewMode === 'table' ? 'var(--bg-surface)' : 'transparent',
-              color: viewMode === 'table' ? 'var(--text-primary)' : 'var(--text-muted)'
+              width: '32px',
+              height: '32px',
+              borderRadius: '9999px',
+              border: 'none',
+              backgroundColor: viewMode === 'table' ? '#FFFFFF' : 'transparent',
+              color: viewMode === 'table' ? 'var(--text-primary)' : 'var(--text-muted)',
+              boxShadow: viewMode === 'table' ? 'var(--shadow-soft-sm)' : 'none',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              cursor: 'pointer',
+              transition: 'all var(--transition-fast)'
             }}
             onClick={() => setViewMode('table')}
             title="Table View"
@@ -199,12 +208,19 @@ export const MyWorkPage: React.FC = () => {
             <List size={15} />
           </button>
           <button
-            className="topbar-icon-btn"
             style={{
-              width: '30px',
-              height: '30px',
-              backgroundColor: viewMode === 'grid' ? 'var(--bg-surface)' : 'transparent',
-              color: viewMode === 'grid' ? 'var(--text-primary)' : 'var(--text-muted)'
+              width: '32px',
+              height: '32px',
+              borderRadius: '9999px',
+              border: 'none',
+              backgroundColor: viewMode === 'grid' ? '#FFFFFF' : 'transparent',
+              color: viewMode === 'grid' ? 'var(--text-primary)' : 'var(--text-muted)',
+              boxShadow: viewMode === 'grid' ? 'var(--shadow-soft-sm)' : 'none',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              cursor: 'pointer',
+              transition: 'all var(--transition-fast)'
             }}
             onClick={() => setViewMode('grid')}
             title="Grid View"
@@ -246,7 +262,13 @@ export const MyWorkPage: React.FC = () => {
           </table>
         </div>
       ) : (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))',
+            gap: 'var(--space-6)'
+          }}
+        >
           {filteredProjects.map(project => (
             <ProjectCard key={project.id} project={project} />
           ))}

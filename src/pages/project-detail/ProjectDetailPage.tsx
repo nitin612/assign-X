@@ -1,7 +1,6 @@
 import React from 'react';
 import { useNavigation } from '../../context/NavigationContext';
 import { useApp } from '../../context/AppContext';
-import { StatusBadge } from '../../components/common/StatusBadge';
 import { ProgressBar } from '../../components/common/ProgressBar';
 import {
   OverviewTab,
@@ -132,18 +131,20 @@ export const ProjectDetailPage: React.FC = () => {
           }}
         >
           <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
-              <span style={{ fontSize: '12px', fontWeight: 600, color: 'var(--text-tertiary)', textTransform: 'uppercase' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px' }}>
+              <span style={{ fontSize: '11px', fontWeight: 800, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                 {project.category}
               </span>
-              <span style={{ color: 'var(--border-strong)' }}>•</span>
-              <span style={{ fontSize: '12px', color: 'var(--text-muted)' }}>
+              <span style={{ color: 'var(--border-subtle)' }}>•</span>
+              <span style={{ fontSize: '12px', fontWeight: 600, color: 'var(--text-muted)' }}>
                 {project.id}
               </span>
-              <StatusBadge status={project.status} size="sm" />
+              <span className="tilted-label blue" style={{ fontSize: '11px', padding: '2px 8px', transform: 'rotate(-2deg)' }}>
+                {project.status}
+              </span>
             </div>
 
-            <h1 style={{ fontSize: '24px', fontWeight: 600, color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>
+            <h1 style={{ fontSize: '28px', fontWeight: 800, color: 'var(--text-primary)', letterSpacing: '-0.03em' }}>
               {project.title}
             </h1>
           </div>

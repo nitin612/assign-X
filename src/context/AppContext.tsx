@@ -46,6 +46,11 @@ interface AppContextType {
   openModal: (type: ActiveModalType, payload?: ModalPayload) => void;
   closeModal: () => void;
   
+  // Auth State
+  isLoggedIn: boolean;
+  login: () => void;
+  logout: () => void;
+
   // Interactive Actions
   createWorkRequest: (data: NewWorkRequest) => string; // returns new requestId
   approveMilestone: (projectId: string, milestoneId: string) => void;
@@ -60,6 +65,21 @@ interface AppContextType {
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  // Auth state persisted in localStorage
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(() => {
+    return localStorage.getItem('assignx_logged_in') === 'true';
+  });
+
+  const login = () => {
+    setIsLoggedIn(true);
+    localStorage.setItem('assignx_logged_in', 'true');
+  };
+
+  const logout = () => {
+    setIsLoggedIn(false);
+    localStorage.removeItem('assignx_logged_in');
+  };
+
   const [projects, setProjects] = useState<Project[]>(initialProjects);
   const [messages, setMessages] = useState<Record<string, Message[]>>(mockMessages);
   const [payments, setPayments] = useState<PaymentRecord[]>(mockPayments);
@@ -405,6 +425,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         activeModal,
         openModal,
         closeModal,
+        isLoggedIn,
+        login,
+        logout,
         createWorkRequest,
         approveMilestone,
         requestChanges,

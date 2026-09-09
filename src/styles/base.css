@@ -1,4 +1,6 @@
-/* Base Reset and Global Styling */
+/* ═══════════════════════════════════════════════════════════
+   Base Reset and Global Styling — Modern Editorial Startup Aesthetic
+   ═══════════════════════════════════════════════════════════ */
 @import './tokens.css';
 
 *, *::before, *::after {
@@ -15,7 +17,7 @@ html, body {
 body {
   font-family: var(--font-sans);
   font-size: var(--text-base);
-  line-height: 1.5;
+  line-height: 1.6;
   color: var(--text-primary);
   background-color: var(--bg-canvas);
   -webkit-font-smoothing: antialiased;
@@ -32,28 +34,25 @@ body {
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
   color: var(--text-primary);
-  font-weight: 700;
-  line-height: 1.25;
-  letter-spacing: -0.025em;
+  font-weight: 800;
+  line-height: 1.18;
+  letter-spacing: -0.03em;
 }
 
-h1 { font-size: var(--text-3xl); }
-h2 { font-size: var(--text-xl); }
-h3 { font-size: var(--text-lg); }
-h4 { font-size: var(--text-md); }
+h1 { font-size: var(--text-4xl); }
+h2 { font-size: var(--text-2xl); }
+h3 { font-size: var(--text-xl); }
+h4 { font-size: var(--text-lg); }
 
 p {
   color: var(--text-secondary);
+  line-height: 1.6;
 }
 
 a {
-  color: var(--brand-primary);
+  color: var(--text-primary);
   text-decoration: none;
   transition: color var(--transition-fast);
-}
-
-a:hover {
-  color: var(--brand-hover);
 }
 
 button {
@@ -70,7 +69,7 @@ input, textarea, select {
   color: var(--text-primary);
 }
 
-/* Custom Minimal Scrollbar */
+/* Custom crisp scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -81,16 +80,16 @@ input, textarea, select {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--border-strong);
+  background: rgba(17, 17, 17, 0.2);
   border-radius: var(--radius-full);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--text-tertiary);
+  background: rgba(17, 17, 17, 0.4);
 }
 
-/* Selection */
+/* Coral selection */
 ::selection {
-  background: var(--brand-subtle);
-  color: var(--brand-primary);
+  background: var(--color-coral);
+  color: #111111;
 }

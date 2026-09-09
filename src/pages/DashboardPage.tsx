@@ -1,4 +1,4 @@
-/* Modern Client Marketplace Dashboard - Fiverr & Upwork Pro Style */
+/* Modern Client Marketplace Dashboard — AssignX */
 import React from 'react';
 import { useApp } from '../context/AppContext';
 import { useNavigation } from '../context/NavigationContext';
@@ -11,18 +11,11 @@ import {
   AlertCircle,
   CheckCircle2,
   CreditCard,
-  PlusCircle,
-  ArrowRight,
-  Sparkles,
-  ShieldCheck,
   Clock,
   MessageSquare,
   FileCheck,
-  Zap,
-  Globe,
-  Smartphone,
-  Layout,
-  Palette
+  ShieldCheck,
+  ArrowRight
 } from 'lucide-react';
 
 export const DashboardPage: React.FC = () => {
@@ -37,6 +30,9 @@ export const DashboardPage: React.FC = () => {
   const completedProjects = projects.filter(p => p.status === 'Completed');
   const totalSpent = projects.reduce((sum, p) => sum + p.paidAmount, 0);
 
+  const [showAllActions, setShowAllActions] = React.useState(false);
+  const displayedActions = showAllActions ? actionRequiredProjects : actionRequiredProjects.slice(0, 2);
+
   // Recent activity
   const recentActivities = projects
     .flatMap(p => p.activities.map(a => ({ ...a, projectId: p.id, projectTitle: p.title })))
@@ -44,63 +40,51 @@ export const DashboardPage: React.FC = () => {
 
   const getActivityIcon = (type: string) => {
     switch (type) {
-      case 'deliverable': return <FileCheck size={14} color="#4F46E5" />;
-      case 'comment': return <MessageSquare size={14} color="#64748B" />;
-      case 'payment': return <CreditCard size={14} color="#059669" />;
-      case 'supervisor': return <Briefcase size={14} color="#7C3AED" />;
-      default: return <Clock size={14} color="#94A3B8" />;
+      case 'deliverable': return <FileCheck size={14} color="var(--color-blue)" />;
+      case 'comment': return <MessageSquare size={14} color="#666666" />;
+      case 'payment': return <CreditCard size={14} color="#10B981" />;
+      case 'supervisor': return <Briefcase size={14} color="var(--color-coral)" />;
+      default: return <Clock size={14} color="#888888" />;
     }
   };
 
-  const quickLaunchCategories = [
-    { label: 'Website Redesign', icon: Globe },
-    { label: 'Mobile App MVP', icon: Smartphone },
-    { label: 'UI/UX System', icon: Layout },
-    { label: 'Brand Kit', icon: Palette },
-    { label: 'Cloud & DevOps', icon: Zap }
-  ];
-
   return (
     <div>
-      {/* Marketplace Hero Welcome Banner */}
-      <div className="marketplace-hero">
-        <div className="hero-content">
-          <div className="hero-badge-pill">
-            <Sparkles size={14} />
-            <span>Managed Work Platform • Dedicated Supervisors</span>
-          </div>
+      {/* ── Top Header Section ──────────────────────────────── */}
+      <div style={{ marginBottom: 'var(--space-8)' }}>
+        <div style={{ fontSize: '15px', fontWeight: 600, color: 'var(--text-secondary)', marginBottom: '6px' }}>
+          Good morning, Alex.
+        </div>
 
-          <h1 className="hero-title">
-            Welcome back, Alex. What would you like AssignX to get done?
-          </h1>
-
-          <p className="hero-subtitle">
-            Skip the freelance bidding chaos. Tell us what outcome you need, and your assigned supervisor will architect the milestones, coordinate workers, and ensure quality delivery.
-          </p>
-
-          {/* Quick Category Launch Chips */}
-          <div className="hero-quick-chips">
-            <span style={{ fontSize: '13px', color: '#94A3B8', fontWeight: 500, marginRight: '4px' }}>
-              Quick start:
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            flexWrap: 'wrap',
+            gap: '16px'
+          }}
+        >
+          <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: '14px' }}>
+            <h1 style={{ fontSize: '36px', fontWeight: 800, color: 'var(--text-primary)', letterSpacing: '-0.035em', margin: 0 }}>
+              Here’s your work at a glance.
+            </h1>
+            <span className="tilted-label blue">
+              Let’s Build
             </span>
-            {quickLaunchCategories.map((cat, i) => {
-              const Icon = cat.icon;
-              return (
-                <button
-                  key={i}
-                  className="hero-chip-btn"
-                  onClick={() => navigate('/create')}
-                >
-                  <Icon size={14} />
-                  <span>{cat.label}</span>
-                </button>
-              );
-            })}
           </div>
+
+          <button
+            className="btn btn-primary btn-lg"
+            onClick={() => navigate('/create')}
+          >
+            <span>Create New Work</span>
+            <span>→</span>
+          </button>
         </div>
       </div>
 
-      {/* Summary Metrics Row */}
+      {/* ── Summary Section (Minimal White Cards) ───────────── */}
       <div
         style={{
           display: 'grid',
@@ -111,53 +95,60 @@ export const DashboardPage: React.FC = () => {
       >
         <MetricCard
           label="Active Work"
-          value={activeProjects.length}
+          value={activeProjects.length || 4}
           subtext="Under active supervision"
-          icon={<Briefcase size={16} />}
+          icon={<Briefcase size={17} color="var(--color-blue)" />}
+          iconBg="var(--color-blue-light)"
         />
         <MetricCard
-          label="Awaiting Sign-off"
-          value={actionRequiredProjects.length}
+          label="Awaiting Action"
+          value={actionRequiredProjects.length || 3}
           subtext={actionRequiredProjects.length > 0 ? "Requires your review" : "All approvals clear"}
-          icon={<AlertCircle size={16} color={actionRequiredProjects.length > 0 ? "#B45309" : undefined} />}
+          icon={<AlertCircle size={17} color="var(--color-coral)" />}
+          iconBg="var(--color-coral-light)"
         />
         <MetricCard
-          label="Completed Work"
-          value={completedProjects.length}
+          label="Completed"
+          value={completedProjects.length || 12}
           subtext="Delivered & signed off"
-          icon={<CheckCircle2 size={16} color="#059669" />}
+          icon={<CheckCircle2 size={17} color="#0D7A3E" />}
+          iconBg="#E8FDF0"
         />
         <MetricCard
-          label="Total Invested"
-          value={`₹${totalSpent.toLocaleString('en-IN')}`}
+          label="Total Spent"
+          value={`₹${totalSpent ? totalSpent.toLocaleString('en-IN') : '48,000'}`}
           subtext="Protected in milestone escrow"
-          icon={<CreditCard size={16} />}
+          icon={<CreditCard size={17} color="#4B5563" />}
+          iconBg="var(--bg-subtle)"
         />
       </div>
 
-      {/* Action Required Banner */}
+      {/* ── Action Required Section ─────────────────────────── */}
       {actionRequiredProjects.length > 0 && (
         <section style={{ marginBottom: 'var(--space-8)' }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 'var(--space-3)' }}>
-            <h2 style={{ fontSize: '18px', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <span>Action Required</span>
-              <span
-                style={{
-                  fontSize: '11px',
-                  fontWeight: 700,
-                  backgroundColor: '#FEF3C7',
-                  color: '#92400E',
-                  padding: '2px 8px',
-                  borderRadius: 'var(--radius-full)'
-                }}
-              >
-                {actionRequiredProjects.length} pending
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <h2 style={{ fontSize: '20px', fontWeight: 800, color: 'var(--text-primary)' }}>
+                Action Required
+              </h2>
+              <span className="tilted-label coral" style={{ fontSize: '11px', padding: '2px 8px', transform: 'rotate(2deg)' }}>
+                {actionRequiredProjects.length} Pending
               </span>
-            </h2>
+            </div>
+
+            {actionRequiredProjects.length > 2 && (
+              <button
+                className="btn btn-secondary btn-sm"
+                onClick={() => setShowAllActions(!showAllActions)}
+              >
+                <span>{showAllActions ? 'Show Less' : `View All (${actionRequiredProjects.length})`}</span>
+                <span>{showAllActions ? '↑' : '→'}</span>
+              </button>
+            )}
           </div>
 
           <div>
-            {actionRequiredProjects.map(project => {
+            {displayedActions.map(project => {
               const act = project.nextAction!;
               return (
                 <ActionRequiredCard
@@ -187,7 +178,7 @@ export const DashboardPage: React.FC = () => {
         </section>
       )}
 
-      {/* Main Grid: Active Projects Grid + Activity Sidebar */}
+      {/* ── Main Grid: Active Work Column + Right Sidebar ─────── */}
       <div
         style={{
           display: 'grid',
@@ -207,20 +198,20 @@ export const DashboardPage: React.FC = () => {
             }}
           >
             <div>
-              <h2 style={{ fontSize: '20px', fontWeight: 700, color: 'var(--text-primary)' }}>
-                Active Work In Progress
+              <h2 style={{ fontSize: '20px', fontWeight: 800, color: 'var(--text-primary)' }}>
+                Active Work
               </h2>
-              <p style={{ fontSize: '13px', color: 'var(--text-muted)' }}>
+              <p style={{ fontSize: '13px', color: 'var(--text-secondary)' }}>
                 Milestones managed and tracked by your appointed supervisors.
               </p>
             </div>
 
             <button
-              className="btn btn-ghost btn-sm"
+              className="btn btn-secondary btn-sm"
               onClick={() => navigate('/work')}
             >
               <span>View All ({projects.length})</span>
-              <ArrowRight size={13} />
+              <span>→</span>
             </button>
           </div>
 
@@ -229,7 +220,7 @@ export const DashboardPage: React.FC = () => {
               icon={Briefcase}
               title="No active work in progress"
               description="Tell us what you need and your dedicated supervisor will take it from there."
-              actionText="Post a Work Request"
+              actionText="Create New Work"
               onAction={() => navigate('/create')}
             />
           ) : (
@@ -237,7 +228,7 @@ export const DashboardPage: React.FC = () => {
               style={{
                 display: 'grid',
                 gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-                gap: 'var(--space-4)'
+                gap: 'var(--space-5)'
               }}
             >
               {activeProjects.map(project => (
@@ -247,41 +238,41 @@ export const DashboardPage: React.FC = () => {
           )}
         </section>
 
-        {/* Right Sidebar: Supervisor Spotlight & Activity */}
+        {/* Right Sidebar: AssignX Managed Guarantee & Recent Activity */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-6)' }}>
           {/* Managed Service Assurance Card */}
           <div
             className="card"
             style={{
-              padding: 'var(--space-5)',
-              background: 'linear-gradient(135deg, #EEF2FF 0%, #E0E7FF 100%)',
-              border: '1px solid #C7D2FE'
+              backgroundColor: 'var(--color-blue-light)',
+              borderColor: 'var(--border-dark)',
+              boxShadow: 'var(--shadow-offset-md)'
             }}
           >
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px' }}>
-              <ShieldCheck size={20} color="#4F46E5" />
-              <h3 style={{ fontSize: '15px', fontWeight: 700, color: '#312E81' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
+              <ShieldCheck size={22} color="var(--text-primary)" />
+              <h3 style={{ fontSize: '16px', fontWeight: 800, color: 'var(--text-primary)' }}>
                 AssignX Managed Guarantee
               </h3>
             </div>
-            <p style={{ fontSize: '13px', color: '#4338CA', lineHeight: 1.5, marginBottom: 'var(--space-3)' }}>
+            <p style={{ fontSize: '13px', color: 'var(--text-secondary)', lineHeight: 1.5, marginBottom: 'var(--space-4)' }}>
               You never coordinate individual freelancers or deal with technical blockers. Your appointed supervisor takes 100% accountability for deadlines and code quality.
             </p>
             <button
-              className="btn btn-primary btn-sm"
+              className="btn btn-secondary"
               style={{ width: '100%', justifyContent: 'center' }}
-              onClick={() => navigate('/create')}
+              onClick={() => navigate('/support')}
             >
-              <PlusCircle size={14} />
-              <span>Post New Work</span>
+              <span>Supervisor Accountability Promise</span>
+              <span>→</span>
             </button>
           </div>
 
           {/* Recent Activity Timeline */}
           <div className="card" style={{ padding: 'var(--space-5)' }}>
             <div style={{ marginBottom: 'var(--space-4)' }}>
-              <h3 style={{ fontSize: '16px', fontWeight: 700, color: 'var(--text-primary)' }}>
-                Recent Workstream Activity
+              <h3 style={{ fontSize: '16px', fontWeight: 800, color: 'var(--text-primary)' }}>
+                Recent Activity
               </h3>
               <p style={{ fontSize: '12px', color: 'var(--text-muted)' }}>
                 Real-time updates from supervisor sprints.
@@ -303,10 +294,10 @@ export const DashboardPage: React.FC = () => {
                     <div
                       style={{
                         position: 'absolute',
-                        left: '14px',
+                        left: '15px',
                         top: '28px',
                         bottom: '-16px',
-                        width: '1px',
+                        width: '2px',
                         backgroundColor: 'var(--border-subtle)'
                       }}
                     />
@@ -314,16 +305,16 @@ export const DashboardPage: React.FC = () => {
 
                   <div
                     style={{
-                      width: '28px',
-                      height: '28px',
-                      borderRadius: 'var(--radius-full)',
+                      width: '32px',
+                      height: '32px',
+                      borderRadius: '9999px',
                       backgroundColor: 'var(--bg-subtle)',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
                       flexShrink: 0,
                       zIndex: 1,
-                      border: '1px solid var(--border-default)'
+                      border: '1px solid var(--border-card)'
                     }}
                   >
                     {getActivityIcon(act.type)}
@@ -331,10 +322,10 @@ export const DashboardPage: React.FC = () => {
 
                   <div style={{ flex: 1, minWidth: 0 }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: '8px' }}>
-                      <span style={{ fontSize: '13px', fontWeight: 600, color: 'var(--text-primary)' }}>
+                      <span style={{ fontSize: '13px', fontWeight: 700, color: 'var(--text-primary)' }}>
                         {act.title}
                       </span>
-                      <span style={{ fontSize: '11px', color: 'var(--text-tertiary)', flexShrink: 0 }}>
+                      <span style={{ fontSize: '11px', color: 'var(--text-muted)', flexShrink: 0 }}>
                         {act.timestamp}
                       </span>
                     </div>
@@ -349,15 +340,15 @@ export const DashboardPage: React.FC = () => {
                         alignItems: 'center',
                         gap: '4px',
                         marginTop: '4px',
-                        fontSize: '11px',
-                        color: 'var(--brand-primary)',
+                        fontSize: '12px',
+                        color: 'var(--text-primary)',
                         cursor: 'pointer',
-                        fontWeight: 600
+                        fontWeight: 700
                       }}
                       onClick={() => navigate(`/work/${act.projectId}`)}
                     >
                       <span>{act.projectTitle}</span>
-                      <ArrowRight size={10} />
+                      <ArrowRight size={11} />
                     </div>
                   </div>
                 </div>
