@@ -1,9 +1,21 @@
-/* Project Card Component — Freelance Match Modern Editorial Style */
+/* Project Card Component — Clean Neo-Brutalist Layout (Non-Image) */
 import React from 'react';
 import type { Project } from '../../types';
 import { StatusBadge } from '../common/StatusBadge';
-import { ProgressBar } from '../common/ProgressBar';
-import { CheckCircle2 } from 'lucide-react';
+import {
+  CheckCircle2,
+  Layers,
+  Calendar,
+  CreditCard,
+  AlertCircle,
+  FileCheck,
+  Globe,
+  Smartphone,
+  Palette,
+  Sparkles,
+  BarChart3,
+  FileText
+} from 'lucide-react';
 import { useNavigation } from '../../context/NavigationContext';
 
 interface ProjectCardProps {
@@ -13,206 +25,185 @@ interface ProjectCardProps {
 export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
   const { navigate } = useNavigation();
 
-  const defaultCover =
-    project.coverImage ||
-    'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&auto=format&fit=crop&q=80';
+  const hasActionRequired = project.status === 'Awaiting Action' || Boolean(project.nextAction);
+
+  const getCategoryIcon = (category: string) => {
+    switch (category) {
+      case 'Website Development':
+        return <Globe size={12} color="var(--color-blue)" />;
+      case 'Mobile App Development':
+        return <Smartphone size={12} color="var(--color-coral)" />;
+      case 'UI/UX Design':
+        return <Palette size={12} color="var(--color-purple)" />;
+      case 'Graphic Design':
+        return <Sparkles size={12} color="#E11D48" />;
+      case 'Digital Marketing':
+        return <BarChart3 size={12} color="#10B981" />;
+      case 'Content Writing':
+        return <FileText size={12} color="#F59E0B" />;
+      default:
+        return <Layers size={12} color="#666666" />;
+    }
+  };
 
   return (
     <div
       className="project-visual-card card-hoverable"
       onClick={() => navigate(`/work/${project.id}`)}
     >
-      {/* Cover Header */}
-      <div className="project-cover-container">
-        <img
-          src={defaultCover}
-          alt={project.title}
-          className="project-cover-img"
-        />
-        <div className="project-cover-badges">
-          <span
-            style={{
-              fontSize: '11px',
-              fontWeight: 800,
-              textTransform: 'uppercase',
-              letterSpacing: '0.04em',
-              backgroundColor: '#FFFFFF',
-              color: '#111111',
-              border: '1.5px solid #111111',
-              padding: '3px 12px',
-              borderRadius: 'var(--radius-full)',
-              boxShadow: 'var(--shadow-offset-xs)'
-            }}
-          >
-            {project.category}
-          </span>
-          <StatusBadge status={project.status} size="sm" />
-        </div>
+      {/* ── Top Header Row: Category Pill & Status Badge ────── */}
+      <div className="project-card-header-row">
+        <span className="project-category-pill">
+          {getCategoryIcon(project.category)}
+          <span>{project.category}</span>
+        </span>
+
+        <StatusBadge status={project.status} size="sm" />
       </div>
 
-      {/* Card Content Body */}
-      <div className="project-card-body">
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '8px', marginBottom: 'var(--space-2)' }}>
-          <h3
-            style={{
-              fontFamily: 'var(--font-heading)',
-              fontSize: '17px',
-              fontWeight: 800,
-              color: 'var(--text-primary)',
-              lineHeight: 1.25
-            }}
-          >
-            {project.title}
-          </h3>
+      {/* ── Title & Progress Pill ──────────────────────────── */}
+      <div className="project-title-row">
+        <h3 className="project-card-title">
+          {project.title}
+        </h3>
 
-          <span
-            className="tilted-label lime"
-            style={{
-              fontSize: '11px',
-              padding: '2px 8px',
-              transform: 'rotate(2deg)',
-              flexShrink: 0
-            }}
-          >
-            {project.progress}% Done
-          </span>
+        <span className="project-progress-pill">
+          {project.progress}% Done
+        </span>
+      </div>
+
+      {/* ── Description ────────────────────────────────────── */}
+      <p className="project-card-desc">
+        {project.description}
+      </p>
+
+      {/* ── Quick Spec Chips: Budget, Deliverables, Milestones ── */}
+      <div className="project-chips-row">
+        <div className="project-micro-chip">
+          <CreditCard size={12} color="var(--text-secondary)" />
+          <span>₹{project.budget ? project.budget.toLocaleString('en-IN') : 'Custom'}</span>
         </div>
 
-        <p
-          style={{
-            fontSize: '13px',
-            color: 'var(--text-secondary)',
-            lineHeight: 1.45,
-            display: '-webkit-box',
-            WebkitLineClamp: 2,
-            WebkitBoxOrient: 'vertical',
-            overflow: 'hidden',
-            marginBottom: 'var(--space-4)'
-          }}
-        >
-          {project.description}
-        </p>
-
-        {/* Phase & Milestone Info */}
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '12px', marginBottom: '8px' }}>
-          <span style={{ color: 'var(--text-muted)' }}>
-            Phase: <strong style={{ color: 'var(--text-primary)' }}>{project.currentPhase}</strong>
-          </span>
-          <span style={{ color: 'var(--text-muted)' }}>
-            Deadline: <strong style={{ color: 'var(--text-primary)' }}>{project.deadline}</strong>
-          </span>
-        </div>
-
-        {/* Milestone & Progress (With Robust Truncation To Prevent Collisions) */}
-        <div style={{ marginBottom: 'var(--space-4)', marginTop: 'auto' }}>
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              gap: '10px',
-              fontSize: '12px',
-              marginBottom: '6px'
-            }}
-          >
-            <span
-              style={{
-                color: 'var(--text-muted)',
-                overflow: 'hidden',
-                textOverflow: 'ellipsis',
-                whiteSpace: 'nowrap',
-                minWidth: 0,
-                flex: 1
-              }}
-            >
-              Next: <strong style={{ color: 'var(--text-primary)' }}>{project.currentMilestone}</strong>
-            </span>
-            <span style={{ fontWeight: 800, color: 'var(--text-primary)', flexShrink: 0 }}>
-              {project.progress}%
-            </span>
+        {project.deliverables && project.deliverables.length > 0 && (
+          <div className="project-micro-chip">
+            <FileCheck size={12} color="var(--text-secondary)" />
+            <span>{project.deliverables.length} Deliverables</span>
           </div>
-          <ProgressBar progress={project.progress} height={6} />
-        </div>
+        )}
 
-        {/* Supervisor & Footer Info */}
+        {project.milestones && project.milestones.length > 0 && (
+          <div className="project-micro-chip">
+            <Layers size={12} color="var(--text-secondary)" />
+            <span>{project.milestones.length} Milestones</span>
+          </div>
+        )}
+      </div>
+
+      {/* ── Action Required Callout Banner (if applicable) ─── */}
+      {hasActionRequired && project.nextAction && (
         <div
           style={{
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'space-between',
-            paddingTop: 'var(--space-3)',
-            borderTop: '1px solid var(--border-subtle)',
-            flexWrap: 'wrap',
-            gap: '10px'
+            gap: '8px',
+            backgroundColor: 'var(--color-coral-light)',
+            border: '1.5px solid var(--color-coral)',
+            borderRadius: '10px',
+            padding: '7px 12px',
+            fontSize: '12px',
+            fontWeight: 700,
+            color: 'var(--text-primary)'
           }}
         >
-          {/* Freelance Match Inspired Supervisor Pill */}
-          <div
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '8px',
-              padding: '3px 12px 3px 3px',
-              backgroundColor: '#FFFFFF',
-              border: '1.5px solid var(--border-dark)',
-              borderRadius: 'var(--radius-full)',
-              boxShadow: 'var(--shadow-offset-xs)'
-            }}
-          >
-            <div style={{ display: 'flex', alignItems: 'center' }}>
-              <img
-                src={project.supervisor.avatar}
-                alt={project.supervisor.name}
-                style={{
-                  width: '26px',
-                  height: '26px',
-                  borderRadius: '9999px',
-                  objectFit: 'cover'
-                }}
-              />
-              <div
-                style={{
-                  width: '20px',
-                  height: '20px',
-                  borderRadius: '9999px',
-                  backgroundColor: 'var(--color-blue)',
-                  border: '1.5px solid #FFFFFF',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontSize: '9px',
-                  fontWeight: 800,
-                  marginLeft: '-6px',
-                  color: '#111111'
-                }}
-              >
-                +2
-              </div>
-            </div>
+          <AlertCircle size={14} color="var(--color-coral)" style={{ flexShrink: 0 }} />
+          <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+            Action: {project.nextAction.title}
+          </span>
+        </div>
+      )}
 
-            <div style={{ lineHeight: 1.15 }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '3px', fontSize: '12px', fontWeight: 800, color: 'var(--text-primary)' }}>
-                <span>{project.supervisor.name}</span>
-                <CheckCircle2 size={11} color="var(--color-blue)" />
-              </div>
-              <div style={{ fontSize: '10px', color: 'var(--text-muted)', fontWeight: 600 }}>
-                Supervisor
-              </div>
+      {/* ── Metadata 2-Cell Info Box (Phase & Deadline) ─────── */}
+      <div className="project-meta-box">
+        <div className="project-meta-cell">
+          <span className="project-meta-label">
+            <Layers size={11} color="var(--brand-primary)" />
+            <span>Phase</span>
+          </span>
+          <span className="project-meta-value" title={project.currentPhase}>
+            {project.currentPhase}
+          </span>
+        </div>
+
+        <div className="project-meta-cell">
+          <span className="project-meta-label">
+            <Calendar size={11} color="var(--text-muted)" />
+            <span>Deadline</span>
+          </span>
+          <span className="project-meta-value" title={project.deadline}>
+            {project.deadline}
+          </span>
+        </div>
+      </div>
+
+      {/* ── Active Milestone / Sprint Progress Module ──────── */}
+      <div className="project-sprint-container">
+        <div className="project-sprint-header">
+          <span className="project-sprint-title">
+            Next: <strong>{project.currentMilestone}</strong>
+          </span>
+          <span style={{ fontWeight: 800, color: 'var(--text-primary)', flexShrink: 0, fontSize: '11.5px' }}>
+            {project.progress}%
+          </span>
+        </div>
+        <div className="project-sprint-track">
+          <div
+            className="project-sprint-fill"
+            style={{ width: `${Math.min(Math.max(project.progress, 4), 100)}%` }}
+          />
+        </div>
+      </div>
+
+      {/* ── Footer: Supervisor Capsule & Action CTA ─────────── */}
+      <div className="project-card-footer">
+        {/* Freelance Match Style Supervisor Capsule */}
+        <div
+          className="project-supervisor-capsule"
+          title={`${project.supervisor.name} - Accountable Supervisor`}
+        >
+          <div className="project-supervisor-avatar-wrap">
+            <img
+              src={project.supervisor.avatar}
+              alt={project.supervisor.name}
+              className="project-supervisor-avatar"
+            />
+            <div className="project-supervisor-team-badge">
+              +2
             </div>
           </div>
 
-          {/* Action CTA: View Project → */}
-          <button
-            className="btn btn-secondary btn-sm"
-            onClick={(e) => {
-              e.stopPropagation();
-              navigate(`/work/${project.id}`);
-            }}
-          >
-            <span>View Project</span>
-            <span>→</span>
-          </button>
+          <div className="project-supervisor-info">
+            <div className="project-supervisor-name">
+              <span>{project.supervisor.name}</span>
+              <CheckCircle2 size={11} color="var(--color-blue)" />
+            </div>
+            <div className="project-supervisor-role">
+              <span className="supervisor-online-dot" />
+              <span>Supervisor</span>
+            </div>
+          </div>
         </div>
+
+        {/* Action CTA Button */}
+        <button
+          className="project-action-btn"
+          onClick={(e) => {
+            e.stopPropagation();
+            navigate(`/work/${project.id}`);
+          }}
+        >
+          <span>View Project</span>
+          <span className="btn-arrow">→</span>
+        </button>
       </div>
     </div>
   );

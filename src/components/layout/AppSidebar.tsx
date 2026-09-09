@@ -1,3 +1,4 @@
+import React, { useEffect } from 'react';
 import {
   LayoutDashboard,
   Briefcase,
@@ -16,7 +17,27 @@ import { useApp } from '../../context/AppContext';
 
 export const AppSidebar: React.FC = () => {
   const { currentRoute, navigate } = useNavigation();
-  const { projects, notifications, mobileMenuOpen, setMobileMenuOpen, logout } = useApp();
+  const {
+    projects,
+    notifications,
+    mobileMenuOpen,
+    setMobileMenuOpen,
+    logout,
+    sidebarCollapsed,
+    toggleSidebar
+  } = useApp();
+
+  // Keyboard shortcut: Cmd+B / Ctrl+B to toggle sidebar
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'b') {
+        e.preventDefault();
+        toggleSidebar();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [toggleSidebar]);
 
   const activeWorkCount = projects.filter(
     p => p.status === 'In Progress' || p.status === 'Awaiting Action' || p.status === 'Under Review'
@@ -101,19 +122,21 @@ export const AppSidebar: React.FC = () => {
         />
       )}
 
-      <aside className={`app-sidebar ${mobileMenuOpen ? 'open' : ''}`}>
+      <aside className={`app-sidebar ${mobileMenuOpen ? 'open' : ''} ${sidebarCollapsed ? 'collapsed' : ''}`}>
         {/* Brand Header */}
-        <div className="sidebar-brand-wrapper" style={{ justifyContent: 'space-between' }}>
+        <div className="sidebar-brand-wrapper">
           <div
             className="brand-logo-container"
             onClick={() => handleNavigate('/dashboard')}
             style={{ cursor: 'pointer' }}
+            title="AssignX Dashboard"
           >
             <div className="brand-mark">A</div>
-            <div>
-              <div className="brand-text">AssignX</div>
-              <div className="brand-tagline">Client Panel</div>
-            </div>
+            {!sidebarCollapsed && (
+              <div>
+                <div className="brand-text">AssignX</div>
+              </div>
+            )}
           </div>
 
           {mobileMenuOpen && (
@@ -121,6 +144,7 @@ export const AppSidebar: React.FC = () => {
               className="topbar-icon-btn"
               onClick={() => setMobileMenuOpen(false)}
               style={{ display: 'flex' }}
+              aria-label="Close menu"
             >
               <X size={18} />
             </button>
@@ -129,7 +153,7 @@ export const AppSidebar: React.FC = () => {
 
         {/* Main Navigation */}
         <nav className="sidebar-nav-section">
-          <div className="sidebar-nav-label">Main Menu</div>
+          {!sidebarCollapsed && <div className="sidebar-nav-label">Main Menu</div>}
           {navItems.map(item => {
             const Icon = item.icon;
             const active = isActive(item.path);
@@ -139,6 +163,7 @@ export const AppSidebar: React.FC = () => {
                 key={item.path}
                 className={`sidebar-nav-item ${active ? 'active' : ''} ${item.isSpecial ? 'special-cta' : ''}`}
                 onClick={() => handleNavigate(item.path)}
+                title={item.badge !== undefined ? `${item.label} (${item.badge})` : item.label}
               >
                 <div className="sidebar-nav-item-content">
                   <Icon size={17} strokeWidth={active || item.isSpecial ? 2.2 : 1.8} />
@@ -156,9 +181,11 @@ export const AppSidebar: React.FC = () => {
 
         {/* Footer Navigation & User Account */}
         <div className="sidebar-footer">
-          <div className="sidebar-nav-label" style={{ padding: '4px 10px' }}>
-            System
-          </div>
+          {!sidebarCollapsed && (
+            <div className="sidebar-nav-label" style={{ padding: '4px 10px' }}>
+              System
+            </div>
+          )}
           {bottomNavItems.map(item => {
             const Icon = item.icon;
             const active = isActive(item.path);
@@ -168,6 +195,7 @@ export const AppSidebar: React.FC = () => {
                 key={item.path}
                 className={`sidebar-nav-item ${active ? 'active' : ''}`}
                 onClick={() => handleNavigate(item.path)}
+                title={item.label}
               >
                 <div className="sidebar-nav-item-content">
                   <Icon size={17} strokeWidth={active ? 2.2 : 1.8} />
@@ -179,8 +207,9 @@ export const AppSidebar: React.FC = () => {
 
           <div
             className="sidebar-user-pill"
-            style={{ marginTop: 'var(--space-2)', justifyContent: 'space-between' }}
+            style={{ marginTop: 'var(--space-2)', justifyContent: sidebarCollapsed ? 'center' : 'space-between' }}
             onClick={() => handleNavigate('/settings')}
+            title="Alex Vance (Apex Hospitality) — Settings"
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px', minWidth: 0 }}>
               <div className="user-avatar">

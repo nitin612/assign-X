@@ -18,7 +18,6 @@ import {
   ChevronDown,
   ArrowUpRight,
   Send,
-  MessageSquare,
   Check
 } from 'lucide-react';
 
@@ -196,7 +195,6 @@ export const LandingPage: React.FC = () => {
         <header className="landing-topbar">
           <div className="landing-topbar-inner">
             <div className="landing-brand" onClick={() => navigate('/landing')}>
-              <div className="landing-brand-mark">A</div>
               <div className="landing-brand-text">AssignX</div>
             </div>
 
@@ -836,116 +834,161 @@ export const LandingPage: React.FC = () => {
           </div>
         </div>
 
-        {/* ── Signature Sculpted Black Footer (Direct from Reference 1) ── */}
-        <footer className="landing-footer-sculpted">
-          <div className="footer-top-grid">
-            {/* Col 1: Brand & Mission */}
-            <div className="footer-brand-col">
-              <div className="footer-geom-logo" onClick={() => navigate('/landing')}>
-                <div className="footer-geom-block" />
-                <div className="footer-geom-block" />
-                <span className="footer-brand-title">AssignX</span>
-              </div>
-              <p className="footer-brand-tagline">
-                A Modern Supervised Freelance Platform For Fast-Moving Tech Teams. Accountable sprint milestones, verified engineers, and protected escrow execution.
-              </p>
-            </div>
-
-            {/* Col 2: Quick Access */}
-            <div className="footer-links-col">
-              <h4 className="footer-col-heading">Quick Access</h4>
-              <div className="footer-links-duo">
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                  <a href="#how-it-works" className="footer-link-item">About Us</a>
-                  <a href="#features" className="footer-link-item">
-                    <span className="footer-dot-purple" />
-                    <span>Services</span>
-                  </a>
-                  <span className="footer-link-item" onClick={() => handleAuthAndNavigate('/dashboard')}>
-                    Careers
-                  </span>
-                  <span className="footer-link-item" onClick={() => handleAuthAndNavigate('/dashboard')}>
-                    Learn
-                  </span>
-                </div>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                  <a href="#estimator" className="footer-link-item">Branches</a>
-                  <a href="#faq" className="footer-link-item">Faq</a>
-                  <a href="#comparison" className="footer-link-item">Blog</a>
-                  <span className="footer-link-item" onClick={() => navigate('/support')}>
-                    Support
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            {/* Col 3: Newsletter & Contact */}
-            <div className="footer-news-col">
-              <p className="footer-news-label">
-                To Know The Latest News And Updates, Enter Your Work Email So That We Can Contact You
-              </p>
-
-              <form className="footer-news-pill-form" onSubmit={handleSubscribe}>
-                <input
-                  type="email"
-                  className="footer-news-input"
-                  placeholder="Enter Email Address"
-                  value={newsletterEmail}
-                  onChange={(e) => setNewsletterEmail(e.target.value)}
-                  required
+        {/* ── Signature Sculpted Black Footer (Reference Structure) ── */}
+        <footer className="landing-footer-wrapper">
+          <div className="landing-footer-sculpted-box">
+            {/* Sculpted Dual-Tier Wave Top Edge */}
+            <div className="footer-sculpted-svg-container">
+              <svg
+                className="footer-sculpted-svg"
+                viewBox="0 0 1200 90"
+                preserveAspectRatio="none"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M 0 90 L 0 78 Q 0 48 36 48 L 565 48 C 590 48, 602 72, 620 72 C 640 72, 658 0, 685 0 L 1164 0 Q 1200 0 1200 36 L 1200 90 Z"
+                  fill="#050505"
                 />
-                <button type="submit" className="footer-news-btn">
-                  <span>{isSubscribed ? 'Subscribed!' : 'Subscribe'}</span>
-                  {isSubscribed ? <Check size={14} /> : <ArrowUpRight size={14} />}
-                </button>
-              </form>
+              </svg>
+            </div>
 
-              <div className="footer-contact-row">
-                <span className="footer-contact-label">Contact Us :</span>
-                <div className="footer-social-icons">
-                  <div className="footer-social-pill highlight" title="Telegram">
-                    <Send size={15} />
+            <div className="footer-content-body">
+              <div className="footer-top-grid">
+                {/* Col 1: Geometric Logo & Tagline */}
+                <div className="footer-brand-col">
+                  <div className="footer-geom-logo" onClick={() => navigate('/landing')}>
+                    <div className="footer-geom-block solid" />
+                    <div className="footer-geom-block hollow" />
                   </div>
-                  <div className="footer-social-pill" title="WhatsApp">
-                    <MessageSquare size={15} />
+                  <p className="footer-brand-tagline">
+                    A Modern Supervised Platform<br />
+                    For Fast-Moving Tech Teams<br />
+                    And Verified Milestone Escrow<br />
+                    For Your Convenience
+                  </p>
+                </div>
+
+                {/* Col 2: Quick Access (4 and 3 sub-columns) */}
+                <div className="footer-links-col">
+                  <h4 className="footer-col-heading">Quick Access</h4>
+                  <div className="footer-links-duo">
+                    <div className="footer-links-subcol">
+                      <a href="#how-it-works" className="footer-link-item">About Us</a>
+                      <a href="#features" className="footer-link-item">
+                        <span className="footer-dot-purple" />
+                        <span>Services</span>
+                      </a>
+                      <span className="footer-link-item" onClick={() => handleAuthAndNavigate('/dashboard')}>
+                        Careers
+                      </span>
+                      <span className="footer-link-item" onClick={() => handleAuthAndNavigate('/dashboard')}>
+                        Learn
+                      </span>
+                    </div>
+                    <div className="footer-links-subcol">
+                      <a href="#estimator" className="footer-link-item">Branches</a>
+                      <a href="#faq" className="footer-link-item">Faq</a>
+                      <a href="#comparison" className="footer-link-item">Blog</a>
+                    </div>
                   </div>
-                  <div className="footer-social-pill" title="Twitter / X">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-                    </svg>
-                  </div>
-                  <div className="footer-social-pill" title="Instagram">
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
-                      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-                      <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
-                    </svg>
-                  </div>
-                  <div className="footer-social-pill" title="LinkedIn">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
-                      <rect x="2" y="9" width="4" height="12" />
-                      <circle cx="4" cy="4" r="2" />
-                    </svg>
+                </div>
+
+                {/* Col 3: Elevated Newsletter & Minimalist Social Row */}
+                <div className="footer-news-col">
+                  <p className="footer-news-label">
+                    To Know The Latest News And Updates, Enter Your Email So That We Can Contact You
+                  </p>
+
+                  <form className="footer-news-pill-form" onSubmit={handleSubscribe}>
+                    <input
+                      type="email"
+                      className="footer-news-input"
+                      placeholder="Enter Email Address"
+                      value={newsletterEmail}
+                      onChange={(e) => setNewsletterEmail(e.target.value)}
+                      required
+                    />
+                    <button type="submit" className="footer-news-btn">
+                      <span>{isSubscribed ? 'Subscribed!' : 'Subscribe'}</span>
+                      {isSubscribed ? <Check size={14} strokeWidth={2.5} /> : <ArrowUpRight size={14} strokeWidth={2.5} />}
+                    </button>
+                  </form>
+
+                  <div className="footer-contact-row">
+                    <span className="footer-contact-label">Contact Us :</span>
+                    <div className="footer-social-icons">
+                      {/* Telegram: Circular Purple Pill */}
+                      <div className="social-icon-telegram" title="Telegram">
+                        <Send size={15} />
+                      </div>
+                      {/* WhatsApp: Clean Bare Vector Icon */}
+                      <div className="social-icon-bare" title="WhatsApp">
+                        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
+                        </svg>
+                      </div>
+                      {/* Twitter / X: Clean Bare Vector Icon */}
+                      <div className="social-icon-bare" title="Twitter / X">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                        </svg>
+                      </div>
+                      {/* Instagram: Clean Bare Vector Icon */}
+                      <div className="social-icon-bare" title="Instagram">
+                        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                          <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                          <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                          <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+                        </svg>
+                      </div>
+                      {/* LinkedIn: Clean Bare Vector Icon */}
+                      <div className="social-icon-bare" title="LinkedIn">
+                        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+                          <rect x="2" y="9" width="4" height="12" />
+                          <circle cx="4" cy="4" r="2" />
+                        </svg>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
+
+              {/* Staggered 2-Tier Digital Square Mosaic Fringe */}
+              <div className="footer-mosaic-matrix">
+                {[
+                  { id: 1, col: 0, row: 'bottom', type: 'white' },
+                  { id: 2, col: 2, row: 'bottom', type: 'white' },
+                  { id: 3, col: 3, row: 'top', type: 'white' },
+                  { id: 4, col: 3, row: 'bottom', type: 'dim' },
+                  { id: 5, col: 5, row: 'top', type: 'white' },
+                  { id: 6, col: 6, row: 'bottom', type: 'dim' },
+                  { id: 7, col: 8, row: 'top', type: 'white' },
+                  { id: 8, col: 9, row: 'bottom', type: 'dim' },
+                  { id: 9, col: 10, row: 'top', type: 'white' },
+                  { id: 10, col: 12, row: 'bottom', type: 'dim' },
+                  { id: 11, col: 13, row: 'top', type: 'white' },
+                  { id: 12, col: 14, row: 'bottom', type: 'dim' },
+                  { id: 13, col: 15, row: 'top', type: 'white' },
+                  { id: 14, col: 16, row: 'top', type: 'dim' },
+                  { id: 15, col: 17, row: 'bottom', type: 'dim' },
+                  { id: 16, col: 18, row: 'top', type: 'white' },
+                  { id: 17, col: 19, row: 'bottom', type: 'white' }
+                ].map(p => (
+                  <div
+                    key={p.id}
+                    className={`mosaic-pixel ${p.type} ${p.row}`}
+                    style={{ left: `${(p.col / 21) * 94 + 2}%` }}
+                  />
+                ))}
+              </div>
+
+              {/* Bottom Copyright inside Black Footer */}
+              <div className="footer-copyright-dark">
+                Copyright © 2026 AssignX Inc. All Rights Reserved.
+              </div>
             </div>
-          </div>
-
-          {/* Bottom Checkered Mosaic Border (Signature pixel styling from Reference 1) */}
-          <div className="footer-mosaic-strip">
-            {Array.from({ length: 20 }).map((_, i) => (
-              <div
-                key={i}
-                className={`mosaic-cell ${i % 3 === 0 ? 'white' : i % 2 === 0 ? 'gray' : 'dark'}`}
-              />
-            ))}
-          </div>
-
-          {/* Bottom Copyright */}
-          <div className="footer-bottom-copyright">
-            Copyright © 2026 AssignX Inc. All Rights Reserved.
           </div>
         </footer>
       </div>

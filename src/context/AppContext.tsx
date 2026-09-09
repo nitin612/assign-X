@@ -51,6 +51,11 @@ interface AppContextType {
   login: () => void;
   logout: () => void;
 
+  // Sidebar State
+  sidebarCollapsed: boolean;
+  setSidebarCollapsed: (collapsed: boolean | ((prev: boolean) => boolean)) => void;
+  toggleSidebar: () => void;
+
   // Interactive Actions
   createWorkRequest: (data: NewWorkRequest) => string; // returns new requestId
   approveMilestone: (projectId: string, milestoneId: string) => void;
@@ -87,6 +92,25 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [tickets, setTickets] = useState<SupportTicket[]>(mockTickets);
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState<boolean>(() => {
+    return localStorage.getItem('assignx_sidebar_collapsed') === 'true';
+  });
+
+  const toggleSidebar = () => {
+    setSidebarCollapsed(prev => {
+      const next = !prev;
+      localStorage.setItem('assignx_sidebar_collapsed', String(next));
+      return next;
+    });
+  };
+
+  const handleSetSidebarCollapsed = (val: boolean | ((prev: boolean) => boolean)) => {
+    setSidebarCollapsed(prev => {
+      const next = typeof val === 'function' ? val(prev) : val;
+      localStorage.setItem('assignx_sidebar_collapsed', String(next));
+      return next;
+    });
+  };
   const [activeModal, setActiveModal] = useState<{ type: ActiveModalType; payload?: ModalPayload }>({
     type: null
   });
@@ -428,6 +452,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         isLoggedIn,
         login,
         logout,
+        sidebarCollapsed,
+        setSidebarCollapsed: handleSetSidebarCollapsed,
+        toggleSidebar,
         createWorkRequest,
         approveMilestone,
         requestChanges,

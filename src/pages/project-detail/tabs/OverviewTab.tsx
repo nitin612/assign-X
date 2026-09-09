@@ -1,12 +1,14 @@
 import type { Project } from '../../../types';
 import { SupervisorCard } from '../../../components/supervisor/SupervisorCard';
-import { ProgressBar } from '../../../components/common/ProgressBar';
 import { ActionRequiredCard } from '../../../components/project/ActionRequiredCard';
 import { useApp } from '../../../context/AppContext';
 import {
   ArrowRight,
   ShieldCheck,
-  FileCheck
+  FileCheck,
+  Layers,
+  Sparkles,
+  Calendar
 } from 'lucide-react';
 
 interface OverviewTabProps {
@@ -17,168 +19,272 @@ interface OverviewTabProps {
 export const OverviewTab: React.FC<OverviewTabProps> = ({ project, onSelectTab }) => {
   const { openModal } = useApp();
 
-  const nextMilestone = project.milestones.find(
-    m => m.status === 'Submitted' || m.status === 'In Progress' || m.status === 'Upcoming'
+  const completedMilestones = project.milestones.filter(
+    m => m.status === 'Approved' || m.status === 'Paid'
   );
+
+  const activeMilestone = project.milestones.find(
+    m => m.status === 'Submitted' || m.status === 'In Progress'
+  ) || project.milestones[0];
 
   return (
     <div
       style={{
         display: 'grid',
         gridTemplateColumns: 'minmax(0, 2fr) minmax(310px, 1fr)',
-        gap: 'var(--space-8)',
+        gap: 'var(--space-6)',
         alignItems: 'flex-start'
       }}
     >
-      {/* Left Column: Progress, Current Phase, Action, Updates */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-6)' }}>
-        {/* Action Required Banner if exists */}
+      {/* Left Column: Sprint Execution, Scope, Activity */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-5)', minWidth: 0 }}>
+        {/* Action Required Callout Banner (If Pending Action) */}
         {project.nextAction && (
-          <div>
-            <h3 style={{ fontSize: '15px', fontWeight: 600, marginBottom: 'var(--space-2)' }}>
-              Action Required
-            </h3>
-            <ActionRequiredCard
-              projectId={project.id}
-              projectTitle={project.title}
-              actionTitle={project.nextAction.title}
-              actionDescription={project.nextAction.description}
-              actionType={project.nextAction.type}
-              deadline={project.nextAction.deadline}
-              onActionClick={() => {
-                if (project.nextAction?.type === 'approve' && project.nextAction.milestoneId) {
-                  openModal('approve_milestone', {
-                    projectId: project.id,
-                    milestoneId: project.nextAction.milestoneId,
-                    milestoneName: project.currentMilestone,
-                    amount: project.milestones.find(m => m.id === project.nextAction?.milestoneId)?.amount
-                  });
-                } else {
-                  onSelectTab('milestones');
-                }
-              }}
-            />
-          </div>
+          <ActionRequiredCard
+            projectId={project.id}
+            projectTitle={project.title}
+            actionTitle={project.nextAction.title}
+            actionDescription={project.nextAction.description}
+            actionType={project.nextAction.type}
+            deadline={project.nextAction.deadline}
+            onActionClick={() => {
+              if (project.nextAction?.type === 'approve' && project.nextAction.milestoneId) {
+                openModal('approve_milestone', {
+                  projectId: project.id,
+                  milestoneId: project.nextAction.milestoneId,
+                  milestoneName: project.currentMilestone,
+                  amount: project.milestones.find(m => m.id === project.nextAction?.milestoneId)?.amount
+                });
+              } else {
+                onSelectTab('milestones');
+              }
+            }}
+          />
         )}
 
-        {/* Current Phase & Milestone Status Card */}
+        {/* Active Phase & Milestone Sprint Card */}
         <div className="card" style={{ padding: 'var(--space-5)' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 'var(--space-4)' }}>
             <div>
-              <span style={{ fontSize: '11px', color: 'var(--text-tertiary)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
-                Current Operational Phase
-              </span>
-              <h3 style={{ fontSize: '18px', fontWeight: 600, color: 'var(--text-primary)', marginTop: '2px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '2px' }}>
+                <span style={{ fontSize: '11px', fontWeight: 800, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+                  Current Operational Phase
+                </span>
+                <span
+                  style={{
+                    fontSize: '11px',
+                    fontWeight: 700,
+                    padding: '1px 8px',
+                    borderRadius: '9999px',
+                    backgroundColor: '#FEF3C7',
+                    color: '#92400E',
+                    border: '1px solid #FCD34D'
+                  }}
+                >
+                  ● Active Sprint
+                </span>
+              </div>
+              <h3 style={{ fontSize: '18px', fontWeight: 700, color: 'var(--text-primary)' }}>
                 {project.currentPhase}
               </h3>
             </div>
             <button
               className="btn btn-ghost btn-sm"
-              onClick={() => onSelectTab('progress')}
-              style={{ color: 'var(--brand-primary)' }}
+              onClick={() => onSelectTab('milestones')}
+              style={{ color: 'var(--text-secondary)', gap: '4px', paddingRight: 0 }}
             >
-              <span>View Timeline</span>
+              <span>Roadmap Details</span>
               <ArrowRight size={13} />
             </button>
           </div>
 
-          <div style={{ marginBottom: 'var(--space-4)' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '13px', marginBottom: '6px' }}>
-              <span style={{ color: 'var(--text-secondary)' }}>Overall Project Completion</span>
-              <span style={{ fontWeight: 600, color: 'var(--text-primary)' }}>{project.progress}%</span>
-            </div>
-            <ProgressBar progress={project.progress} height={8} />
-          </div>
-
-          {nextMilestone && (
+          {/* Active Target Milestone Box */}
+          {activeMilestone && (
             <div
               style={{
-                backgroundColor: 'var(--bg-canvas)',
-                borderRadius: 'var(--radius-md)',
-                padding: '12px 14px',
-                border: '1px solid var(--border-default)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between'
+                backgroundColor: '#F8F8FB',
+                borderRadius: 'var(--radius-lg)',
+                padding: '16px 18px',
+                border: '1px solid #E5E5EB',
+                marginBottom: '14px'
               }}
             >
-              <div>
-                <span style={{ fontSize: '11px', color: 'var(--text-muted)' }}>Target Milestone:</span>
-                <div style={{ fontSize: '13px', fontWeight: 600, color: 'var(--text-primary)' }}>
-                  {nextMilestone.name}
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '8px', marginBottom: '8px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                  <Sparkles size={14} color="var(--color-coral)" />
+                  <span style={{ fontSize: '11px', fontWeight: 800, color: 'var(--text-muted)', textTransform: 'uppercase' }}>
+                    Active Milestone Goal
+                  </span>
                 </div>
+                <span style={{ fontSize: '12px', fontWeight: 700, color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                  <Calendar size={12} /> Target: {activeMilestone.dueDate}
+                </span>
               </div>
-              <span style={{ fontSize: '12px', color: 'var(--text-secondary)' }}>
-                Target: {nextMilestone.dueDate}
-              </span>
+
+              <div style={{ fontSize: '15px', fontWeight: 700, color: 'var(--text-primary)', marginBottom: '6px' }}>
+                {activeMilestone.name}
+              </div>
+
+              <p style={{ fontSize: '13px', color: 'var(--text-secondary)', margin: '0 0 12px 0', lineHeight: 1.45 }}>
+                {activeMilestone.description}
+              </p>
+
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '12px', borderTop: '1px solid #EDEDF3', paddingTop: '10px' }}>
+                <span style={{ color: 'var(--text-muted)' }}>
+                  Milestone Gate Allocation: <strong style={{ color: 'var(--text-primary)' }}>₹{activeMilestone.amount.toLocaleString('en-IN')}</strong>
+                </span>
+                <span style={{ color: 'var(--text-secondary)', fontWeight: 600 }}>
+                  {activeMilestone.deliverablesCount} Deliverables in review
+                </span>
+              </div>
             </div>
           )}
+
+          {/* Milestone Step Progress Tracker */}
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '12.5px', marginTop: '12px' }}>
+            <span style={{ color: 'var(--text-secondary)' }}>
+              Milestone Gates: <strong>{completedMilestones.length} of {project.milestones.length} Approved</strong>
+            </span>
+            <span style={{ color: 'var(--text-secondary)' }}>
+              Released: <strong style={{ color: '#166534' }}>₹{project.paidAmount.toLocaleString('en-IN')}</strong> / ₹{project.budget.toLocaleString('en-IN')}
+            </span>
+          </div>
+
+          {/* Segmented Visual Track */}
+          <div style={{ display: 'flex', gap: '5px', height: '5px', borderRadius: '4px', overflow: 'hidden', margin: '8px 0 12px' }}>
+            {project.milestones.map((m, idx) => {
+              const isDone = m.status === 'Approved' || m.status === 'Paid';
+              const isActive = m.id === activeMilestone?.id;
+              return (
+                <div
+                  key={m.id || idx}
+                  style={{
+                    flex: 1,
+                    backgroundColor: isDone ? '#10B981' : isActive ? 'var(--color-coral)' : '#E2E8F0',
+                    borderRadius: '2px'
+                  }}
+                  title={`${m.name}: ${m.status}`}
+                />
+              );
+            })}
+          </div>
+
+          <div className="milestone-stepper">
+            {project.milestones.map((m, idx) => {
+              const isDone = m.status === 'Approved' || m.status === 'Paid';
+              const isActive = m.id === activeMilestone?.id;
+              return (
+                <div
+                  key={m.id}
+                  className={`milestone-step-item ${isDone ? 'completed' : isActive ? 'active' : 'upcoming'}`}
+                  title={`${m.name} - ₹${m.amount.toLocaleString('en-IN')}`}
+                  style={{ minWidth: 0 }}
+                >
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2px' }}>
+                    <span style={{ fontWeight: 800, fontSize: '10.5px' }}>M{idx + 1}</span>
+                    <span
+                      style={{
+                        fontSize: '9.5px',
+                        fontWeight: 700,
+                        padding: '1px 6px',
+                        borderRadius: '4px',
+                        backgroundColor: isDone ? '#DCFCE7' : isActive ? '#FEF3C7' : '#F1F5F9',
+                        color: isDone ? '#166534' : isActive ? '#92400E' : '#64748B'
+                      }}
+                    >
+                      {isDone ? '✓ Paid' : isActive ? '● Active' : 'Pending'}
+                    </span>
+                  </div>
+                  <div
+                    style={{
+                      fontWeight: 700,
+                      color: 'var(--text-primary)',
+                      whiteSpace: 'nowrap',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                      width: '100%',
+                      fontSize: '12px'
+                    }}
+                  >
+                    {m.name}
+                  </div>
+                  <div style={{ fontSize: '11px', color: 'var(--text-muted)', fontWeight: 600 }}>
+                    ₹{m.amount.toLocaleString('en-IN')}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
 
-        {/* Scope Overview */}
+        {/* Work Scope & Core Objectives Card */}
         <div className="card" style={{ padding: 'var(--space-5)' }}>
-          <h3 style={{ fontSize: '15px', fontWeight: 600, color: 'var(--text-primary)', marginBottom: 'var(--space-2)' }}>
-            Work Scope & Deliverable Brief
-          </h3>
-          <p style={{ fontSize: '14px', color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: 'var(--space-4)' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: 'var(--space-2)' }}>
+            <Layers size={16} color="var(--color-blue)" />
+            <h3 style={{ fontSize: '15px', fontWeight: 700, color: 'var(--text-primary)' }}>
+              Work Scope & Objectives
+            </h3>
+          </div>
+          <p style={{ fontSize: '13.5px', color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: 'var(--space-4)' }}>
             {project.description}
           </p>
 
-          <div style={{ display: 'flex', gap: 'var(--space-3)', flexWrap: 'wrap' }}>
-            <button className="btn btn-secondary btn-sm" onClick={() => onSelectTab('milestones')}>
-              View {project.milestones.length} Milestones
-            </button>
-            <button className="btn btn-secondary btn-sm" onClick={() => onSelectTab('deliverables')}>
-              View {project.deliverables.length} Deliverables
-            </button>
+          <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+            <span className="scope-tag-pill">✦ Responsive Dining Experience</span>
+            <span className="scope-tag-pill">✦ Interactive Menu & Dietary Filters</span>
+            <span className="scope-tag-pill">✦ Real-time Table Reservation Engine</span>
+            <span className="scope-tag-pill">✦ Lighthouse 95+ Performance Target</span>
           </div>
         </div>
 
         {/* Recent Updates from Supervisor */}
         <div className="card" style={{ padding: 'var(--space-5)' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 'var(--space-3)' }}>
-            <h3 style={{ fontSize: '15px', fontWeight: 600, color: 'var(--text-primary)' }}>
-              Latest Project Updates
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 'var(--space-4)' }}>
+            <h3 style={{ fontSize: '15px', fontWeight: 700, color: 'var(--text-primary)' }}>
+              Latest Sprint Activity
             </h3>
             <button
               className="btn btn-ghost btn-sm"
               onClick={() => onSelectTab('activity')}
-              style={{ color: 'var(--brand-primary)' }}
+              style={{ color: 'var(--text-secondary)', paddingRight: 0 }}
             >
               Full Log
             </button>
           </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
             {project.activities.slice(0, 3).map(act => (
               <div
                 key={act.id}
                 style={{
                   display: 'flex',
                   alignItems: 'flex-start',
-                  gap: '10px',
+                  gap: '12px',
                   fontSize: '13px'
                 }}
               >
                 <div
                   style={{
-                    width: '24px',
-                    height: '24px',
+                    width: '28px',
+                    height: '28px',
                     borderRadius: '9999px',
-                    backgroundColor: 'var(--bg-subtle)',
+                    backgroundColor: '#F0F9FF',
+                    border: '1px solid #BAE6FD',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     flexShrink: 0,
-                    marginTop: '2px'
+                    marginTop: '1px'
                   }}
                 >
-                  <FileCheck size={13} color="var(--brand-primary)" />
+                  <FileCheck size={14} color="#0284C7" />
                 </div>
-                <div>
-                  <div style={{ fontWeight: 500, color: 'var(--text-primary)' }}>{act.title}</div>
-                  <div style={{ color: 'var(--text-secondary)', fontSize: '12px' }}>{act.description}</div>
-                  <div style={{ color: 'var(--text-tertiary)', fontSize: '11px', marginTop: '2px' }}>
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <div style={{ fontWeight: 700, color: 'var(--text-primary)' }}>{act.title}</div>
+                  <div style={{ color: 'var(--text-secondary)', fontSize: '12.5px', marginTop: '1px', lineHeight: 1.4 }}>
+                    {act.description}
+                  </div>
+                  <div style={{ color: 'var(--text-muted)', fontSize: '11px', marginTop: '3px' }}>
                     {act.author} • {act.timestamp}
                   </div>
                 </div>
@@ -188,76 +294,83 @@ export const OverviewTab: React.FC<OverviewTabProps> = ({ project, onSelectTab }
         </div>
       </div>
 
-      {/* Right Column: Supervisor Card, Project Specs, Quick Actions */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-6)' }}>
+      {/* Right Column: Supervisor Card, Project Specs, Escrow Protection */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-5)' }}>
         {/* Supervisor Card */}
         <SupervisorCard supervisor={project.supervisor} projectId={project.id} />
 
-        {/* Project Meta Card */}
+        {/* Project Meta & Escrow Card */}
         <div className="card" style={{ padding: 'var(--space-5)' }}>
-          <h4 style={{ fontSize: '14px', fontWeight: 600, color: 'var(--text-primary)', marginBottom: 'var(--space-3)' }}>
-            Project Specifications
-          </h4>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 'var(--space-4)' }}>
+            <h4 style={{ fontSize: '14px', fontWeight: 700, color: 'var(--text-primary)' }}>
+              Project Specifications
+            </h4>
+            <span style={{ fontSize: '11px', fontWeight: 700, color: '#166534', backgroundColor: '#DCFCE7', padding: '2px 8px', borderRadius: '4px' }}>
+              Escrow Active
+            </span>
+          </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', fontSize: '13px' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '11px', fontSize: '13px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '8px', borderBottom: '1px solid var(--border-subtle)' }}>
               <span style={{ color: 'var(--text-muted)' }}>Category</span>
-              <span style={{ fontWeight: 500, color: 'var(--text-primary)' }}>{project.category}</span>
+              <span style={{ fontWeight: 600, color: 'var(--text-primary)' }}>{project.category}</span>
             </div>
 
-            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '8px', borderBottom: '1px solid var(--border-subtle)' }}>
               <span style={{ color: 'var(--text-muted)' }}>Start Date</span>
-              <span style={{ fontWeight: 500, color: 'var(--text-primary)' }}>{project.startDate}</span>
+              <span style={{ fontWeight: 600, color: 'var(--text-primary)' }}>{project.startDate}</span>
             </div>
 
-            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '8px', borderBottom: '1px solid var(--border-subtle)' }}>
               <span style={{ color: 'var(--text-muted)' }}>Target Delivery</span>
-              <span style={{ fontWeight: 500, color: 'var(--text-primary)' }}>{project.deadline}</span>
+              <span style={{ fontWeight: 600, color: 'var(--text-primary)' }}>{project.deadline}</span>
             </div>
 
-            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-              <span style={{ color: 'var(--text-muted)' }}>Total Budget</span>
-              <span style={{ fontWeight: 600, color: 'var(--text-primary)' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '8px', borderBottom: '1px solid var(--border-subtle)' }}>
+              <span style={{ color: 'var(--text-muted)' }}>Total Contract Budget</span>
+              <span style={{ fontWeight: 700, color: 'var(--text-primary)', fontFamily: 'var(--font-heading)' }}>
                 ₹{project.budget.toLocaleString('en-IN')}
               </span>
             </div>
 
-            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-              <span style={{ color: 'var(--text-muted)' }}>Paid to Date</span>
-              <span style={{ fontWeight: 600, color: '#059669' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '8px', borderBottom: '1px solid var(--border-subtle)' }}>
+              <span style={{ color: 'var(--text-muted)' }}>Released to Date</span>
+              <span style={{ fontWeight: 700, color: '#059669', fontFamily: 'var(--font-heading)' }}>
                 ₹{project.paidAmount.toLocaleString('en-IN')}
               </span>
             </div>
 
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-              <span style={{ color: 'var(--text-muted)' }}>Remaining in Escrow</span>
-              <span style={{ fontWeight: 500, color: 'var(--text-secondary)' }}>
+              <span style={{ color: 'var(--text-muted)' }}>Protected in Escrow</span>
+              <span style={{ fontWeight: 700, color: '#2563EB', fontFamily: 'var(--font-heading)' }}>
                 ₹{(project.budget - project.paidAmount).toLocaleString('en-IN')}
               </span>
             </div>
           </div>
-        </div>
 
-        {/* Managed Service Assurance */}
-        <div
-          style={{
-            padding: 'var(--space-4)',
-            borderRadius: 'var(--radius-lg)',
-            backgroundColor: '#F8FAFC',
-            border: '1px solid #E2E8F0',
-            fontSize: '12px',
-            color: 'var(--text-secondary)',
-            display: 'flex',
-            alignItems: 'flex-start',
-            gap: '10px'
-          }}
-        >
-          <ShieldCheck size={18} color="#2563EB" style={{ flexShrink: 0, marginTop: '2px' }} />
-          <div>
-            <strong style={{ color: 'var(--text-primary)' }}>AssignX Managed Service:</strong> You never have to supervise workers or manage technical sprint bottlenecks. Your supervisor handles all coordination.
+          <div
+            style={{
+              marginTop: '16px',
+              padding: '11px 13px',
+              borderRadius: 'var(--radius-md)',
+              backgroundColor: '#F0F7FF',
+              border: '1px solid #BFDBFE',
+              fontSize: '11.5px',
+              color: '#1E40AF',
+              display: 'flex',
+              alignItems: 'flex-start',
+              gap: '8px',
+              lineHeight: 1.4
+            }}
+          >
+            <ShieldCheck size={16} color="#2563EB" style={{ flexShrink: 0, marginTop: '2px' }} />
+            <span>
+              <strong>100% Escrow Guarantee:</strong> Funds remain securely in escrow until you verify and approve deliverables.
+            </span>
           </div>
         </div>
       </div>
     </div>
   );
 };
+

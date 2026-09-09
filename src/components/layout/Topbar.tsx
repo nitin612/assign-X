@@ -1,12 +1,19 @@
 /* Lightweight Topbar Component */
 import React, { useState } from 'react';
-import { Search, Bell, HelpCircle, Menu } from 'lucide-react';
+import { Search, Bell, HelpCircle, Menu, PanelLeftClose, PanelLeftOpen } from 'lucide-react';
 import { useNavigation } from '../../context/NavigationContext';
 import { useApp } from '../../context/AppContext';
 
 export const Topbar: React.FC = () => {
   const { currentRoute, navigate } = useNavigation();
-  const { notifications, setMobileMenuOpen, searchQuery, setSearchQuery } = useApp();
+  const {
+    notifications,
+    setMobileMenuOpen,
+    searchQuery,
+    setSearchQuery,
+    sidebarCollapsed,
+    toggleSidebar
+  } = useApp();
   const [showSearchInput, setShowSearchInput] = useState(false);
 
   const unreadCount = notifications.filter(n => !n.isRead).length;
@@ -38,6 +45,17 @@ export const Topbar: React.FC = () => {
   return (
     <header className="app-topbar">
       <div className="topbar-left">
+        {/* Desktop Sidebar Toggle Button */}
+        <button
+          className="topbar-icon-btn sidebar-toggle-btn"
+          onClick={toggleSidebar}
+          title={sidebarCollapsed ? 'Expand sidebar (⌘B)' : 'Minimize sidebar (⌘B)'}
+          aria-label={sidebarCollapsed ? 'Expand sidebar' : 'Minimize sidebar'}
+        >
+          {sidebarCollapsed ? <PanelLeftOpen size={18} /> : <PanelLeftClose size={18} />}
+        </button>
+
+        {/* Mobile Menu Button */}
         <button
           className="topbar-icon-btn mobile-menu-btn"
           onClick={() => setMobileMenuOpen(true)}

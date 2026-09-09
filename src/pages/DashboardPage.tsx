@@ -14,7 +14,6 @@ import {
   Clock,
   MessageSquare,
   FileCheck,
-  ShieldCheck,
   ArrowRight
 } from 'lucide-react';
 
@@ -178,185 +177,170 @@ export const DashboardPage: React.FC = () => {
         </section>
       )}
 
-      {/* ── Main Grid: Active Work Column + Right Sidebar ─────── */}
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'minmax(0, 2fr) minmax(320px, 1fr)',
-          gap: 'var(--space-8)',
-          alignItems: 'flex-start'
-        }}
-      >
-        {/* Active Work Column */}
-        <section>
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              marginBottom: 'var(--space-4)'
-            }}
-          >
-            <div>
-              <h2 style={{ fontSize: '20px', fontWeight: 800, color: 'var(--text-primary)' }}>
-                Active Work
-              </h2>
-              <p style={{ fontSize: '13px', color: 'var(--text-secondary)' }}>
-                Milestones managed and tracked by your appointed supervisors.
-              </p>
-            </div>
-
-            <button
-              className="btn btn-secondary btn-sm"
-              onClick={() => navigate('/work')}
-            >
-              <span>View All ({projects.length})</span>
-              <span>→</span>
-            </button>
-          </div>
-
-          {activeProjects.length === 0 ? (
-            <EmptyState
-              icon={Briefcase}
-              title="No active work in progress"
-              description="Tell us what you need and your dedicated supervisor will take it from there."
-              actionText="Create New Work"
-              onAction={() => navigate('/create')}
-            />
-          ) : (
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-                gap: 'var(--space-5)'
-              }}
-            >
-              {activeProjects.map(project => (
-                <ProjectCard key={project.id} project={project} />
-              ))}
-            </div>
-          )}
-        </section>
-
-        {/* Right Sidebar: AssignX Managed Guarantee & Recent Activity */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-6)' }}>
-          {/* Managed Service Assurance Card */}
-          <div
-            className="card"
-            style={{
-              backgroundColor: 'var(--color-blue-light)',
-              borderColor: 'var(--border-dark)',
-              boxShadow: 'var(--shadow-offset-md)'
-            }}
-          >
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
-              <ShieldCheck size={22} color="var(--text-primary)" />
-              <h3 style={{ fontSize: '16px', fontWeight: 800, color: 'var(--text-primary)' }}>
-                AssignX Managed Guarantee
-              </h3>
-            </div>
-            <p style={{ fontSize: '13px', color: 'var(--text-secondary)', lineHeight: 1.5, marginBottom: 'var(--space-4)' }}>
-              You never coordinate individual freelancers or deal with technical blockers. Your appointed supervisor takes 100% accountability for deadlines and code quality.
+      {/* ── Active Work Section ─────────────────────────────── */}
+      <section style={{ marginBottom: 'var(--space-8)' }}>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            marginBottom: 'var(--space-4)'
+          }}
+        >
+          <div>
+            <h2 style={{ fontSize: '20px', fontWeight: 800, color: 'var(--text-primary)' }}>
+              Active Work
+            </h2>
+            <p style={{ fontSize: '13px', color: 'var(--text-secondary)' }}>
+              Milestones managed and tracked by your appointed supervisors.
             </p>
-            <button
-              className="btn btn-secondary"
-              style={{ width: '100%', justifyContent: 'center' }}
-              onClick={() => navigate('/support')}
-            >
-              <span>Supervisor Accountability Promise</span>
-              <span>→</span>
-            </button>
           </div>
 
-          {/* Recent Activity Timeline */}
-          <div className="card" style={{ padding: 'var(--space-5)' }}>
-            <div style={{ marginBottom: 'var(--space-4)' }}>
-              <h3 style={{ fontSize: '16px', fontWeight: 800, color: 'var(--text-primary)' }}>
+          <button
+            className="btn btn-secondary btn-sm"
+            onClick={() => navigate('/work')}
+          >
+            <span>View All ({projects.length})</span>
+            <span>→</span>
+          </button>
+        </div>
+
+        {activeProjects.length === 0 ? (
+          <EmptyState
+            icon={Briefcase}
+            title="No active work in progress"
+            description="Tell us what you need and your dedicated supervisor will take it from there."
+            actionText="Create New Work"
+            onAction={() => navigate('/create')}
+          />
+        ) : (
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+              gap: 'var(--space-6)'
+            }}
+          >
+            {activeProjects.slice(0, 3).map(project => (
+              <ProjectCard key={project.id} project={project} />
+            ))}
+          </div>
+        )}
+      </section>
+
+      {/* ── Recent Activity Section (Beneath Active Work) ────── */}
+      <section style={{ marginBottom: 'var(--space-8)' }}>
+        <div
+          style={{
+            backgroundColor: '#FFFFFF',
+            border: '2px solid var(--border-dark)',
+            borderRadius: '22px',
+            boxShadow: '4px 4px 0px var(--border-dark)',
+            padding: '24px'
+          }}
+        >
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px' }}>
+            <div>
+              <h3 style={{ fontSize: '18px', fontWeight: 800, color: 'var(--text-primary)', letterSpacing: '-0.02em', margin: 0 }}>
                 Recent Activity
               </h3>
-              <p style={{ fontSize: '12px', color: 'var(--text-muted)' }}>
+              <p style={{ fontSize: '13px', color: 'var(--text-muted)', margin: '2px 0 0 0' }}>
                 Real-time updates from supervisor sprints.
               </p>
             </div>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
-              {recentActivities.map((act, index) => (
+          </div>
+
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
+              gap: '16px'
+            }}
+          >
+            {recentActivities.map(act => (
+              <div
+                key={act.id}
+                style={{
+                  display: 'flex',
+                  alignItems: 'flex-start',
+                  gap: '12px',
+                  backgroundColor: '#F9F9FC',
+                  border: '1.5px solid #ECECF2',
+                  borderRadius: '14px',
+                  padding: '14px 16px',
+                  transition: 'all 0.15s ease'
+                }}
+              >
                 <div
-                  key={act.id}
                   style={{
+                    width: '36px',
+                    height: '36px',
+                    borderRadius: '9999px',
+                    backgroundColor: '#FFFFFF',
+                    border: '1.5px solid var(--border-dark)',
+                    boxShadow: '1.5px 1.5px 0px var(--border-dark)',
                     display: 'flex',
-                    alignItems: 'flex-start',
-                    gap: '12px',
-                    position: 'relative'
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    flexShrink: 0
                   }}
                 >
-                  {index !== recentActivities.length - 1 && (
-                    <div
+                  {getActivityIcon(act.type)}
+                </div>
+
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: '8px' }}>
+                    <span style={{ fontSize: '13px', fontWeight: 800, color: 'var(--text-primary)' }}>
+                      {act.title}
+                    </span>
+                    <span
                       style={{
-                        position: 'absolute',
-                        left: '15px',
-                        top: '28px',
-                        bottom: '-16px',
-                        width: '2px',
-                        backgroundColor: 'var(--border-subtle)'
+                        fontSize: '10.5px',
+                        fontWeight: 600,
+                        color: 'var(--text-muted)',
+                        backgroundColor: '#FFFFFF',
+                        border: '1px solid #E5E5EE',
+                        padding: '1px 6px',
+                        borderRadius: '4px',
+                        flexShrink: 0
                       }}
-                    />
-                  )}
+                    >
+                      {act.timestamp}
+                    </span>
+                  </div>
+
+                  <p style={{ fontSize: '12px', color: 'var(--text-secondary)', marginTop: '4px', lineHeight: 1.45 }}>
+                    {act.description}
+                  </p>
 
                   <div
                     style={{
-                      width: '32px',
-                      height: '32px',
-                      borderRadius: '9999px',
-                      backgroundColor: 'var(--bg-subtle)',
-                      display: 'flex',
+                      display: 'inline-flex',
                       alignItems: 'center',
-                      justifyContent: 'center',
-                      flexShrink: 0,
-                      zIndex: 1,
-                      border: '1px solid var(--border-card)'
+                      gap: '4px',
+                      marginTop: '6px',
+                      fontSize: '11.5px',
+                      color: 'var(--text-primary)',
+                      cursor: 'pointer',
+                      fontWeight: 800,
+                      backgroundColor: '#FFFFFF',
+                      border: '1px solid #E2E2EC',
+                      padding: '2px 8px',
+                      borderRadius: '6px',
+                      transition: 'all 0.15s ease'
                     }}
+                    onClick={() => navigate(`/work/${act.projectId}`)}
                   >
-                    {getActivityIcon(act.type)}
-                  </div>
-
-                  <div style={{ flex: 1, minWidth: 0 }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: '8px' }}>
-                      <span style={{ fontSize: '13px', fontWeight: 700, color: 'var(--text-primary)' }}>
-                        {act.title}
-                      </span>
-                      <span style={{ fontSize: '11px', color: 'var(--text-muted)', flexShrink: 0 }}>
-                        {act.timestamp}
-                      </span>
-                    </div>
-
-                    <p style={{ fontSize: '12px', color: 'var(--text-secondary)', marginTop: '2px', lineHeight: 1.4 }}>
-                      {act.description}
-                    </p>
-
-                    <div
-                      style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '4px',
-                        marginTop: '4px',
-                        fontSize: '12px',
-                        color: 'var(--text-primary)',
-                        cursor: 'pointer',
-                        fontWeight: 700
-                      }}
-                      onClick={() => navigate(`/work/${act.projectId}`)}
-                    >
-                      <span>{act.projectTitle}</span>
-                      <ArrowRight size={11} />
-                    </div>
+                    <span>{act.projectTitle}</span>
+                    <ArrowRight size={11} color="var(--brand-primary)" />
                   </div>
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
           </div>
         </div>
-      </div>
+      </section>
     </div>
   );
 };
