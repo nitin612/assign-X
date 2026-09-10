@@ -2,7 +2,7 @@
    AssignX — Landing Page Component
    Reference: Freelance Match Modern Editorial / Neo-Brutalist SaaS Aesthetic
    ═══════════════════════════════════════════════════════════ */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigation } from '../context/NavigationContext';
 import { useApp } from '../context/AppContext';
 import '../styles/landing.css';
@@ -30,8 +30,21 @@ export const LandingPage: React.FC = () => {
     navigate(targetPath);
   };
 
-  // Role toggle: 'client' | 'freelancer'
-  const [activeRole, setActiveRole] = useState<'client' | 'freelancer'>('client');
+  // Hero badge word rotator
+  const heroWords = ['Managed', 'Supervised', 'Delivered', 'Guaranteed', 'Trusted'];
+  const [badgeIndex, setBadgeIndex] = useState(0);
+  const [badgeVisible, setBadgeVisible] = useState(true);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setBadgeVisible(false);
+      setTimeout(() => {
+        setBadgeIndex(i => (i + 1) % heroWords.length);
+        setBadgeVisible(true);
+      }, 350);
+    }, 2500);
+    return () => clearInterval(interval);
+  }, []);
 
   // Video Demo Modal
   const [showDemoModal, setShowDemoModal] = useState(false);
@@ -220,24 +233,7 @@ export const LandingPage: React.FC = () => {
                 <span>FAQ</span>
               </a>
             </nav>
-
             <div className="landing-topbar-actions">
-              {/* Toggle: CLIENT | FREELANCER */}
-              <div className="landing-role-switch">
-                <button
-                  className={`landing-role-pill ${activeRole === 'client' ? 'active' : 'inactive'}`}
-                  onClick={() => setActiveRole('client')}
-                >
-                  Client
-                </button>
-                <button
-                  className={`landing-role-pill ${activeRole === 'freelancer' ? 'active' : 'inactive'}`}
-                  onClick={() => setActiveRole('freelancer')}
-                >
-                  Freelancer
-                </button>
-              </div>
-
               {/* Direct Link to Dashboard */}
               <button
                 className="landing-sign-btn"
@@ -252,10 +248,23 @@ export const LandingPage: React.FC = () => {
 
         {/* ── Hero Section (Direct Reference to Freelance Match) ── */}
         <section className="landing-hero">
+          <div className="section-letter-bg slbg-a" aria-hidden="true">A</div>
           <div className="landing-hero-left">
             <h1 className="landing-hero-title">
               Freelance
-              <span className="tilted-hero-badge">Managed</span>
+              <span
+                className="tilted-hero-badge"
+                style={{
+                  display: 'inline-block',
+                  opacity: badgeVisible ? 1 : 0,
+                  transform: badgeVisible
+                    ? 'translateY(0px) rotate(-4deg)'
+                    : 'translateY(-12px) rotate(-4deg)',
+                  transition: 'opacity 0.35s ease, transform 0.35s ease',
+                }}
+              >
+                {heroWords[badgeIndex]}
+              </span>
               <br />
               Connecting Pros
             </h1>
@@ -385,9 +394,10 @@ export const LandingPage: React.FC = () => {
           </div>
         </section>
 
-        {/* ── Running Tilted Marquee Belt (Bit Tilted & Runy) ── */}
+        {/* ── Running Dual Crossed Tilted Marquee Belts ── */}
         <div className="partner-belt-wrapper">
-          <div className="partner-tilted-belt">
+          {/* Belt 1: Slanted up to right */}
+          <div className="partner-tilted-belt partner-belt-up">
             <div className="partner-marquee-track">
               {partnersList.map((partner, i) => (
                 <React.Fragment key={i}>
@@ -411,10 +421,37 @@ export const LandingPage: React.FC = () => {
               ))}
             </div>
           </div>
+
+          {/* Belt 2: Crossed from left side goes down right */}
+          <div className="partner-tilted-belt partner-belt-down">
+            <div className="partner-marquee-track partner-marquee-reverse">
+              {[...partnersList].reverse().map((partner, i) => (
+                <React.Fragment key={`b2-${i}`}>
+                  <div className="partner-logo-item">
+                    <div className="partner-logo-icon">{partner.icon}</div>
+                    <span>{partner.name}</span>
+                  </div>
+                  <span className="partner-belt-star">★</span>
+                </React.Fragment>
+              ))}
+            </div>
+            <div className="partner-marquee-track partner-marquee-reverse" aria-hidden="true">
+              {[...partnersList].reverse().map((partner, i) => (
+                <React.Fragment key={`b2-dup-${i}`}>
+                  <div className="partner-logo-item">
+                    <div className="partner-logo-icon">{partner.icon}</div>
+                    <span>{partner.name}</span>
+                  </div>
+                  <span className="partner-belt-star">★</span>
+                </React.Fragment>
+              ))}
+            </div>
+          </div>
         </div>
 
         {/* ── 3 Peek Cards (Directly Below Hero As In Reference) ─ */}
         <section className="landing-peek-cards-container">
+          <div className="section-letter-bg slbg-s1" aria-hidden="true">S</div>
           <div className="landing-peek-card">
             <div className="landing-peek-icon-box" style={{ backgroundColor: 'var(--color-blue-light)' }}>
               <ShieldCheck size={22} color="var(--color-blue)" />
@@ -448,14 +485,8 @@ export const LandingPage: React.FC = () => {
 
         {/* ── Section: What Features Make Our Platform Distinctive & Popular (Direct from Reference 1) ── */}
         <section id="features" className="distinctive-section">
+          <div className="section-letter-bg slbg-s2" aria-hidden="true">S</div>
           <div className="distinctive-left">
-            <div className="distinctive-header-pill">
-              <span>From 2026</span>
-              <span className="distinctive-switch-toggle">
-                <span className="distinctive-switch-knob" />
-              </span>
-            </div>
-
             <h2 className="distinctive-title">
               What Features Make Our <br />
               Platform <span className="highlight-purple">Distinctive</span> <br />
@@ -553,6 +584,7 @@ export const LandingPage: React.FC = () => {
 
         {/* ── Section 2: How It Works ──────────────────────── */}
         <section id="how-it-works" className="landing-section">
+          <div className="section-letter-bg slbg-i" aria-hidden="true">I</div>
           <div className="landing-section-header">
             <span className="landing-section-badge">How It Works</span>
             <h2 className="landing-section-title">The 3-Step Supervised Flow</h2>
@@ -590,6 +622,7 @@ export const LandingPage: React.FC = () => {
 
         {/* ── Section 3: Interactive Scope & Budget Estimator ── */}
         <section id="estimator" className="landing-section" style={{ backgroundColor: '#FAF9FB' }}>
+          <div className="section-letter-bg slbg-g" aria-hidden="true">G</div>
           <div className="landing-section-header">
             <span className="landing-section-badge">Interactive Tool</span>
             <h2 className="landing-section-title">Estimate Your Project & Sprint</h2>
@@ -700,6 +733,7 @@ export const LandingPage: React.FC = () => {
 
         {/* ── Section 4: AssignX vs Unmanaged Freelance Marketplaces ── */}
         <section id="comparison" className="landing-section">
+          <div className="section-letter-bg slbg-n" aria-hidden="true">N</div>
           <div className="landing-section-header">
             <span className="landing-section-badge">Comparison</span>
             <h2 className="landing-section-title">Why Founders Prefer AssignX</h2>
@@ -750,6 +784,7 @@ export const LandingPage: React.FC = () => {
 
         {/* ── Section 5: FAQ Accordion ──────────────────────── */}
         <section id="faq" className="landing-section" style={{ backgroundColor: '#FAF9FB' }}>
+          <div className="section-letter-bg slbg-x" aria-hidden="true">X</div>
           <div className="landing-section-header">
             <span className="landing-section-badge">Common Questions</span>
             <h2 className="landing-section-title">Frequently Asked Questions</h2>
@@ -955,38 +990,13 @@ export const LandingPage: React.FC = () => {
                 </div>
               </div>
 
-              {/* Staggered 2-Tier Digital Square Mosaic Fringe */}
-              <div className="footer-mosaic-matrix">
-                {[
-                  { id: 1, col: 0, row: 'bottom', type: 'white' },
-                  { id: 2, col: 2, row: 'bottom', type: 'white' },
-                  { id: 3, col: 3, row: 'top', type: 'white' },
-                  { id: 4, col: 3, row: 'bottom', type: 'dim' },
-                  { id: 5, col: 5, row: 'top', type: 'white' },
-                  { id: 6, col: 6, row: 'bottom', type: 'dim' },
-                  { id: 7, col: 8, row: 'top', type: 'white' },
-                  { id: 8, col: 9, row: 'bottom', type: 'dim' },
-                  { id: 9, col: 10, row: 'top', type: 'white' },
-                  { id: 10, col: 12, row: 'bottom', type: 'dim' },
-                  { id: 11, col: 13, row: 'top', type: 'white' },
-                  { id: 12, col: 14, row: 'bottom', type: 'dim' },
-                  { id: 13, col: 15, row: 'top', type: 'white' },
-                  { id: 14, col: 16, row: 'top', type: 'dim' },
-                  { id: 15, col: 17, row: 'bottom', type: 'dim' },
-                  { id: 16, col: 18, row: 'top', type: 'white' },
-                  { id: 17, col: 19, row: 'bottom', type: 'white' }
-                ].map(p => (
-                  <div
-                    key={p.id}
-                    className={`mosaic-pixel ${p.type} ${p.row}`}
-                    style={{ left: `${(p.col / 21) * 94 + 2}%` }}
-                  />
-                ))}
-              </div>
 
-              {/* Bottom Copyright inside Black Footer */}
-              <div className="footer-copyright-dark">
-                Copyright © 2026 AssignX Inc. All Rights Reserved.
+              {/* ── AssignX left + Copyright right, same line ── */}
+              <div className="footer-bottom-row">
+                <div className="footer-giant-wordmark" aria-hidden="true">AssignX</div>
+                <div className="footer-copyright-dark">
+                  Copyright © 2026 AssignX Inc. All Rights Reserved.
+                </div>
               </div>
             </div>
           </div>

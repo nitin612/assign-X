@@ -32,7 +32,74 @@
   position: relative;
 }
 
-/* ── Top Navbar ──────────────────────────────────────────── */
+/* ── Per-Section Ghost Letter Watermark ─────────────────── */
+.section-letter-bg {
+  position: absolute;
+  font-family: 'Inter', 'Outfit', system-ui, sans-serif;
+  font-size: clamp(200px, 90vh, 700px);
+  font-weight: 900;
+  letter-spacing: -0.06em;
+  color: #111111;
+  opacity: 0.05;
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+  white-space: nowrap;
+  line-height: 1;
+}
+
+/* A — Hero: anchored left-center, tilted back */
+.section-letter-bg.slbg-a {
+  top: 50%;
+  left: -4%;
+  transform: translateY(-48%) rotate(-7deg);
+}
+
+/* S — Peek Cards: right side, peeking in, slight lean */
+.section-letter-bg.slbg-s1 {
+  top: 50%;
+  right: -10%;
+  transform: translateY(-50%) rotate(5deg);
+}
+
+/* S — Features: bottom-right corner, bleeding off */
+.section-letter-bg.slbg-s2 {
+  bottom: -18%;
+  right: -5%;
+  transform: rotate(-4deg);
+}
+
+/* I — How it Works: center-left, stands tall */
+.section-letter-bg.slbg-i {
+  top: 50%;
+  left: 12%;
+  transform: translateY(-50%) rotate(2deg);
+}
+
+/* G — Estimator: right, vertically centered, rolling forward */
+.section-letter-bg.slbg-g {
+  top: 50%;
+  right: -6%;
+  transform: translateY(-50%) rotate(-6deg);
+}
+
+/* N — Comparison: top-left, breaking out of top edge */
+.section-letter-bg.slbg-n {
+  top: -12%;
+  left: -3%;
+  transform: rotate(5deg);
+}
+
+/* X — FAQ: right side, slight dynamic angle */
+.section-letter-bg.slbg-x {
+  top: 50%;
+  left: auto;
+  right: -4%;
+  transform: translateY(-50%) rotate(8deg);
+}
+
+
+/* ── Top Navbar ─────────────────────────────────────────── */
 .landing-topbar {
   width: 100%;
   background-color: rgba(255, 255, 255, 0.96);
@@ -197,6 +264,7 @@
   gap: 40px;
   align-items: center;
   position: relative;
+  overflow: clip;
   background-color: #FFFFFF;
   box-sizing: border-box;
 }
@@ -224,7 +292,6 @@
   border-radius: 12px;
   box-shadow: 3px 3px 0px #111111;
   padding: 2px 18px;
-  transform: rotate(-4deg);
   font-weight: 800;
   margin-left: 10px;
   vertical-align: middle;
@@ -427,6 +494,8 @@
   gap: 24px;
   background-color: #FFFFFF;
   box-sizing: border-box;
+  position: relative;
+  overflow: clip;
 }
 
 .landing-peek-card {
@@ -479,6 +548,8 @@
   padding: 72px 36px;
   background-color: #FFFFFF;
   box-sizing: border-box;
+  position: relative;
+  overflow: clip;
 }
 
 .landing-section-header {
@@ -661,6 +732,8 @@
   flex-wrap: wrap;
   gap: 28px;
   box-sizing: border-box;
+  position: relative;
+  overflow: clip;
 }
 
 .landing-cta-banner h2 {
@@ -679,29 +752,46 @@
   margin: 0;
 }
 
-/* ── Tilted Running Marquee Belt (Bit Tilted & Runy) ─────── */
+/* ── Running Dual Crossed Tilted Marquee Belts (Scissor from Left) ── */
 .partner-belt-wrapper {
   width: 100%;
   overflow: hidden;
-  padding: 24px 0 36px;
-  margin-top: 12px;
-  margin-bottom: 28px;
+  padding: 115px 0 120px;
+  margin-top: -35px;
+  margin-bottom: -30px;
   position: relative;
   background-color: transparent;
+  display: grid;
+  place-items: center;
 }
 
 .partner-tilted-belt {
-  width: 112%;
-  margin-left: -6%;
+  grid-area: 1 / 1;
+  width: 116%;
+  margin-left: -8%;
   background-color: #FFFFFF;
   border-top: 2px solid #111111;
   border-bottom: 2px solid #111111;
-  box-shadow: 0 4px 14px rgba(17, 17, 17, 0.08);
-  padding: 14px 0;
+  padding: 13px 0;
   display: flex;
-  transform: rotate(-1.8deg);
   overflow: hidden;
   user-select: none;
+}
+
+/* Belt 1: slants up to the right, opening like scissors from the left edge */
+.partner-belt-up {
+  transform-origin: 6% 50%;
+  transform: rotate(-3deg);
+  box-shadow: 0 4px 14px rgba(17, 17, 17, 0.08);
+  z-index: 1;
+}
+
+/* Belt 2: slants down to the right, opening like scissors from the left edge */
+.partner-belt-down {
+  transform-origin: 6% 50%;
+  transform: rotate(3deg);
+  box-shadow: 0 8px 22px rgba(17, 17, 17, 0.16);
+  z-index: 2;
 }
 
 .partner-marquee-track {
@@ -714,6 +804,10 @@
   will-change: transform;
 }
 
+.partner-marquee-track.partner-marquee-reverse {
+  animation: marquee-belt-run-reverse 28s linear infinite;
+}
+
 .partner-belt-wrapper:hover .partner-marquee-track {
   animation-play-state: paused;
 }
@@ -724,6 +818,15 @@
   }
   100% {
     transform: translateX(-100%);
+  }
+}
+
+@keyframes marquee-belt-run-reverse {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
   }
 }
 
@@ -774,7 +877,7 @@
   align-items: center;
   box-sizing: border-box;
   position: relative;
-  overflow: hidden;
+  overflow: clip;
 }
 
 .distinctive-left {
@@ -1201,16 +1304,42 @@
   transform: scale(1.08);
 }
 
-/* Dark Footer Copyright Row */
+/* Dark Footer Bottom Row */
+.footer-bottom-row {
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 0 48px;
+  box-sizing: border-box;
+}
+
+.footer-giant-wordmark {
+  width: auto;
+  flex-shrink: 0;
+  text-align: left;
+  font-family: 'Inter', 'Outfit', system-ui, sans-serif;
+  font-size: clamp(64px, 12vw, 180px);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  color: rgba(255, 255, 255, 0.07);
+  line-height: 0.9;
+  padding: 0;
+  margin-top: 8px;
+  user-select: none;
+  pointer-events: none;
+  box-sizing: border-box;
+  display: block;
+}
+
 .footer-copyright-dark {
   width: 100%;
-  padding: 22px 0 28px;
-  text-align: center;
+  padding: 16px 36px 24px;
+  text-align: right;
   font-size: 12.5px;
   font-weight: 500;
   color: #8E929E;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  margin-top: 24px;
+  margin-top: 0;
   box-sizing: border-box;
 }
 
