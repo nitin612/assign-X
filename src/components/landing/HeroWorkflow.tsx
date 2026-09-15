@@ -147,21 +147,21 @@ export const HeroWorkflow: React.FC<HeroWorkflowProps> = ({ children }) => {
           className="absolute z-20 -translate-x-1/2 -translate-y-1/2 transition-transform duration-200 hover:-translate-y-[54%]"
           style={{ left: '8.65%', top: '12.67%' }}
         >
-          <div className="relative bg-white rounded-3xl p-5 border border-slate-200/90 shadow-xl shadow-slate-200/40 w-[220px] text-left">
+          <div className="relative bg-white rounded-3xl p-5 border border-slate-200/90 shadow-xl shadow-slate-200/40 w-[225px] text-left">
             <div className="flex items-center gap-1.5 mb-2">
               <span className="w-5 h-5 rounded-full bg-[#D4F870] text-slate-950 flex items-center justify-center text-[10px] font-bold shadow-2xs">
-                ✦
+                1
               </span>
               <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10.5px] font-semibold bg-[#D4F870]/60 text-slate-950">
-                Milestone 1 Scope
+                Tell Us What You Need
               </span>
             </div>
             <p className="text-sm font-semibold text-slate-900 leading-snug tracking-tight">
-              Launch Product MVP<br />in 4 Weeks
+              Create Work Request<br />& Share Vision
             </p>
             <div className="mt-2.5 flex items-center gap-1.5 text-[11px] text-slate-500 font-medium">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-              <span>SLA & Escrow Locked</span>
+              <span>SLA & Scope Locked</span>
             </div>
             <div className="absolute -bottom-2 left-6 w-3.5 h-3.5 bg-white border-r border-b border-slate-200/90 rotate-45" />
           </div>
@@ -175,20 +175,20 @@ export const HeroWorkflow: React.FC<HeroWorkflowProps> = ({ children }) => {
           <div className="bg-white rounded-full px-4 py-2 border border-slate-200/90 shadow-lg shadow-slate-200/40 flex items-center gap-2.5 whitespace-nowrap">
             <div className="relative">
               <img
-                src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=60&auto=format&fit=crop&q=80"
-                alt="Supervisor Alex"
+                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=60&auto=format&fit=crop&q=80"
+                alt="Supervisor Arjun"
                 className="w-7 h-7 rounded-full object-cover border border-white"
               />
               <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-emerald-500 border-2 border-white" />
             </div>
             <div className="flex flex-col text-left">
               <div className="flex items-center gap-1.5">
-                <span className="text-xs font-bold text-slate-900">Alex M.</span>
+                <span className="text-xs font-bold text-slate-900">Arjun Mehta</span>
                 <span className="px-1.5 py-0.2 rounded-full text-[9px] font-semibold bg-purple-100 text-purple-800">
-                  Supervisor
+                  Supervisor ⭐ 4.9
                 </span>
               </div>
-              <span className="text-[10px] text-slate-500 font-medium">Active QA Verification</span>
+              <span className="text-[10px] text-slate-500 font-medium">2. Reviews Scope & Manages Pod</span>
             </div>
           </div>
         </div>
@@ -200,7 +200,7 @@ export const HeroWorkflow: React.FC<HeroWorkflowProps> = ({ children }) => {
         >
           <div className="bg-white border border-slate-200 shadow-md rounded-full px-3.5 py-1.5 flex items-center gap-1.5 text-xs font-semibold text-slate-800">
             <Zap className="w-3.5 h-3.5 text-amber-500 fill-amber-400" />
-            <span className="text-[11px] font-bold text-slate-900">100% Velocity</span>
+            <span className="text-[11px] font-bold text-slate-900">3. Work Starts · 100% Velocity</span>
           </div>
         </div>
 
@@ -209,21 +209,21 @@ export const HeroWorkflow: React.FC<HeroWorkflowProps> = ({ children }) => {
           className="absolute z-20 -translate-x-1/2 -translate-y-1/2 transition-transform duration-200 hover:-translate-y-[54%]"
           style={{ left: '91.35%', top: '20.00%' }}
         >
-          <div className="bg-white rounded-2xl p-4 border border-slate-200/90 shadow-xl shadow-slate-200/40 w-[205px] text-left">
+          <div className="bg-white rounded-2xl p-4 border border-slate-200/90 shadow-xl shadow-slate-200/40 w-[210px] text-left">
             <div className="flex items-center gap-1.5 mb-1.5">
               <span className="w-4 h-4 rounded-full bg-amber-400 text-slate-950 flex items-center justify-center text-[9px] font-bold">
-                ✦
+                4
               </span>
               <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-[#FEF08A] text-slate-900">
-                Specialist Pod
+                Managed Execution
               </span>
             </div>
             <p className="text-xs text-slate-900 font-semibold leading-snug">
-              Lead Architect & UI Designer
+              Frontend & Backend Pod
             </p>
             <div className="mt-2 flex items-center justify-between text-[10.5px] text-slate-500 pt-1.5 border-t border-slate-100">
               <span>Sprint 1</span>
-              <span className="text-emerald-600 font-semibold">92% Progress</span>
+              <span className="text-emerald-600 font-semibold">68% Progress</span>
             </div>
           </div>
         </div>
@@ -237,7 +237,7 @@ export const HeroWorkflow: React.FC<HeroWorkflowProps> = ({ children }) => {
             <CheckCircle2 className="w-6 h-6 text-emerald-500 fill-emerald-100 shrink-0" />
             <div>
               <span className="text-sm font-bold text-slate-900 tracking-tight block">
-                Milestone 1 Delivered!
+                5. Deliverable Ready!
               </span>
               <span className="text-[10px] text-emerald-600 font-medium block">
                 ✓ Supervisor QA Passed
@@ -253,10 +253,10 @@ export const HeroWorkflow: React.FC<HeroWorkflowProps> = ({ children }) => {
         >
           <div className="bg-white rounded-full px-4.5 py-2 border border-slate-200/90 shadow-lg shadow-slate-200/40 flex items-center gap-2.5 whitespace-nowrap">
             <ShieldCheck className="w-4.5 h-4.5 text-emerald-600" />
-            <span className="text-xs font-semibold text-slate-900">Escrow Released: $2,400</span>
+            <span className="text-xs font-semibold text-slate-900">6. You Approve & Pay: ₹15,000</span>
             <img
               src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=60&auto=format&fit=crop&q=80"
-              alt="Founder Reviewer"
+              alt="Client Reviewer"
               className="w-6 h-6 rounded-full object-cover border border-white"
             />
           </div>
@@ -275,12 +275,12 @@ export const HeroWorkflow: React.FC<HeroWorkflowProps> = ({ children }) => {
                 className="w-6.5 h-6.5 rounded-full object-cover border-2 border-white"
               />
               <img
-                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=60&auto=format&fit=crop&q=80"
+                src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=60&auto=format&fit=crop&q=80"
                 alt="Product Designer"
                 className="w-6.5 h-6.5 rounded-full object-cover border-2 border-white"
               />
             </div>
-            <span className="text-[11px] font-semibold text-slate-800 pr-1">2 Vetted Specialists</span>
+            <span className="text-[11px] font-semibold text-slate-800 pr-1">Managed Team</span>
           </div>
         </div>
 
@@ -336,25 +336,25 @@ export const HeroWorkflow: React.FC<HeroWorkflowProps> = ({ children }) => {
           <div className="flex items-center gap-3 min-w-max mx-auto px-2">
             <div className="bg-white rounded-2xl px-3.5 py-2 border border-slate-200 shadow-xs flex items-center gap-2">
               <span className="w-5 h-5 rounded-full bg-[#D4F870] text-slate-950 flex items-center justify-center text-[10px] font-bold">1</span>
-              <span className="text-xs font-semibold text-slate-900">Project Scoped</span>
+              <span className="text-xs font-semibold text-slate-900">Tell Us What You Need</span>
             </div>
             <span className="text-slate-300">→</span>
 
             <div className="bg-white rounded-2xl px-3.5 py-2 border border-slate-200 shadow-xs flex items-center gap-2">
-              <span className="w-5 h-5 rounded-full bg-purple-500 text-white flex items-center justify-center text-[10px]">✓</span>
+              <span className="w-5 h-5 rounded-full bg-purple-500 text-white flex items-center justify-center text-[10px]">2</span>
               <span className="text-xs font-semibold text-slate-900">Supervisor Assigned</span>
             </div>
             <span className="text-slate-300">→</span>
 
             <div className="bg-white rounded-2xl px-3.5 py-2 border border-slate-200 shadow-xs flex items-center gap-2">
-              <span className="w-5 h-5 rounded-full bg-amber-400 text-slate-950 flex items-center justify-center text-[10px]">✦</span>
-              <span className="text-xs font-semibold text-slate-900">Specialist Pod</span>
+              <span className="w-5 h-5 rounded-full bg-amber-400 text-slate-950 flex items-center justify-center text-[10px]">3</span>
+              <span className="text-xs font-semibold text-slate-900">Managed Team Builds</span>
             </div>
             <span className="text-slate-300">→</span>
 
             <div className="bg-white rounded-2xl px-3.5 py-2 border border-slate-200 shadow-xs flex items-center gap-2">
               <CheckCircle2 className="w-4 h-4 text-emerald-500" />
-              <span className="text-xs font-semibold text-slate-900">Milestone Delivered & Verified</span>
+              <span className="text-xs font-semibold text-slate-900">4. Review, Approve & Pay</span>
             </div>
           </div>
         </div>
