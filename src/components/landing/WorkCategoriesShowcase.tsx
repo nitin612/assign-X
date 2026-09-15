@@ -523,10 +523,11 @@ export const WorkCategoriesShowcase: React.FC = () => {
                     tabRefs.current[index] = el;
                   }}
                   onClick={() => setActiveTabId(category.id)}
-                  className={`relative z-10 px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium transition-colors duration-250 whitespace-nowrap cursor-pointer flex items-center gap-1.5 select-none ${isActive
+                  className={`relative z-10 px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium transition-colors duration-250 whitespace-nowrap cursor-pointer flex items-center gap-1.5 select-none ${
+                    isActive
                       ? 'text-[#4338CA] font-semibold'
                       : 'text-slate-600 hover:text-slate-950'
-                    }`}
+                  }`}
                 >
                   {isLast && <Plus className={`w-3.5 h-3.5 transition-colors ${isActive ? 'text-indigo-600' : 'text-slate-500'}`} />}
                   <span>{category.tabLabel}</span>
@@ -576,12 +577,12 @@ export const WorkCategoriesShowcase: React.FC = () => {
             <div className="bg-[#EAEBED]/70 rounded-[26px] p-3 sm:p-5 border border-slate-200/80 shadow-inner">
               {/* Inner White Dashboard Card */}
               <div className="bg-white rounded-2xl border border-slate-200 shadow-xl shadow-slate-200/40 overflow-hidden flex flex-col md:flex-row min-h-[420px]">
-
+                
                 {/* ─────────────────────────────────────────────────────
                     Left Pane: Workspace Table (60% width)
                    ───────────────────────────────────────────────────── */}
                 <div className="flex-1 flex flex-col border-b md:border-b-0 md:border-r border-slate-150 min-w-0 bg-white">
-
+                  
                   {/* Top Workspace Header & Views Bar */}
                   <div className="p-4 sm:p-5 pb-0 flex flex-col gap-3">
                     <div className="flex items-center gap-3">
@@ -605,8 +606,9 @@ export const WorkCategoriesShowcase: React.FC = () => {
                     <div className="flex items-center gap-4 text-xs font-medium text-slate-500 border-b border-slate-150 pt-2">
                       <button
                         onClick={() => setActiveView('table')}
-                        className={`pb-2 flex items-center gap-1.5 transition-colors relative cursor-pointer ${activeView === 'table' ? 'text-[#0073EA] font-semibold' : 'hover:text-slate-800'
-                          }`}
+                        className={`pb-2 flex items-center gap-1.5 transition-colors relative cursor-pointer ${
+                          activeView === 'table' ? 'text-[#0073EA] font-semibold' : 'hover:text-slate-800'
+                        }`}
                       >
                         <Table2 className="w-3.5 h-3.5" />
                         <span>Main table</span>
@@ -617,8 +619,9 @@ export const WorkCategoriesShowcase: React.FC = () => {
 
                       <button
                         onClick={() => setActiveView('gantt')}
-                        className={`pb-2 flex items-center gap-1.5 transition-colors relative cursor-pointer ${activeView === 'gantt' ? 'text-[#0073EA] font-semibold' : 'hover:text-slate-800'
-                          }`}
+                        className={`pb-2 flex items-center gap-1.5 transition-colors relative cursor-pointer ${
+                          activeView === 'gantt' ? 'text-[#0073EA] font-semibold' : 'hover:text-slate-800'
+                        }`}
                       >
                         <Calendar className="w-3.5 h-3.5" />
                         <span>Gantt</span>
@@ -629,8 +632,9 @@ export const WorkCategoriesShowcase: React.FC = () => {
 
                       <button
                         onClick={() => setActiveView('kanban')}
-                        className={`pb-2 flex items-center gap-1.5 transition-colors relative cursor-pointer ${activeView === 'kanban' ? 'text-[#0073EA] font-semibold' : 'hover:text-slate-800'
-                          }`}
+                        className={`pb-2 flex items-center gap-1.5 transition-colors relative cursor-pointer ${
+                          activeView === 'kanban' ? 'text-[#0073EA] font-semibold' : 'hover:text-slate-800'
+                        }`}
                       >
                         <Kanban className="w-3.5 h-3.5" />
                         <span>Kanban</span>
