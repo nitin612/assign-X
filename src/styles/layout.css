@@ -12,375 +12,8 @@
   background-color: var(--bg-canvas);
 }
 
-/* ── Left Sidebar (Desktop Fixed / Sticky) ───────────── */
-.app-sidebar {
-  width: var(--sidebar-width);
-  height: 100vh;
-  position: sticky;
-  top: 0;
-  background-color: var(--bg-surface);
-  border-right: 1px solid var(--border-subtle);
-  display: flex;
-  flex-direction: column;
-  flex-shrink: 0;
-  z-index: 40;
-  transition: width 0.22s cubic-bezier(0.16, 1, 0.3, 1), transform var(--transition-normal);
-}
-
-/* Sidebar Brand Header */
-.sidebar-brand-wrapper {
-  padding: 18px 20px;
-  border-bottom: 1px solid var(--border-subtle);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.brand-logo-container {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  text-decoration: none;
-  cursor: pointer;
-  user-select: none;
-}
-
-/* Reference-inspired tilted logo block */
-.brand-mark {
-  width: 32px;
-  height: 32px;
-  background-color: var(--color-blue);
-  border: var(--border-width) solid var(--border-dark);
-  border-radius: var(--radius-sm);
-  box-shadow: var(--shadow-offset-sm);
-  transform: rotate(-4deg);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font-heading);
-  font-size: 17px;
-  font-weight: 800;
-  color: #111111;
-  transition: transform var(--transition-fast);
-}
-
-.brand-logo-container:hover .brand-mark {
-  transform: rotate(0deg) scale(1.05);
-}
-
-.brand-text {
-  font-family: var(--font-heading);
-  font-size: 19px;
-  font-weight: 800;
-  color: var(--text-primary);
-  letter-spacing: -0.04em;
-  line-height: 1.1;
-}
-
-.brand-tagline {
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-}
-
-/* Sidebar Navigation Section */
-.sidebar-nav-section {
-  padding: 16px 12px;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  flex: 1;
-  overflow-y: auto;
-}
-
-.sidebar-nav-label {
-  font-size: 10px;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--text-muted);
-  padding: 6px 10px 4px;
-}
-
-.sidebar-nav-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px 14px;
-  border-radius: var(--radius-md);
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--text-secondary);
-  cursor: pointer;
-  transition: all var(--transition-fast);
-  border: 1.5px solid transparent;
-  user-select: none;
-}
-
-.sidebar-nav-item:hover {
-  background-color: var(--bg-subtle);
-  color: var(--text-primary);
-  border-color: transparent;
-}
-
-.sidebar-nav-item.active {
-  background-color: var(--bg-subtle);
-  color: var(--text-primary);
-  font-weight: 800;
-  border-color: transparent;
-  box-shadow: none;
-}
-
-/* Special "Create New Work" CTA in Sidebar */
-.sidebar-nav-item.special-cta {
-  background-color: var(--color-coral);
-  color: #111111;
-  font-weight: 800;
-  border: 1.5px solid var(--border-dark);
-  border-radius: var(--radius-md);
-  box-shadow: var(--shadow-offset-xs);
-  margin: 6px 0;
-}
-
-.sidebar-nav-item.special-cta:hover {
-  background-color: var(--color-coral-hover);
-  transform: translate(-1px, -1px);
-  box-shadow: var(--shadow-offset-sm);
-}
-
-.sidebar-nav-item-content {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.sidebar-nav-badge {
-  font-size: 11px;
-  font-weight: 800;
-  padding: 2px 7px;
-  border-radius: var(--radius-full);
-  background-color: var(--bg-canvas);
-  color: var(--text-primary);
-  border: 1px solid var(--border-card);
-}
-
-.sidebar-nav-badge.accent {
-  background-color: var(--color-coral);
-  color: #111111;
-  border-color: var(--border-dark);
-}
-
-/* Sidebar Footer */
-.sidebar-footer {
-  padding: 14px 12px;
-  border-top: 1px solid var(--border-subtle);
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  background-color: var(--bg-surface);
-}
-
-.sidebar-user-pill {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 8px 10px;
-  border-radius: var(--radius-md);
-  border: 1.5px solid transparent;
-  cursor: pointer;
-  transition: all var(--transition-fast);
-}
-
-.sidebar-user-pill:hover {
-  background-color: var(--bg-subtle);
-  border-color: transparent;
-  box-shadow: none;
-}
-
-.user-avatar {
-  width: 32px;
-  height: 32px;
-  border-radius: var(--radius-full);
-  border: 1.5px solid var(--border-dark);
-  overflow: hidden;
-  flex-shrink: 0;
-}
-
-.user-avatar img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.user-details {
-  display: flex;
-  flex-direction: column;
-  line-height: 1.2;
-}
-
-.user-name {
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--text-primary);
-}
-
-.user-role {
-  font-size: 11px;
-  color: var(--text-muted);
-}
-
-/* ── Sidebar Toggle Buttons & Collapsed State ────────── */
-.sidebar-toggle-btn {
-  width: 36px;
-  height: 36px;
-  border-radius: var(--radius-sm);
-  border: 1px solid var(--border-card);
-  background-color: var(--bg-surface);
-  color: var(--text-secondary);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all var(--transition-fast);
-  flex-shrink: 0;
-}
-
-.sidebar-toggle-btn:hover {
-  background-color: var(--bg-subtle);
-  color: var(--text-primary);
-  border-color: #D2D2DE;
-}
-
-.sidebar-toggle-icon-btn {
-  width: 32px;
-  height: 32px;
-  border-radius: var(--radius-sm);
-  border: 1px solid var(--border-subtle);
-  background: transparent;
-  color: var(--text-secondary);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all var(--transition-fast);
-}
-
-.sidebar-toggle-icon-btn:hover {
-  background-color: var(--bg-subtle);
-  color: var(--text-primary);
-  border-color: var(--border-card);
-}
-
-.sidebar-collapse-row-btn {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  width: 100%;
-  padding: 9px 12px;
-  border-radius: var(--radius-md);
-  border: 1px solid transparent;
-  background: transparent;
-  color: var(--text-muted);
-  font-size: 12px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all var(--transition-fast);
-  margin-top: 6px;
-}
-
-.sidebar-collapse-row-btn:hover {
-  background-color: var(--bg-subtle);
-  color: var(--text-primary);
-}
-
-/* ── Collapsed Sidebar Rules ─────────────────────────── */
-.app-sidebar.collapsed {
-  width: 76px;
-}
-
-.app-sidebar.collapsed .sidebar-brand-wrapper {
-  padding: 18px 8px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.app-sidebar.collapsed .brand-text,
-.app-sidebar.collapsed .brand-tagline {
-  display: none;
-}
-
-.app-sidebar.collapsed .sidebar-nav-section {
-  padding: 14px 8px;
-  align-items: center;
-}
-
-.app-sidebar.collapsed .sidebar-nav-label {
-  display: none;
-}
-
-.app-sidebar.collapsed .sidebar-nav-item {
-  width: 46px;
-  height: 46px;
-  padding: 0;
-  justify-content: center;
-  border-radius: 12px;
-  position: relative;
-}
-
-.app-sidebar.collapsed .sidebar-nav-item-content {
-  gap: 0;
-  justify-content: center;
-}
-
-.app-sidebar.collapsed .sidebar-nav-item-content span {
-  display: none;
-}
-
-.app-sidebar.collapsed .sidebar-nav-badge {
-  position: absolute;
-  top: 4px;
-  right: 4px;
-  min-width: 16px;
-  height: 16px;
-  padding: 0 4px;
-  font-size: 9.5px;
-  border-radius: 9999px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
-}
-
-.app-sidebar.collapsed .sidebar-nav-item.special-cta {
-  width: 46px;
-  height: 46px;
-  padding: 0;
-  margin: 6px auto;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.app-sidebar.collapsed .sidebar-footer {
-  padding: 12px 8px;
-  align-items: center;
-}
-
-.app-sidebar.collapsed .sidebar-user-pill {
-  padding: 4px;
-  justify-content: center;
-  width: 44px;
-  height: 44px;
-  border-radius: 12px;
-}
-
-.app-sidebar.collapsed .sidebar-user-pill .user-details,
-.app-sidebar.collapsed .sidebar-user-pill button {
-  display: none;
+.dark .app-layout-root {
+  background-color: #000000;
 }
 
 /* ── Main Layout Wrapper (Topbar + Content) ──────────── */
@@ -406,6 +39,11 @@
   z-index: 30;
 }
 
+.dark .app-topbar {
+  background-color: #000000;
+  border-color: #1F1F23;
+}
+
 .topbar-left {
   display: flex;
   align-items: center;
@@ -423,6 +61,10 @@
 .topbar-breadcrumbs .current {
   color: var(--text-primary);
   font-weight: 800;
+}
+
+.dark .topbar-breadcrumbs .current {
+  color: #FFFFFF;
 }
 
 .topbar-actions {
@@ -448,9 +90,20 @@
   min-width: 240px;
 }
 
+.dark .topbar-search-trigger {
+  background-color: #121216;
+  border-color: #27272A;
+  color: #9CA3AF;
+}
+
 .topbar-search-trigger:hover {
   background-color: var(--bg-surface);
   border-color: #D2D2DE;
+}
+
+.dark .topbar-search-trigger:hover {
+  background-color: #18181B;
+  border-color: #3F3F46;
 }
 
 .topbar-search-trigger kbd {
@@ -462,6 +115,12 @@
   padding: 1px 5px;
   border-radius: 4px;
   margin-left: auto;
+}
+
+.dark .topbar-search-trigger kbd {
+  background-color: #27272A;
+  border-color: #3F3F46;
+  color: #D4D4D8;
 }
 
 /* Topbar Icon Buttons */
@@ -481,10 +140,22 @@
   position: relative;
 }
 
+.dark .topbar-icon-btn {
+  background-color: #121216;
+  border-color: #27272A;
+  color: #D4D4D8;
+}
+
 .topbar-icon-btn:hover {
   background-color: var(--bg-subtle);
   color: var(--text-primary);
   border-color: #D2D2DE;
+}
+
+.dark .topbar-icon-btn:hover {
+  background-color: #1E1E24;
+  color: #FFFFFF;
+  border-color: #3F3F46;
 }
 
 .badge-dot {
@@ -501,58 +172,27 @@
 /* ── Main Content Area ───────────────────────────────── */
 .app-main-content {
   flex: 1;
-  padding: 32px 36px 48px;
+  padding: 12px 36px 16px;
   background-color: var(--bg-canvas);
   overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.dark .app-main-content {
+  background-color: #000000;
 }
 
 .app-content-container {
   max-width: var(--max-content-width);
   margin: 0 auto;
   width: 100%;
-}
-
-/* ── Mobile Sidebar Drawer & Responsiveness ─────────── */
-.sidebar-backdrop {
-  display: none;
-}
-
-.mobile-menu-btn {
-  display: none;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 @media (max-width: 860px) {
-  .mobile-menu-btn {
-    display: flex;
-  }
-
-  .sidebar-toggle-btn {
-    display: none;
-  }
-
-  .sidebar-backdrop {
-    display: block;
-    position: fixed;
-    inset: 0;
-    background-color: rgba(17, 17, 17, 0.4);
-    backdrop-filter: blur(4px);
-    z-index: 50;
-  }
-
-  .app-sidebar {
-    position: fixed;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    transform: translateX(-100%);
-    box-shadow: var(--shadow-modal);
-    z-index: 60;
-  }
-
-  .app-sidebar.open {
-    transform: translateX(0);
-  }
-
   .app-topbar {
     padding: 0 16px;
   }
@@ -570,4 +210,737 @@
   .app-main-content {
     padding: 20px 16px 36px;
   }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   DELIVERY BOARD & TIMELINE SCRUBBER (Matching Image 2)
+   ═══════════════════════════════════════════════════════════ */
+
+.delivery-board-root {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+/* ── Top Header ──────────────────────────────────────────── */
+.delivery-board-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.delivery-board-title {
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  color: #111827;
+  margin: 0;
+}
+
+.dark .delivery-board-title {
+  color: #F9FAFB;
+}
+
+.delivery-board-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.delivery-board-btn-release {
+  padding: 6px 16px;
+  border-radius: 20px;
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  font-size: 13px;
+  font-weight: 600;
+  color: #475569;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.delivery-board-btn-release:hover {
+  background: #F8FAFC;
+  border-color: #CBD5E1;
+  color: #0F172A;
+}
+
+.dark .delivery-board-btn-release {
+  background: #18181B;
+  border-color: #27272A;
+  color: #E4E4E7;
+}
+
+.dark .delivery-board-btn-release:hover {
+  background: #27272A;
+  color: #FFFFFF;
+}
+
+.delivery-board-icon-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid #E2E8F0;
+  background: #FFFFFF;
+  color: #64748B;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.delivery-board-icon-btn:hover {
+  background: #F8FAFC;
+  color: #0F172A;
+}
+
+.dark .delivery-board-icon-btn {
+  background: #18181B;
+  border-color: #27272A;
+  color: #A1A1AA;
+}
+
+/* ── Milestone Scrubber Card ─────────────────────────────── */
+.milestone-scrubber-card {
+  background: #FFFFFF;
+  border-radius: 16px;
+  padding: 24px 20px 18px;
+  border: 1px solid #EEF2F6;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: relative;
+}
+
+.dark .milestone-scrubber-card {
+  background: #121216;
+  border-color: #27272A;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+}
+
+.scrubber-track-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+}
+
+.scrubber-arrow-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid #E2E8F0;
+  background: #FFFFFF;
+  color: #2563EB;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all 0.15s ease;
+}
+
+.scrubber-arrow-btn:hover {
+  background: #EFF6FF;
+  border-color: #BFDBFE;
+}
+
+.dark .scrubber-arrow-btn {
+  background: #1E1E24;
+  border-color: #2E2E38;
+  color: #60A5FA;
+}
+
+.scrubber-axis-wrapper {
+  flex: 1;
+  position: relative;
+  min-height: 90px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.scrubber-line {
+  position: absolute;
+  top: 36px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: #E2E8F0;
+  z-index: 1;
+}
+
+.dark .scrubber-line {
+  background: #27272A;
+}
+
+.scrubber-pin-anchor {
+  position: absolute;
+  top: 26px;
+  transform: translateX(-50%);
+  z-index: 5;
+  cursor: pointer;
+}
+
+.scrubber-pin-circle {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  color: #FFFFFF;
+  font-size: 10px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+  transition: transform 0.15s ease;
+}
+
+.scrubber-pin-circle:hover,
+.scrubber-pin-circle.active-pin {
+  transform: scale(1.2);
+}
+
+.scrubber-today-pill {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transform: translateY(-24px);
+}
+
+.scrubber-today-pill span {
+  font-size: 11px;
+  font-weight: 700;
+  background: #FFFFFF;
+  color: #1E293B;
+  padding: 2px 8px;
+  border-radius: 12px;
+  border: 1px solid #CBD5E1;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  white-space: nowrap;
+}
+
+.dark .scrubber-today-pill span {
+  background: #1E1E24;
+  color: #F1F5F9;
+  border-color: #3B82F6;
+}
+
+.scrubber-today-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #3B82F6;
+  margin-top: 4px;
+}
+
+/* Floating Milestone Tooltip Card from Reference */
+.scrubber-floating-tooltip {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 170px;
+  background: #FEF3C7;
+  border: 1px solid #FDE68A;
+  border-radius: 12px;
+  padding: 10px 12px;
+  box-shadow: 0 8px 24px rgba(245, 158, 11, 0.15);
+  z-index: 20;
+  pointer-events: auto;
+}
+
+.dark .scrubber-floating-tooltip {
+  background: #2D2312;
+  border-color: #78350F;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+.tooltip-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: #92400E;
+  margin-bottom: 2px;
+}
+
+.dark .tooltip-title {
+  color: #FDE68A;
+}
+
+.tooltip-progress-text {
+  font-size: 10px;
+  color: #B45309;
+  margin-bottom: 4px;
+}
+
+.dark .tooltip-progress-text {
+  color: #FCD34D;
+}
+
+.tooltip-progress-track {
+  width: 100%;
+  height: 4px;
+  border-radius: 4px;
+  background: rgba(180, 83, 9, 0.18);
+  overflow: hidden;
+  margin-bottom: 6px;
+}
+
+.tooltip-progress-fill {
+  height: 100%;
+  background: #F59E0B;
+  border-radius: 4px;
+}
+
+.tooltip-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.tooltip-footer-left {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.tooltip-count {
+  font-size: 11px;
+  font-weight: 700;
+  color: #92400E;
+}
+
+.dark .tooltip-count {
+  color: #FDE68A;
+}
+
+/* Date Grid under Scrubber */
+.scrubber-dates-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  width: 100%;
+  z-index: 2;
+  padding-top: 10px;
+}
+
+.scrubber-date-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.scrubber-date-label {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #64748B;
+}
+
+.dark .scrubber-date-label {
+  color: #94A3B8;
+}
+
+.scrubber-days-row {
+  display: flex;
+  gap: 6px;
+}
+
+.scrubber-day-letter {
+  font-size: 9.5px;
+  color: #94A3B8;
+  font-weight: 600;
+}
+
+.scrubber-day-letter.active-day {
+  color: #2563EB;
+  font-weight: 800;
+}
+
+/* Scrubber Bottom Controls */
+.scrubber-controls-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding-top: 4px;
+}
+
+.scrubber-search-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 20px;
+  padding: 6px 14px;
+  width: 220px;
+}
+
+.dark .scrubber-search-box {
+  background: #18181B;
+  border-color: #27272A;
+}
+
+.scrubber-search-input {
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 12.5px;
+  color: #0F172A;
+  width: 100%;
+}
+
+.dark .scrubber-search-input {
+  color: #F8FAFC;
+}
+
+.scrubber-quick-filters-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: none;
+  color: #475569;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+
+.dark .scrubber-quick-filters-btn {
+  color: #CBD5E1;
+}
+
+.scrubber-filter-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 4px;
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 10px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  padding: 6px;
+  z-index: 30;
+  min-width: 180px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.dark .scrubber-filter-dropdown {
+  background: #18181B;
+  border-color: #27272A;
+}
+
+.filter-dropdown-item {
+  padding: 7px 12px;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: #334155;
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.filter-dropdown-item:hover,
+.filter-dropdown-item.active {
+  background: #F1F5F9;
+  color: #0F172A;
+  font-weight: 700;
+}
+
+.dark .filter-dropdown-item {
+  color: #CBD5E1;
+}
+
+.dark .filter-dropdown-item:hover,
+.dark .filter-dropdown-item.active {
+  background: #27272A;
+  color: #FFFFFF;
+}
+
+/* ── 4-Column Delivery Kanban Board ───────────────────────── */
+.delivery-kanban-board {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  width: 100%;
+  align-items: flex-start;
+}
+
+@media (max-width: 1200px) {
+  .delivery-kanban-board {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 680px) {
+  .delivery-kanban-board {
+    grid-template-columns: 1fr;
+  }
+}
+
+.kanban-column {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+}
+
+.kanban-column-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2px 4px;
+}
+
+.kanban-column-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.kanban-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+
+.dot-blue { background: #3B82F6; }
+.dot-amber { background: #F59E0B; }
+.dot-pink { background: #EC4899; }
+.dot-green { background: #22C55E; }
+
+.kanban-column-title {
+  font-size: 14px;
+  font-weight: 800;
+  color: #0F172A;
+}
+
+.dark .kanban-column-title {
+  color: #F8FAFC;
+}
+
+.kanban-column-count {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #64748B;
+}
+
+.dark .kanban-column-count {
+  color: #94A3B8;
+}
+
+.kanban-more-btn {
+  background: transparent;
+  border: none;
+  color: #94A3B8;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+}
+
+.kanban-add-task-btn {
+  width: 100%;
+  padding: 10px;
+  border-radius: 12px;
+  background: #EEF2FF;
+  border: 1.5px dashed #C7D2FE;
+  color: #4F46E5;
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  text-align: center;
+}
+
+.kanban-add-task-btn:hover {
+  background: #E0E7FF;
+  border-color: #A5B4FC;
+}
+
+.dark .kanban-add-task-btn {
+  background: rgba(79, 70, 229, 0.12);
+  border-color: rgba(99, 102, 241, 0.3);
+  color: #A5B4FC;
+}
+
+.dark .kanban-add-task-btn:hover {
+  background: rgba(79, 70, 229, 0.2);
+}
+
+.kanban-cards-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* ── Individual Kanban Card ───────────────────────────────── */
+.kanban-card {
+  background: #FFFFFF;
+  border-radius: 14px;
+  padding: 16px 14px 14px;
+  border: 1px solid #EEF2F6;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.kanban-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.06);
+  border-color: #CBD5E1;
+}
+
+.dark .kanban-card {
+  background: #121216;
+  border-color: #27272A;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.dark .kanban-card:hover {
+  border-color: #3F3F46;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+}
+
+.kanban-card-tags {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.kanban-tag-pill {
+  font-size: 9.5px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  padding: 2px 8px;
+  border-radius: 6px;
+  text-transform: uppercase;
+}
+
+.kanban-tag-plus-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 2px;
+}
+
+.kanban-card-title {
+  font-size: 13.5px;
+  font-weight: 700;
+  line-height: 1.35;
+  color: #1E293B;
+}
+
+.dark .kanban-card-title {
+  color: #F1F5F9;
+}
+
+.kanban-card-status-text {
+  font-size: 11px;
+  color: #64748B;
+  font-weight: 500;
+}
+
+.dark .kanban-card-status-text {
+  color: #94A3B8;
+}
+
+.kanban-progress-track {
+  width: 100%;
+  height: 3.5px;
+  border-radius: 4px;
+  background: #F1F5F9;
+  overflow: hidden;
+}
+
+.dark .kanban-progress-track {
+  background: #27272A;
+}
+
+.kanban-progress-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+.kanban-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 4px;
+}
+
+.kanban-footer-left {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.kanban-check-icon,
+.kanban-bookmark-icon,
+.kanban-arrow-icon {
+  display: flex;
+  align-items: center;
+}
+
+/* Avatar Stack */
+.kanban-avatar-stack {
+  display: flex;
+  align-items: center;
+}
+
+.kanban-stacked-avatar {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1.5px solid #FFFFFF;
+  margin-left: -6px;
+  background: #E2E8F0;
+}
+
+.dark .kanban-stacked-avatar {
+  border-color: #121216;
+}
+
+.kanban-stacked-avatar:first-child {
+  margin-left: 0;
+}
+
+.kanban-stacked-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.kanban-stacked-more {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #2563EB;
+  color: #FFFFFF;
+  font-size: 9.5px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid #FFFFFF;
+  margin-left: -6px;
+}
+
+.dark .kanban-stacked-more {
+  border-color: #121216;
 }

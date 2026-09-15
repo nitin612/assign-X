@@ -1,19 +1,21 @@
-/* Modern Client Marketplace Dashboard — AssignX */
-import React from 'react';
+/* Modern Client Marketplace Dashboard — AssignX with Framer Motion */
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useApp } from '../context/AppContext';
 import { useNavigation } from '../context/NavigationContext';
 import { MetricCard } from '../components/common/MetricCard';
 import { ActionRequiredCard } from '../components/project/ActionRequiredCard';
 import { ProjectCard } from '../components/project/ProjectCard';
-import { EmptyState } from '../components/common/EmptyState';
 import {
   Briefcase,
   AlertCircle,
   CheckCircle2,
   CreditCard,
-  Clock,
-  MessageSquare,
-  FileCheck,
+  ChevronLeft,
+  ChevronRight,
+  Search,
+  ChevronDown,
+  ChevronsUp,
   ArrowRight
 } from 'lucide-react';
 
@@ -27,117 +29,411 @@ export const DashboardPage: React.FC = () => {
   );
   const actionRequiredProjects = projects.filter(p => p.nextAction !== undefined);
   const completedProjects = projects.filter(p => p.status === 'Completed');
-  const totalSpent = projects.reduce((sum, p) => sum + p.paidAmount, 0);
+  const totalSpent = projects.reduce((sum, p) => sum + p.paidAmount, 0) || 281000;
 
-  const [showAllActions, setShowAllActions] = React.useState(false);
+  const [showAllActions, setShowAllActions] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedProjectIndex, setSelectedProjectIndex] = useState(0);
+  const [selectedMilestoneIndex, setSelectedMilestoneIndex] = useState(1);
+  const [showFilterMenu, setShowFilterMenu] = useState(false);
+  const [activeFilter, setActiveFilter] = useState<'all' | 'action' | 'active'>('all');
+
+  // Currently active project for the timeline scrubber
+  const currentProject = projects[selectedProjectIndex] || projects[0];
+  const projectMilestones = currentProject?.milestones || [];
+
+  const handlePrevProject = () => {
+    setSelectedProjectIndex(prev => (prev === 0 ? projects.length - 1 : prev - 1));
+    setSelectedMilestoneIndex(0);
+  };
+
+  const handleNextProject = () => {
+    setSelectedProjectIndex(prev => (prev === projects.length - 1 ? 0 : prev + 1));
+    setSelectedMilestoneIndex(0);
+  };
+
+  // Filter projects for the Active Work list
+  const filteredProjects = projects.filter(p => {
+    const matchesSearch = !searchQuery || p.title.toLowerCase().includes(searchQuery.toLowerCase()) || p.category.toLowerCase().includes(searchQuery.toLowerCase());
+    if (!matchesSearch) return false;
+
+    if (activeFilter === 'action') return p.nextAction !== undefined;
+    if (activeFilter === 'active') return p.status === 'In Progress' || p.status === 'Awaiting Action' || p.status === 'Under Review';
+    return true;
+  });
+
   const displayedActions = showAllActions ? actionRequiredProjects : actionRequiredProjects.slice(0, 2);
 
-  // Recent activity
-  const recentActivities = projects
-    .flatMap(p => p.activities.map(a => ({ ...a, projectId: p.id, projectTitle: p.title })))
-    .slice(0, 5);
+  // Selected milestone for active tooltip card
+  const activeMilestone = projectMilestones[selectedMilestoneIndex] || projectMilestones[0];
 
-  const getActivityIcon = (type: string) => {
-    switch (type) {
-      case 'deliverable': return <FileCheck size={14} color="var(--color-blue)" />;
-      case 'comment': return <MessageSquare size={14} color="#666666" />;
-      case 'payment': return <CreditCard size={14} color="#10B981" />;
-      case 'supervisor': return <Briefcase size={14} color="var(--color-coral)" />;
-      default: return <Clock size={14} color="#888888" />;
+  const getMilestonePinColor = (status: string) => {
+    switch (status) {
+      case 'Paid':
+      case 'Approved':
+        return '#22C55E'; // Green
+      case 'Submitted':
+      case 'Pending Client Action':
+        return '#F59E0B'; // Amber
+      default:
+        return '#3B82F6'; // Blue / Upcoming
     }
   };
 
-  return (
-    <div>
-      {/* ── Top Header Section ──────────────────────────────── */}
-      <div style={{ marginBottom: 'var(--space-8)' }}>
-        <div style={{ fontSize: '15px', fontWeight: 600, color: 'var(--text-secondary)', marginBottom: '6px' }}>
-          Good morning, Alex.
-        </div>
+  const handleTooltipClick = () => {
+    if (activeMilestone?.status === 'Submitted' || activeMilestone?.approvalStatus === 'Pending Client Action') {
+      openModal('approve_milestone', {
+        projectId: currentProject.id,
+        milestoneId: activeMilestone.id,
+        milestoneName: activeMilestone.name,
+        amount: activeMilestone.amount
+      });
+    } else {
+      navigate(`/work/${currentProject.id}`);
+    }
+  };
 
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            flexWrap: 'wrap',
-            gap: '16px'
-          }}
-        >
-          <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: '14px' }}>
-            <h1 style={{ fontSize: '36px', fontWeight: 800, color: 'var(--text-primary)', letterSpacing: '-0.035em', margin: 0 }}>
+  // Position calculation for milestones
+  const total = projectMilestones.length || 1;
+  const currentPosPercent = total === 1 ? 50 : Math.round(14 + (selectedMilestoneIndex * 72) / (total - 1));
+  const pinColor = activeMilestone ? getMilestonePinColor(activeMilestone.status) : '#3B82F6';
+
+  return (
+    <div className="flex flex-col gap-8 w-full max-w-7xl mx-auto pb-12">
+      {/* ── 1. Top Header & Greeting ──────────────────────────── */}
+      <motion.div
+        initial={{ opacity: 0, y: -8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3 }}
+        className="flex items-center justify-between flex-wrap gap-4"
+      >
+        <div>
+          <div className="text-sm font-normal text-slate-500 dark:text-zinc-400 mb-1">
+            Good morning, Alex.
+          </div>
+          <div className="flex items-center gap-3.5 flex-wrap">
+            <h1 className="text-3xl lg:text-4xl font-semibold tracking-tight text-slate-950 dark:text-white leading-none">
               Here’s your work at a glance.
             </h1>
-            <span className="tilted-label blue">
+            <span className="px-3 py-1 rounded-full text-xs font-medium bg-[#E0E7FF] text-[#4338CA] dark:bg-indigo-950 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800">
               Let’s Build
             </span>
           </div>
+        </div>
+
+        <button
+          className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#0052CC] hover:bg-[#0047B3] text-white font-semibold text-sm shadow-xs hover:shadow-sm hover:-translate-y-0.5 transition-all cursor-pointer"
+          onClick={() => navigate('/create')}
+        >
+          <span>Create New Work</span>
+          <ArrowRight size={16} />
+        </button>
+      </motion.div>
+
+      {/* ── 2. Interactive Milestone Delivery Scrubber with Framer Motion ── */}
+      <div className="milestone-scrubber-card overflow-hidden">
+        {/* Scrubber Header */}
+        <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentProject.id}
+              initial={{ opacity: 0, x: -10 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: 10 }}
+              transition={{ duration: 0.2 }}
+              className="flex items-center gap-2.5"
+            >
+              <span className="text-[15px] font-semibold text-slate-950 dark:text-white">
+                {currentProject.title}
+              </span>
+              <span className="text-xs px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 dark:bg-blue-950/60 dark:text-blue-300 font-medium border border-blue-100 dark:border-blue-900/40">
+                {currentProject.currentPhase} · {currentProject.progress}% Done
+              </span>
+            </motion.div>
+          </AnimatePresence>
+
+          <div className="text-xs text-slate-500 dark:text-zinc-400 font-normal flex items-center gap-1.5">
+            <span>Supervisor:</span>
+            <strong className="text-slate-800 dark:text-zinc-200 font-medium">{currentProject.supervisor.name}</strong>
+          </div>
+        </div>
+
+        {/* Timeline Axis Track */}
+        <div className="scrubber-track-container relative py-2">
+          <button
+            className="scrubber-arrow-btn cursor-pointer hover:scale-110 active:scale-95 transition-transform"
+            onClick={handlePrevProject}
+            title="Previous project timeline"
+          >
+            <ChevronLeft size={16} />
+          </button>
+
+          <div className="scrubber-axis-wrapper relative min-h-[145px] flex flex-col justify-end pt-12 pb-2">
+            {/* Horizontal Timeline Track */}
+            <div className="scrubber-line" />
+
+            {/* Framer Motion Gliding Floating Tooltip Card */}
+            {activeMilestone && (
+              <motion.div
+                layout
+                animate={{
+                  left: `${currentPosPercent}%`,
+                  x: '-50%'
+                }}
+                transition={{
+                  type: 'spring',
+                  stiffness: 350,
+                  damping: 28
+                }}
+                className="absolute top-1 z-20"
+                style={{ pointerEvents: 'auto' }}
+              >
+                <motion.div
+                  initial={{ scale: 0.9, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  whileHover={{ scale: 1.03 }}
+                  className="w-[185px] bg-[#FEF3C7] dark:bg-[#2D2312] border border-[#FDE68A] dark:border-[#78350F] rounded-xl p-2.5 shadow-md cursor-pointer"
+                  onClick={handleTooltipClick}
+                >
+                  <div className="text-xs font-semibold text-[#92400E] dark:text-[#FDE68A] truncate mb-0.5">
+                    {activeMilestone.name}
+                  </div>
+                  <div className="text-[11px] text-[#B45309] dark:text-[#FCD34D] mb-1.5 leading-tight font-normal">
+                    {activeMilestone.status === 'Paid' || activeMilestone.status === 'Approved'
+                      ? '100% completed · Signed off'
+                      : activeMilestone.status === 'Submitted'
+                        ? 'Under Review · Action Required'
+                        : `Due: ${activeMilestone.dueDate}`}
+                  </div>
+                  <div className="w-full h-1 rounded-full bg-amber-900/15 overflow-hidden mb-1.5">
+                    <motion.div
+                      initial={{ width: 0 }}
+                      animate={{
+                        width:
+                          activeMilestone.status === 'Paid' || activeMilestone.status === 'Approved'
+                            ? '100%'
+                            : activeMilestone.status === 'Submitted'
+                              ? '85%'
+                              : '25%'
+                      }}
+                      transition={{ duration: 0.4, ease: 'easeOut' }}
+                      className="h-full rounded-full"
+                      style={{ backgroundColor: pinColor }}
+                    />
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-1.5">
+                      <CheckCircle2 size={12} className="text-blue-500 fill-blue-500 text-white" />
+                      <ChevronsUp size={12} className="text-red-500" strokeWidth={3} />
+                      <span className="text-[11px] font-semibold text-[#92400E] dark:text-[#FDE68A]">
+                        ₹{activeMilestone.amount.toLocaleString('en-IN')}
+                      </span>
+                    </div>
+                    <ChevronRight size={13} className="text-amber-600" />
+                  </div>
+                </motion.div>
+              </motion.div>
+            )}
+
+            {/* Pinned Milestone Nodes based on project data */}
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={currentProject.id}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.25 }}
+                className="w-full h-full"
+              >
+                {projectMilestones.map((ms, idx) => {
+                  const posPercent = total === 1 ? 50 : Math.round(14 + (idx * 72) / (total - 1));
+                  const isSelected = selectedMilestoneIndex === idx;
+                  const msPinColor = getMilestonePinColor(ms.status);
+
+                  return (
+                    <div
+                      key={ms.id}
+                      className="scrubber-pin-anchor"
+                      style={{ left: `${posPercent}%` }}
+                      onClick={() => setSelectedMilestoneIndex(idx)}
+                    >
+                      <motion.div
+                        whileHover={{ scale: 1.25 }}
+                        whileTap={{ scale: 0.9 }}
+                        animate={{
+                          scale: isSelected ? 1.15 : 1,
+                          boxShadow: isSelected ? '0 0 0 4px rgba(12, 91, 244, 0.25)' : '0 2px 4px rgba(0,0,0,0.15)'
+                        }}
+                        className="scrubber-pin-circle"
+                        style={{ backgroundColor: msPinColor }}
+                        title={`${ms.name} (${ms.status})`}
+                      >
+                        {idx + 1}
+                      </motion.div>
+                    </div>
+                  );
+                })}
+              </motion.div>
+            </AnimatePresence>
+
+            {/* Date Labels along the axis */}
+            <div
+              className="scrubber-dates-grid"
+              style={{ gridTemplateColumns: `repeat(${projectMilestones.length || 4}, 1fr)` }}
+            >
+              {projectMilestones.map((ms, idx) => (
+                <div
+                  key={ms.id + idx}
+                  className="scrubber-date-col cursor-pointer hover:opacity-80 transition-opacity"
+                  onClick={() => setSelectedMilestoneIndex(idx)}
+                >
+                  <div className={`scrubber-date-label ${selectedMilestoneIndex === idx ? 'text-blue-600 dark:text-blue-400 font-bold' : ''}`}>
+                    {ms.dueDate || `Milestone ${idx + 1}`}
+                  </div>
+                  <div className="scrubber-days-row">
+                    {['M', 'T', 'W', 'T', 'F', 'S', 'S'].map((day, dIdx) => (
+                      <span
+                        key={dIdx}
+                        className={`scrubber-day-letter ${day === 'F' && idx === 1 ? 'active-day' : ''}`}
+                      >
+                        {day}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
 
           <button
-            className="btn btn-primary btn-lg"
-            onClick={() => navigate('/create')}
+            className="scrubber-arrow-btn cursor-pointer hover:scale-110 active:scale-95 transition-transform"
+            onClick={handleNextProject}
+            title="Next project timeline"
           >
-            <span>Create New Work</span>
-            <span>→</span>
+            <ChevronRight size={16} />
           </button>
+        </div>
+
+        {/* Scrubber Search & Quick Filter Controls */}
+        <div className="scrubber-controls-row pt-2">
+          <div className="scrubber-search-box">
+            <Search size={14} className="text-slate-400" />
+            <input
+              type="text"
+              placeholder="Search projects, milestones..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="scrubber-search-input"
+            />
+          </div>
+
+          <div className="relative">
+            <button
+              className="scrubber-quick-filters-btn cursor-pointer"
+              onClick={() => setShowFilterMenu(!showFilterMenu)}
+            >
+              <span>
+                {activeFilter === 'all' ? 'All Projects' : activeFilter === 'action' ? 'Action Required' : 'In Progress'}
+              </span>
+              <ChevronDown size={14} />
+            </button>
+            {showFilterMenu && (
+              <motion.div
+                initial={{ opacity: 0, y: -4 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="scrubber-filter-dropdown"
+              >
+                <button
+                  className={`filter-dropdown-item ${activeFilter === 'all' ? 'active' : ''}`}
+                  onClick={() => { setActiveFilter('all'); setShowFilterMenu(false); }}
+                >
+                  All Projects ({projects.length})
+                </button>
+                <button
+                  className={`filter-dropdown-item ${activeFilter === 'action' ? 'active' : ''}`}
+                  onClick={() => { setActiveFilter('action'); setShowFilterMenu(false); }}
+                >
+                  Action Required ({actionRequiredProjects.length})
+                </button>
+                <button
+                  className={`filter-dropdown-item ${activeFilter === 'active' ? 'active' : ''}`}
+                  onClick={() => { setActiveFilter('active'); setShowFilterMenu(false); }}
+                >
+                  In Progress ({activeProjects.length})
+                </button>
+              </motion.div>
+            )}
+          </div>
+
+          {/* Project Switcher Quick Pills */}
+          <div className="hidden md:flex items-center gap-1.5 ml-auto">
+            {projects.slice(0, 3).map((p, pIdx) => (
+              <button
+                key={p.id}
+                className={`text-[11px] font-semibold px-2.5 py-1 rounded-full transition-all cursor-pointer ${selectedProjectIndex === pIdx
+                    ? 'bg-blue-600 text-white shadow-xs'
+                    : 'bg-slate-100 dark:bg-zinc-800 text-slate-600 dark:text-zinc-400 hover:bg-slate-200 dark:hover:bg-zinc-700'
+                  }`}
+                onClick={() => {
+                  setSelectedProjectIndex(pIdx);
+                  setSelectedMilestoneIndex(0);
+                }}
+              >
+                {p.title.split(' ')[0]} {p.title.split(' ')[1] || ''}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
 
-      {/* ── Summary Section (Minimal White Cards) ───────────── */}
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-          gap: 'var(--space-4)',
-          marginBottom: 'var(--space-8)'
-        }}
-      >
+      {/* ── 3. Summary Metric Cards ───────────────────────────── */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <MetricCard
           label="Active Work"
           value={activeProjects.length || 4}
           subtext="Under active supervision"
-          icon={<Briefcase size={17} color="var(--color-blue)" />}
-          iconBg="var(--color-blue-light)"
+          icon={<Briefcase size={17} color="#0052CC" />}
+          iconBg="rgba(0, 82, 204, 0.08)"
         />
         <MetricCard
           label="Awaiting Action"
-          value={actionRequiredProjects.length || 3}
+          value={actionRequiredProjects.length || 4}
           subtext={actionRequiredProjects.length > 0 ? "Requires your review" : "All approvals clear"}
-          icon={<AlertCircle size={17} color="var(--color-coral)" />}
-          iconBg="var(--color-coral-light)"
+          icon={<AlertCircle size={17} color="#EA580C" />}
+          iconBg="rgba(234, 88, 12, 0.08)"
         />
         <MetricCard
           label="Completed"
-          value={completedProjects.length || 12}
+          value={completedProjects.length || 1}
           subtext="Delivered & signed off"
-          icon={<CheckCircle2 size={17} color="#0D7A3E" />}
-          iconBg="#E8FDF0"
+          icon={<CheckCircle2 size={17} color="#16A34A" />}
+          iconBg="rgba(22, 163, 74, 0.08)"
         />
         <MetricCard
           label="Total Spent"
-          value={`₹${totalSpent ? totalSpent.toLocaleString('en-IN') : '48,000'}`}
+          value={`₹${totalSpent.toLocaleString('en-IN')}`}
           subtext="Protected in milestone escrow"
-          icon={<CreditCard size={17} color="#4B5563" />}
-          iconBg="var(--bg-subtle)"
+          icon={<CreditCard size={17} color="#64748B" />}
+          iconBg="rgba(100, 116, 139, 0.08)"
         />
       </div>
 
-      {/* ── Action Required Section ─────────────────────────── */}
+      {/* ── 4. Action Required Section ────────────────────────── */}
       {actionRequiredProjects.length > 0 && (
-        <section style={{ marginBottom: 'var(--space-8)' }}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 'var(--space-3)' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-              <h2 style={{ fontSize: '20px', fontWeight: 800, color: 'var(--text-primary)' }}>
+        <section className="flex flex-col gap-3.5">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2.5">
+              <h2 className="text-xl font-semibold text-slate-950 dark:text-white tracking-tight">
                 Action Required
               </h2>
-              <span className="tilted-label coral" style={{ fontSize: '11px', padding: '2px 8px', transform: 'rotate(2deg)' }}>
+              <span className="px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-50 text-amber-700 dark:bg-amber-950/60 dark:text-amber-300 border border-amber-200 dark:border-amber-900">
                 {actionRequiredProjects.length} Pending
               </span>
             </div>
 
             {actionRequiredProjects.length > 2 && (
               <button
-                className="btn btn-secondary btn-sm"
+                className="text-xs font-semibold text-slate-700 dark:text-zinc-300 hover:text-blue-600 dark:hover:text-blue-400 flex items-center gap-1 cursor-pointer transition-colors"
                 onClick={() => setShowAllActions(!showAllActions)}
               >
                 <span>{showAllActions ? 'Show Less' : `View All (${actionRequiredProjects.length})`}</span>
@@ -146,25 +442,26 @@ export const DashboardPage: React.FC = () => {
             )}
           </div>
 
-          <div>
+          <div className="flex flex-col gap-3">
             {displayedActions.map(project => {
-              const act = project.nextAction!;
+              if (!project.nextAction) return null;
+
               return (
                 <ActionRequiredCard
                   key={project.id}
                   projectId={project.id}
                   projectTitle={project.title}
-                  actionTitle={act.title}
-                  actionDescription={act.description}
-                  actionType={act.type}
-                  deadline={act.deadline}
+                  actionTitle={project.nextAction.title}
+                  actionDescription={project.nextAction.description}
+                  actionType={project.nextAction.type}
+                  deadline={project.nextAction.deadline}
                   onActionClick={() => {
-                    if (act.type === 'approve' && act.milestoneId) {
+                    if (project.nextAction?.type === 'review' || project.nextAction?.type === 'approve') {
                       openModal('approve_milestone', {
                         projectId: project.id,
-                        milestoneId: act.milestoneId,
-                        milestoneName: project.currentMilestone,
-                        amount: project.milestones.find(m => m.id === act.milestoneId)?.amount
+                        milestoneId: project.nextAction.milestoneId || 'm-3',
+                        milestoneName: project.nextAction.title,
+                        amount: 20000
                       });
                     } else {
                       navigate(`/work/${project.id}`);
@@ -177,168 +474,31 @@ export const DashboardPage: React.FC = () => {
         </section>
       )}
 
-      {/* ── Active Work Section ─────────────────────────────── */}
-      <section style={{ marginBottom: 'var(--space-8)' }}>
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            marginBottom: 'var(--space-4)'
-          }}
-        >
+      {/* ── 5. Active Work Projects ───────────────────────────── */}
+      <section className="flex flex-col gap-4">
+        <div className="flex items-center justify-between">
           <div>
-            <h2 style={{ fontSize: '20px', fontWeight: 800, color: 'var(--text-primary)' }}>
+            <h2 className="text-xl font-semibold text-slate-950 dark:text-white tracking-tight">
               Active Work
             </h2>
-            <p style={{ fontSize: '13px', color: 'var(--text-secondary)' }}>
+            <p className="text-xs text-slate-500 dark:text-zinc-400 font-normal mt-0.5">
               Milestones managed and tracked by your appointed supervisors.
             </p>
           </div>
 
           <button
-            className="btn btn-secondary btn-sm"
+            className="text-xs font-semibold text-slate-700 dark:text-zinc-300 hover:text-blue-600 dark:hover:text-blue-400 flex items-center gap-1 cursor-pointer transition-colors"
             onClick={() => navigate('/work')}
           >
-            <span>View All ({projects.length})</span>
+            <span>View All ({filteredProjects.length})</span>
             <span>→</span>
           </button>
         </div>
 
-        {activeProjects.length === 0 ? (
-          <EmptyState
-            icon={Briefcase}
-            title="No active work in progress"
-            description="Tell us what you need and your dedicated supervisor will take it from there."
-            actionText="Create New Work"
-            onAction={() => navigate('/create')}
-          />
-        ) : (
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-              gap: 'var(--space-6)'
-            }}
-          >
-            {activeProjects.slice(0, 3).map(project => (
-              <ProjectCard key={project.id} project={project} />
-            ))}
-          </div>
-        )}
-      </section>
-
-      {/* ── Recent Activity Section (Beneath Active Work) ────── */}
-      <section style={{ marginBottom: 'var(--space-8)' }}>
-        <div
-          style={{
-            backgroundColor: '#FFFFFF',
-            border: '2px solid var(--border-dark)',
-            borderRadius: '22px',
-            boxShadow: '4px 4px 0px var(--border-dark)',
-            padding: '24px'
-          }}
-        >
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px' }}>
-            <div>
-              <h3 style={{ fontSize: '18px', fontWeight: 800, color: 'var(--text-primary)', letterSpacing: '-0.02em', margin: 0 }}>
-                Recent Activity
-              </h3>
-              <p style={{ fontSize: '13px', color: 'var(--text-muted)', margin: '2px 0 0 0' }}>
-                Real-time updates from supervisor sprints.
-              </p>
-            </div>
-
-          </div>
-
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
-              gap: '16px'
-            }}
-          >
-            {recentActivities.map(act => (
-              <div
-                key={act.id}
-                style={{
-                  display: 'flex',
-                  alignItems: 'flex-start',
-                  gap: '12px',
-                  backgroundColor: '#F9F9FC',
-                  border: '1.5px solid #ECECF2',
-                  borderRadius: '14px',
-                  padding: '14px 16px',
-                  transition: 'all 0.15s ease'
-                }}
-              >
-                <div
-                  style={{
-                    width: '36px',
-                    height: '36px',
-                    borderRadius: '9999px',
-                    backgroundColor: '#FFFFFF',
-                    border: '1.5px solid var(--border-dark)',
-                    boxShadow: '1.5px 1.5px 0px var(--border-dark)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    flexShrink: 0
-                  }}
-                >
-                  {getActivityIcon(act.type)}
-                </div>
-
-                <div style={{ flex: 1, minWidth: 0 }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: '8px' }}>
-                    <span style={{ fontSize: '13px', fontWeight: 800, color: 'var(--text-primary)' }}>
-                      {act.title}
-                    </span>
-                    <span
-                      style={{
-                        fontSize: '10.5px',
-                        fontWeight: 600,
-                        color: 'var(--text-muted)',
-                        backgroundColor: '#FFFFFF',
-                        border: '1px solid #E5E5EE',
-                        padding: '1px 6px',
-                        borderRadius: '4px',
-                        flexShrink: 0
-                      }}
-                    >
-                      {act.timestamp}
-                    </span>
-                  </div>
-
-                  <p style={{ fontSize: '12px', color: 'var(--text-secondary)', marginTop: '4px', lineHeight: 1.45 }}>
-                    {act.description}
-                  </p>
-
-                  <div
-                    style={{
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: '4px',
-                      marginTop: '6px',
-                      fontSize: '11.5px',
-                      color: 'var(--text-primary)',
-                      cursor: 'pointer',
-                      fontWeight: 800,
-                      backgroundColor: '#FFFFFF',
-                      border: '1px solid #E2E2EC',
-                      padding: '2px 8px',
-                      borderRadius: '6px',
-                      transition: 'all 0.15s ease'
-                    }}
-                    onClick={() => navigate(`/work/${act.projectId}`)}
-                  >
-                    <span>{act.projectTitle}</span>
-                    <ArrowRight size={11} color="var(--brand-primary)" />
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          {filteredProjects.map(project => (
+            <ProjectCard key={project.id} project={project} />
+          ))}
         </div>
       </section>
     </div>

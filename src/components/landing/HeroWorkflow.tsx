@@ -147,7 +147,7 @@ export const HeroWorkflow: React.FC<HeroWorkflowProps> = ({ children }) => {
           className="absolute z-20 -translate-x-1/2 -translate-y-1/2 transition-transform duration-200 hover:-translate-y-[54%]"
           style={{ left: '8.65%', top: '12.67%' }}
         >
-          <div className="relative bg-white rounded-3xl p-5 border border-slate-200/90 shadow-xl shadow-slate-200/40 w-[225px] text-left">
+          <div className="relative bg-white dark:bg-[#0D0D0E] rounded-3xl p-5 border border-slate-200/90 dark:border-white/10 shadow-xl shadow-slate-200/40 dark:shadow-black/60 w-[225px] text-left">
             <div className="flex items-center gap-1.5 mb-2">
               <span className="w-5 h-5 rounded-full bg-[#D4F870] text-slate-950 flex items-center justify-center text-[10px] font-bold shadow-2xs">
                 1
@@ -156,14 +156,14 @@ export const HeroWorkflow: React.FC<HeroWorkflowProps> = ({ children }) => {
                 Tell Us What You Need
               </span>
             </div>
-            <p className="text-sm font-semibold text-slate-900 leading-snug tracking-tight">
+            <p className="text-sm font-semibold text-slate-900 dark:text-white leading-snug tracking-tight">
               Create Work Request<br />& Share Vision
             </p>
-            <div className="mt-2.5 flex items-center gap-1.5 text-[11px] text-slate-500 font-medium">
+            <div className="mt-2.5 flex items-center gap-1.5 text-[11px] text-slate-500 dark:text-slate-300 font-medium">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
               <span>SLA & Scope Locked</span>
             </div>
-            <div className="absolute -bottom-2 left-6 w-3.5 h-3.5 bg-white border-r border-b border-slate-200/90 rotate-45" />
+            <div className="absolute -bottom-2 left-6 w-3.5 h-3.5 bg-white dark:bg-[#0D0D0E] border-r border-b border-slate-200/90 dark:border-white/10 rotate-45" />
           </div>
         </div>
 
@@ -172,7 +172,7 @@ export const HeroWorkflow: React.FC<HeroWorkflowProps> = ({ children }) => {
           className="absolute z-20 -translate-x-1/2 -translate-y-1/2 transition-transform duration-200 hover:-translate-y-[54%]"
           style={{ left: '30.77%', top: '5.33%' }}
         >
-          <div className="bg-white rounded-full px-4 py-2 border border-slate-200/90 shadow-lg shadow-slate-200/40 flex items-center gap-2.5 whitespace-nowrap">
+          <div className="bg-white dark:bg-[#0D0D0E] rounded-full px-4 py-2 border border-slate-200/90 dark:border-white/10 shadow-lg shadow-slate-200/40 dark:shadow-black/60 flex items-center gap-2.5 whitespace-nowrap">
             <div className="relative">
               <img
                 src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=60&auto=format&fit=crop&q=80"
@@ -183,12 +183,12 @@ export const HeroWorkflow: React.FC<HeroWorkflowProps> = ({ children }) => {
             </div>
             <div className="flex flex-col text-left">
               <div className="flex items-center gap-1.5">
-                <span className="text-xs font-bold text-slate-900">Arjun Mehta</span>
+                <span className="text-xs font-bold text-slate-900 dark:text-white">Arjun Mehta</span>
                 <span className="px-1.5 py-0.2 rounded-full text-[9px] font-semibold bg-purple-100 text-purple-800">
                   Supervisor ⭐ 4.9
                 </span>
               </div>
-              <span className="text-[10px] text-slate-500 font-medium">2. Reviews Scope & Manages Pod</span>
+              <span className="text-[10px] text-slate-500 dark:text-slate-300 font-medium">2. Reviews Scope & Manages Pod</span>
             </div>
           </div>
         </div>
@@ -198,9 +198,9 @@ export const HeroWorkflow: React.FC<HeroWorkflowProps> = ({ children }) => {
           className="absolute z-20 -translate-x-1/2 -translate-y-1/2"
           style={{ left: '60.25%', top: '5.33%' }}
         >
-          <div className="bg-white border border-slate-200 shadow-md rounded-full px-3.5 py-1.5 flex items-center gap-1.5 text-xs font-semibold text-slate-800">
+          <div className="bg-white dark:bg-[#0D0D0E] border border-slate-200 dark:border-white/10 shadow-md rounded-full px-3.5 py-1.5 flex items-center gap-1.5 text-xs font-semibold text-slate-800 dark:text-slate-200 dark:text-slate-200">
             <Zap className="w-3.5 h-3.5 text-amber-500 fill-amber-400" />
-            <span className="text-[11px] font-bold text-slate-900">3. Work Starts · 100% Velocity</span>
+            <span className="text-[11px] font-bold text-slate-900 dark:text-white">3. Work Starts · 100% Velocity</span>
           </div>
         </div>
 
@@ -209,19 +209,19 @@ export const HeroWorkflow: React.FC<HeroWorkflowProps> = ({ children }) => {
           className="absolute z-20 -translate-x-1/2 -translate-y-1/2 transition-transform duration-200 hover:-translate-y-[54%]"
           style={{ left: '91.35%', top: '20.00%' }}
         >
-          <div className="bg-white rounded-2xl p-4 border border-slate-200/90 shadow-xl shadow-slate-200/40 w-[210px] text-left">
+          <div className="bg-white dark:bg-[#0D0D0E] rounded-2xl p-4 border border-slate-200/90 dark:border-white/10 shadow-xl shadow-slate-200/40 dark:shadow-black/60 w-[210px] text-left">
             <div className="flex items-center gap-1.5 mb-1.5">
               <span className="w-4 h-4 rounded-full bg-amber-400 text-slate-950 flex items-center justify-center text-[9px] font-bold">
                 4
               </span>
-              <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-[#FEF08A] text-slate-900">
+              <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-[#FEF08A] text-slate-950 font-semibold">
                 Managed Execution
               </span>
             </div>
-            <p className="text-xs text-slate-900 font-semibold leading-snug">
+            <p className="text-xs text-slate-900 dark:text-white font-semibold leading-snug">
               Frontend & Backend Pod
             </p>
-            <div className="mt-2 flex items-center justify-between text-[10.5px] text-slate-500 pt-1.5 border-t border-slate-100">
+            <div className="mt-2 flex items-center justify-between text-[10.5px] text-slate-500 dark:text-slate-300 pt-1.5 border-t border-slate-100 dark:border-white/10">
               <span>Sprint 1</span>
               <span className="text-emerald-600 font-semibold">68% Progress</span>
             </div>
@@ -233,10 +233,10 @@ export const HeroWorkflow: React.FC<HeroWorkflowProps> = ({ children }) => {
           className="absolute z-20 -translate-x-1/2 -translate-y-1/2 transition-transform duration-200 hover:-translate-y-[54%]"
           style={{ left: '91.35%', top: '80.00%' }}
         >
-          <div className="bg-white rounded-2xl px-5 py-3.5 border border-slate-200/90 shadow-xl shadow-slate-200/40 flex items-center gap-3 whitespace-nowrap text-left">
+          <div className="bg-white dark:bg-[#0D0D0E] rounded-2xl px-5 py-3.5 border border-slate-200/90 dark:border-white/10 shadow-xl shadow-slate-200/40 dark:shadow-black/60 flex items-center gap-3 whitespace-nowrap text-left">
             <CheckCircle2 className="w-6 h-6 text-emerald-500 fill-emerald-100 shrink-0" />
             <div>
-              <span className="text-sm font-bold text-slate-900 tracking-tight block">
+              <span className="text-sm font-bold text-slate-900 dark:text-white tracking-tight block">
                 5. Deliverable Ready!
               </span>
               <span className="text-[10px] text-emerald-600 font-medium block">
@@ -251,9 +251,9 @@ export const HeroWorkflow: React.FC<HeroWorkflowProps> = ({ children }) => {
           className="absolute z-20 -translate-x-1/2 -translate-y-1/2 transition-transform duration-200 hover:-translate-y-[54%]"
           style={{ left: '69.23%', top: '94.67%' }}
         >
-          <div className="bg-white rounded-full px-4.5 py-2 border border-slate-200/90 shadow-lg shadow-slate-200/40 flex items-center gap-2.5 whitespace-nowrap">
+          <div className="bg-white dark:bg-[#0D0D0E] rounded-full px-4.5 py-2 border border-slate-200/90 dark:border-white/10 shadow-lg shadow-slate-200/40 dark:shadow-black/60 flex items-center gap-2.5 whitespace-nowrap">
             <ShieldCheck className="w-4.5 h-4.5 text-emerald-600" />
-            <span className="text-xs font-semibold text-slate-900">6. You Approve & Pay: ₹15,000</span>
+            <span className="text-xs font-semibold text-slate-900 dark:text-white">6. You Approve & Pay: ₹15,000</span>
             <img
               src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=60&auto=format&fit=crop&q=80"
               alt="Client Reviewer"
@@ -267,7 +267,7 @@ export const HeroWorkflow: React.FC<HeroWorkflowProps> = ({ children }) => {
           className="absolute z-20 -translate-x-1/2 -translate-y-1/2 transition-transform duration-200 hover:-translate-y-[54%]"
           style={{ left: '43.59%', top: '95.33%' }}
         >
-          <div className="bg-white rounded-full px-3 py-1.5 border border-slate-200/90 shadow-lg shadow-slate-200/40 flex items-center gap-2">
+          <div className="bg-white dark:bg-[#0D0D0E] rounded-full px-3 py-1.5 border border-slate-200/90 dark:border-white/10 shadow-lg shadow-slate-200/40 dark:shadow-black/60 flex items-center gap-2">
             <div className="flex items-center -space-x-1.5">
               <img
                 src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=60&auto=format&fit=crop&q=80"
@@ -280,7 +280,7 @@ export const HeroWorkflow: React.FC<HeroWorkflowProps> = ({ children }) => {
                 className="w-6.5 h-6.5 rounded-full object-cover border-2 border-white"
               />
             </div>
-            <span className="text-[11px] font-semibold text-slate-800 pr-1">Managed Team</span>
+            <span className="text-[11px] font-semibold text-slate-800 dark:text-slate-200 pr-1">Managed Team</span>
           </div>
         </div>
 
@@ -289,9 +289,9 @@ export const HeroWorkflow: React.FC<HeroWorkflowProps> = ({ children }) => {
           className="absolute z-20 -translate-x-1/2 -translate-y-1/2 transition-transform duration-200 hover:-translate-y-[54%]"
           style={{ left: '23.07%', top: '94.67%' }}
         >
-          <div className="flex items-center gap-1.5 whitespace-nowrap bg-white/95 backdrop-blur-xs py-1 px-3 rounded-full border border-slate-200/80 shadow-xs">
+          <div className="flex items-center gap-1.5 whitespace-nowrap bg-white/95 dark:bg-[#0D0D0E]/95 backdrop-blur-xs py-1 px-3 rounded-full border border-slate-200/80 dark:border-white/10 shadow-xs">
             <span className="w-2 h-2 rounded-full bg-purple-500 animate-pulse" />
-            <span className="text-[11px] font-semibold text-purple-900">
+            <span className="text-[11px] font-semibold text-purple-900 dark:text-purple-200">
               Milestone 2 Next ➔
             </span>
           </div>
@@ -302,15 +302,15 @@ export const HeroWorkflow: React.FC<HeroWorkflowProps> = ({ children }) => {
           className="absolute z-20 -translate-x-1/2 -translate-y-1/2 transition-transform duration-200 hover:-translate-y-[54%]"
           style={{ left: '8.65%', top: '80.00%' }}
         >
-          <div className="bg-white rounded-2xl px-5 py-3.5 border border-slate-200/90 shadow-xl shadow-slate-200/40 flex items-center gap-3 whitespace-nowrap text-left">
+          <div className="bg-white dark:bg-[#0D0D0E] rounded-2xl px-5 py-3.5 border border-slate-200/90 dark:border-white/10 shadow-xl shadow-slate-200/40 dark:shadow-black/60 flex items-center gap-3 whitespace-nowrap text-left">
             <div className="w-8 h-8 rounded-xl bg-[#8B7CF8] text-white flex items-center justify-center shadow-xs">
               <Lock className="w-4 h-4" />
             </div>
             <div>
-              <span className="text-xs font-bold text-slate-900 tracking-tight block">
+              <span className="text-xs font-bold text-slate-900 dark:text-white tracking-tight block">
                 Protected Escrow
               </span>
-              <span className="text-[10px] text-slate-500 font-medium block">
+              <span className="text-[10px] text-slate-500 dark:text-slate-300 font-medium block">
                 Pay Only on Approval
               </span>
             </div>
@@ -334,27 +334,27 @@ export const HeroWorkflow: React.FC<HeroWorkflowProps> = ({ children }) => {
         {/* Mobile Workflow Ribbon */}
         <div className="mt-8 w-full overflow-x-auto pb-4 pt-2">
           <div className="flex items-center gap-3 min-w-max mx-auto px-2">
-            <div className="bg-white rounded-2xl px-3.5 py-2 border border-slate-200 shadow-xs flex items-center gap-2">
+            <div className="bg-white dark:bg-[#0D0D0E] rounded-2xl px-3.5 py-2 border border-slate-200 dark:border-white/10 shadow-xs flex items-center gap-2">
               <span className="w-5 h-5 rounded-full bg-[#D4F870] text-slate-950 flex items-center justify-center text-[10px] font-bold">1</span>
-              <span className="text-xs font-semibold text-slate-900">Tell Us What You Need</span>
+              <span className="text-xs font-semibold text-slate-900 dark:text-white">Tell Us What You Need</span>
             </div>
             <span className="text-slate-300">→</span>
 
-            <div className="bg-white rounded-2xl px-3.5 py-2 border border-slate-200 shadow-xs flex items-center gap-2">
+            <div className="bg-white dark:bg-[#0D0D0E] rounded-2xl px-3.5 py-2 border border-slate-200 dark:border-white/10 shadow-xs flex items-center gap-2">
               <span className="w-5 h-5 rounded-full bg-purple-500 text-white flex items-center justify-center text-[10px]">2</span>
-              <span className="text-xs font-semibold text-slate-900">Supervisor Assigned</span>
+              <span className="text-xs font-semibold text-slate-900 dark:text-white">Supervisor Assigned</span>
             </div>
             <span className="text-slate-300">→</span>
 
-            <div className="bg-white rounded-2xl px-3.5 py-2 border border-slate-200 shadow-xs flex items-center gap-2">
+            <div className="bg-white dark:bg-[#0D0D0E] rounded-2xl px-3.5 py-2 border border-slate-200 dark:border-white/10 shadow-xs flex items-center gap-2">
               <span className="w-5 h-5 rounded-full bg-amber-400 text-slate-950 flex items-center justify-center text-[10px]">3</span>
-              <span className="text-xs font-semibold text-slate-900">Managed Team Builds</span>
+              <span className="text-xs font-semibold text-slate-900 dark:text-white">Managed Team Builds</span>
             </div>
             <span className="text-slate-300">→</span>
 
-            <div className="bg-white rounded-2xl px-3.5 py-2 border border-slate-200 shadow-xs flex items-center gap-2">
+            <div className="bg-white dark:bg-[#0D0D0E] rounded-2xl px-3.5 py-2 border border-slate-200 dark:border-white/10 shadow-xs flex items-center gap-2">
               <CheckCircle2 className="w-4 h-4 text-emerald-500" />
-              <span className="text-xs font-semibold text-slate-900">4. Review, Approve & Pay</span>
+              <span className="text-xs font-semibold text-slate-900 dark:text-white">4. Review, Approve & Pay</span>
             </div>
           </div>
         </div>

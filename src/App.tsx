@@ -2,6 +2,7 @@
 import React from 'react';
 import { NavigationProvider, useNavigation } from './context/NavigationContext';
 import { AppProvider } from './context/AppContext';
+import { ThemeProvider } from './context/ThemeContext';
 import { AppLayout } from './components/layout/AppLayout';
 
 // Pages
@@ -71,10 +72,12 @@ const AppRouter: React.FC = () => {
 
 export default function App() {
   return (
-    <NavigationProvider>
-      <AppProvider>
-        <AppRouter />
-      </AppProvider>
-    </NavigationProvider>
+    <ThemeProvider>
+      <NavigationProvider>
+        <AppProvider>
+          <AppRouter />
+        </AppProvider>
+      </NavigationProvider>
+    </ThemeProvider>
   );
 }
