@@ -5,11 +5,11 @@
 
 :root {
   /* ── Canvas & Surfaces ───────────────────────────────────── */
-  --bg-canvas:     #F5F5F7;   /* Off-white / very light gray background */
-  --bg-viewport:   #F5F5F7;
+  --bg-canvas:     #FAF8F5;   /* Warm cream off-white background */
+  --bg-viewport:   #FAF8F5;
   --bg-surface:    #FFFFFF;   /* Pure white cards and containers */
-  --bg-surface-2:  #FAFAFC;   /* Very subtle off-white */
-  --bg-subtle:     #EFEFF4;   /* Secondary backgrounds, inactive tags */
+  --bg-surface-2:  #FAF8F5;   /* Very subtle cream off-white */
+  --bg-subtle:     #F3EFEA;   /* Secondary backgrounds, inactive tags */
   --bg-muted:      #E4E4EC;   /* Track backgrounds, borders */
   --bg-hover:      #EBEBF2;   /* Hover states */
 
