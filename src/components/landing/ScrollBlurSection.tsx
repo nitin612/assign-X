@@ -14,10 +14,10 @@ export const ScrollBlurSection: React.FC<ScrollBlurSectionProps> = ({
   children,
   className = '',
   id,
-  maxScale = 1.05,
-  maxBlur = 8,
-  minOpacity = 0.4,
-  delayRatio = 0.3
+  maxScale = 1.03,
+  maxBlur = 5,
+  minOpacity = 0.45,
+  delayRatio = 0.65
 }) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [style, setStyle] = useState<{

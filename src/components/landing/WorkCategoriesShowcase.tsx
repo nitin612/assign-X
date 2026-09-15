@@ -89,7 +89,7 @@ const CATEGORIES: CategoryData[] = [
         assignee: 'Marcus V.',
         avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=80&auto=format&fit=crop&q=80',
         status: 'In Progress',
-        statusBg: 'bg-amber-400 text-slate-900',
+        statusBg: 'bg-amber-400 text-slate-950 font-medium',
         statusText: 'In Progress',
         escrow: '$950'
       },
@@ -151,7 +151,7 @@ const CATEGORIES: CategoryData[] = [
         assignee: 'Elena R.',
         avatar: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=80&auto=format&fit=crop&q=80',
         status: 'In Progress',
-        statusBg: 'bg-amber-400 text-slate-900',
+        statusBg: 'bg-amber-400 text-slate-950 font-medium',
         statusText: 'In Progress',
         escrow: '$850'
       },
@@ -213,7 +213,7 @@ const CATEGORIES: CategoryData[] = [
         assignee: 'Dr. Kian',
         avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&auto=format&fit=crop&q=80',
         status: 'In Progress',
-        statusBg: 'bg-amber-400 text-slate-900',
+        statusBg: 'bg-amber-400 text-slate-950 font-medium',
         statusText: 'In Progress',
         escrow: '$1,100'
       },
@@ -275,7 +275,7 @@ const CATEGORIES: CategoryData[] = [
         assignee: 'Sophia L.',
         avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=80&auto=format&fit=crop&q=80',
         status: 'In Progress',
-        statusBg: 'bg-amber-400 text-slate-900',
+        statusBg: 'bg-amber-400 text-slate-950 font-medium',
         statusText: 'In Progress',
         escrow: '$1,200'
       },
@@ -337,7 +337,7 @@ const CATEGORIES: CategoryData[] = [
         assignee: 'Arthur P.',
         avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&auto=format&fit=crop&q=80',
         status: 'In Progress',
-        statusBg: 'bg-amber-400 text-slate-900',
+        statusBg: 'bg-amber-400 text-slate-950 font-medium',
         statusText: 'In Progress',
         escrow: '$650'
       },
@@ -399,7 +399,7 @@ const CATEGORIES: CategoryData[] = [
         assignee: 'David C.',
         avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&auto=format&fit=crop&q=80',
         status: 'In Progress',
-        statusBg: 'bg-amber-400 text-slate-900',
+        statusBg: 'bg-amber-400 text-slate-950 font-medium',
         statusText: 'In Progress',
         escrow: '$1,600'
       },
@@ -485,10 +485,10 @@ export const WorkCategoriesShowcase: React.FC = () => {
             1. Title Section: Exact Match to Hero / Reference Typography
            ───────────────────────────────────────────────────────────── */}
         <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-12">
-          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-[62px] font-medium text-slate-950 tracking-tight leading-[1.14] max-w-[760px] mx-auto text-center">
+          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-[62px] font-medium text-slate-950 dark:text-white tracking-tight leading-[1.14] max-w-[760px] mx-auto text-center">
             Get more done with doers
           </h2>
-          <p className="mt-4 sm:mt-5 text-sm sm:text-base md:text-lg text-slate-600 max-w-[560px] mx-auto leading-relaxed font-normal">
+          <p className="mt-4 sm:mt-5 text-sm sm:text-base md:text-lg text-slate-600 dark:text-slate-400 max-w-[560px] mx-auto leading-relaxed font-normal">
             Assign is the platform where people turn ideas and tasks into finished work — from web development and mobile apps to AI workflows, assignments, and design.
           </p>
         </div>
@@ -499,11 +499,11 @@ export const WorkCategoriesShowcase: React.FC = () => {
         <div className="flex justify-center mb-10 sm:mb-14">
           <div
             ref={containerRef}
-            className="relative inline-flex items-center p-1.5 bg-[#F1F3F6]/90 rounded-full border border-slate-200/80 shadow-xs max-w-full overflow-x-auto scrollbar-none"
+            className="relative inline-flex items-center p-1 bg-[#F1F3F6]/90 dark:bg-[#0D0D0E] rounded-full border border-slate-200/80 dark:border-white/10 shadow-xs max-w-full overflow-x-auto scrollbar-none"
           >
             {/* Sliding Magic Pill Indicator */}
             <div
-              className="absolute top-1.5 bottom-1.5 rounded-full bg-[#ECEBFF] border-2 border-[#1E6FFB] shadow-xs pointer-events-none transition-all duration-350 ease-[cubic-bezier(0.25,1,0.3,1)]"
+              className="absolute top-1 bottom-1 rounded-full bg-[#ECEBFF] dark:bg-[#1E1A38] border-2 border-[#1E6FFB] dark:border-[#8B7CF8] shadow-xs pointer-events-none transition-all duration-350 ease-[cubic-bezier(0.25,1,0.3,1)]"
               style={{
                 left: `${pillStyle.left}px`,
                 width: `${pillStyle.width}px`,
@@ -523,13 +523,13 @@ export const WorkCategoriesShowcase: React.FC = () => {
                     tabRefs.current[index] = el;
                   }}
                   onClick={() => setActiveTabId(category.id)}
-                  className={`relative z-10 px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium transition-colors duration-250 whitespace-nowrap cursor-pointer flex items-center gap-1.5 select-none ${
+                  className={`relative z-10 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium transition-colors duration-250 whitespace-nowrap cursor-pointer flex items-center gap-1.5 select-none ${
                     isActive
                       ? 'text-[#4338CA] font-semibold'
-                      : 'text-slate-600 hover:text-slate-950'
+                      : 'text-slate-600 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white'
                   }`}
                 >
-                  {isLast && <Plus className={`w-3.5 h-3.5 transition-colors ${isActive ? 'text-indigo-600' : 'text-slate-500'}`} />}
+                  {isLast && <Plus className={`w-3.5 h-3.5 transition-colors ${isActive ? 'text-indigo-600' : 'text-slate-500 dark:text-slate-400'}`} />}
                   <span>{category.tabLabel}</span>
                 </button>
               );
@@ -546,12 +546,12 @@ export const WorkCategoriesShowcase: React.FC = () => {
         >
           {/* Left Column: Heading, Description, CTA */}
           <div className="lg:col-span-4 text-left flex flex-col items-start pr-0 lg:pr-4">
-            <h3 className="text-3xl sm:text-4xl lg:text-[42px] font-medium text-slate-950 tracking-tight leading-[1.14]">
+            <h3 className="text-3xl sm:text-4xl lg:text-[42px] font-medium text-slate-950 dark:text-white tracking-tight leading-[1.14]">
               {activeCategory.headingPrefix}{' '}
               <span className="text-[#5452F6] font-semibold">{activeCategory.highlightWord}</span>
             </h3>
 
-            <p className="mt-4 sm:mt-5 text-sm sm:text-base text-slate-600 leading-relaxed font-normal">
+            <p className="mt-4 sm:mt-5 text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed font-normal">
               {activeCategory.description}
             </p>
 
@@ -564,7 +564,7 @@ export const WorkCategoriesShowcase: React.FC = () => {
                 <ArrowRight className="w-4 h-4" />
               </button>
 
-              <div className="flex items-center gap-2 text-xs text-slate-500">
+              <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-300">
                 <ShieldCheck className="w-4 h-4 text-emerald-500" />
                 <span>Milestone escrow protected</span>
               </div>
@@ -574,14 +574,14 @@ export const WorkCategoriesShowcase: React.FC = () => {
           {/* Right Column: High-Fidelity Interactive Dashboard Mockup */}
           <div className="lg:col-span-8 w-full">
             {/* Outer Gray Frame (Exact match to screenshot container) */}
-            <div className="bg-[#EAEBED]/70 rounded-[26px] p-3 sm:p-5 border border-slate-200/80 shadow-inner">
+            <div className="bg-[#EAEBED]/70 dark:bg-[#141416] rounded-[26px] p-3 sm:p-5 border border-slate-200 dark:border-white/10 dark:border-white/10 shadow-inner">
               {/* Inner White Dashboard Card */}
-              <div className="bg-white rounded-2xl border border-slate-200 shadow-xl shadow-slate-200/40 overflow-hidden flex flex-col md:flex-row min-h-[420px]">
+              <div className="bg-white dark:bg-[#0B0B0D] rounded-2xl border border-slate-200 dark:border-white/10 shadow-xl shadow-slate-200/40 overflow-hidden flex flex-col md:flex-row min-h-[420px]">
                 
                 {/* ─────────────────────────────────────────────────────
                     Left Pane: Workspace Table (60% width)
                    ───────────────────────────────────────────────────── */}
-                <div className="flex-1 flex flex-col border-b md:border-b-0 md:border-r border-slate-150 min-w-0 bg-white">
+                <div className="flex-1 flex flex-col border-b md:border-b-0 md:border-r border-slate-150 min-w-0 bg-white dark:bg-[#0B0B0D]">
                   
                   {/* Top Workspace Header & Views Bar */}
                   <div className="p-4 sm:p-5 pb-0 flex flex-col gap-3">
@@ -589,57 +589,57 @@ export const WorkCategoriesShowcase: React.FC = () => {
                       {/* Left Multi-color mini 4-square App icon */}
                       <div className="w-6 h-6 rounded-md bg-gradient-to-br from-indigo-500 via-rose-500 to-amber-400 p-0.5 shadow-2xs flex items-center justify-center shrink-0">
                         <div className="grid grid-cols-2 gap-0.5 w-3.5 h-3.5">
-                          <div className="bg-white rounded-[1px]" />
-                          <div className="bg-white rounded-[1px]" />
-                          <div className="bg-white rounded-[1px]" />
-                          <div className="bg-white rounded-[1px]" />
+                          <div className="bg-white dark:bg-[#0B0B0D] rounded-[1px]" />
+                          <div className="bg-white dark:bg-[#0B0B0D] rounded-[1px]" />
+                          <div className="bg-white dark:bg-[#0B0B0D] rounded-[1px]" />
+                          <div className="bg-white dark:bg-[#0B0B0D] rounded-[1px]" />
                         </div>
                       </div>
 
                       {/* Board Name */}
-                      <h4 className="text-base sm:text-lg font-semibold text-slate-900 tracking-tight truncate">
+                      <h4 className="text-base sm:text-lg font-semibold text-slate-900 dark:text-slate-100 tracking-tight truncate">
                         {activeCategory.projectTitle}
                       </h4>
                     </div>
 
                     {/* View Switcher Bar (Main Table, Gantt, Kanban, +) */}
-                    <div className="flex items-center gap-4 text-xs font-medium text-slate-500 border-b border-slate-150 pt-2">
+                    <div className="flex items-center gap-4 text-xs font-medium text-slate-500 dark:text-slate-400 border-b border-slate-150 dark:border-white/10 pt-2">
                       <button
                         onClick={() => setActiveView('table')}
                         className={`pb-2 flex items-center gap-1.5 transition-colors relative cursor-pointer ${
-                          activeView === 'table' ? 'text-[#0073EA] font-semibold' : 'hover:text-slate-800'
+                          activeView === 'table' ? 'text-[#0073EA] dark:text-[#38BDF8] font-semibold' : 'hover:text-slate-800 dark:hover:text-white'
                         }`}
                       >
                         <Table2 className="w-3.5 h-3.5" />
                         <span>Main table</span>
                         {activeView === 'table' && (
-                          <div className="absolute bottom-0 inset-x-0 h-0.5 bg-[#0073EA] rounded-full" />
+                          <div className="absolute bottom-0 inset-x-0 h-0.5 bg-[#0073EA] dark:bg-[#38BDF8] rounded-full" />
                         )}
                       </button>
 
                       <button
                         onClick={() => setActiveView('gantt')}
                         className={`pb-2 flex items-center gap-1.5 transition-colors relative cursor-pointer ${
-                          activeView === 'gantt' ? 'text-[#0073EA] font-semibold' : 'hover:text-slate-800'
+                          activeView === 'gantt' ? 'text-[#0073EA] dark:text-[#38BDF8] font-semibold' : 'hover:text-slate-800 dark:hover:text-white'
                         }`}
                       >
                         <Calendar className="w-3.5 h-3.5" />
                         <span>Gantt</span>
                         {activeView === 'gantt' && (
-                          <div className="absolute bottom-0 inset-x-0 h-0.5 bg-[#0073EA] rounded-full" />
+                          <div className="absolute bottom-0 inset-x-0 h-0.5 bg-[#0073EA] dark:bg-[#38BDF8] rounded-full" />
                         )}
                       </button>
 
                       <button
                         onClick={() => setActiveView('kanban')}
                         className={`pb-2 flex items-center gap-1.5 transition-colors relative cursor-pointer ${
-                          activeView === 'kanban' ? 'text-[#0073EA] font-semibold' : 'hover:text-slate-800'
+                          activeView === 'kanban' ? 'text-[#0073EA] dark:text-[#38BDF8] font-semibold' : 'hover:text-slate-800 dark:hover:text-white'
                         }`}
                       >
                         <Kanban className="w-3.5 h-3.5" />
                         <span>Kanban</span>
                         {activeView === 'kanban' && (
-                          <div className="absolute bottom-0 inset-x-0 h-0.5 bg-[#0073EA] rounded-full" />
+                          <div className="absolute bottom-0 inset-x-0 h-0.5 bg-[#0073EA] dark:bg-[#38BDF8] rounded-full" />
                         )}
                       </button>
 
@@ -652,7 +652,7 @@ export const WorkCategoriesShowcase: React.FC = () => {
                   {/* Table Content Area with Left Blue Indicator Line */}
                   <div className="flex-1 flex overflow-x-auto">
                     {/* Tiny Left Vertical Icon Rail (Matching reference) */}
-                    <div className="w-10 py-4 flex flex-col items-center gap-4 border-r border-slate-100 text-slate-400 shrink-0">
+                    <div className="w-10 py-4 flex flex-col items-center gap-4 border-r border-slate-100 dark:border-white/10 text-slate-400 shrink-0">
                       <Home className="w-3.5 h-3.5 hover:text-slate-700 cursor-pointer" />
                       <Table2 className="w-3.5 h-3.5 text-indigo-600 cursor-pointer" />
                       <Heart className="w-3.5 h-3.5 hover:text-slate-700 cursor-pointer" />
@@ -666,8 +666,8 @@ export const WorkCategoriesShowcase: React.FC = () => {
                     {/* Table Rows & Columns */}
                     <div className="flex-1 flex flex-col min-w-[320px]">
                       {/* Column Headers */}
-                      <div className="grid grid-cols-12 text-[11px] font-semibold text-slate-400 border-b border-slate-100 py-2.5 px-3 bg-slate-50/50">
-                        <div className="col-span-6 flex items-center gap-1.5 text-[#0073EA]">
+                      <div className="grid grid-cols-12 text-[11px] font-semibold text-slate-500 dark:text-slate-300 border-b border-slate-100 dark:border-white/10 py-2.5 px-3 bg-slate-50/50 dark:bg-white/5">
+                        <div className="col-span-6 flex items-center gap-1.5 text-[#0073EA] dark:text-[#38BDF8] font-medium">
                           <span>Deliverables</span>
                         </div>
                         <div className="col-span-3">Status</div>
@@ -675,9 +675,9 @@ export const WorkCategoriesShowcase: React.FC = () => {
                       </div>
 
                       {/* Interactive Rows with Left Blue Border Accent */}
-                      <div className="flex-1 flex flex-col divide-y divide-slate-100 relative">
+                      <div className="flex-1 flex flex-col divide-y divide-slate-100 dark:divide-white/10 relative">
                         {/* Blue Left Vertical Accent Bar */}
-                        <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#0073EA]" />
+                        <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#0073EA] dark:bg-[#38BDF8]" />
 
                         {activeCategory.tableRows.map((row, index) => (
                           <div
@@ -687,16 +687,16 @@ export const WorkCategoriesShowcase: React.FC = () => {
                             {/* Deliverable Title & Tag */}
                             <div className="col-span-6 pr-2">
                               <div className="flex items-center gap-2">
-                                <span className="text-xs font-medium text-slate-800 truncate group-hover:text-indigo-600 transition-colors">
+                                <span className="text-xs font-medium text-slate-900 dark:text-white truncate group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
                                   {row.title}
                                 </span>
                               </div>
                               <div className="flex items-center gap-1.5 mt-0.5">
-                                <span className="text-[10px] px-1.5 py-0.2 bg-slate-100 text-slate-600 rounded">
+                                <span className="text-[10px] px-1.5 py-0.2 bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-slate-300 rounded">
                                   {row.tag}
                                 </span>
                                 <span className="text-[10px] text-slate-400">·</span>
-                                <span className="text-[10px] text-slate-400 truncate">{row.assignee}</span>
+                                <span className="text-[10px] text-slate-400 dark:text-slate-400 truncate">{row.assignee}</span>
                               </div>
                             </div>
 
@@ -711,7 +711,7 @@ export const WorkCategoriesShowcase: React.FC = () => {
 
                             {/* Escrow Value */}
                             <div className="col-span-3 text-right">
-                              <span className="text-xs font-semibold text-slate-900 font-mono">
+                              <span className="text-xs font-semibold text-slate-900 dark:text-slate-100 font-mono">
                                 {row.escrow}
                               </span>
                             </div>
@@ -721,13 +721,13 @@ export const WorkCategoriesShowcase: React.FC = () => {
                         {/* Faded Ghost Row to match modern UI mockup */}
                         <div className="grid grid-cols-12 items-center py-2.5 px-3 pl-3.5 opacity-40">
                           <div className="col-span-6">
-                            <div className="h-3 w-32 bg-slate-200 rounded-sm animate-pulse" />
+                            <div className="h-3 w-32 bg-slate-200 dark:bg-white/10 rounded-sm animate-pulse" />
                           </div>
                           <div className="col-span-3">
-                            <div className="h-4 w-16 bg-slate-200 rounded-sm" />
+                            <div className="h-4 w-16 bg-slate-200 dark:bg-white/10 rounded-sm" />
                           </div>
                           <div className="col-span-3 text-right">
-                            <div className="h-3 w-10 bg-slate-200 rounded-sm ml-auto" />
+                            <div className="h-3 w-10 bg-slate-200 dark:bg-white/10 rounded-sm ml-auto" />
                           </div>
                         </div>
                       </div>
@@ -738,10 +738,10 @@ export const WorkCategoriesShowcase: React.FC = () => {
                 {/* ─────────────────────────────────────────────────────
                     Right Pane: Floating Doer Collaboration & Live Execution
                    ───────────────────────────────────────────────────── */}
-                <div className="w-full md:w-[320px] lg:w-[340px] bg-[#FBFBFC] p-4 sm:p-5 flex flex-col justify-between shrink-0">
+                <div className="w-full md:w-[320px] lg:w-[340px] bg-[#FBFBFC] dark:bg-[#0E0E11] p-4 sm:p-5 flex flex-col justify-between shrink-0 dark:border-l dark:border-white/10">
                   <div>
                     {/* Doer Top Profile Header */}
-                    <div className="flex items-center gap-3 pb-3.5 border-b border-slate-200/80">
+                    <div className="flex items-center gap-3 pb-3.5 border-b border-slate-200 dark:border-white/10 dark:border-white/10">
                       <div className="relative">
                         <img
                           className="w-10 h-10 rounded-full object-cover border-2 border-white shadow-xs"
@@ -752,10 +752,10 @@ export const WorkCategoriesShowcase: React.FC = () => {
                       </div>
 
                       <div className="flex-1 min-w-0 text-left">
-                        <h5 className="text-xs sm:text-sm font-semibold text-slate-900 truncate">
+                        <h5 className="text-xs sm:text-sm font-semibold text-slate-900 dark:text-slate-100 truncate">
                           {activeCategory.doerName}
                         </h5>
-                        <p className="text-[11px] text-slate-500 truncate">{activeCategory.doerMetric}</p>
+                        <p className="text-[11px] text-slate-500 dark:text-slate-400 truncate">{activeCategory.doerMetric}</p>
                       </div>
                     </div>
 
@@ -763,7 +763,7 @@ export const WorkCategoriesShowcase: React.FC = () => {
                     <div className="mt-4 space-y-3.5 text-left">
                       {/* User Request Bubble (Light Sky Blue matching screenshot) */}
                       <div className="flex items-end justify-end gap-2">
-                        <div className="bg-[#DCEFFE] text-slate-900 rounded-2xl rounded-tr-xs p-3 text-xs font-normal leading-relaxed shadow-2xs max-w-[85%]">
+                        <div className="bg-[#DCEFFE] dark:bg-[#18202F] text-slate-900 dark:text-slate-100 dark:text-slate-100 rounded-2xl rounded-tr-xs p-3 text-xs font-normal leading-relaxed shadow-2xs max-w-[85%]">
                           {activeCategory.userPrompt}
                         </div>
                         <img
@@ -781,7 +781,7 @@ export const WorkCategoriesShowcase: React.FC = () => {
                           alt="Doer"
                         />
                         <div className="flex-1 min-w-0">
-                          <p className="text-[11px] font-medium text-slate-500 mb-1.5 flex items-center gap-1.5">
+                          <p className="text-[11px] font-medium text-slate-500 dark:text-slate-300 mb-1.5 flex items-center gap-1.5">
                             <span>{activeCategory.doerStatus}</span>
                             <span className="flex h-1.5 w-1.5 relative">
                               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75" />
@@ -790,7 +790,7 @@ export const WorkCategoriesShowcase: React.FC = () => {
                           </p>
 
                           {/* Execution Step Chip (LinkedIn / Vercel / Figma style badge) */}
-                          <div className="inline-flex items-center gap-1.5 bg-white border border-slate-200/90 rounded-xl px-2.5 py-1.5 text-[11px] font-medium text-slate-800 shadow-xs max-w-full">
+                          <div className="inline-flex items-center gap-1.5 bg-white dark:bg-[#0B0B0D] border border-slate-200 dark:border-white/10/90 rounded-xl px-2.5 py-1.5 text-[11px] font-medium text-slate-800 dark:text-slate-200 shadow-xs max-w-full">
                             <span
                               className="w-2 h-2 rounded-full shrink-0"
                               style={{ backgroundColor: activeCategory.doerActionIconColor }}
@@ -803,8 +803,8 @@ export const WorkCategoriesShowcase: React.FC = () => {
                   </div>
 
                   {/* Interactive Prompt Trigger Box at Bottom */}
-                  <div className="mt-6 pt-3 border-t border-slate-200/70">
-                    <div className="bg-white rounded-xl border border-slate-200 p-1.5 pl-3 flex items-center justify-between shadow-2xs">
+                  <div className="mt-6 pt-3 border-t border-slate-200 dark:border-white/10/70">
+                    <div className="bg-white dark:bg-[#0B0B0D] rounded-xl border border-slate-200 dark:border-white/10 p-1.5 pl-3 flex items-center justify-between shadow-2xs">
                       <span className="text-[11px] text-slate-400 truncate">
                         Ask doer for a custom quote...
                       </span>

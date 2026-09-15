@@ -48,11 +48,13 @@ export const ProfileSettingsPage: React.FC = () => {
 
   return (
     <div style={{ maxWidth: '960px', margin: '0 auto' }}>
-      <div style={{ marginBottom: 'var(--space-6)' }}>
-        <h1 style={{ fontSize: '28px', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '4px' }}>
-          Profile & Settings
-        </h1>
-        <p style={{ fontSize: '14px', color: 'var(--text-secondary)' }}>
+      <div className="mb-5">
+        <div className="h-[46px] flex items-center">
+          <h1 className="text-3xl lg:text-4xl font-extrabold tracking-tight text-slate-950 dark:text-white leading-none">
+            Profile & Settings
+          </h1>
+        </div>
+        <p className="text-sm text-slate-600 dark:text-slate-400 font-normal leading-relaxed mt-1">
           Manage your enterprise profile, billing entities, and account security.
         </p>
       </div>
@@ -66,8 +68,8 @@ export const ProfileSettingsPage: React.FC = () => {
         }}
       >
         {/* Settings Sub-navigation Sidebar */}
-        <div className="card" style={{ padding: 'var(--space-3)' }}>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
+        <div className="bg-white dark:bg-[#121216] border border-slate-100 dark:border-zinc-800 rounded-2xl p-2 shadow-xs">
+          <div className="flex flex-col gap-1">
             {sections.map(s => {
               const Icon = s.icon;
               const isActive = activeSection === s.id;
@@ -75,14 +77,15 @@ export const ProfileSettingsPage: React.FC = () => {
               return (
                 <button
                   key={s.id}
-                  className={`sidebar-nav-item ${isActive ? 'active' : ''}`}
                   onClick={() => setActiveSection(s.id)}
-                  style={{ width: '100%', textAlign: 'left' }}
+                  className={`flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all text-left w-full ${
+                    isActive
+                      ? 'bg-blue-50/80 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400'
+                      : 'text-slate-600 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-zinc-800/50'
+                  }`}
                 >
-                  <div className="sidebar-nav-item-content">
-                    <Icon size={16} />
-                    <span>{s.label}</span>
-                  </div>
+                  <Icon size={16} className={`shrink-0 ${isActive ? 'text-blue-600 dark:text-blue-400' : 'text-slate-400 dark:text-zinc-500'}`} />
+                  <span className="truncate">{s.label}</span>
                 </button>
               );
             })}

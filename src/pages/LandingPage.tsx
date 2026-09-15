@@ -7,7 +7,11 @@
 import React, { useState } from 'react';
 import { useNavigation } from '../context/NavigationContext';
 import { useApp } from '../context/AppContext';
+import { useTheme } from '../context/ThemeContext';
 import {
+  Star,
+  Sun,
+  Moon,
   Play,
   Paperclip,
   MessageSquare,
@@ -15,9 +19,7 @@ import {
   ShieldCheck,
   Lock,
   X,
-  Search,
   CheckSquare,
-  Square,
   Send,
   FileText
 } from 'lucide-react';
@@ -30,6 +32,7 @@ import { BackgroundMesh } from '../components/landing/BackgroundMesh';
 export const LandingPage: React.FC = () => {
   const { navigate } = useNavigation();
   const { login } = useApp();
+  const { isDark, toggleTheme } = useTheme();
 
   const handleAuthAndNavigate = (targetPath: string = '/dashboard') => {
     login();
@@ -43,18 +46,7 @@ export const LandingPage: React.FC = () => {
   const [newsletterEmail, setNewsletterEmail] = useState('');
   const [newsletterSubscribed, setNewsletterSubscribed] = useState(false);
 
-  // Member checklist interactive state for Hero & Feature Cards
-  const [selectedMembers, setSelectedMembers] = useState<Record<string, boolean>>({
-    momina: true,
-    lisa: false,
-    marcus: true,
-    elena: true,
-    aisha: false
-  });
 
-  const toggleMember = (id: string) => {
-    setSelectedMembers((prev) => ({ ...prev, [id]: !prev[id] }));
-  };
 
   // Scroll listener to activate sticky navbar styling
   const [isScrolled, setIsScrolled] = useState(false);
@@ -148,7 +140,7 @@ export const LandingPage: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen w-full bg-[#FAF8F5] text-slate-900 font-sans selection:bg-amber-200 selection:text-slate-900 overflow-x-clip relative">
+    <div className="min-h-screen w-full bg-[#FAF8F5] dark:bg-[#000000] text-slate-900 dark:text-slate-100 dark:text-slate-100 font-sans selection:bg-amber-200 dark:selection:bg-indigo-900 selection:text-slate-900 dark:text-slate-100 dark:selection:text-white overflow-x-clip relative transition-colors duration-300">
       {/* Whole Background Ambient Mesh Gradient & Micro-Grid Canvas */}
       <BackgroundMesh />
 
@@ -161,7 +153,7 @@ export const LandingPage: React.FC = () => {
           ───────────────────────────────────────────────────────────── */}
       <header
         className={`fixed top-0 left-0 right-0 z-50 w-full transition-all duration-200 ${isScrolled
-          ? 'bg-[#FAF8F5]/85 backdrop-blur-md shadow-xs border-b border-stone-200/60'
+          ? 'bg-[#FAF8F5]/85 dark:bg-[#000000]/85 backdrop-blur-md shadow-xs border-b border-stone-200/60 dark:border-white/10'
           : 'bg-transparent'
           }`}
       >
@@ -171,36 +163,44 @@ export const LandingPage: React.FC = () => {
             onClick={() => navigate('/landing')}
             className="cursor-pointer group"
           >
-            <span className="text-2xl font-bold tracking-tight text-slate-950 group-hover:text-[#7B61FF] transition-colors">
+            <span className="text-2xl font-bold tracking-tight text-slate-950 dark:text-white dark:text-white group-hover:text-[#7B61FF] transition-colors">
               AssignX
             </span>
           </div>
 
           {/* Center Navigation Links — Highly Visible Slate-900 Text */}
-          <nav className="hidden md:flex items-center gap-8 text-[15px] font-medium text-slate-900">
-            <a href="#overview" className="text-slate-950 font-semibold hover:text-[#7B61FF] transition-colors">
+          <nav className="hidden md:flex items-center gap-8 text-[15px] font-medium text-slate-900 dark:text-slate-100 dark:text-slate-200">
+            <a href="#overview" className="text-slate-950 dark:text-white dark:text-white font-semibold hover:text-[#7B61FF] transition-colors">
               Home
             </a>
-            <a href="#capabilities" className="hover:text-[#7B61FF] transition-colors flex items-center gap-1">
+            <a href="#capabilities" className="text-slate-800 dark:text-slate-200 hover:text-[#7B61FF] dark:hover:text-white transition-colors flex items-center gap-1">
               <span>Features</span>
               <span className="text-[10px] text-slate-500">▾</span>
             </a>
-            <a href="#integrations" className="hover:text-[#7B61FF] transition-colors">
+            <a href="#integrations" className="text-slate-800 dark:text-slate-200 hover:text-[#7B61FF] dark:hover:text-white transition-colors">
               Integrations
             </a>
-            <a href="#insights" className="hover:text-[#7B61FF] transition-colors">
+            <a href="#insights" className="text-slate-800 dark:text-slate-200 hover:text-[#7B61FF] dark:hover:text-white transition-colors">
               Blog
             </a>
-            <a href="#testimonials" className="hover:text-[#7B61FF] transition-colors">
+            <a href="#testimonials" className="text-slate-800 dark:text-slate-200 hover:text-[#7B61FF] dark:hover:text-white transition-colors">
               Testimonials
             </a>
           </nav>
 
-          {/* Right Actions: Login + Soft Purple Pill CTA */}
-          <div className="flex items-center gap-5">
+          {/* Right Actions: Theme Toggle + Login + Soft Purple Pill CTA */}
+          <div className="flex items-center gap-4 sm:gap-5">
+            <button
+              onClick={toggleTheme}
+              aria-label={isDark ? 'Switch to light theme' : 'Switch to dark theme'}
+              title={isDark ? 'Switch to light theme' : 'Switch to dark theme'}
+              className="w-9 h-9 rounded-full flex items-center justify-center bg-slate-100 hover:bg-slate-200 dark:bg-slate-800/90 dark:hover:bg-slate-700 text-slate-700 dark:text-amber-300 border border-slate-200/80 dark:border-slate-700/80 shadow-2xs transition-all cursor-pointer"
+            >
+              {isDark ? <Sun className="w-4 h-4 text-amber-300" /> : <Moon className="w-4 h-4 text-slate-700" />}
+            </button>
             <button
               onClick={() => handleAuthAndNavigate('/dashboard')}
-              className="text-[15px] font-semibold text-slate-900 hover:text-[#7B61FF] transition-colors cursor-pointer"
+              className="text-[15px] font-semibold text-slate-900 dark:text-white hover:text-[#7B61FF] transition-colors cursor-pointer"
             >
               Login
             </button>
@@ -208,7 +208,7 @@ export const LandingPage: React.FC = () => {
               onClick={() => handleAuthAndNavigate('/create')}
               className="bg-[#8B7CF8] hover:bg-[#7867f6] text-white text-sm font-semibold px-6 py-2.5 rounded-full shadow-xs hover:shadow transition-all cursor-pointer"
             >
-              Try 7 Day Trial
+              + Create Work
             </button>
           </div>
         </div>
@@ -218,18 +218,62 @@ export const LandingPage: React.FC = () => {
       <div className="h-16 w-full shrink-0" aria-hidden="true" />
 
       {/* ─────────────────────────────────────────────────────────────
-          2. Hero Section with Orbital Badges & Luminous Product Mockup
-             * Exact 1:1 Match with Reference Design
-             * Y Combinator W25 Badge, Clean Headline, Dual CTAs, Orbital Badges
-             * Interactive 3-Panel Product Mockup Canvas
+          2. Hero Section with Perimeter Workflow Loop
+             * Full viewport min-height (clean hero without lower peeking elements)
+             * Centered Headline, Subtitle, Ratings & Dual CTAs
           ───────────────────────────────────────────────────────────── */}
       <ScrollBlurSection id="overview" maxScale={1.05} maxBlur={8} minOpacity={0.35}>
-        <section className="relative pt-6 pb-12 sm:pb-16 w-full bg-transparent overflow-hidden">
-          <div className="w-full max-w-[1440px] mx-auto text-center">
-            <HeroWorkflow
-              onOpenDemo={() => setShowDemoModal(true)}
-              onNavigate={handleAuthAndNavigate}
-            />
+        <section className="relative min-h-[calc(100vh-4rem)] flex flex-col justify-center items-center py-2 w-full bg-transparent overflow-hidden">
+          <div className="w-full max-w-[1800px] mx-auto px-2 sm:px-4 lg:px-6 text-center my-auto">
+            <HeroWorkflow>
+              {/* Rating / Trustpilot */}
+              <div className="inline-flex items-center gap-2.5 text-xs sm:text-sm md:text-base font-normal text-slate-600 dark:text-slate-300 mb-3.5 sm:mb-4">
+                <div className="flex items-center text-amber-400 gap-0.5">
+                  <Star className="w-4 h-4 sm:w-4.5 sm:h-4.5 fill-amber-400 text-amber-400" />
+                  <Star className="w-4 h-4 sm:w-4.5 sm:h-4.5 fill-amber-400 text-amber-400" />
+                  <Star className="w-4 h-4 sm:w-4.5 sm:h-4.5 fill-amber-400 text-amber-400" />
+                  <Star className="w-4 h-4 sm:w-4.5 sm:h-4.5 fill-amber-400 text-amber-400" />
+                  <Star className="w-4 h-4 sm:w-4.5 sm:h-4.5 fill-amber-400 text-amber-400" />
+                </div>
+                <span className="font-semibold text-slate-900 dark:text-slate-100">2.5k+ Delivered Projects</span>
+                <span className="text-slate-300 dark:text-slate-600">|</span>
+                <span className="font-semibold text-slate-900 dark:text-slate-100">4.98</span>
+                <span className="text-emerald-700 dark:text-emerald-400 font-semibold flex items-center gap-1">
+                  ★ Trustpilot
+                </span>
+              </div>
+
+              {/* Hero Headline — Thicker font-medium Typography with Gradient Accent */}
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[62px] xl:text-[66px] font-medium text-slate-950 dark:text-white dark:text-white tracking-tight leading-[1.14] max-w-[760px] mx-auto text-center">
+                Tell Us What You Need. <br className="hidden sm:inline" />
+                We Deliver The{' '}
+                <span className="bg-gradient-to-r from-[#FF6B6B] via-[#FF758F] to-[#E855DE] bg-clip-text text-transparent font-semibold">
+                  Result.
+                </span>
+              </h1>
+
+              {/* Subtitle */}
+              <p className="mt-4 sm:mt-5 text-sm sm:text-base md:text-lg text-slate-600 dark:text-slate-300 max-w-[560px] mx-auto leading-relaxed font-normal">
+                No finding freelancers. No managing workers. AssignX pairs you with a dedicated supervisor who directs the team, runs QA, and delivers ready-to-approve milestones.
+              </p>
+
+              {/* Dual Action CTAs */}
+              <div className="flex flex-wrap items-center justify-center gap-4 mt-6 sm:mt-7">
+                <button
+                  onClick={() => handleAuthAndNavigate('/create')}
+                  className="bg-[#F5CD52] hover:bg-[#eec23d] text-slate-950 font-semibold px-8 sm:px-9 py-3.5 sm:py-4 rounded-full text-sm sm:text-base md:text-lg shadow-xs hover:shadow-md transition-all cursor-pointer"
+                >
+                  + Create New Work
+                </button>
+                <button
+                  onClick={() => setShowDemoModal(true)}
+                  className="bg-[#111111] hover:bg-slate-800 text-white font-medium px-8 sm:px-9 py-3.5 sm:py-4 rounded-full text-sm sm:text-base md:text-lg shadow-xs hover:shadow-md transition-all cursor-pointer flex items-center gap-2"
+                >
+                  <Play className="w-4 h-4 fill-white" />
+                  <span>See How It Works</span>
+                </button>
+              </div>
+            </HeroWorkflow>
           </div>
         </section>
       </ScrollBlurSection>
@@ -238,17 +282,17 @@ export const LandingPage: React.FC = () => {
           2a. Social Proof Logo Strip (Dedicated Section Below Hero Fold)
          ───────────────────────────────────────────────────────────── */}
       <ScrollBlurSection maxScale={1.03} maxBlur={5} minOpacity={0.5}>
-        <section className="py-12 sm:py-16 bg-transparent w-full border-t border-slate-200/50">
+        <section className="py-12 sm:py-16 bg-transparent w-full border-t border-slate-200/50 dark:border-white/10 dark:border-white/10">
           <div className="w-full max-w-[1640px] mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="bg-[#F8F9FA] rounded-3xl py-7 px-8 border border-slate-150/80 max-w-[1360px] 2xl:max-w-[1440px] mx-auto">
-              <p className="text-xs sm:text-sm font-semibold text-slate-800 mb-6 text-center">
+            <div className="bg-[#F8F9FA] dark:bg-[#0D0D0E] rounded-3xl py-7 px-8 border border-slate-150/80 dark:border-white/10 max-w-[1360px] 2xl:max-w-[1440px] mx-auto">
+              <p className="text-xs sm:text-sm font-semibold text-slate-800 dark:text-slate-300 mb-6 text-center">
                 Trusted by the world&apos;s most innovative teams
               </p>
               <div className="flex flex-wrap items-center justify-center gap-10 sm:gap-14">
                 {/* Contentful */}
                 <div className="flex items-center gap-2">
                   <div className="w-5 h-5 rounded-full border-[3.5px] border-t-[#0040C8] border-r-[#FFBC00] border-b-[#E62C4E] border-l-transparent -rotate-45" />
-                  <span className="font-bold text-slate-900 tracking-tight text-base sm:text-lg">contentful</span>
+                  <span className="font-bold text-slate-900 dark:text-slate-100 tracking-tight text-base sm:text-lg">contentful</span>
                 </div>
 
                 {/* Haskell */}
@@ -257,7 +301,7 @@ export const LandingPage: React.FC = () => {
                     <span>&gt;&gt;</span>
                     <span className="text-sm font-bold ml-0.5">=</span>
                   </div>
-                  <span className="font-bold text-slate-900 tracking-tight text-base sm:text-lg">Haskell</span>
+                  <span className="font-bold text-slate-900 dark:text-slate-100 tracking-tight text-base sm:text-lg">Haskell</span>
                 </div>
 
                 {/* Eventbrite */}
@@ -270,12 +314,12 @@ export const LandingPage: React.FC = () => {
                   <svg className="w-5 h-5 shrink-0" viewBox="0 0 24 24" fill="none">
                     <path d="M4 17L10 6L14 13L18 6L21 17H17L14 10L10 17H4Z" fill="#FF4D4D" />
                   </svg>
-                  <span className="font-bold text-slate-900 tracking-tight text-base sm:text-lg">Airwallex</span>
+                  <span className="font-bold text-slate-900 dark:text-slate-100 tracking-tight text-base sm:text-lg">Airwallex</span>
                 </div>
 
                 {/* Meteor */}
                 <div className="flex items-center gap-0.5">
-                  <span className="font-extrabold text-slate-900 tracking-wider text-base sm:text-lg flex items-center">
+                  <span className="font-extrabold text-slate-900 dark:text-slate-100 tracking-wider text-base sm:text-lg flex items-center">
                     METE
                     <span className="inline-flex items-center justify-center text-[#DE4F4F] mx-0.5">
                       <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none">
@@ -306,17 +350,17 @@ export const LandingPage: React.FC = () => {
              * 4 Interactive Fanned-Out Perspective Cards
           ───────────────────────────────────────────────────────────── */}
       <ScrollBlurSection id="workspace-preview" maxScale={1.04} maxBlur={6} minOpacity={0.4}>
-        <section className="py-12 sm:py-16 bg-transparent w-full text-center border-t border-slate-200/50">
+        <section className="py-12 sm:py-16 bg-transparent w-full text-center border-t border-slate-200/50 dark:border-white/10">
           <div className="w-full max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-12">
             {/* Lime Green Pill Badge */}
-            <div className="inline-flex items-center px-4 py-1 rounded-full text-xs sm:text-sm font-semibold bg-[#D4F870] text-slate-950 mb-3.5 shadow-2xs">
-              Workspace Preview
+            <div className="inline-flex items-center px-4 py-1 rounded-full text-xs sm:text-sm font-semibold bg-[#D4F870] text-slate-950 font-semibold mb-3.5 shadow-2xs">
+              Client Panel Preview
             </div>
 
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium text-slate-950 tracking-tight leading-[1.15]">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium text-slate-950 dark:text-white dark:text-white tracking-tight leading-[1.15]">
               Real-time Oversight, Zero Micromanagement
             </h2>
-            <p className="mt-2.5 text-sm sm:text-base text-slate-600 max-w-2xl mx-auto leading-relaxed font-normal">
+            <p className="mt-2.5 text-sm sm:text-base text-slate-600 dark:text-slate-300 max-w-2xl mx-auto leading-relaxed font-normal">
               Track milestones, collaborate with your appointed supervisor, and monitor active deliverables inside an all-in-one execution hub.
             </p>
 
@@ -326,31 +370,31 @@ export const LandingPage: React.FC = () => {
               ───────────────────────────────────────────────────────── */}
             <div className="mt-10 sm:mt-12 relative w-full max-w-[1300px] mx-auto pt-4 pb-2">
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 text-left relative z-0">
-                {/* Card 1: Review of Cutting-Edge Plugin Capabilities */}
-                <div className="bg-white rounded-2xl p-5 border border-slate-200/90 shadow-xl shadow-slate-200/60 hover:shadow-2xl hover:shadow-slate-300/80 transition-all duration-300 ease-out transform lg:-rotate-3 hover:lg:-rotate-6 hover:-rotate-3 hover:scale-105 hover:-translate-y-2 hover:z-20 cursor-pointer relative overflow-hidden flex flex-col justify-between">
+                {/* Card 1: Active Project with Progress */}
+                <div className="bg-white dark:bg-[#0D0D0E] rounded-2xl p-5 border border-slate-200/90 dark:border-white/10 shadow-xl shadow-slate-200/60 dark:shadow-black/60 hover:shadow-2xl hover:shadow-slate-300/80 transition-all duration-300 ease-out transform lg:-rotate-3 hover:lg:-rotate-6 hover:-rotate-3 hover:scale-105 hover:-translate-y-2 hover:z-20 cursor-pointer relative overflow-hidden flex flex-col justify-between">
                   {/* Purple/Violet Top Glow Border */}
                   <div className="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-violet-500 via-purple-500 to-indigo-500" />
 
                   <div>
                     <div className="flex items-center justify-between mb-3 pt-1">
-                      <div className="flex items-center gap-1 bg-rose-50 text-rose-600 border border-rose-200 px-2 py-0.5 rounded-full text-[11px] font-medium">
-                        <span>🔥 High</span>
+                      <div className="flex items-center gap-1 bg-emerald-50 text-emerald-700 border border-emerald-200 px-2 py-0.5 rounded-full text-[11px] font-medium">
+                        <span>● In Progress</span>
                       </div>
-                      <span className="text-[11px] text-slate-400 font-normal">Due: 30th June...</span>
+                      <span className="text-[11px] text-slate-400 font-normal">Due: 24th Sep</span>
                       <span className="text-slate-400 font-normal text-sm leading-none cursor-pointer">⋮</span>
                     </div>
 
-                    <h4 className="text-sm font-medium text-slate-900 leading-snug mb-4">
-                      Review of Cutting-Edge<br />Plugin Capabilities and Fu...
+                    <h4 className="text-sm font-medium text-slate-900 dark:text-slate-100 leading-snug mb-4">
+                      Restaurant Website Redesign<br />& Online Ordering API
                     </h4>
 
                     <div className="mb-4">
-                      <div className="flex justify-between text-[11px] text-slate-500 font-normal mb-1.5">
+                      <div className="flex justify-between text-[11px] text-slate-500 dark:text-slate-400 font-normal mb-1.5">
                         <span>Progress</span>
-                        <span className="font-medium text-slate-900">60%</span>
+                        <span className="font-medium text-slate-900 dark:text-slate-100">68%</span>
                       </div>
                       <div className="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
-                        <div className="h-full bg-emerald-500 rounded-full w-[60%]" />
+                        <div className="h-full bg-emerald-500 rounded-full w-[68%]" />
                       </div>
                     </div>
                   </div>
@@ -360,40 +404,40 @@ export const LandingPage: React.FC = () => {
                       <div className="flex -space-x-1.5">
                         <img
                           className="w-6 h-6 rounded-full border-2 border-white object-cover"
-                          src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=60&auto=format&fit=crop&q=80"
-                          alt="Avatar 1"
+                          src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=60&auto=format&fit=crop&q=80"
+                          alt="Supervisor Arjun"
                         />
                         <img
                           className="w-6 h-6 rounded-full border-2 border-white object-cover"
-                          src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=60&auto=format&fit=crop&q=80"
-                          alt="Avatar 2"
+                          src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=60&auto=format&fit=crop&q=80"
+                          alt="Developer Elena"
                         />
                       </div>
-                      <span className="text-[10px] text-slate-400 font-normal pl-2">+4</span>
+                      <span className="text-[10px] text-slate-400 font-normal pl-2">Arjun Mehta (Lead)</span>
                     </div>
                     <div className="flex items-center gap-3 text-[11px] text-slate-400">
                       <span className="flex items-center gap-1">
-                        <FileText className="w-3 h-3 text-slate-400" /> 12
+                        <FileText className="w-3 h-3 text-slate-400" /> 8
                       </span>
                       <span className="flex items-center gap-1">
-                        <MessageSquare className="w-3 h-3 text-slate-400" /> 16
+                        <MessageSquare className="w-3 h-3 text-slate-400" /> 14
                       </span>
                     </div>
                   </div>
                 </div>
 
-                {/* Card 2: Write Here Editor & Momina Message Card */}
-                <div className="bg-white rounded-2xl p-5 border border-slate-200/90 shadow-xl shadow-slate-200/60 hover:shadow-2xl hover:shadow-slate-300/80 transition-all duration-300 ease-out transform lg:-rotate-0.5 hover:lg:-rotate-3 hover:-rotate-2 hover:scale-105 hover:-translate-y-2 hover:z-20 cursor-pointer relative flex flex-col justify-between">
+                {/* Card 2: Supervisor Communication Card */}
+                <div className="bg-white dark:bg-[#0D0D0E] rounded-2xl p-5 border border-slate-200/90 dark:border-white/10 shadow-xl shadow-slate-200/60 dark:shadow-black/60 hover:shadow-2xl hover:shadow-slate-300/80 transition-all duration-300 ease-out transform lg:-rotate-0.5 hover:lg:-rotate-3 hover:-rotate-2 hover:scale-105 hover:-translate-y-2 hover:z-20 cursor-pointer relative flex flex-col justify-between">
                   <div>
-                    <div className="text-xs text-slate-400 mb-3 font-normal">Write here..</div>
-                    <div className="flex items-center justify-between pb-3 mb-3 border-b border-slate-100 text-slate-500 text-xs">
-                      <div className="flex items-center gap-2 font-medium text-slate-600">
-                        <span className="cursor-pointer hover:text-slate-900 font-bold">B</span>
-                        <span className="cursor-pointer hover:text-slate-900 italic font-serif">I</span>
-                        <span className="cursor-pointer hover:text-slate-900 underline">U</span>
-                        <span className="cursor-pointer hover:text-slate-900 text-[11px]">@</span>
+                    <div className="text-xs text-slate-400 dark:text-slate-400 mb-3 font-normal">Tell your supervisor...</div>
+                    <div className="flex items-center justify-between pb-3 mb-3 border-b border-slate-100 dark:border-white/10 text-slate-500 text-xs">
+                      <div className="flex items-center gap-2 font-medium text-slate-600 dark:text-slate-300">
+                        <span className="cursor-pointer hover:text-slate-900 dark:text-slate-100 font-bold">B</span>
+                        <span className="cursor-pointer hover:text-slate-900 dark:text-slate-100 italic font-serif">I</span>
+                        <span className="cursor-pointer hover:text-slate-900 dark:text-slate-100 underline">U</span>
+                        <span className="cursor-pointer hover:text-slate-900 dark:text-slate-100 text-[11px]">@</span>
                         <Paperclip className="w-3 h-3 text-slate-400 hover:text-slate-700 cursor-pointer" />
-                        <span className="cursor-pointer hover:text-slate-900 text-xs">😊</span>
+                        <span className="cursor-pointer hover:text-slate-900 dark:text-slate-100 text-xs">😊</span>
                       </div>
                       <button className="bg-[#10B981] hover:bg-emerald-600 text-white text-[11px] font-medium px-3 py-1 rounded-full flex items-center gap-1 shadow-xs transition-all cursor-pointer">
                         <Send className="w-2.5 h-2.5" />
@@ -405,133 +449,117 @@ export const LandingPage: React.FC = () => {
                   <div className="pt-1 flex items-start gap-2.5 text-left">
                     <img
                       className="w-7 h-7 rounded-full object-cover shrink-0 mt-0.5"
-                      src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=60&auto=format&fit=crop&q=80"
-                      alt="Momina Mustehsan"
+                      src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=60&auto=format&fit=crop&q=80"
+                      alt="Supervisor Arjun Mehta"
                     />
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center justify-between">
-                        <p className="text-[11px] font-medium text-slate-900 truncate">
-                          Momina Mustehsan <span className="text-[10px] font-normal text-slate-400">25 minutes ago</span>
+                        <p className="text-[11px] font-medium text-slate-900 dark:text-slate-100 truncate">
+                          Arjun Mehta <span className="text-[10px] font-normal text-slate-400">Supervisor</span>
                         </p>
-                        <span className="text-[9px] text-slate-400 font-normal shrink-0 ml-1">Most Recent ↓↑</span>
+                        <span className="text-[9px] text-emerald-600 font-normal shrink-0 ml-1">Active</span>
                       </div>
-                      <p className="text-[10.5px] text-slate-500 mt-1 leading-relaxed font-normal">
-                        Hey, I just completed the initial draft for the marketing campaign before the deadline. Should I move onto the next task? 😊
+                      <p className="text-[10.5px] text-slate-500 dark:text-slate-400 mt-1 leading-relaxed font-normal">
+                        Hey Alex, I completed the QA review on the online checkout flow. Deliverable preview is uploaded for your sign-off!
                       </p>
                     </div>
                   </div>
                 </div>
 
-                {/* Card 3: Kanban Columns Card (03 To Do, 04 Work In Progress, 04 Under Review) */}
-                <div className="bg-white rounded-2xl p-5 border border-slate-200/90 shadow-xl shadow-slate-200/60 hover:shadow-2xl hover:shadow-slate-300/80 transition-all duration-300 ease-out transform lg:rotate-1.5 hover:lg:rotate-3 hover:rotate-2 hover:scale-105 hover:-translate-y-2 hover:z-20 cursor-pointer relative flex flex-col justify-center">
+                {/* Card 3: Milestone Stages (01 Requirement, 02 UI/UX, 03 Frontend, 04 Launch) */}
+                <div className="bg-white dark:bg-[#0D0D0E] rounded-2xl p-5 border border-slate-200/90 dark:border-white/10 shadow-xl shadow-slate-200/60 dark:shadow-black/60 hover:shadow-2xl hover:shadow-slate-300/80 transition-all duration-300 ease-out transform lg:rotate-1.5 hover:lg:rotate-3 hover:rotate-2 hover:scale-105 hover:-translate-y-2 hover:z-20 cursor-pointer relative flex flex-col justify-center">
                   <div className="space-y-3">
-                    {/* 03 To Do */}
-                    <div className="flex items-center justify-between p-3 rounded-xl border border-blue-200/80 bg-white hover:bg-blue-50/20 transition-all">
+                    {/* 01 Requirement Review */}
+                    <div className="flex items-center justify-between p-2.5 rounded-xl border border-emerald-200 bg-emerald-50/30 transition-all">
                       <div className="flex items-center gap-2">
-                        <span className="bg-blue-50 text-blue-600 border border-blue-200 px-1.5 py-0.5 rounded text-[11px] font-medium">
+                        <span className="bg-emerald-100 text-emerald-800 border border-emerald-200 px-1.5 py-0.5 rounded text-[11px] font-medium">
+                          ✓
+                        </span>
+                        <span className="text-xs font-medium text-slate-800 dark:text-slate-200">01 Scope Scoped</span>
+                      </div>
+                      <span className="text-[10px] font-bold text-emerald-700">Done</span>
+                    </div>
+
+                    {/* 02 UI/UX Design */}
+                    <div className="flex items-center justify-between p-2.5 rounded-xl border border-emerald-200 bg-emerald-50/30 transition-all">
+                      <div className="flex items-center gap-2">
+                        <span className="bg-emerald-100 text-emerald-800 border border-emerald-200 px-1.5 py-0.5 rounded text-[11px] font-medium">
+                          ✓
+                        </span>
+                        <span className="text-xs font-medium text-slate-800 dark:text-slate-200">02 UI/UX Design</span>
+                      </div>
+                      <span className="text-[10px] font-bold text-emerald-700">₹15k Paid</span>
+                    </div>
+
+                    {/* 03 Frontend Dev */}
+                    <div className="flex items-center justify-between p-2.5 rounded-xl border border-blue-200 bg-blue-50/30 transition-all">
+                      <div className="flex items-center gap-2">
+                        <span className="bg-blue-100 text-blue-800 border border-blue-200 px-1.5 py-0.5 rounded text-[11px] font-medium">
                           03
                         </span>
-                        <span className="text-xs font-medium text-slate-800">To Do</span>
+                        <span className="text-xs font-medium text-blue-800">Frontend (68%)</span>
                       </div>
-                      <span className="w-5 h-5 rounded-full bg-[#8B7CF8] text-white text-xs font-medium flex items-center justify-center shadow-xs">
-                        +
-                      </span>
-                    </div>
-
-                    {/* 04 Work In Progress */}
-                    <div className="flex items-center justify-between p-3 rounded-xl border border-rose-200/80 bg-white hover:bg-rose-50/20 transition-all">
-                      <div className="flex items-center gap-2">
-                        <span className="bg-rose-50 text-rose-600 border border-rose-200 px-1.5 py-0.5 rounded text-[11px] font-medium">
-                          04
-                        </span>
-                        <span className="text-xs font-medium text-rose-600">Work In Progress</span>
-                      </div>
-                      <span className="w-5 h-5 rounded-full bg-rose-500 text-white text-xs font-medium flex items-center justify-center shadow-xs">
-                        +
-                      </span>
-                    </div>
-
-                    {/* 04 Under Review */}
-                    <div className="flex items-center justify-between p-3 rounded-xl border border-amber-200/80 bg-white hover:bg-amber-50/20 transition-all">
-                      <div className="flex items-center gap-2">
-                        <span className="bg-amber-50 text-amber-600 border border-amber-200 px-1.5 py-0.5 rounded text-[11px] font-medium">
-                          04
-                        </span>
-                        <span className="text-xs font-medium text-amber-600">Under Review</span>
-                      </div>
-                      <span className="w-5 h-5 rounded-full bg-amber-400 text-white text-xs font-medium flex items-center justify-center shadow-xs">
-                        +
-                      </span>
+                      <span className="text-[10px] font-bold text-blue-700">Review</span>
                     </div>
                   </div>
                 </div>
 
-                {/* Card 4: Invite & Assign Member Checklist Card */}
-                <div className="bg-white rounded-2xl p-5 border border-slate-200/90 shadow-xl shadow-slate-200/60 hover:shadow-2xl hover:shadow-slate-300/80 transition-all duration-300 ease-out transform lg:rotate-3 hover:lg:rotate-6 hover:rotate-3 hover:scale-105 hover:-translate-y-2 hover:z-20 cursor-pointer relative flex flex-col justify-between">
+                {/* Card 4: Team Behind the Scenes Managed by Supervisor */}
+                <div className="bg-white dark:bg-[#0D0D0E] rounded-2xl p-5 border border-slate-200/90 dark:border-white/10 shadow-xl shadow-slate-200/60 dark:shadow-black/60 hover:shadow-2xl hover:shadow-slate-300/80 transition-all duration-300 ease-out transform lg:rotate-3 hover:lg:rotate-6 hover:rotate-3 hover:scale-105 hover:-translate-y-2 hover:z-20 cursor-pointer relative flex flex-col justify-between">
                   <div>
-                    <div className="flex items-center gap-1.5 bg-slate-50 px-2.5 py-1.5 rounded-lg border border-slate-200/80 text-[11px] text-slate-400 mb-3">
-                      <Search className="w-3 h-3 text-slate-400" />
-                      <span>Search name...</span>
+                    <div className="flex items-center gap-1.5 bg-slate-50 dark:bg-slate-900/90 px-2.5 py-1.5 rounded-lg border border-slate-200/80 dark:border-white/10 text-[11px] text-slate-500 mb-3">
+                      <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
+                      <span>Managed Team Behind Scenes</span>
                     </div>
 
-                    <div className="flex items-center justify-between text-[11px] font-medium text-slate-700 mb-3 pb-2 border-b border-slate-100">
-                      <span className="flex items-center gap-1.5">
-                        <Square className="w-3.5 h-3.5 text-slate-400" /> Assign All
-                      </span>
-                      <span className="text-slate-500 hover:text-slate-900 flex items-center gap-1 cursor-pointer font-medium">
-                        <span>+</span> Invite Team Member
-                      </span>
+                    <div className="flex items-center justify-between text-[11px] font-medium text-slate-700 dark:text-slate-200 mb-3 pb-2 border-b border-slate-100 dark:border-white/10">
+                      <span className="text-slate-900 dark:text-slate-100 font-bold">Your Supervisor</span>
+                      <span className="text-purple-600 font-semibold">Arjun Mehta ⭐ 4.9</span>
                     </div>
 
-                    <div className="space-y-3">
-                      {/* Member 1: Momina Mustehsan */}
-                      <div
-                        onClick={() => toggleMember('momina')}
-                        className="flex items-center gap-2.5 text-left cursor-pointer"
-                      >
-                        {selectedMembers.momina ? (
-                          <CheckSquare className="w-4 h-4 text-[#7B61FF]" />
-                        ) : (
-                          <Square className="w-4 h-4 text-slate-300" />
-                        )}
-                        <img
-                          className="w-6 h-6 rounded-full object-cover"
-                          src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=60&auto=format&fit=crop&q=80"
-                          alt="Momina"
-                        />
-                        <div>
-                          <p className="text-[11px] font-medium text-slate-900 leading-tight">Momina Mustehsan</p>
-                          <p className="text-[9px] text-slate-400 font-normal">UX UI Designer</p>
+                    <div className="space-y-2.5">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <img
+                            className="w-6 h-6 rounded-full object-cover"
+                            src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=60&auto=format&fit=crop&q=80"
+                            alt="Elena"
+                          />
+                          <div>
+                            <p className="text-[11px] font-medium text-slate-900 dark:text-slate-100 leading-tight">Frontend Specialist</p>
+                            <p className="text-[9px] text-slate-400 font-normal">Managed by Arjun</p>
+                          </div>
                         </div>
+                        <CheckSquare className="w-3.5 h-3.5 text-emerald-600" />
                       </div>
 
-                      {/* Member 2: Lisa Brenan */}
-                      <div
-                        onClick={() => toggleMember('lisa')}
-                        className="flex items-center gap-2.5 text-left cursor-pointer"
-                      >
-                        {selectedMembers.lisa ? (
-                          <CheckSquare className="w-4 h-4 text-[#7B61FF]" />
-                        ) : (
-                          <Square className="w-4 h-4 text-slate-300" />
-                        )}
-                        <img
-                          className="w-6 h-6 rounded-full object-cover"
-                          src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=60&auto=format&fit=crop&q=80"
-                          alt="Lisa"
-                        />
-                        <div>
-                          <p className="text-[11px] font-medium text-slate-900 leading-tight">Lisa Brenan</p>
-                          <p className="text-[9px] text-slate-400 font-normal">Digital Marketer</p>
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <img
+                            className="w-6 h-6 rounded-full object-cover"
+                            src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=60&auto=format&fit=crop&q=80"
+                            alt="Marcus"
+                          />
+                          <div>
+                            <p className="text-[11px] font-medium text-slate-900 dark:text-slate-100 leading-tight">Backend Engineer</p>
+                            <p className="text-[9px] text-slate-400 font-normal">Managed by Arjun</p>
+                          </div>
                         </div>
+                        <CheckSquare className="w-3.5 h-3.5 text-emerald-600" />
                       </div>
                     </div>
+                  </div>
+
+                  <div className="pt-2 border-t border-slate-100 text-center">
+                    <p className="text-[10px] text-slate-500 font-medium">
+                      Zero worker management for the client.
+                    </p>
                   </div>
                 </div>
               </div>
 
               {/* Subtle Gradient Fade at bottom of the cards matching screenshot */}
-              <div className="pointer-events-none absolute bottom-0 inset-x-0 h-28 bg-gradient-to-t from-[#FAF8F5] via-[#FAF8F5]/80 to-transparent z-10" />
+              <div className="pointer-events-none absolute bottom-0 inset-x-0 h-28 bg-gradient-to-t from-[#FAF8F5] via-[#FAF8F5]/80 to-transparent dark:from-black dark:via-black/80 dark:to-transparent z-10" />
             </div>
           </div>
         </section>
@@ -546,56 +574,55 @@ export const LandingPage: React.FC = () => {
         <section className="py-10 sm:py-14 bg-transparent w-full text-center">
           <div className="w-full max-w-[1300px] mx-auto px-6 sm:px-10 lg:px-12">
             {/* Lime Green Pill Badge */}
-            <div className="inline-flex items-center px-3.5 py-1 rounded-full text-xs font-semibold bg-[#D4F870] text-slate-950 mb-3 shadow-2xs">
-              Why Choose Us
+            <div className="inline-flex items-center px-3.5 py-1 rounded-full text-xs font-semibold bg-[#D4F870] text-slate-950 font-semibold mb-3 shadow-2xs">
+              Why Choose AssignX
             </div>
 
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium text-slate-950 tracking-tight leading-[1.15]">
-              Enhanced Work Methodologies
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium text-slate-950 dark:text-white tracking-tight leading-[1.15]">
+              How Managed Delivery Protects Your Work
             </h2>
-            <p className="mt-2.5 text-sm sm:text-base text-slate-600 max-w-2xl mx-auto leading-relaxed font-normal">
-              By adopting structured frameworks like Agile milestones with dedicated supervisor oversight,
-              businesses eliminate traditional freelance risk and establish a culture of guaranteed continuous delivery.
+            <p className="mt-2.5 text-sm sm:text-base text-slate-600 dark:text-slate-300 max-w-2xl mx-auto leading-relaxed font-normal">
+              Traditional marketplaces force you to become an unpaid project manager. AssignX pairs you with dedicated technical supervisors who oversee vetted talent and guarantee milestone delivery.
             </p>
 
             {/* 3 Value Cards Grid */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8 sm:mt-10 text-left">
               {/* Card 1: Purple Accent */}
-              <div className="bg-white rounded-2xl p-7 border border-[#E9E4FD] shadow-xs hover:shadow-md transition-all">
+              <div className="bg-white dark:bg-[#0D0D0E] rounded-2xl p-7 border border-[#E9E4FD] dark:border-[#332A5E] shadow-xs hover:shadow-md transition-all">
                 <div className="w-12 h-12 rounded-xl bg-[#8B7CF8] text-white flex items-center justify-center mb-5 shadow-xs">
                   <Zap className="w-6 h-6 text-white" />
                 </div>
-                <h3 className="text-lg font-medium text-slate-950 tracking-tight mb-2">
-                  Increased productivity
+                <h3 className="text-lg font-medium text-slate-950 dark:text-white tracking-tight mb-2">
+                  1. Tell Us What You Need
                 </h3>
-                <p className="text-xs sm:text-sm text-slate-500 leading-relaxed font-normal">
-                  Our platform streamlines your workflow, helping you prioritize tasks, set deadlines, and focus on what truly matters.
+                <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 leading-relaxed font-normal">
+                  No technical jargon or complicated job postings. Simply describe your vision in our 6-step guided intake, select a category, and specify your budget.
                 </p>
               </div>
 
               {/* Card 2: Cyan Accent */}
-              <div className="bg-white rounded-2xl p-7 border border-[#D9F4FD] shadow-xs hover:shadow-md transition-all">
+              <div className="bg-white dark:bg-[#0D0D0E] rounded-2xl p-7 border border-[#D9F4FD] dark:border-[#1E4158] shadow-xs hover:shadow-md transition-all">
                 <div className="w-12 h-12 rounded-xl bg-[#38BDF8] text-white flex items-center justify-center mb-5 shadow-xs">
                   <ShieldCheck className="w-6 h-6 text-white" />
                 </div>
-                <h3 className="text-lg font-medium text-slate-950 tracking-tight mb-2">
-                  Better project oversight
+                <h3 className="text-lg font-medium text-slate-950 dark:text-white tracking-tight mb-2">
+                  2. Dedicated Supervisor Oversight
                 </h3>
                 <p className="text-xs sm:text-sm text-slate-500 leading-relaxed font-normal">
-                  Gain clear visibility into project progress, identify bottlenecks, and make informed decisions with comprehensive dashboards.
+                  An experienced technical supervisor owns your project. They coordinate talent behind the scenes, enforce code quality, run QA, and keep you updated.
                 </p>
               </div>
 
               {/* Card 3: Amber / Yellow Accent */}
-              <div className="bg-white rounded-2xl p-7 border border-[#FEEFC4] shadow-xs hover:shadow-md transition-all">
+              <div className="bg-white dark:bg-[#0D0D0E] rounded-2xl p-7 border border-[#FEEFC4] dark:border-[#4D3F1E] shadow-xs hover:shadow-md transition-all">
                 <div className="w-12 h-12 rounded-xl bg-[#F5CD52] text-slate-950 flex items-center justify-center mb-5 shadow-xs">
-                  <Lock className="w-6 h-6 text-slate-950" />
+                  <Lock className="w-6 h-6 text-slate-950 dark:text-white" />
                 </div>
-                <h3 className="text-lg font-medium text-slate-950 tracking-tight mb-2">
-                  Enhanced collaboration
+                <h3 className="text-lg font-medium text-slate-950 dark:text-white tracking-tight mb-2">
+                  3. Protected Milestone Escrow
                 </h3>
                 <p className="text-xs sm:text-sm text-slate-500 leading-relaxed font-normal">
-                  Our platform facilitates seamless collaboration among team members, ensuring everyone is on the same page and working towards common goals.
+                  Never pay upfront for incomplete work. Funds are held safely in escrow and released strictly after you inspect, review, and approve each deliverable.
                 </p>
               </div>
             </div>
@@ -612,16 +639,15 @@ export const LandingPage: React.FC = () => {
         <section className="py-10 sm:py-14 bg-transparent w-full text-center">
           <div className="w-full max-w-[1300px] mx-auto px-6 sm:px-10 lg:px-12">
             {/* Lime Green Pill Badge */}
-            <div className="inline-flex items-center px-3.5 py-1 rounded-full text-xs font-semibold bg-[#D4F870] text-slate-950 mb-3 shadow-2xs">
-              Features
+            <div className="inline-flex items-center px-3.5 py-1 rounded-full text-xs font-semibold bg-[#D4F870] text-slate-950 font-semibold mb-3 shadow-2xs">
+              Client Panel Features
             </div>
 
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium text-slate-950 tracking-tight leading-[1.15]">
-              Adopt a More Intelligent Work Approach
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium text-slate-950 dark:text-white tracking-tight leading-[1.15]">
+              Everything You Need to Track, Review & Approve
             </h2>
-            <p className="mt-2.5 text-sm sm:text-base text-slate-600 max-w-2xl mx-auto leading-relaxed font-normal">
-              It means cultivating a mindset of continuous learning and adaptation, where automated checkoffs handle
-              repetitive tasks, freeing up human capital for creative problem-solving and strategic initiatives.
+            <p className="mt-2.5 text-sm sm:text-base text-slate-600 dark:text-slate-300 max-w-2xl mx-auto leading-relaxed font-normal">
+              The AssignX client panel reduces your work to 5 simple steps: Request, Understand, Track, Approve, and Pay. Everything else is handled by AssignX behind the scenes.
             </p>
 
             {/* Bento Grid */}
@@ -630,90 +656,74 @@ export const LandingPage: React.FC = () => {
               <div className="lg:col-span-5 relative rounded-3xl overflow-hidden min-h-[480px] lg:min-h-[580px] shadow-sm group">
                 <img
                   src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=900&auto=format&fit=crop&q=80"
-                  alt="Real-time Collaboration"
+                  alt="Client and Supervisor Collaboration"
                   className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent flex flex-col justify-end p-8">
-                  <div className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-[#D4F870] text-slate-950 w-fit mb-3">
-                    Messaging Feature
+                  <div className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-[#D4F870] text-slate-950 font-semibold w-fit mb-3">
+                    Supervisor Channel
                   </div>
                   <h3 className="text-xl sm:text-2xl font-medium text-white leading-tight">
-                    Real-time Collaboration <br />with Team Members
+                    Direct Communication <br />With Your Project Lead
                   </h3>
+                  <p className="text-xs text-slate-200 mt-2 leading-relaxed font-normal">
+                    Ask questions, provide feedback, and receive milestone previews directly from your assigned supervisor.
+                  </p>
                 </div>
               </div>
 
               {/* Right Column (7 cols): Split Top & Bottom */}
               <div className="lg:col-span-7 flex flex-col gap-6">
-                {/* Top Sub-Card: Soft Lavender Card with Team Checklist */}
-                <div className="bg-[#EBE7FD] rounded-3xl p-6 sm:p-8 border border-[#DFD9FC] flex flex-col md:flex-row items-center justify-between gap-6">
+                {/* Top Sub-Card: Supervisor Team Coordination */}
+                <div className="bg-[#EBE7FD] dark:bg-[#151124] rounded-3xl p-6 sm:p-8 border border-[#DFD9FC] dark:border-[#382E6B] flex flex-col md:flex-row items-center justify-between gap-6">
                   <div className="w-full md:w-5/12">
                     <span className="inline-block px-3 py-1 rounded-full text-[11px] font-semibold bg-[#8B7CF8] text-white mb-3">
-                      Task Assigning Feature
+                      Behind The Scenes
                     </span>
-                    <h3 className="text-xl sm:text-2xl font-medium text-slate-950 leading-snug">
-                      Invite or Assign Existing Team Member
+                    <h3 className="text-xl sm:text-2xl font-medium text-slate-950 dark:text-white leading-snug">
+                      Your Supervisor Manages The Entire Team
                     </h3>
+                    <p className="text-xs text-slate-600 dark:text-slate-300 mt-2 leading-relaxed">
+                      You never need to source workers, manage tasks, or run daily standups.
+                    </p>
                   </div>
 
-                  {/* Floating Member Assignment Box */}
+                  {/* Floating Supervisor Match Preview */}
                   <div className="w-full md:w-7/12 bg-white rounded-2xl p-4 shadow-sm border border-slate-100">
-                    <div className="flex items-center gap-1.5 bg-slate-50 px-2.5 py-1.5 rounded-lg border border-slate-150 text-[11px] text-slate-400 mb-3">
-                      <Search className="w-3 h-3 text-slate-400" />
-                      <span>Search name...</span>
+                    <div className="flex items-center gap-1.5 bg-slate-50 px-2.5 py-1.5 rounded-lg border border-slate-150 text-[11px] text-slate-500 mb-3">
+                      <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
+                      <span>Assigned Project Supervisor</span>
                     </div>
 
-                    <div className="flex items-center justify-between text-[11px] font-semibold text-slate-700 mb-2 pb-1.5 border-b border-slate-100">
-                      <span className="flex items-center gap-1.5">
-                        <Square className="w-3 h-3 text-slate-400" /> Assign All
+                    <div className="p-2.5 rounded-xl bg-purple-50/70 border border-purple-100 mb-3 flex items-center justify-between">
+                      <div className="flex items-center gap-2.5">
+                        <img
+                          className="w-8 h-8 rounded-full object-cover border"
+                          src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&auto=format&fit=crop&q=80"
+                          alt="Arjun Mehta"
+                        />
+                        <div>
+                          <p className="text-xs font-bold text-slate-900 dark:text-slate-100">Arjun Mehta</p>
+                          <p className="text-[10px] text-slate-500">Technical Supervisor ⭐ 4.9</p>
+                        </div>
+                      </div>
+                      <span className="text-[10px] font-bold bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full">
+                        Active Lead
                       </span>
-                      <span className="text-[#7B61FF] cursor-pointer font-medium">+ Invite Team Member</span>
                     </div>
 
-                    <div className="space-y-2">
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-2">
-                          <img
-                            className="w-6 h-6 rounded-full object-cover"
-                            src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=60&auto=format&fit=crop&q=80"
-                            alt="Momina"
-                          />
-                          <div>
-                            <p className="text-[11px] font-medium text-slate-900">Momina Mustehsan</p>
-                            <p className="text-[9px] text-slate-400 font-normal">UX UI Designer</p>
-                          </div>
-                        </div>
-                        <CheckSquare className="w-3.5 h-3.5 text-[#7B61FF]" />
+                    <div className="space-y-1.5 text-[11px] text-slate-600">
+                      <div className="flex items-center justify-between py-1 border-b border-slate-100 dark:border-white/10">
+                        <span>Frontend Implementation</span>
+                        <span className="font-semibold text-emerald-600">QA Verified</span>
                       </div>
-
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-2">
-                          <img
-                            className="w-6 h-6 rounded-full object-cover"
-                            src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=60&auto=format&fit=crop&q=80"
-                            alt="Lisa"
-                          />
-                          <div>
-                            <p className="text-[11px] font-medium text-slate-900">Lisa Brenan</p>
-                            <p className="text-[9px] text-slate-400 font-normal">Digital Marketer</p>
-                          </div>
-                        </div>
-                        <CheckSquare className="w-3.5 h-3.5 text-[#7B61FF]" />
+                      <div className="flex items-center justify-between py-1 border-b border-slate-100 dark:border-white/10">
+                        <span>Backend & Database APIs</span>
+                        <span className="font-semibold text-blue-600">In Progress</span>
                       </div>
-
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-2">
-                          <img
-                            className="w-6 h-6 rounded-full object-cover"
-                            src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=60&auto=format&fit=crop&q=80"
-                            alt="Cristopher"
-                          />
-                          <div>
-                            <p className="text-[11px] font-medium text-slate-900">Cristopher Nolan</p>
-                            <p className="text-[9px] text-slate-400 font-normal">Product Manager</p>
-                          </div>
-                        </div>
-                        <Square className="w-3.5 h-3.5 text-slate-300" />
+                      <div className="flex items-center justify-between py-1">
+                        <span>Automated CI/CD Pipeline</span>
+                        <span className="font-semibold text-slate-500">Scheduled</span>
                       </div>
                     </div>
                   </div>
@@ -721,67 +731,55 @@ export const LandingPage: React.FC = () => {
 
                 {/* Bottom Sub-Row: 2 Cards (White Task Card + Cyan Overview Card) */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 flex-1">
-                  {/* Card 1: Detailed Task Card */}
-                  <div className="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-xs flex flex-col justify-between">
+                  {/* Card 1: Detailed Milestone Deliverable Card */}
+                  <div className="bg-white dark:bg-[#0D0D0E] rounded-3xl p-6 border border-slate-200/80 dark:border-white/10 shadow-xs flex flex-col justify-between">
                     <div>
                       <div className="flex items-center justify-between mb-3">
-                        <div className="flex items-center gap-1.5 bg-rose-50 text-rose-600 border border-rose-100 px-2 py-0.5 rounded-full text-[10px] font-semibold">
-                          <span>🔥 High</span>
-                          <span>Deadline: 25th...</span>
+                        <div className="flex items-center gap-1.5 bg-amber-50 text-amber-800 border border-amber-200 px-2 py-0.5 rounded-full text-[10px] font-semibold">
+                          <span>🔔 Action Required</span>
+                          <span>Review Ready</span>
                         </div>
                         <span className="text-slate-400 text-sm">⋮</span>
                       </div>
 
-                      <h4 className="text-sm font-medium text-slate-950 leading-snug">
-                        Investigating New Plugin Features and Their Econo...
+                      <h4 className="text-sm font-medium text-slate-950 dark:text-white leading-snug">
+                        Restaurant Website Homepage & Reservation System
                       </h4>
 
                       <div className="mt-4">
                         <div className="flex justify-between text-[11px] text-slate-500 font-normal mb-1">
-                          <span>Progress</span>
-                          <span className="font-semibold text-slate-900">40%</span>
+                          <span>Milestone 2 Progress</span>
+                          <span className="font-semibold text-slate-900 dark:text-slate-100">68%</span>
                         </div>
                         <div className="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
-                          <div className="h-full bg-emerald-500 rounded-full w-[40%]" />
+                          <div className="h-full bg-emerald-500 rounded-full w-[68%]" />
                         </div>
                       </div>
                     </div>
 
                     <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
                       <div className="flex items-center gap-1">
-                        <div className="flex -space-x-1.5">
-                          <img
-                            className="w-5 h-5 rounded-full border border-white object-cover"
-                            src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=60&auto=format&fit=crop&q=80"
-                            alt="Av1"
-                          />
-                          <img
-                            className="w-5 h-5 rounded-full border border-white object-cover"
-                            src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=60&auto=format&fit=crop&q=80"
-                            alt="Av2"
-                          />
-                        </div>
-                        <span className="text-[10px] text-slate-400 font-medium">+4</span>
+                        <span className="text-[11px] text-slate-600 font-medium">Supervisor: Arjun Mehta</span>
                       </div>
-                      <div className="flex items-center gap-2.5 text-[10px] text-slate-400">
+                      <div className="flex items-center gap-2 text-[10px] text-slate-400">
                         <span className="flex items-center gap-1">
-                          <Paperclip className="w-3 h-3 text-slate-400" /> 12
-                        </span>
-                        <span className="flex items-center gap-1">
-                          <MessageSquare className="w-3 h-3 text-slate-400" /> 16
+                          <FileText className="w-3 h-3 text-slate-400" /> 8 Files
                         </span>
                       </div>
                     </div>
                   </div>
 
                   {/* Card 2: Soft Cyan Overview Card */}
-                  <div className="bg-[#E2F7FD] rounded-3xl p-6 border border-[#CEEFF8] flex flex-col justify-center items-start">
+                  <div className="bg-[#E2F7FD] dark:bg-[#081B26] rounded-3xl p-6 border border-[#CEEFF8] dark:border-[#13425A] flex flex-col justify-center items-start">
                     <span className="inline-block px-3 py-1 rounded-full text-[11px] font-semibold bg-[#38BDF8] text-white mb-3">
-                      Task Overview
+                      Action Required Hub
                     </span>
-                    <h3 className="text-xl font-normal text-slate-950 leading-snug">
-                      Complete Task Overview at a Glance
+                    <h3 className="text-xl font-normal text-slate-950 dark:text-white leading-snug">
+                      Instant Visibility Into Work Requiring Your Input
                     </h3>
+                    <p className="text-xs text-slate-600 mt-2 leading-relaxed">
+                      Review designs, approve completed milestones, or release payments in one click.
+                    </p>
                   </div>
                 </div>
               </div>
@@ -799,16 +797,15 @@ export const LandingPage: React.FC = () => {
         <section className="py-12 sm:py-20 bg-transparent w-full text-center overflow-hidden">
           <div className="w-full max-w-[1640px] 2xl:max-w-[1720px] mx-auto px-3 sm:px-6 lg:px-8">
             {/* Lime Green Pill Badge */}
-            <div className="inline-flex items-center px-4 py-1 rounded-full text-xs sm:text-sm font-semibold bg-[#D4F870] text-slate-950 mb-3.5 shadow-2xs">
-              Sync With Others
+            <div className="inline-flex items-center px-4 py-1 rounded-full text-xs sm:text-sm font-semibold bg-[#D4F870] text-slate-950 font-semibold mb-3.5 shadow-2xs">
+              Ecosystem & Tools
             </div>
 
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium text-slate-950 tracking-tight leading-[1.15]">
-              Integrate with Your Favorite Tools
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium text-slate-950 dark:text-white tracking-tight leading-[1.15]">
+              Seamless Integration with Your Workflow
             </h2>
-            <p className="mt-2.5 text-sm sm:text-base text-slate-600 max-w-2xl mx-auto leading-relaxed font-normal">
-              By centralizing information and enabling data to flow freely between systems, our solution enhances
-              communication, breaks down data silos, and provides a unified view of your projects.
+            <p className="mt-2.5 text-sm sm:text-base text-slate-600 dark:text-slate-300 max-w-2xl mx-auto leading-relaxed font-normal">
+              Connect your existing tools to AssignX. Access Figma files, preview Vercel deployments, receive Slack notifications, and download itemized tax invoices effortlessly.
             </p>
 
             {/* Full-Width Organic Root Integration Network */}
@@ -816,8 +813,6 @@ export const LandingPage: React.FC = () => {
           </div>
         </section>
       </ScrollBlurSection>
-
-
 
       {/* ─────────────────────────────────────────────────────────────
           7. Section: "Get Smarter with Our Recent Posts" (Blog Grid)
@@ -828,16 +823,15 @@ export const LandingPage: React.FC = () => {
         <section className="py-10 sm:py-14 bg-transparent w-full text-center">
           <div className="w-full max-w-[1300px] mx-auto px-6 sm:px-10 lg:px-12">
             {/* Lime Green Pill Badge */}
-            <div className="inline-flex items-center px-3.5 py-1 rounded-full text-xs font-semibold bg-[#D4F870] text-slate-950 mb-3 shadow-2xs">
-              Our Blog
+            <div className="inline-flex items-center px-3.5 py-1 rounded-full text-xs font-semibold bg-[#D4F870] text-slate-950 font-semibold mb-3 shadow-2xs">
+              Knowledge & Insights
             </div>
 
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium text-slate-950 tracking-tight leading-[1.15]">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium text-slate-950 dark:text-white tracking-tight leading-[1.15]">
               Get Smarter with Our Recent Posts
             </h2>
-            <p className="mt-2.5 text-sm sm:text-base text-slate-600 max-w-2xl mx-auto leading-relaxed font-normal">
-              Our recent posts are crafted to be more than just content—they are a resource designed to empower you
-              with actionable knowledge and fresh perspectives.
+            <p className="mt-2.5 text-sm sm:text-base text-slate-600 dark:text-slate-300 max-w-2xl mx-auto leading-relaxed font-normal">
+              Actionable guides on managed project delivery, milestone escrow protection, and scaling products without the headache of managing contractors.
             </p>
 
             {/* 5-Card Blog Grid */}
@@ -850,11 +844,11 @@ export const LandingPage: React.FC = () => {
                   className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex flex-col justify-end p-6">
-                  <span className="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-[#D4F870] text-slate-950 w-fit mb-2">
-                    Latest
+                  <span className="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-[#D4F870] text-slate-950 font-semibold w-fit mb-2">
+                    Managed Delivery
                   </span>
                   <h4 className="text-sm font-medium text-white leading-snug">
-                    The Synergy Equation: Unlocking Your Team&apos;s Collective Power
+                    Why Managing Freelancers is Broken (And How Dedicated Supervisors Fix It)
                   </h4>
                 </div>
               </div>
@@ -867,11 +861,11 @@ export const LandingPage: React.FC = () => {
                   className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex flex-col justify-end p-8">
-                  <span className="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-[#D4F870] text-slate-950 w-fit mb-2">
-                    Latest
+                  <span className="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-[#D4F870] text-slate-950 font-semibold w-fit mb-2">
+                    Client Guide
                   </span>
                   <h4 className="text-base sm:text-lg font-medium text-white leading-snug">
-                    The Art of Alignment: How Great Teams Achieve Goals
+                    The 5-Step Client Journey: From Plain-English Requirement to Production Launch
                   </h4>
                 </div>
               </div>
@@ -884,11 +878,11 @@ export const LandingPage: React.FC = () => {
                   className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex flex-col justify-end p-6">
-                  <span className="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-[#D4F870] text-slate-950 w-fit mb-2">
-                    Latest
+                  <span className="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-[#D4F870] text-slate-950 font-semibold w-fit mb-2">
+                    Budget Security
                   </span>
                   <h4 className="text-sm font-medium text-white leading-snug">
-                    The Art of Alignment: How Great Teams Achieve Shared Goals
+                    Milestone Escrow: How Smart Founders Protect Their Project Budget
                   </h4>
                 </div>
               </div>
@@ -901,68 +895,37 @@ export const LandingPage: React.FC = () => {
                   className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex flex-col justify-end p-6">
-                  <span className="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-[#D4F870] text-slate-950 w-fit mb-2">
-                    Latest
+                  <span className="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-[#D4F870] text-slate-950 font-semibold w-fit mb-2">
+                    Case Study
                   </span>
                   <h4 className="text-sm font-medium text-white leading-snug">
-                    5 Actionable Strategies to Prevent Team Burnout
+                    How Founders Build Scalable Software Without Tech Management Overhead
                   </h4>
                 </div>
               </div>
-
-              {/* Blog Post 5 */}
-              <div className="rounded-3xl overflow-hidden relative min-h-[260px] shadow-xs group">
-                <img
-                  src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=600&auto=format&fit=crop&q=80"
-                  alt="Post 5"
-                  className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex flex-col justify-end p-6">
-                  <span className="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-[#D4F870] text-slate-950 w-fit mb-2">
-                    Latest
-                  </span>
-                  <h4 className="text-sm font-medium text-white leading-snug">
-                    Building Bridges: Enhancing Cross-Functional Teamwork
-                  </h4>
-                </div>
-              </div>
-            </div>
-
-            {/* Purple Pill Button: Read More Articles */}
-            <div className="mt-8">
-              <button
-                onClick={() => handleAuthAndNavigate('/dashboard')}
-                className="bg-[#8B7CF8] hover:bg-[#7867f6] text-white font-medium px-8 py-3 rounded-full text-sm shadow-xs hover:shadow transition-all cursor-pointer"
-              >
-                Read More Articles
-              </button>
             </div>
           </div>
         </section>
-      </ScrollBlurSection>
 
-      {/* ─────────────────────────────────────────────────────────────
-          8. Section: "They Stopped Being The Bottleneck" (Testimonials)
-             * Compact Layout & Typography from Reference Image 1
-             * Reduced vertical padding, margins and card sizes
-          ───────────────────────────────────────────────────────────── */}
-      <ScrollBlurSection id="testimonials" maxScale={1.04} maxBlur={6} minOpacity={0.4}>
-        <section className="py-8 sm:py-10 bg-transparent w-full overflow-hidden">
+        {/* ─────────────────────────────────────────────────────────────
+            8. Testimonials Section (Dual-Row Marquee)
+           ───────────────────────────────────────────────────────────── */}
+        <section id="testimonials" className="py-8 sm:py-10 bg-transparent w-full overflow-hidden">
           {/* Left-Aligned Compact Header */}
           <div className="w-full max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-12 mb-4 sm:mb-5 text-left">
-            <h2 className="text-3xl sm:text-4xl lg:text-[40px] font-medium text-slate-950 tracking-tight leading-[1.15]">
-              They Stopped Being <br />The Bottleneck
+            <h2 className="text-3xl sm:text-4xl lg:text-[40px] font-medium text-slate-950 dark:text-white tracking-tight leading-[1.15]">
+              They Stopped Being <br />The Project Bottleneck
             </h2>
             <p className="mt-1.5 text-xs sm:text-sm text-slate-600 max-w-lg leading-relaxed font-normal">
-              Not productivity metrics. Actual founder hours reclaimed — and teams that move without being pushed.
+              Actual founder hours reclaimed, zero worker micromanagement, and verified deliverables shipped on time.
             </p>
           </div>
 
           {/* Dual Staggered Horizontal Marquee Rows with Edge Gradient Fades */}
           <div className="relative w-full overflow-hidden">
             {/* Edge Gradient Masks */}
-            <div className="pointer-events-none absolute inset-y-0 left-0 w-14 sm:w-28 bg-gradient-to-r from-[#FAF8F5] via-[#FAF8F5]/80 to-transparent z-10" />
-            <div className="pointer-events-none absolute inset-y-0 right-0 w-14 sm:w-28 bg-gradient-to-l from-[#FAF8F5] via-[#FAF8F5]/80 to-transparent z-10" />
+            <div className="pointer-events-none absolute inset-y-0 left-0 w-14 sm:w-28 bg-gradient-to-r from-[#FAF8F5] via-[#FAF8F5]/80 to-transparent dark:from-black dark:via-black/80 dark:to-transparent z-10" />
+            <div className="pointer-events-none absolute inset-y-0 right-0 w-14 sm:w-28 bg-gradient-to-l from-[#FAF8F5] via-[#FAF8F5]/80 to-transparent dark:from-black dark:via-black/80 dark:to-transparent z-10" />
 
             {/* Row 1 */}
             <div className="flex mb-3.5 overflow-hidden">
@@ -970,13 +933,13 @@ export const LandingPage: React.FC = () => {
                 {[...row1Testimonials, ...row1Testimonials].map((item, idx) => (
                   <div
                     key={idx}
-                    className="w-[290px] sm:w-[345px] shrink-0 p-5 sm:p-5.5 bg-[#F8F9FA] rounded-xl sm:rounded-2xl border border-slate-200/60 flex flex-col justify-between text-left hover:border-slate-300 hover:bg-[#F5F6F8] transition-all cursor-default"
+                    className="w-[290px] sm:w-[345px] shrink-0 p-5 sm:p-5.5 bg-[#F8F9FA] dark:bg-[#0D0D0E] rounded-xl sm:rounded-2xl border border-slate-200/60 dark:border-white/10 flex flex-col justify-between text-left hover:border-slate-300 dark:hover:border-slate-700 hover:bg-[#F5F6F8] dark:hover:bg-[#141416] transition-all cursor-default"
                   >
-                    <p className="text-slate-800 text-xs sm:text-[12.5px] leading-relaxed font-normal mb-4">
+                    <p className="text-slate-800 dark:text-slate-200 text-xs sm:text-[12.5px] leading-relaxed font-normal mb-4">
                       &ldquo;{item.quote}&rdquo;
                     </p>
 
-                    <div className="flex items-center justify-between pt-3 border-t border-slate-200/50 mt-auto">
+                    <div className="flex items-center justify-between pt-3 border-t border-slate-200/50 dark:border-white/10 mt-auto">
                       <div className="flex items-center gap-2">
                         <img
                           className="w-7 h-7 rounded-full object-cover shrink-0"
@@ -984,7 +947,7 @@ export const LandingPage: React.FC = () => {
                           alt={item.author}
                         />
                         <div>
-                          <h4 className="text-xs font-medium text-slate-900 leading-tight">
+                          <h4 className="text-xs font-medium text-slate-900 dark:text-white leading-tight">
                             {item.author}
                           </h4>
                           <p className="text-[10px] text-slate-400 font-normal">
@@ -993,7 +956,7 @@ export const LandingPage: React.FC = () => {
                         </div>
                       </div>
 
-                      <div className="flex items-center gap-1.5 text-xs font-semibold text-slate-900 opacity-90">
+                      <div className="flex items-center gap-1.5 text-xs font-semibold text-slate-900 dark:text-slate-200 opacity-90">
                         {item.companyIcon && <span className="text-[11px]">{item.companyIcon}</span>}
                         <span>{item.companyName}</span>
                       </div>
@@ -1009,13 +972,13 @@ export const LandingPage: React.FC = () => {
                 {[...row2Testimonials, ...row2Testimonials].map((item, idx) => (
                   <div
                     key={idx}
-                    className="w-[290px] sm:w-[345px] shrink-0 p-5 sm:p-5.5 bg-[#F8F9FA] rounded-xl sm:rounded-2xl border border-slate-200/60 flex flex-col justify-between text-left hover:border-slate-300 hover:bg-[#F5F6F8] transition-all cursor-default"
+                    className="w-[290px] sm:w-[345px] shrink-0 p-5 sm:p-5.5 bg-[#F8F9FA] dark:bg-[#0D0D0E] rounded-xl sm:rounded-2xl border border-slate-200/60 dark:border-white/10 flex flex-col justify-between text-left hover:border-slate-300 dark:hover:border-slate-700 hover:bg-[#F5F6F8] dark:hover:bg-[#161E31] transition-all cursor-default"
                   >
-                    <p className="text-slate-800 text-xs sm:text-[12.5px] leading-relaxed font-normal mb-4">
+                    <p className="text-slate-800 dark:text-slate-200 text-xs sm:text-[12.5px] leading-relaxed font-normal mb-4">
                       &ldquo;{item.quote}&rdquo;
                     </p>
 
-                    <div className="flex items-center justify-between pt-3 border-t border-slate-200/50 mt-auto">
+                    <div className="flex items-center justify-between pt-3 border-t border-slate-200/50 dark:border-white/10 mt-auto">
                       <div className="flex items-center gap-2">
                         <img
                           className="w-7 h-7 rounded-full object-cover shrink-0"
@@ -1023,7 +986,7 @@ export const LandingPage: React.FC = () => {
                           alt={item.author}
                         />
                         <div>
-                          <h4 className="text-xs font-medium text-slate-900 leading-tight">
+                          <h4 className="text-xs font-medium text-slate-900 dark:text-white leading-tight">
                             {item.author}
                           </h4>
                           <p className="text-[10px] text-slate-400 font-normal">
@@ -1032,7 +995,7 @@ export const LandingPage: React.FC = () => {
                         </div>
                       </div>
 
-                      <div className="flex items-center gap-1.5 text-xs font-semibold text-slate-900 opacity-90">
+                      <div className="flex items-center gap-1.5 text-xs font-semibold text-slate-900 dark:text-slate-200 opacity-90">
                         {item.companyIcon && <span className="text-[11px]">{item.companyIcon}</span>}
                         <span>{item.companyName}</span>
                       </div>
@@ -1048,15 +1011,15 @@ export const LandingPage: React.FC = () => {
       {/* ─────────────────────────────────────────────────────────────
           9. Modern Editorial Footer (1:1 Match with Reference Design: Priora style)
              * Layout:
-               - Left Column: Vibrant Soft Aurora Gradient Card
-                 (AssignX mark, Value Prop, "Follow us", 3 Rounded White Social Buttons: IG, LinkedIn, X)
-               - Middle Columns: PRODUCT & COMPANY Links with subtle top border for Copyright
-               - Right Column: Vertical divider border, Y Combinator W25 Badge,
-                 "Design Clarity, Straight To Your Inbox" headline,
-                 Newsletter Email Input + Metallic Dark "Stay In The Loop" Button + Microcopy
-               - Bottom: Huge faint typographic brand watermark "AssignX" partially cropped
+                - Left Column: Vibrant Soft Aurora Gradient Card
+                  (AssignX mark, Value Prop, "Follow us", 3 Rounded White Social Buttons: IG, LinkedIn, X)
+                - Middle Columns: PRODUCT & COMPANY Links with subtle top border for Copyright
+                - Right Column: Vertical divider border, Y Combinator W25 Badge,
+                  "Design Clarity, Straight To Your Inbox" headline,
+                  Newsletter Email Input + Metallic Dark "Stay In The Loop" Button + Microcopy
+                - Bottom: Huge faint typographic brand watermark "AssignX" partially cropped
           ───────────────────────────────────────────────────────────── */}
-      <footer className="w-full bg-transparent border-t border-slate-200/60 pt-12 sm:pt-16 pb-0 relative overflow-hidden text-slate-900">
+      <footer className="w-full bg-transparent border-t border-slate-200/60 dark:border-white/10 pt-12 sm:pt-16 pb-0 relative overflow-hidden text-slate-900 dark:text-slate-100 dark:text-slate-100">
         <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-10 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch pb-4 sm:pb-6">
 
@@ -1069,7 +1032,7 @@ export const LandingPage: React.FC = () => {
                 }}
               >
                 <div className="relative z-10">
-                  {/* Brand Logo & Wordmark: 4-square grid + AssignX in pure white */}
+                  {/* Brand Logo & Wordmark */}
                   <div className="flex items-center gap-2.5">
                     <div className="grid grid-cols-2 gap-1 w-5 h-5">
                       <div className="w-2 h-2 rounded-[2px] bg-white shadow-xs" />
@@ -1083,10 +1046,10 @@ export const LandingPage: React.FC = () => {
                   </div>
                 </div>
 
-                {/* Middle Value Proposition Copy — High contrast & crisp */}
+                {/* Middle Value Proposition Copy */}
                 <div className="relative z-10 my-8">
                   <p className="text-white text-base sm:text-lg font-medium leading-snug drop-shadow-[0_1px_3px_rgba(0,0,0,0.45)] max-w-[270px]">
-                    Your team always knows what to build next, without asking you!
+                    Tell AssignX what you need. Track progress. Approve results.
                   </p>
                 </div>
 
@@ -1101,7 +1064,7 @@ export const LandingPage: React.FC = () => {
                       href="https://instagram.com"
                       target="_blank"
                       rel="noreferrer"
-                      className="w-8 h-8 rounded-xl bg-white text-slate-800 flex items-center justify-center shadow-md hover:bg-slate-50 hover:scale-105 transition-all cursor-pointer"
+                      className="w-8 h-8 rounded-xl bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200 flex items-center justify-center shadow-md hover:bg-slate-50 dark:hover:bg-slate-700 hover:scale-105 transition-all cursor-pointer"
                       aria-label="Instagram"
                     >
                       <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -1115,7 +1078,7 @@ export const LandingPage: React.FC = () => {
                       href="https://linkedin.com"
                       target="_blank"
                       rel="noreferrer"
-                      className="w-8 h-8 rounded-xl bg-white text-slate-800 flex items-center justify-center shadow-md hover:bg-slate-50 hover:scale-105 transition-all cursor-pointer"
+                      className="w-8 h-8 rounded-xl bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200 flex items-center justify-center shadow-md hover:bg-slate-50 dark:hover:bg-slate-700 hover:scale-105 transition-all cursor-pointer"
                       aria-label="LinkedIn"
                     >
                       <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
@@ -1127,7 +1090,7 @@ export const LandingPage: React.FC = () => {
                       href="https://x.com"
                       target="_blank"
                       rel="noreferrer"
-                      className="w-8 h-8 rounded-xl bg-white text-slate-800 flex items-center justify-center shadow-md hover:bg-slate-50 hover:scale-105 transition-all cursor-pointer"
+                      className="w-8 h-8 rounded-xl bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200 flex items-center justify-center shadow-md hover:bg-slate-50 dark:hover:bg-slate-700 hover:scale-105 transition-all cursor-pointer"
                       aria-label="X"
                     >
                       <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
@@ -1141,7 +1104,7 @@ export const LandingPage: React.FC = () => {
 
             {/* ── Right Bordered Container: Product & Company Links + Newsletter (8 cols) ─── */}
             <div className="lg:col-span-8 flex">
-              <div className="w-full bg-white rounded-[28px] border border-slate-200/80 shadow-2xs overflow-hidden flex flex-col justify-between">
+              <div className="w-full bg-white dark:bg-[#0D0D0E] rounded-[28px] border border-slate-200/80 dark:border-white/10 shadow-2xs overflow-hidden flex flex-col justify-between">
                 <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-slate-150 h-full">
 
                   {/* Middle Column: Links & Copyright */}
@@ -1152,30 +1115,30 @@ export const LandingPage: React.FC = () => {
                         <h4 className="text-[11px] font-semibold tracking-wider text-slate-400 uppercase mb-4">
                           PRODUCT
                         </h4>
-                        <ul className="space-y-3 text-xs sm:text-sm font-normal text-slate-700">
+                        <ul className="space-y-3 text-xs sm:text-sm font-normal text-slate-700 dark:text-slate-300">
                           <li>
-                            <button onClick={() => setShowDemoModal(true)} className="hover:text-slate-950 transition-colors text-left cursor-pointer">
+                            <button onClick={() => setShowDemoModal(true)} className="hover:text-slate-950 dark:hover:text-white dark:text-white transition-colors text-left cursor-pointer">
                               How it works
                             </button>
                           </li>
                           <li>
-                            <a href="#capabilities" className="hover:text-slate-950 transition-colors">
+                            <a href="#capabilities" className="hover:text-slate-950 dark:hover:text-white dark:text-white transition-colors">
                               Features
                             </a>
                           </li>
                           <li>
-                            <a href="#integrations" className="hover:text-slate-950 transition-colors">
-                              Integrations
+                            <a href="#work-categories" className="hover:text-slate-950 dark:hover:text-white dark:text-white transition-colors">
+                              Categories
                             </a>
                           </li>
                           <li>
-                            <a href="#testimonials" className="hover:text-slate-950 transition-colors">
+                            <a href="#testimonials" className="hover:text-slate-950 dark:hover:text-white dark:text-white transition-colors">
                               Testimonials
                             </a>
                           </li>
                           <li>
-                            <button onClick={() => handleAuthAndNavigate('/dashboard')} className="hover:text-slate-950 transition-colors text-left cursor-pointer">
-                              Changelog
+                            <button onClick={() => handleAuthAndNavigate('/dashboard')} className="hover:text-slate-950 dark:hover:text-white dark:text-white transition-colors text-left cursor-pointer">
+                              Client Panel
                             </button>
                           </li>
                         </ul>
@@ -1186,29 +1149,29 @@ export const LandingPage: React.FC = () => {
                         <h4 className="text-[11px] font-semibold tracking-wider text-slate-400 uppercase mb-4">
                           COMPANY
                         </h4>
-                        <ul className="space-y-3 text-xs sm:text-sm font-normal text-slate-700">
+                        <ul className="space-y-3 text-xs sm:text-sm font-normal text-slate-700 dark:text-slate-300">
                           <li>
-                            <button onClick={() => handleAuthAndNavigate('/create')} className="hover:text-slate-950 transition-colors text-left cursor-pointer">
-                              For founders
+                            <button onClick={() => handleAuthAndNavigate('/create')} className="hover:text-slate-950 dark:hover:text-white dark:text-white transition-colors text-left cursor-pointer">
+                              Create Work
                             </button>
                           </li>
                           <li>
-                            <a href="#insights" className="hover:text-slate-950 transition-colors">
+                            <a href="#insights" className="hover:text-slate-950 dark:hover:text-white dark:text-white transition-colors">
                               Blog
                             </a>
                           </li>
                           <li>
-                            <button onClick={() => setShowDemoModal(true)} className="hover:text-slate-950 transition-colors text-left cursor-pointer">
-                              About
+                            <button onClick={() => setShowDemoModal(true)} className="hover:text-slate-950 dark:hover:text-white dark:text-white transition-colors text-left cursor-pointer">
+                              About AssignX
                             </button>
                           </li>
                           <li>
-                            <button onClick={() => handleAuthAndNavigate('/dashboard')} className="hover:text-slate-950 transition-colors text-left cursor-pointer">
+                            <button onClick={() => handleAuthAndNavigate('/dashboard')} className="hover:text-slate-950 dark:hover:text-white dark:text-white transition-colors text-left cursor-pointer">
                               Privacy policy
                             </button>
                           </li>
                           <li>
-                            <button onClick={() => handleAuthAndNavigate('/dashboard')} className="hover:text-slate-950 transition-colors text-left cursor-pointer">
+                            <button onClick={() => handleAuthAndNavigate('/dashboard')} className="hover:text-slate-950 dark:hover:text-white dark:text-white transition-colors text-left cursor-pointer">
                               Terms of service
                             </button>
                           </li>
@@ -1217,14 +1180,14 @@ export const LandingPage: React.FC = () => {
                     </div>
 
                     {/* Bottom horizontal hairline & Copyright */}
-                    <div className="pt-6 mt-8 sm:mt-12 border-t border-slate-150">
-                      <p className="text-xs text-slate-500 font-normal">
+                    <div className="pt-6 mt-8 sm:mt-12 border-t border-slate-150 dark:border-white/10">
+                      <p className="text-xs text-slate-500 dark:text-slate-400 font-normal">
                         © 2026 AssignX. All rights reserved.
                       </p>
                     </div>
                   </div>
 
-                  {/* Right Column: Newsletter & YC Badge */}
+                  {/* Right Column: Newsletter & Tagline */}
                   <div className="p-7 sm:p-9 flex flex-col justify-between">
                     <div>
                       {/* AssignX Badge */}
@@ -1232,14 +1195,14 @@ export const LandingPage: React.FC = () => {
                         <div className="w-5 h-5 bg-[#FF6600] rounded-xs flex items-center justify-center text-white font-bold text-xs leading-none">
                           A
                         </div>
-                        <span className="text-xs font-medium text-slate-800">
-                          AssignX · W25
+                        <span className="text-xs font-semibold text-slate-800 dark:text-white">
+                          AssignX Managed Delivery
                         </span>
                       </div>
 
                       {/* Newsletter Heading */}
-                      <h3 className="text-xl sm:text-2xl font-medium text-slate-950 tracking-tight leading-snug mb-5 max-w-xs">
-                        Design Clarity, Straight<br />To Your Inbox
+                      <h3 className="text-xl sm:text-2xl font-medium text-slate-950 dark:text-white tracking-tight leading-snug mb-5 max-w-xs">
+                        Product Delivery Insights, Straight To Your Inbox
                       </h3>
 
                       {/* Newsletter Form */}
@@ -1259,7 +1222,7 @@ export const LandingPage: React.FC = () => {
                           value={newsletterEmail}
                           onChange={(e) => setNewsletterEmail(e.target.value)}
                           placeholder="your @email.com"
-                          className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white text-xs sm:text-sm text-slate-900 placeholder:text-slate-400 focus:outline-hidden focus:border-slate-400 shadow-2xs transition-all"
+                          className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-xs sm:text-sm text-slate-900 dark:text-slate-100 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-hidden focus:border-slate-400 shadow-2xs transition-all"
                         />
                         <button
                           type="submit"
@@ -1272,8 +1235,8 @@ export const LandingPage: React.FC = () => {
 
                     {/* Bottom Microcopy */}
                     <div className="pt-4 sm:pt-6">
-                      <p className="text-[11px] text-slate-500 leading-relaxed font-normal max-w-xs">
-                        *No fluff. Founder-focused insights on async decision-making, AI prioritization, and building faster teams.
+                      <p className="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed font-normal max-w-xs">
+                        *No spam. Founder-focused insights on managed project delivery, milestone workflows, and async execution.
                       </p>
                     </div>
                   </div>
@@ -1290,7 +1253,7 @@ export const LandingPage: React.FC = () => {
             * Prominently highlighted with crisp gradient depth
             ───────────────────────────────────────────────────────── */}
         <div className="w-full flex items-center justify-center overflow-hidden select-none pointer-events-none mt-2 sm:mt-4 -mb-2 sm:-mb-3">
-          <span className="font-bold text-[17vw] sm:text-[18.5vw] lg:text-[20vw] xl:text-[21.5vw] bg-gradient-to-b from-slate-900/35 via-slate-800/20 to-slate-900/5 bg-clip-text text-transparent tracking-tighter leading-[0.85] select-none block w-full text-center whitespace-nowrap">
+          <span className="font-bold text-[17vw] sm:text-[18.5vw] lg:text-[20vw] xl:text-[21.5vw] bg-gradient-to-b from-slate-900/35 via-slate-800/20 to-slate-900/5 dark:from-slate-100/25 dark:via-slate-200/10 dark:to-transparent bg-clip-text text-transparent tracking-tighter leading-[0.85] select-none block w-full text-center whitespace-nowrap">
             AssignX
           </span>
         </div>
@@ -1301,24 +1264,24 @@ export const LandingPage: React.FC = () => {
           ───────────────────────────────────────────────────────────── */}
       {showDemoModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-fade-in">
-          <div className="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-slate-200 relative">
+          <div className="bg-white dark:bg-[#0D0D0E] rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-slate-200 dark:border-white/10 relative">
             <button
               onClick={() => setShowDemoModal(false)}
-              className="absolute top-5 right-5 w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-600 transition-colors cursor-pointer"
+              className="absolute top-5 right-5 w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 flex items-center justify-center text-slate-600 dark:text-slate-300 transition-colors cursor-pointer"
               aria-label="Close modal"
             >
               <X className="w-4 h-4" />
             </button>
 
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-[#D4F870] text-slate-950 mb-3">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-[#D4F870] text-slate-950 font-semibold mb-3">
               Platform Walkthrough
             </div>
 
-            <h3 className="text-2xl font-normal text-slate-950 tracking-tight">
+            <h3 className="text-2xl font-normal text-slate-950 dark:text-white tracking-tight">
               How AssignX Works
             </h3>
-            <p className="text-xs sm:text-sm text-slate-600 mt-2 leading-relaxed">
-              Discover how our dedicated supervisors translate your goals into verifiable milestones, conduct QA, and protect your budget through protected escrow.
+            <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-2 leading-relaxed">
+              Tell AssignX what you need → Track work → Communicate with your supervisor → Approve results → Make milestone payments. Zero freelancer management on your side.
             </p>
 
             <div className="mt-5 rounded-2xl bg-slate-950 aspect-video flex flex-col items-center justify-center text-white relative overflow-hidden border border-slate-800">
@@ -1329,15 +1292,15 @@ export const LandingPage: React.FC = () => {
             </div>
 
             <div className="mt-6 flex items-center justify-between pt-4 border-t border-slate-150">
-              <span className="text-xs text-slate-500">Ready to discuss your scope?</span>
+              <span className="text-xs text-slate-500">Ready to start your project?</span>
               <button
                 onClick={() => {
                   setShowDemoModal(false);
                   handleAuthAndNavigate('/create');
                 }}
-                className="bg-[#F5CD52] hover:bg-[#eec23d] text-slate-950 font-medium px-6 py-2.5 rounded-full text-xs shadow-xs transition-all cursor-pointer"
+                className="bg-[#8B7CF8] hover:bg-[#7867f6] text-white font-medium px-6 py-2.5 rounded-full text-xs shadow-xs transition-all cursor-pointer"
               >
-                Post a Project
+                + Create Work Request
               </button>
             </div>
           </div>

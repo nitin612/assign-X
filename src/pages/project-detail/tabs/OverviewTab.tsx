@@ -111,12 +111,12 @@ export const OverviewTab: React.FC<OverviewTabProps> = ({ project, onSelectTab }
             >
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '8px', marginBottom: '8px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                  <Sparkles size={14} color="var(--color-coral)" />
-                  <span style={{ fontSize: '11px', fontWeight: 800, color: 'var(--text-muted)', textTransform: 'uppercase' }}>
+                  <Sparkles size={14} color="var(--brand-primary)" />
+                  <span style={{ fontSize: '11px', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase' }}>
                     Active Milestone Goal
                   </span>
                 </div>
-                <span style={{ fontSize: '12px', fontWeight: 700, color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                <span style={{ fontSize: '12px', fontWeight: 600, color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', gap: '4px' }}>
                   <Calendar size={12} /> Target: {activeMilestone.dueDate}
                 </span>
               </div>
@@ -129,7 +129,7 @@ export const OverviewTab: React.FC<OverviewTabProps> = ({ project, onSelectTab }
                 {activeMilestone.description}
               </p>
 
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '12px', borderTop: '1px solid #EDEDF3', paddingTop: '10px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '12px', borderTop: '1px solid var(--border-subtle)', paddingTop: '10px' }}>
                 <span style={{ color: 'var(--text-muted)' }}>
                   Milestone Gate Allocation: <strong style={{ color: 'var(--text-primary)' }}>₹{activeMilestone.amount.toLocaleString('en-IN')}</strong>
                 </span>
@@ -146,7 +146,7 @@ export const OverviewTab: React.FC<OverviewTabProps> = ({ project, onSelectTab }
               Milestone Gates: <strong>{completedMilestones.length} of {project.milestones.length} Approved</strong>
             </span>
             <span style={{ color: 'var(--text-secondary)' }}>
-              Released: <strong style={{ color: '#166534' }}>₹{project.paidAmount.toLocaleString('en-IN')}</strong> / ₹{project.budget.toLocaleString('en-IN')}
+              Released: <strong style={{ color: '#047857' }}>₹{project.paidAmount.toLocaleString('en-IN')}</strong> / ₹{project.budget.toLocaleString('en-IN')}
             </span>
           </div>
 
@@ -160,7 +160,7 @@ export const OverviewTab: React.FC<OverviewTabProps> = ({ project, onSelectTab }
                   key={m.id || idx}
                   style={{
                     flex: 1,
-                    backgroundColor: isDone ? '#10B981' : isActive ? 'var(--color-coral)' : '#E2E8F0',
+                    backgroundColor: isDone ? '#10B981' : isActive ? 'var(--brand-primary)' : 'var(--border-default)',
                     borderRadius: '2px'
                   }}
                   title={`${m.name}: ${m.status}`}

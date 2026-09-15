@@ -143,37 +143,36 @@ export const ProjectDetailPage: React.FC = () => {
               <span
                 style={{
                   fontSize: '11px',
-                  fontWeight: 800,
+                  fontWeight: 600,
                   color: 'var(--text-secondary)',
                   backgroundColor: 'var(--bg-subtle)',
                   padding: '3px 10px',
                   borderRadius: '9999px',
-                  border: '1px solid var(--border-card)',
+                  border: '1px solid var(--border-default)',
                   textTransform: 'uppercase',
                   letterSpacing: '0.04em'
                 }}
               >
                 {project.category}
               </span>
-              <span style={{ fontSize: '12px', fontWeight: 700, color: 'var(--text-muted)' }}>
+              <span style={{ fontSize: '12px', fontWeight: 600, color: 'var(--text-muted)' }}>
                 #{project.id}
               </span>
               <span
                 style={{
                   fontSize: '11.5px',
-                  fontWeight: 800,
+                  fontWeight: 600,
                   padding: '2px 10px',
                   borderRadius: '9999px',
-                  backgroundColor: 'var(--color-lime)',
-                  color: '#111111',
-                  border: '1.5px solid #111111',
-                  boxShadow: '1.5px 1.5px 0px #111111',
+                  backgroundColor: '#ECFDF5',
+                  color: '#047857',
+                  border: '1px solid #A7F3D0',
                   display: 'inline-flex',
                   alignItems: 'center',
                   gap: '4px'
                 }}
               >
-                <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#166534' }} />
+                <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#10B981' }} />
                 {project.status}
               </span>
             </div>
@@ -194,9 +193,9 @@ export const ProjectDetailPage: React.FC = () => {
           <div className="workspace-stat-pod">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <span className="workspace-stat-label">
-                <Sparkles size={12} color="var(--color-coral)" /> Sprint Progress
+                <Sparkles size={12} color="var(--brand-primary)" /> Sprint Progress
               </span>
-              <span style={{ fontSize: '13px', fontWeight: 800, color: 'var(--text-primary)' }}>
+              <span style={{ fontSize: '13px', fontWeight: 700, color: 'var(--text-primary)' }}>
                 {project.progress}%
               </span>
             </div>
@@ -221,7 +220,7 @@ export const ProjectDetailPage: React.FC = () => {
               <span className="workspace-stat-label">
                 <CreditCard size={12} /> Escrow Budget
               </span>
-              <span style={{ fontSize: '10px', fontWeight: 700, color: '#166534', backgroundColor: '#DCFCE7', padding: '1px 6px', borderRadius: '4px' }}>
+              <span style={{ fontSize: '10px', fontWeight: 600, color: '#047857', backgroundColor: '#ECFDF5', padding: '1px 6px', borderRadius: '4px', border: '1px solid #A7F3D0' }}>
                 Protected
               </span>
             </div>
@@ -233,15 +232,15 @@ export const ProjectDetailPage: React.FC = () => {
           {/* Pod 4: Dedicated Supervisor */}
           <div className="workspace-stat-pod">
             <span className="workspace-stat-label">
-              <ShieldCheck size={12} color="#2563EB" /> Dedicated Lead
+              <ShieldCheck size={12} color="var(--brand-primary)" /> Dedicated Lead
             </span>
             <div className="workspace-stat-value" style={{ gap: '8px' }}>
               <img
                 src={project.supervisor.avatar}
                 alt={project.supervisor.name}
-                style={{ width: '22px', height: '22px', borderRadius: '9999px', objectFit: 'cover', border: '1px solid #111111' }}
+                style={{ width: '22px', height: '22px', borderRadius: '9999px', objectFit: 'cover', border: '1px solid var(--border-default)' }}
               />
-              <span style={{ fontSize: '13px', fontWeight: 700 }}>
+              <span style={{ fontSize: '13px', fontWeight: 600 }}>
                 {project.supervisor.name}
               </span>
             </div>

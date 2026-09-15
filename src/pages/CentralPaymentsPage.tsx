@@ -23,11 +23,13 @@ export const CentralPaymentsPage: React.FC = () => {
 
   return (
     <div>
-      <div style={{ marginBottom: 'var(--space-6)' }}>
-        <h1 style={{ fontSize: '28px', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '4px' }}>
-          Payments
-        </h1>
-        <p style={{ fontSize: '14px', color: 'var(--text-secondary)' }}>
+      <div className="mb-5">
+        <div className="h-[46px] flex items-center">
+          <h1 className="text-3xl lg:text-4xl font-extrabold tracking-tight text-slate-950 dark:text-white leading-none">
+            Payments
+          </h1>
+        </div>
+        <p className="text-sm text-slate-600 dark:text-slate-400 font-normal leading-relaxed mt-1">
           Transparent escrow billing history, receipts, and automated invoices.
         </p>
       </div>
