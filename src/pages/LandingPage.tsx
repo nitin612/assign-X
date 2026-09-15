@@ -1,25 +1,29 @@
 /* ═══════════════════════════════════════════════════════════
-   AssignX — Landing Page Component
-   Reference: Freelance Match Modern Editorial / Neo-Brutalist SaaS Aesthetic
+   AssignX — Managed Work & Project Delivery Platform
+   UI Structure, Color Palette & Typography: 1:1 Match with Reference Design
+   Branding: Pure Text Brand ("AssignX") · No Logo Marks · No Raw Pills in Hero
+   Custom Content: Dedicated Tech Supervisors, Milestone Escrow & Vetted Talent
    ═══════════════════════════════════════════════════════════ */
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigation } from '../context/NavigationContext';
 import { useApp } from '../context/AppContext';
-import '../styles/landing.css';
 import {
-  ShieldCheck,
-  CheckCircle2,
-  ArrowRight,
-  Sparkles,
-  CreditCard,
-  Briefcase,
-  X,
+  Star,
   Play,
-  ChevronDown,
-  ArrowUpRight,
+  Paperclip,
+  MessageSquare,
+  Zap,
+  ShieldCheck,
+  Lock,
+  X,
+  Search,
+  CheckSquare,
+  Square,
   Send,
-  Check
+  FileText
 } from 'lucide-react';
+import { IntegrationHub } from '../components/landing/IntegrationHub';
+import { HeroWorkflow } from '../components/landing/HeroWorkflow';
 
 export const LandingPage: React.FC = () => {
   const { navigate } = useNavigation();
@@ -30,1091 +34,1553 @@ export const LandingPage: React.FC = () => {
     navigate(targetPath);
   };
 
-  // Hero badge word rotator
-  const heroWords = ['Managed', 'Supervised', 'Delivered', 'Guaranteed', 'Trusted'];
-  const [badgeIndex, setBadgeIndex] = useState(0);
-  const [badgeVisible, setBadgeVisible] = useState(true);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setBadgeVisible(false);
-      setTimeout(() => {
-        setBadgeIndex(i => (i + 1) % heroWords.length);
-        setBadgeVisible(true);
-      }, 350);
-    }, 2500);
-    return () => clearInterval(interval);
-  }, []);
-
   // Video Demo Modal
   const [showDemoModal, setShowDemoModal] = useState(false);
 
-  // Interactive Estimator State
-  const [selectedCategory, setSelectedCategory] = useState<'web' | 'mobile' | 'cloud' | 'design'>('web');
-  const [sprintCount, setSprintCount] = useState<number>(2);
-
-  // FAQ Accordion State
-  const [openFaq, setOpenFaq] = useState<number | null>(0);
-
-  // Newsletter Subscription State (Sculpted Footer)
+  // Newsletter Form State for Priora-style Footer
   const [newsletterEmail, setNewsletterEmail] = useState('');
-  const [isSubscribed, setIsSubscribed] = useState(false);
+  const [newsletterSubscribed, setNewsletterSubscribed] = useState(false);
 
-  const handleSubscribe = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (newsletterEmail.trim()) {
-      setIsSubscribed(true);
-      setTimeout(() => {
-        setNewsletterEmail('');
-        setIsSubscribed(false);
-      }, 4000);
-    }
+  // Member checklist interactive state for Hero & Feature Cards
+  const [selectedMembers, setSelectedMembers] = useState<Record<string, boolean>>({
+    momina: true,
+    lisa: false,
+    marcus: true,
+    elena: true,
+    aisha: false
+  });
+
+  const toggleMember = (id: string) => {
+    setSelectedMembers((prev) => ({ ...prev, [id]: !prev[id] }));
   };
 
-  // Partners List for the Tilted Running Marquee Belt
-  const partnersList = [
+  // Scroll listener to activate sticky navbar styling
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  React.useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 15);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Testimonials Row 1 (Direct match to reference Image 1)
+  const row1Testimonials = [
     {
-      name: 'PRECISION',
-      icon: (
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-          <circle cx="12" cy="12" r="10" />
-          <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" />
-          <path d="M2 12h20" />
-        </svg>
-      )
+      quote:
+        "I used to start every morning fielding the same question from three contractors — 'what should I work on?' That question doesn't exist in our team anymore.",
+      author: 'Sophia Chen',
+      role: 'Co-founder',
+      avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80',
+      companyIcon: '▲',
+      companyName: 'Vercel'
     },
     {
-      name: 'MIT ENGINE',
-      icon: (
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-          <rect x="2" y="4" width="4" height="16" />
-          <rect x="8" y="4" width="4" height="16" />
-          <rect x="14" y="4" width="4" height="16" />
-          <rect x="20" y="4" width="3" height="10" />
-        </svg>
-      )
+      quote:
+        'The technical supervisor runs automated test suites and architectural audits before asking for milestone sign-off. My team doesn\'t just review deliverables, they trust them. That\'s the difference.',
+      author: 'Dan Lowe',
+      role: 'Founder',
+      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=80',
+      companyIcon: '◩',
+      companyName: 'DB금융투자'
     },
     {
-      name: 'ArsenalBio',
-      icon: (
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-          <path d="M10 2v7.31M14 2v7.31M8.5 2h7M14 9.3a6.5 6.5 0 1 1-4 0" />
-        </svg>
-      )
+      quote:
+        'Our team feels more aligned because priorities and acceptance criteria live in one verifiable place—not scattered across five messy tools.',
+      author: 'Daniel Samantha',
+      role: 'CEO',
+      avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&auto=format&fit=crop&q=80',
+      companyIcon: '▤',
+      companyName: 'databricks'
     },
     {
-      name: 'VERCEL',
-      icon: (
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M12 2L2 19.5h20L12 2z" />
-        </svg>
-      )
-    },
-    {
-      name: 'SUPABASE',
-      icon: (
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-          <path d="m13 2-2 2.5h3L11 22l8-11h-4l3-9Z" />
-        </svg>
-      )
-    },
-    {
-      name: 'LINEAR',
-      icon: (
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-          <circle cx="12" cy="12" r="8" />
-        </svg>
-      )
-    },
-    {
-      name: 'STRIPE',
-      icon: (
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M4 4h16v4H8v4h10v4H8v4H4V4z" />
-        </svg>
-      )
-    },
-    {
-      name: 'RAYCAST',
-      icon: (
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-        </svg>
-      )
+      quote:
+        'AssignX caught an authentication race condition before our investor demo because of how the supervisor validated dependencies. That single catch justified the whole year.',
+      author: 'Robert Helios',
+      role: 'Founder',
+      avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&auto=format&fit=crop&q=80',
+      companyIcon: '✳',
+      companyName: 'loom'
     }
   ];
 
-  // Category Estimator Data
-  const estimatorData = {
-    web: {
-      title: 'Full-Stack Web App Redesign & MVP',
-      supervisor: 'Arjun Mehta (Lead Architect)',
-      milestones: ['UI/UX & Interactive Design System', 'Frontend & API Integration', 'QA & Production Launch'],
-      basePricePerSprint: 45000,
-      turnaround: `${sprintCount * 2} weeks`
-    },
-    mobile: {
-      title: 'Native iOS / Flutter Mobile Application',
-      supervisor: 'Priya Sharma (Mobile Systems Lead)',
-      milestones: ['Architecture & Plaid Sync Mockups', 'Core Features & Offline Sync', 'App Store Submission & Audit'],
-      basePricePerSprint: 55000,
-      turnaround: `${sprintCount * 2} weeks`
-    },
-    cloud: {
-      title: 'AWS Cloud Infrastructure & CI/CD DevOps',
-      supervisor: 'Vikram Verma (DevOps & Security)',
-      milestones: ['Terraform VPC & IAM Architecture', 'ECS Cluster Migration & Secrets', 'Load Testing & 99.9% Uptime Sign-off'],
-      basePricePerSprint: 40000,
-      turnaround: `${sprintCount * 2} weeks`
-    },
-    design: {
-      title: 'Brand Identity & Design System Package',
-      supervisor: 'Ananya Roy (Creative Director)',
-      milestones: ['Brand Guidelines & 3D Assets', 'Figma Component Library', 'Production Guidelines & Handoff'],
-      basePricePerSprint: 35000,
-      turnaround: `${sprintCount * 2} weeks`
-    }
-  };
-
-  const currentEstimate = estimatorData[selectedCategory];
-  const estimatedTotal = currentEstimate.basePricePerSprint * sprintCount;
-
-  // FAQ items
-  const faqs = [
+  // Testimonials Row 2 (Direct match to reference Image 1)
+  const row2Testimonials = [
     {
-      q: 'What is the role of an AssignX Supervisor?',
-      a: 'Unlike unmanaged freelance platforms where you must coordinate individual engineers, an AssignX supervisor is an accountable senior engineering lead who scopes your sprints, assigns pre-vetted specialists, reviews every line of code, and takes 100% accountability for meeting deadlines.'
+      quote:
+        'It caught a customer-facing schema regression that would\'ve delayed our launch. The architectural reasoning behind every supervisor review made it easy to trust.',
+      author: 'Marcus Kim',
+      role: 'Product Lead',
+      avatar: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=100&auto=format&fit=crop&q=80',
+      companyIcon: '⚡',
+      companyName: 'Linear'
     },
     {
-      q: 'How does the milestone escrow payment work?',
-      a: 'When a sprint milestone starts, you fund only that specific milestone into protected escrow. Funds are never released to the team until your supervisor validates the deliverable meets quality standards and you explicitly approve it.'
+      quote:
+        'Milestone escrow completely eliminated our payment anxiety. Funds are only released when both our team and the technical supervisor verify acceptance criteria. Zero financial risk.',
+      author: 'Elena Rostova',
+      role: 'Co-founder',
+      avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=100&auto=format&fit=crop&q=80',
+      companyIcon: '⚡',
+      companyName: 'Supabase'
     },
     {
-      q: 'Can I request revisions if I am not satisfied?',
-      a: 'Yes. With one click you can trigger a formal Revision Request specifying the blocker or feedback. Your supervisor immediately coordinates adjustments with the team without extra charges within the sprint scope.'
+      quote:
+        'We deployed a complete multi-tenant AI workflow in three 2-week sprints. The daily async standups and PR sign-offs felt like having an elite in-house engineering team.',
+      author: 'Aisha Patel',
+      role: 'Head of Engineering',
+      avatar: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=100&auto=format&fit=crop&q=80',
+      companyIcon: '⚙',
+      companyName: 'retool'
     },
     {
-      q: 'How do I access my Client Dashboard?',
-      a: 'Click "Sign in" or "Explore Client Panel" anywhere on this page to instantly access your workspace, track ongoing sprints, approve milestones, and chat with your supervisors.'
+      quote:
+        'Not once did we have to debate scope creep or missing requirements. Scopes are scored upfront, milestones are locked, and delivery is guaranteed.',
+      author: 'David Vance',
+      role: 'Director of Tech',
+      avatar: 'https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=100&auto=format&fit=crop&q=80',
+      companyIcon: 'S',
+      companyName: 'stripe'
     }
   ];
 
   return (
-    <div className="landing-viewport">
-      {/* ── Main White Container (Reference Design) ─────────── */}
-      <div className="landing-main-card">
-
-        {/* ── Top Navbar ────────────────────────────────────── */}
-        <header className="landing-topbar">
-          <div className="landing-topbar-inner">
-            <div className="landing-brand" onClick={() => navigate('/landing')}>
-              <div className="landing-brand-text">AssignX</div>
-            </div>
-
-            <nav className="landing-nav-links">
-              <a href="#how-it-works" className="landing-nav-link">
-                <span className="landing-nav-dot" />
-                <span>Platform</span>
-              </a>
-              <a href="#features" className="landing-nav-link">
-                <span className="landing-nav-dot" />
-                <span>Features</span>
-              </a>
-              <a href="#estimator" className="landing-nav-link">
-                <span className="landing-nav-dot" />
-                <span>Estimator</span>
-              </a>
-              <a href="#comparison" className="landing-nav-link">
-                <span className="landing-nav-dot" />
-                <span>Why AssignX</span>
-              </a>
-              <a href="#faq" className="landing-nav-link">
-                <span className="landing-nav-dot" />
-                <span>FAQ</span>
-              </a>
-            </nav>
-            <div className="landing-topbar-actions">
-              {/* Direct Link to Dashboard */}
-              <button
-                className="landing-sign-btn"
-                onClick={() => handleAuthAndNavigate('/dashboard')}
-                title="Sign in to your Client Dashboard"
-              >
-                Sign up
-              </button>
-            </div>
+    <div className="min-h-screen w-full bg-[#FFFFFF] text-slate-900 font-sans selection:bg-amber-200 selection:text-slate-900 overflow-x-clip">
+      {/* ─────────────────────────────────────────────────────────────
+          1. Clean Navbar (Fixed Top, Sticking Reliably During Scroll)
+             * Brand: Pure text "AssignX" (No Logo Icon, No Subtitle)
+             * Navigation: Home, Feature ▾, Pricing, Contact, Blog
+             * Actions: Login + Purple Pill CTA ("Try 7 Day Trial" / "Get Started")
+             * Dynamic scroll transition: seamless at top, frosted glass on scroll
+          ───────────────────────────────────────────────────────────── */}
+      <header
+        className={`fixed top-0 left-0 right-0 z-50 w-full transition-all duration-200 ${
+          isScrolled
+            ? 'bg-white/95 backdrop-blur-md shadow-xs border-b border-slate-100/80'
+            : 'bg-white/95 backdrop-blur-md'
+        }`}
+      >
+        <div className="w-full max-w-[1640px] mx-auto px-6 sm:px-10 lg:px-12 h-16 flex items-center justify-between">
+          {/* Brand Wordmark — Pure Text, High Contrast */}
+          <div
+            onClick={() => navigate('/landing')}
+            className="cursor-pointer group"
+          >
+            <span className="text-2xl font-bold tracking-tight text-slate-950 group-hover:text-[#7B61FF] transition-colors">
+              AssignX
+            </span>
           </div>
-        </header>
 
-        {/* ── Hero Section (Direct Reference to Freelance Match) ── */}
-        <section className="landing-hero">
-          <div className="section-letter-bg slbg-a" aria-hidden="true">A</div>
-          <div className="landing-hero-left">
-            <h1 className="landing-hero-title">
-              Freelance
-              <span
-                className="tilted-hero-badge"
-                style={{
-                  display: 'inline-block',
-                  opacity: badgeVisible ? 1 : 0,
-                  transform: badgeVisible
-                    ? 'translateY(0px) rotate(-4deg)'
-                    : 'translateY(-12px) rotate(-4deg)',
-                  transition: 'opacity 0.35s ease, transform 0.35s ease',
-                }}
-              >
-                {heroWords[badgeIndex]}
+          {/* Center Navigation Links — Highly Visible Slate-900 Text */}
+          <nav className="hidden md:flex items-center gap-8 text-[15px] font-medium text-slate-900">
+            <a href="#overview" className="text-slate-950 font-semibold hover:text-[#7B61FF] transition-colors">
+              Home
+            </a>
+            <a href="#capabilities" className="hover:text-[#7B61FF] transition-colors flex items-center gap-1">
+              <span>Feature</span>
+              <span className="text-[10px] text-slate-500">▾</span>
+            </a>
+            <a href="#pricing" className="hover:text-[#7B61FF] transition-colors">
+              Pricing
+            </a>
+            <a href="#integrations" className="hover:text-[#7B61FF] transition-colors">
+              Contact
+            </a>
+            <a href="#insights" className="hover:text-[#7B61FF] transition-colors">
+              Blog
+            </a>
+          </nav>
+
+          {/* Right Actions: Login + Soft Purple Pill CTA */}
+          <div className="flex items-center gap-5">
+            <button
+              onClick={() => handleAuthAndNavigate('/dashboard')}
+              className="text-[15px] font-semibold text-slate-900 hover:text-[#7B61FF] transition-colors cursor-pointer"
+            >
+              Login
+            </button>
+            <button
+              onClick={() => handleAuthAndNavigate('/create')}
+              className="bg-[#8B7CF8] hover:bg-[#7867f6] text-white text-sm font-semibold px-6 py-2.5 rounded-full shadow-xs hover:shadow transition-all cursor-pointer"
+            >
+              Try 7 Day Trial
+            </button>
+          </div>
+        </div>
+      </header>
+
+      {/* Spacer to guarantee seamless layout flow under the fixed navbar */}
+      <div className="h-16 w-full shrink-0" aria-hidden="true" />
+
+      {/* ─────────────────────────────────────────────────────────────
+          2. Hero Section with Perimeter Workflow Loop
+             * Full viewport min-height (clean hero without lower peeking elements)
+             * Centered Headline, Subtitle, Ratings & Dual CTAs
+          ───────────────────────────────────────────────────────────── */}
+      <section id="overview" className="relative min-h-[calc(100vh-4rem)] flex flex-col justify-center items-center py-4 w-full bg-[#FFFFFF] overflow-hidden">
+        <div className="w-full max-w-[1640px] mx-auto px-3 sm:px-6 lg:px-8 text-center my-auto">
+          
+          <HeroWorkflow>
+            {/* Rating / Trustpilot: Clean text and stars, NO outer pill box */}
+            <div className="inline-flex items-center gap-2.5 text-xs sm:text-sm md:text-base font-normal text-slate-600 mb-3.5 sm:mb-4">
+              <div className="flex items-center text-amber-400 gap-0.5">
+                <Star className="w-4 h-4 sm:w-4.5 sm:h-4.5 fill-amber-400 text-amber-400" />
+                <Star className="w-4 h-4 sm:w-4.5 sm:h-4.5 fill-amber-400 text-amber-400" />
+                <Star className="w-4 h-4 sm:w-4.5 sm:h-4.5 fill-amber-400 text-amber-400" />
+                <Star className="w-4 h-4 sm:w-4.5 sm:h-4.5 fill-amber-400 text-amber-400" />
+                <Star className="w-4 h-4 sm:w-4.5 sm:h-4.5 fill-amber-400 text-amber-400" />
+              </div>
+              <span className="font-semibold text-slate-900">2.5+ Reviews</span>
+              <span className="text-slate-300">|</span>
+              <span className="font-semibold text-slate-900">4.98</span>
+              <span className="text-emerald-700 font-semibold flex items-center gap-1">
+                ★ Trustpilot
               </span>
-              <br />
-              Connecting Pros
+            </div>
+
+            {/* Hero Headline — Restored font-normal Typography with Gradient Accent (Reference Style) */}
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[62px] xl:text-[66px] font-normal text-slate-950 tracking-tight leading-[1.14] max-w-[760px] mx-auto text-center">
+              Ready to Redefine <br className="hidden sm:inline" />
+              Your Team&apos;s{' '}
+              <span className="bg-gradient-to-r from-[#FF6B6B] via-[#FF758F] to-[#E855DE] bg-clip-text text-transparent">
+                Productivity?
+              </span>
             </h1>
 
-            <p className="landing-hero-subtext">
-              Empowering businesses and fast-moving teams with accountable freelance execution. Every project is appointed a dedicated <strong>technical supervisor</strong> who guarantees milestones, code quality, and delivery.
+            {/* Subtitle */}
+            <p className="mt-4 sm:mt-5 text-sm sm:text-base md:text-lg text-slate-500 max-w-[560px] mx-auto leading-relaxed font-normal">
+              Our robust task management solution provides the tools to help you radically streamline your workflow, comprehensively manage even the most challenging projects.
             </p>
 
-            <div className="landing-hero-cta-group">
+            {/* Dual Action CTAs (Yellow Golden Pill + Black Pill) */}
+            <div className="flex flex-wrap items-center justify-center gap-4 mt-6 sm:mt-7">
               <button
-                className="btn-hero-coral"
                 onClick={() => handleAuthAndNavigate('/create')}
+                className="bg-[#F5CD52] hover:bg-[#eec23d] text-slate-950 font-medium px-8 sm:px-9 py-3.5 sm:py-4 rounded-full text-sm sm:text-base md:text-lg shadow-xs hover:shadow-md transition-all cursor-pointer"
               >
-                <span>CREATE PROFILE & WORK</span>
-                <ArrowRight size={16} />
+                Book a Demo
               </button>
-
               <button
-                className="btn-hero-white"
                 onClick={() => handleAuthAndNavigate('/dashboard')}
+                className="bg-[#111111] hover:bg-slate-800 text-white font-medium px-8 sm:px-9 py-3.5 sm:py-4 rounded-full text-sm sm:text-base md:text-lg shadow-xs hover:shadow-md transition-all cursor-pointer"
               >
-                <span>OPEN DASHBOARD</span>
-                <span>→</span>
+                Contact Sales
               </button>
             </div>
+          </HeroWorkflow>
+        </div>
+      </section>
 
-            {/* Overlapping Avatar Stack */}
-            <div className="hero-social-proof">
-              <div className="hero-avatar-stack">
-                <img
-                  src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80"
-                  alt="Talent 1"
-                />
-                <img
-                  src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=80"
-                  alt="Talent 2"
-                />
-                <img
-                  src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=100&auto=format&fit=crop&q=80"
-                  alt="Talent 3"
-                />
-                <img
-                  src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&auto=format&fit=crop&q=80"
-                  alt="Talent 4"
-                />
+      {/* ─────────────────────────────────────────────────────────────
+          2a. Social Proof Logo Strip (Dedicated Section Below Hero Fold)
+         ───────────────────────────────────────────────────────────── */}
+      <section className="py-12 sm:py-16 bg-white w-full border-t border-slate-100/60">
+        <div className="w-full max-w-[1640px] mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="bg-[#F8F9FA] rounded-3xl py-7 px-8 border border-slate-150/80 max-w-[1360px] 2xl:max-w-[1440px] mx-auto">
+            <p className="text-xs sm:text-sm font-semibold text-slate-800 mb-6 text-center">
+              Trusted by the world&apos;s most innovative teams
+            </p>
+            <div className="flex flex-wrap items-center justify-center gap-10 sm:gap-14">
+              {/* Contentful */}
+              <div className="flex items-center gap-2">
+                <div className="w-5 h-5 rounded-full border-[3.5px] border-t-[#0040C8] border-r-[#FFBC00] border-b-[#E62C4E] border-l-transparent -rotate-45" />
+                <span className="font-bold text-slate-900 tracking-tight text-base sm:text-lg">contentful</span>
               </div>
-              <span className="hero-social-text">
-                +3,021 TOP Freelancers Profile
-              </span>
-            </div>
-          </div>
 
-          {/* Right Floating Canvas (Reference Pill Showcase) */}
-          <div className="hero-interactive-canvas">
-            {/* Top Right Floating Pill: Monica */}
-            <div
-              className="floating-capsule"
-              style={{ top: '10px', right: '30px' }}
-              onClick={() => handleAuthAndNavigate('/dashboard')}
-            >
-              <img
-                src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&auto=format&fit=crop&q=80"
-                alt="Monica"
-              />
-              <div className="floating-capsule-info">
-                <span className="floating-capsule-name">Monica</span>
-                <span className="floating-capsule-role">Influencer</span>
+              {/* Haskell */}
+              <div className="flex items-center gap-2">
+                <div className="flex items-center font-mono font-black text-[#5D4F85] text-lg tracking-tighter">
+                  <span>&gt;&gt;</span>
+                  <span className="text-sm font-bold ml-0.5">=</span>
+                </div>
+                <span className="font-bold text-slate-900 tracking-tight text-base sm:text-lg">Haskell</span>
               </div>
-            </div>
 
-            {/* Left Center Floating Pill: Thomas */}
-            <div
-              className="floating-capsule"
-              style={{ top: '90px', left: '10px' }}
-              onClick={() => handleAuthAndNavigate('/dashboard')}
-            >
-              <img
-                src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=100&auto=format&fit=crop&q=80"
-                alt="Thomas"
-              />
-              <div className="floating-capsule-info">
-                <span className="floating-capsule-name">Thomas</span>
-                <span className="floating-capsule-role">UX Designer</span>
+              {/* Eventbrite */}
+              <div className="flex items-center">
+                <span className="font-bold text-[#F05537] tracking-tight text-base sm:text-lg lowercase">eventbrite</span>
               </div>
-            </div>
 
-            {/* Center Signature Neon Lime Play Button */}
-            <div
-              className="hero-play-button"
-              onClick={() => setShowDemoModal(true)}
-              title="Watch How AssignX Supervised Delivery Works"
-            >
-              <div className="hero-play-triangle" />
-            </div>
-
-            {/* Mid Right Floating Pill: Philipp */}
-            <div
-              className="floating-capsule"
-              style={{ bottom: '110px', right: '15px' }}
-              onClick={() => handleAuthAndNavigate('/dashboard')}
-            >
-              <img
-                src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=100&auto=format&fit=crop&q=80"
-                alt="Philipp"
-              />
-              <div className="floating-capsule-info">
-                <span className="floating-capsule-name">Philipp</span>
-                <span className="floating-capsule-role">Photographer</span>
+              {/* Airwallex */}
+              <div className="flex items-center gap-2">
+                <svg className="w-5 h-5 shrink-0" viewBox="0 0 24 24" fill="none">
+                  <path d="M4 17L10 6L14 13L18 6L21 17H17L14 10L10 17H4Z" fill="#FF4D4D" />
+                </svg>
+                <span className="font-bold text-slate-900 tracking-tight text-base sm:text-lg">Airwallex</span>
               </div>
-            </div>
 
-            {/* Bottom Floating Pill: Emma */}
-            <div
-              className="floating-capsule"
-              style={{ bottom: '20px', left: '80px' }}
-              onClick={() => handleAuthAndNavigate('/dashboard')}
-            >
-              <img
-                src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=100&auto=format&fit=crop&q=80"
-                alt="Emma"
-              />
-              <div className="floating-capsule-info">
-                <span className="floating-capsule-name">Emma</span>
-                <span className="floating-capsule-role">Entrepreneur</span>
+              {/* Meteor */}
+              <div className="flex items-center gap-0.5">
+                <span className="font-extrabold text-slate-900 tracking-wider text-base sm:text-lg flex items-center">
+                  METE
+                  <span className="inline-flex items-center justify-center text-[#DE4F4F] mx-0.5">
+                    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none">
+                      <circle cx="12" cy="12" r="3.5" fill="#DE4F4F" />
+                      <path d="M12 4L12 7M12 17L12 20M4 12L7 12M17 12L20 12M6 6L8 8M16 16L18 18M6 18L8 16M16 8L18 6" stroke="#DE4F4F" strokeWidth="2" strokeLinecap="round" />
+                    </svg>
+                  </span>
+                  R
+                </span>
               </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ── Running Dual Crossed Tilted Marquee Belts ── */}
-        <div className="partner-belt-wrapper">
-          {/* Belt 1: Slanted up to right */}
-          <div className="partner-tilted-belt partner-belt-up">
-            <div className="partner-marquee-track">
-              {partnersList.map((partner, i) => (
-                <React.Fragment key={i}>
-                  <div className="partner-logo-item">
-                    <div className="partner-logo-icon">{partner.icon}</div>
-                    <span>{partner.name}</span>
-                  </div>
-                  <span className="partner-belt-star">★</span>
-                </React.Fragment>
-              ))}
-            </div>
-            <div className="partner-marquee-track" aria-hidden="true">
-              {partnersList.map((partner, i) => (
-                <React.Fragment key={`dup-${i}`}>
-                  <div className="partner-logo-item">
-                    <div className="partner-logo-icon">{partner.icon}</div>
-                    <span>{partner.name}</span>
-                  </div>
-                  <span className="partner-belt-star">★</span>
-                </React.Fragment>
-              ))}
-            </div>
-          </div>
-
-          {/* Belt 2: Crossed from left side goes down right */}
-          <div className="partner-tilted-belt partner-belt-down">
-            <div className="partner-marquee-track partner-marquee-reverse">
-              {[...partnersList].reverse().map((partner, i) => (
-                <React.Fragment key={`b2-${i}`}>
-                  <div className="partner-logo-item">
-                    <div className="partner-logo-icon">{partner.icon}</div>
-                    <span>{partner.name}</span>
-                  </div>
-                  <span className="partner-belt-star">★</span>
-                </React.Fragment>
-              ))}
-            </div>
-            <div className="partner-marquee-track partner-marquee-reverse" aria-hidden="true">
-              {[...partnersList].reverse().map((partner, i) => (
-                <React.Fragment key={`b2-dup-${i}`}>
-                  <div className="partner-logo-item">
-                    <div className="partner-logo-icon">{partner.icon}</div>
-                    <span>{partner.name}</span>
-                  </div>
-                  <span className="partner-belt-star">★</span>
-                </React.Fragment>
-              ))}
             </div>
           </div>
         </div>
+      </section>
 
-        {/* ── 3 Peek Cards (Directly Below Hero As In Reference) ─ */}
-        <section className="landing-peek-cards-container">
-          <div className="section-letter-bg slbg-s1" aria-hidden="true">S</div>
-          <div className="landing-peek-card">
-            <div className="landing-peek-icon-box" style={{ backgroundColor: 'var(--color-blue-light)' }}>
-              <ShieldCheck size={22} color="var(--color-blue)" />
-            </div>
-            <h3>Supervised Delivery Guarantee</h3>
-            <p>
-              Your appointed technical lead coordinates the sprint, enforces architecture standards, and guarantees milestones on time.
-            </p>
+      {/* ─────────────────────────────────────────────────────────────
+          2b. Inside the AssignX Workspace (Interactive Platform Preview)
+             * Lime Green Badge: Workspace Preview
+             * Heading & Subtitle
+             * 4 Interactive Fanned-Out Perspective Cards
+          ───────────────────────────────────────────────────────────── */}
+      <section id="workspace-preview" className="py-12 sm:py-16 bg-white w-full text-center border-t border-slate-100">
+        <div className="w-full max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-12">
+          {/* Lime Green Pill Badge */}
+          <div className="inline-flex items-center px-4 py-1 rounded-full text-xs sm:text-sm font-semibold bg-[#D4F870] text-slate-950 mb-3.5 shadow-2xs">
+            Workspace Preview
           </div>
 
-          <div className="landing-peek-card">
-            <div className="landing-peek-icon-box" style={{ backgroundColor: 'var(--color-coral-light)' }}>
-              <CreditCard size={22} color="var(--color-coral)" />
-            </div>
-            <h3>100% Milestone Escrow</h3>
-            <p>
-              Deposit funds only when a milestone begins. Money is securely released only after you and your supervisor verify the code.
-            </p>
-          </div>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-slate-950 tracking-tight leading-[1.15]">
+            Real-time Oversight, Zero Micromanagement
+          </h2>
+          <p className="mt-3 text-sm sm:text-base text-slate-500 max-w-2xl mx-auto leading-relaxed font-normal">
+            Track milestones, collaborate with your appointed supervisor, and monitor active deliverables inside an all-in-one execution hub.
+          </p>
 
-          <div className="landing-peek-card">
-            <div className="landing-peek-icon-box" style={{ backgroundColor: 'var(--color-lime-light)' }}>
-              <Sparkles size={22} color="#111111" />
-            </div>
-            <h3>Top 1% Vetted Talent Pool</h3>
-            <p>
-              Pre-vetted developers, designers, and DevOps engineers matched specifically to your technology stack within 24 hours.
-            </p>
-          </div>
-        </section>
+          {/* ─────────────────────────────────────────────────────────
+              Floating UI Cards Spread (4 Clean White Interactive Cards)
+              Fanned-out perspective with smooth bottom gradient fade
+              ───────────────────────────────────────────────────────── */}
+          <div className="mt-10 sm:mt-12 relative w-full max-w-[1300px] mx-auto pt-4 pb-2">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 text-left relative z-0">
+              {/* Card 1: Review of Cutting-Edge Plugin Capabilities */}
+              <div className="bg-white rounded-2xl p-5 border border-slate-200/90 shadow-xl shadow-slate-200/60 hover:shadow-2xl hover:shadow-slate-300/80 transition-all duration-300 ease-out transform lg:-rotate-3 hover:lg:-rotate-6 hover:-rotate-3 hover:scale-105 hover:-translate-y-2 hover:z-20 cursor-pointer relative overflow-hidden flex flex-col justify-between">
+                {/* Purple/Violet Top Glow Border */}
+                <div className="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-violet-500 via-purple-500 to-indigo-500" />
 
-        {/* ── Section: What Features Make Our Platform Distinctive & Popular (Direct from Reference 1) ── */}
-        <section id="features" className="distinctive-section">
-          <div className="section-letter-bg slbg-s2" aria-hidden="true">S</div>
-          <div className="distinctive-left">
-            <h2 className="distinctive-title">
-              What Features Make Our <br />
-              Platform <span className="highlight-purple">Distinctive</span> <br />
-              And <span className="highlight-purple">Popular</span> ?
-            </h2>
-
-            <p className="distinctive-desc">
-              According to the needs of modern high-growth tech teams, AssignX introduced an accountable supervisory framework tailored to eliminate the uncertainty of unmanaged freelancing.
-            </p>
-
-            <div className="distinctive-features-grid">
-              <div className="distinctive-feature-item">
-                <div className="distinctive-badge-circle">1</div>
-                <div className="distinctive-feature-content">
-                  <h4>Personalization Features</h4>
-                  <p>Custom tech stack matching and tailored sprint milestone roadmaps designed specifically for your codebase.</p>
-                </div>
-              </div>
-
-              <div className="distinctive-feature-item">
-                <div className="distinctive-badge-circle">2</div>
-                <div className="distinctive-feature-content">
-                  <h4>Ease Of Use</h4>
-                  <p>1-click milestone review, live automated staging links, and central communication without Slack chaos.</p>
-                </div>
-              </div>
-
-              <div className="distinctive-feature-item">
-                <div className="distinctive-badge-circle">3</div>
-                <div className="distinctive-feature-content">
-                  <h4>Supervised Delivery Guarantee</h4>
-                  <p>Dedicated technical lead personally guarantees sprint deadlines, clean architecture, and code quality.</p>
-                </div>
-              </div>
-
-              <div className="distinctive-feature-item">
-                <div className="distinctive-badge-circle">4</div>
-                <div className="distinctive-feature-content">
-                  <h4>Low Flat Fee</h4>
-                  <p>0% client deposit markups and transparent fixed milestone pricing with zero hidden hourly overruns.</p>
-                </div>
-              </div>
-
-              <div className="distinctive-feature-item">
-                <div className="distinctive-badge-circle">5</div>
-                <div className="distinctive-feature-content">
-                  <h4>Broad Acceptance & Talent</h4>
-                  <p>Top 1% pre-screened engineers and designers matched to your exact framework within 24 hours.</p>
-                </div>
-              </div>
-
-              <div className="distinctive-feature-item">
-                <div className="distinctive-badge-circle">6</div>
-                <div className="distinctive-feature-content">
-                  <h4>100% Escrow Protection</h4>
-                  <p>Funds remain protected in escrow until your supervisor verifies standards and you explicitly approve.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="distinctive-radar-container">
-            <svg className="radar-canvas-svg" viewBox="0 0 440 440" fill="none" xmlns="http://www.w3.org/2000/svg">
-              {/* Concentric orbit rings with dotted dash strokes */}
-              <circle cx="220" cy="220" r="190" stroke="#111111" strokeWidth="2.5" strokeDasharray="3 14" opacity="0.35" />
-              <circle cx="220" cy="220" r="140" stroke="#111111" strokeWidth="3" strokeDasharray="3 12" opacity="0.6" />
-              <circle cx="220" cy="220" r="90" stroke="#111111" strokeWidth="3" strokeDasharray="3 10" opacity="0.8" />
-
-              {/* Radiating spoke dotted lines */}
-              <line x1="220" y1="220" x2="355" y2="85" stroke="#111111" strokeWidth="2" strokeDasharray="4 6" />
-              <line x1="220" y1="220" x2="400" y2="175" stroke="#111111" strokeWidth="2" strokeDasharray="4 6" />
-              <line x1="220" y1="220" x2="375" y2="330" stroke="#111111" strokeWidth="2" strokeDasharray="4 6" />
-              <line x1="220" y1="220" x2="320" y2="390" stroke="#111111" strokeWidth="2" strokeDasharray="4 6" />
-              <line x1="220" y1="220" x2="220" y2="420" stroke="#111111" strokeWidth="2" strokeDasharray="4 6" />
-
-              {/* Orbital nodes matching Reference 1 */}
-              <circle cx="355" cy="85" r="9" fill="#111111" />
-              <circle cx="360" cy="180" r="6" stroke="var(--color-lime)" strokeWidth="2.5" fill="none" />
-              <circle cx="400" cy="175" r="9" fill="var(--color-lime)" stroke="#111111" strokeWidth="1.5" />
-              <circle cx="340" cy="310" r="6" fill="var(--color-purple)" />
-              <circle cx="375" cy="330" r="9" fill="var(--color-purple)" stroke="#111111" strokeWidth="1.5" />
-              <circle cx="320" cy="390" r="7" fill="var(--color-purple)" />
-
-              {/* Central Planetary Disc */}
-              <circle cx="220" cy="220" r="48" fill="#111111" stroke="#111111" strokeWidth="2" />
-              {/* Glowing inner colored dots inside central disc */}
-              <circle cx="206" cy="228" r="8" fill="var(--color-purple)" />
-              <circle cx="228" cy="235" r="7" fill="var(--color-lime)" />
-              <circle cx="218" cy="210" r="6" stroke="var(--color-lime)" strokeWidth="2" fill="none" />
-              <circle cx="236" cy="216" r="6" stroke="var(--color-purple)" strokeWidth="2" fill="none" />
-              <circle cx="202" cy="212" r="4" fill="#6C8BFF" />
-            </svg>
-          </div>
-        </section>
-
-        {/* ── Section 2: How It Works ──────────────────────── */}
-        <section id="how-it-works" className="landing-section">
-          <div className="section-letter-bg slbg-i" aria-hidden="true">I</div>
-          <div className="landing-section-header">
-            <span className="landing-section-badge">How It Works</span>
-            <h2 className="landing-section-title">The 3-Step Supervised Flow</h2>
-            <p className="landing-section-desc">
-              We took the chaos and uncertainty out of freelancing by inserting an accountable senior engineering layer.
-            </p>
-          </div>
-
-          <div className="landing-steps-grid">
-            <div className="landing-step-card">
-              <div className="landing-step-num">01</div>
-              <h4>Submit Your Work Scope</h4>
-              <p>
-                Describe your project, desired deliverables, and deadline. Our scoping engine generates structured milestones with transparent budgets.
-              </p>
-            </div>
-
-            <div className="landing-step-card">
-              <div className="landing-step-num">02</div>
-              <h4>Dedicated Supervisor Appointed</h4>
-              <p>
-                A verified supervisor takes ownership of your sprint, hand-picks vetted specialists, and provides live daily progress updates.
-              </p>
-            </div>
-
-            <div className="landing-step-card">
-              <div className="landing-step-num">03</div>
-              <h4>Inspect, Sign Off & Ship</h4>
-              <p>
-                Preview live staging links, inspect code packages, and sign off on completed milestones. Escrow funds unlock only upon your approval.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* ── Section 3: Interactive Scope & Budget Estimator ── */}
-        <section id="estimator" className="landing-section" style={{ backgroundColor: '#FAF9FB' }}>
-          <div className="section-letter-bg slbg-g" aria-hidden="true">G</div>
-          <div className="landing-section-header">
-            <span className="landing-section-badge">Interactive Tool</span>
-            <h2 className="landing-section-title">Estimate Your Project & Sprint</h2>
-            <p className="landing-section-desc">
-              Select your domain and sprint length to see real-time milestone structures and supervisor allocation.
-            </p>
-          </div>
-
-          <div className="estimator-card">
-            <div>
-              <div style={{ fontSize: '13px', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.05em', color: '#666', marginBottom: '10px' }}>
-                1. Select Project Domain
-              </div>
-              <div className="estimator-pills">
-                <button
-                  className={`estimator-pill-btn ${selectedCategory === 'web' ? 'active' : ''}`}
-                  onClick={() => setSelectedCategory('web')}
-                >
-                  🌐 Web App Redesign
-                </button>
-                <button
-                  className={`estimator-pill-btn ${selectedCategory === 'mobile' ? 'active' : ''}`}
-                  onClick={() => setSelectedCategory('mobile')}
-                >
-                  📱 Fintech iOS / Mobile
-                </button>
-                <button
-                  className={`estimator-pill-btn ${selectedCategory === 'cloud' ? 'active' : ''}`}
-                  onClick={() => setSelectedCategory('cloud')}
-                >
-                  ☁️ AWS Cloud & DevOps
-                </button>
-                <button
-                  className={`estimator-pill-btn ${selectedCategory === 'design' ? 'active' : ''}`}
-                  onClick={() => setSelectedCategory('design')}
-                >
-                  🎨 Brand Identity & 3D
-                </button>
-              </div>
-
-              <div style={{ fontSize: '13px', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.05em', color: '#666', marginBottom: '10px' }}>
-                2. Sprint Scope Duration
-              </div>
-              <div className="estimator-pills">
-                {[1, 2, 3, 4].map(sprints => (
-                  <button
-                    key={sprints}
-                    className={`estimator-pill-btn ${sprintCount === sprints ? 'active' : ''}`}
-                    onClick={() => setSprintCount(sprints)}
-                  >
-                    {sprints} Sprint{sprints > 1 ? 's' : ''} ({sprints * 2} wks)
-                  </button>
-                ))}
-              </div>
-
-              <div style={{ marginTop: '16px' }}>
-                <div style={{ fontSize: '13px', fontWeight: 700, color: 'var(--text-primary)', marginBottom: '8px' }}>
-                  Milestone Deliverables Included:
-                </div>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-                  {currentEstimate.milestones.map((m, i) => (
-                    <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', color: '#444' }}>
-                      <CheckCircle2 size={14} color="var(--color-blue)" />
-                      <span>{m}</span>
+                <div>
+                  <div className="flex items-center justify-between mb-3 pt-1">
+                    <div className="flex items-center gap-1 bg-rose-50 text-rose-600 border border-rose-200 px-2 py-0.5 rounded-full text-[11px] font-medium">
+                      <span>🔥 High</span>
                     </div>
-                  ))}
+                    <span className="text-[11px] text-slate-400 font-normal">Due: 30th June...</span>
+                    <span className="text-slate-400 font-normal text-sm leading-none cursor-pointer">⋮</span>
+                  </div>
+
+                  <h4 className="text-sm font-medium text-slate-900 leading-snug mb-4">
+                    Review of Cutting-Edge<br />Plugin Capabilities and Fu...
+                  </h4>
+
+                  <div className="mb-4">
+                    <div className="flex justify-between text-[11px] text-slate-500 font-normal mb-1.5">
+                      <span>Progress</span>
+                      <span className="font-medium text-slate-900">60%</span>
+                    </div>
+                    <div className="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                      <div className="h-full bg-emerald-500 rounded-full w-[60%]" />
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
 
-            {/* Estimator Result Box */}
-            <div className="estimator-result-box">
-              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px', fontWeight: 800, textTransform: 'uppercase', color: 'var(--color-blue)', marginBottom: '6px' }}>
-                <Briefcase size={14} />
-                <span>Supervised Estimate</span>
-              </div>
-
-              <div style={{ fontFamily: 'var(--font-heading)', fontSize: '36px', fontWeight: 800, color: '#111111', letterSpacing: '-0.03em', marginBottom: '4px' }}>
-                ₹{estimatedTotal.toLocaleString('en-IN')}
-              </div>
-
-              <div style={{ fontSize: '12px', color: '#666', marginBottom: '18px' }}>
-                Protected in Milestone Escrow · 100% Refund Guarantee
-              </div>
-
-              <div style={{ borderTop: '1px solid #EAEAEF', paddingTop: '14px', marginBottom: '18px' }}>
-                <div style={{ fontSize: '12px', color: '#888' }}>Assigned Supervisor:</div>
-                <div style={{ fontSize: '13px', fontWeight: 800, color: '#111' }}>
-                  {currentEstimate.supervisor}
-                </div>
-                <div style={{ fontSize: '12px', color: '#888', marginTop: '6px' }}>Estimated Delivery:</div>
-                <div style={{ fontSize: '13px', fontWeight: 800, color: '#111' }}>
-                  {currentEstimate.turnaround}
-                </div>
-              </div>
-
-              <button
-                className="btn btn-primary"
-                style={{ width: '100%', justifyContent: 'center' }}
-                onClick={() => handleAuthAndNavigate('/create')}
-              >
-                <span>Launch This Work</span>
-                <span>→</span>
-              </button>
-            </div>
-          </div>
-        </section>
-
-        {/* ── Section 4: AssignX vs Unmanaged Freelance Marketplaces ── */}
-        <section id="comparison" className="landing-section">
-          <div className="section-letter-bg slbg-n" aria-hidden="true">N</div>
-          <div className="landing-section-header">
-            <span className="landing-section-badge">Comparison</span>
-            <h2 className="landing-section-title">Why Founders Prefer AssignX</h2>
-            <p className="landing-section-desc">
-              Traditional freelance boards leave all the risk, hiring vetting, and project management on your plate.
-            </p>
-          </div>
-
-          <div className="comparison-table-wrapper">
-            <table className="comparison-table">
-              <thead>
-                <tr>
-                  <th style={{ width: '35%' }}>Feature & Experience</th>
-                  <th style={{ width: '32.5%' }}>Traditional Marketplaces</th>
-                  <th className="highlight" style={{ width: '32.5%' }}>AssignX Supervised</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><strong>Project Accountability</strong></td>
-                  <td>You must coordinate and manage individual freelancers</td>
-                  <td className="highlight">Dedicated Senior Supervisor owns the deadline</td>
-                </tr>
-                <tr>
-                  <td><strong>Code & Deliverable Audit</strong></td>
-                  <td>None. You need your own engineers to review code</td>
-                  <td className="highlight">100% peer-reviewed code and QA verified staging links</td>
-                </tr>
-                <tr>
-                  <td><strong>Payment Protection</strong></td>
-                  <td>Complex dispute arbitration with platform support</td>
-                  <td className="highlight">Escrow released only when supervisor & client sign off</td>
-                </tr>
-                <tr>
-                  <td><strong>Missed Deadlines & Ghosting</strong></td>
-                  <td>Frequent. You start all over from scratch</td>
-                  <td className="highlight">Guaranteed replacement and sprint milestone continuity</td>
-                </tr>
-                <tr>
-                  <td><strong>Client Interface</strong></td>
-                  <td>Generic messaging and invoice receipts</td>
-                  <td className="highlight">Modern editorial Client Panel with real-time sprint tracking</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </section>
-
-        {/* ── Section 5: FAQ Accordion ──────────────────────── */}
-        <section id="faq" className="landing-section" style={{ backgroundColor: '#FAF9FB' }}>
-          <div className="section-letter-bg slbg-x" aria-hidden="true">X</div>
-          <div className="landing-section-header">
-            <span className="landing-section-badge">Common Questions</span>
-            <h2 className="landing-section-title">Frequently Asked Questions</h2>
-          </div>
-
-          <div style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '12px' }}>
-            {faqs.map((faq, index) => {
-              const isOpen = openFaq === index;
-              return (
-                <div
-                  key={index}
-                  style={{
-                    backgroundColor: '#FFFFFF',
-                    border: '1.5px solid #111111',
-                    borderRadius: '16px',
-                    boxShadow: isOpen ? '3px 3px 0px #111111' : '2px 2px 0px #111111',
-                    overflow: 'hidden',
-                    transition: 'all 150ms ease'
-                  }}
-                >
-                  <button
-                    style={{
-                      width: '100%',
-                      padding: '18px 24px',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'space-between',
-                      background: 'none',
-                      border: 'none',
-                      cursor: 'pointer',
-                      textAlign: 'left'
-                    }}
-                    onClick={() => setOpenFaq(isOpen ? null : index)}
-                  >
-                    <span style={{ fontSize: '15px', fontWeight: 800, color: '#111111' }}>
-                      {faq.q}
+                <div className="pt-3 border-t border-slate-100 flex items-center justify-between">
+                  <div className="flex items-center">
+                    <div className="flex -space-x-1.5">
+                      <img
+                        className="w-6 h-6 rounded-full border-2 border-white object-cover"
+                        src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=60&auto=format&fit=crop&q=80"
+                        alt="Avatar 1"
+                      />
+                      <img
+                        className="w-6 h-6 rounded-full border-2 border-white object-cover"
+                        src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=60&auto=format&fit=crop&q=80"
+                        alt="Avatar 2"
+                      />
+                    </div>
+                    <span className="text-[10px] text-slate-400 font-normal pl-2">+4</span>
+                  </div>
+                  <div className="flex items-center gap-3 text-[11px] text-slate-400">
+                    <span className="flex items-center gap-1">
+                      <FileText className="w-3 h-3 text-slate-400" /> 12
                     </span>
-                    <ChevronDown
-                      size={18}
-                      style={{
-                        transform: isOpen ? 'rotate(180deg)' : 'none',
-                        transition: 'transform 200ms ease',
-                        flexShrink: 0
-                      }}
-                    />
-                  </button>
-
-                  {isOpen && (
-                    <div style={{ padding: '0 24px 20px', fontSize: '14px', color: '#555555', lineHeight: 1.6 }}>
-                      {faq.a}
-                    </div>
-                  )}
+                    <span className="flex items-center gap-1">
+                      <MessageSquare className="w-3 h-3 text-slate-400" /> 16
+                    </span>
+                  </div>
                 </div>
-              );
-            })}
-          </div>
-        </section>
+              </div>
 
-        {/* ── Section 6: Bottom CTA Banner ─────────────────── */}
-        <div className="landing-cta-banner">
-          <div>
-            <h2>Ready to get your work done without the headaches?</h2>
-            <p>Post your project in under 3 minutes. Your dedicated supervisor will scope your sprint today.</p>
-          </div>
+              {/* Card 2: Write Here Editor & Momina Message Card */}
+              <div className="bg-white rounded-2xl p-5 border border-slate-200/90 shadow-xl shadow-slate-200/60 hover:shadow-2xl hover:shadow-slate-300/80 transition-all duration-300 ease-out transform lg:-rotate-0.5 hover:lg:-rotate-3 hover:-rotate-2 hover:scale-105 hover:-translate-y-2 hover:z-20 cursor-pointer relative flex flex-col justify-between">
+                <div>
+                  <div className="text-xs text-slate-400 mb-3 font-normal">Write here..</div>
+                  <div className="flex items-center justify-between pb-3 mb-3 border-b border-slate-100 text-slate-500 text-xs">
+                    <div className="flex items-center gap-2 font-medium text-slate-600">
+                      <span className="cursor-pointer hover:text-slate-900 font-bold">B</span>
+                      <span className="cursor-pointer hover:text-slate-900 italic font-serif">I</span>
+                      <span className="cursor-pointer hover:text-slate-900 underline">U</span>
+                      <span className="cursor-pointer hover:text-slate-900 text-[11px]">@</span>
+                      <Paperclip className="w-3 h-3 text-slate-400 hover:text-slate-700 cursor-pointer" />
+                      <span className="cursor-pointer hover:text-slate-900 text-xs">😊</span>
+                    </div>
+                    <button className="bg-[#10B981] hover:bg-emerald-600 text-white text-[11px] font-medium px-3 py-1 rounded-full flex items-center gap-1 shadow-xs transition-all cursor-pointer">
+                      <Send className="w-2.5 h-2.5" />
+                      <span>Submit</span>
+                    </button>
+                  </div>
+                </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '14px', flexWrap: 'wrap' }}>
-            <button
-              className="btn btn-coral btn-lg"
-              style={{ padding: '14px 28px', fontSize: '15px', boxShadow: '3px 3px 0 #111' }}
-              onClick={() => handleAuthAndNavigate('/create')}
-            >
-              <span>Create New Work</span>
-              <span>→</span>
-            </button>
-            <button
-              className="btn btn-secondary btn-lg"
-              style={{ padding: '14px 24px', fontSize: '15px' }}
-              onClick={() => handleAuthAndNavigate('/dashboard')}
-            >
-              <span>Launch Dashboard</span>
-            </button>
+                <div className="pt-1 flex items-start gap-2.5 text-left">
+                  <img
+                    className="w-7 h-7 rounded-full object-cover shrink-0 mt-0.5"
+                    src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=60&auto=format&fit=crop&q=80"
+                    alt="Momina Mustehsan"
+                  />
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center justify-between">
+                      <p className="text-[11px] font-medium text-slate-900 truncate">
+                        Momina Mustehsan <span className="text-[10px] font-normal text-slate-400">25 minutes ago</span>
+                      </p>
+                      <span className="text-[9px] text-slate-400 font-normal shrink-0 ml-1">Most Recent ↓↑</span>
+                    </div>
+                    <p className="text-[10.5px] text-slate-500 mt-1 leading-relaxed font-normal">
+                      Hey, I just completed the initial draft for the marketing campaign before the deadline. Should I move onto the next task? 😊
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Card 3: Kanban Columns Card (03 To Do, 04 Work In Progress, 04 Under Review) */}
+              <div className="bg-white rounded-2xl p-5 border border-slate-200/90 shadow-xl shadow-slate-200/60 hover:shadow-2xl hover:shadow-slate-300/80 transition-all duration-300 ease-out transform lg:rotate-1.5 hover:lg:rotate-3 hover:rotate-2 hover:scale-105 hover:-translate-y-2 hover:z-20 cursor-pointer relative flex flex-col justify-center">
+                <div className="space-y-3">
+                  {/* 03 To Do */}
+                  <div className="flex items-center justify-between p-3 rounded-xl border border-blue-200/80 bg-white hover:bg-blue-50/20 transition-all">
+                    <div className="flex items-center gap-2">
+                      <span className="bg-blue-50 text-blue-600 border border-blue-200 px-1.5 py-0.5 rounded text-[11px] font-medium">
+                        03
+                      </span>
+                      <span className="text-xs font-medium text-slate-800">To Do</span>
+                    </div>
+                    <span className="w-5 h-5 rounded-full bg-[#8B7CF8] text-white text-xs font-medium flex items-center justify-center shadow-xs">
+                      +
+                    </span>
+                  </div>
+
+                  {/* 04 Work In Progress */}
+                  <div className="flex items-center justify-between p-3 rounded-xl border border-rose-200/80 bg-white hover:bg-rose-50/20 transition-all">
+                    <div className="flex items-center gap-2">
+                      <span className="bg-rose-50 text-rose-600 border border-rose-200 px-1.5 py-0.5 rounded text-[11px] font-medium">
+                        04
+                      </span>
+                      <span className="text-xs font-medium text-rose-600">Work In Progress</span>
+                    </div>
+                    <span className="w-5 h-5 rounded-full bg-rose-500 text-white text-xs font-medium flex items-center justify-center shadow-xs">
+                      +
+                    </span>
+                  </div>
+
+                  {/* 04 Under Review */}
+                  <div className="flex items-center justify-between p-3 rounded-xl border border-amber-200/80 bg-white hover:bg-amber-50/20 transition-all">
+                    <div className="flex items-center gap-2">
+                      <span className="bg-amber-50 text-amber-600 border border-amber-200 px-1.5 py-0.5 rounded text-[11px] font-medium">
+                        04
+                      </span>
+                      <span className="text-xs font-medium text-amber-600">Under Review</span>
+                    </div>
+                    <span className="w-5 h-5 rounded-full bg-amber-400 text-white text-xs font-medium flex items-center justify-center shadow-xs">
+                      +
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Card 4: Invite & Assign Member Checklist Card */}
+              <div className="bg-white rounded-2xl p-5 border border-slate-200/90 shadow-xl shadow-slate-200/60 hover:shadow-2xl hover:shadow-slate-300/80 transition-all duration-300 ease-out transform lg:rotate-3 hover:lg:rotate-6 hover:rotate-3 hover:scale-105 hover:-translate-y-2 hover:z-20 cursor-pointer relative flex flex-col justify-between">
+                <div>
+                  <div className="flex items-center gap-1.5 bg-slate-50 px-2.5 py-1.5 rounded-lg border border-slate-200/80 text-[11px] text-slate-400 mb-3">
+                    <Search className="w-3 h-3 text-slate-400" />
+                    <span>Search name...</span>
+                  </div>
+
+                  <div className="flex items-center justify-between text-[11px] font-medium text-slate-700 mb-3 pb-2 border-b border-slate-100">
+                    <span className="flex items-center gap-1.5">
+                      <Square className="w-3.5 h-3.5 text-slate-400" /> Assign All
+                    </span>
+                    <span className="text-slate-500 hover:text-slate-900 flex items-center gap-1 cursor-pointer font-medium">
+                      <span>+</span> Invite Team Member
+                    </span>
+                  </div>
+
+                  <div className="space-y-3">
+                    {/* Member 1: Momina Mustehsan */}
+                    <div
+                      onClick={() => toggleMember('momina')}
+                      className="flex items-center gap-2.5 text-left cursor-pointer"
+                    >
+                      {selectedMembers.momina ? (
+                        <CheckSquare className="w-4 h-4 text-[#7B61FF]" />
+                      ) : (
+                        <Square className="w-4 h-4 text-slate-300" />
+                      )}
+                      <img
+                        className="w-6 h-6 rounded-full object-cover"
+                        src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=60&auto=format&fit=crop&q=80"
+                        alt="Momina"
+                      />
+                      <div>
+                        <p className="text-[11px] font-medium text-slate-900 leading-tight">Momina Mustehsan</p>
+                        <p className="text-[9px] text-slate-400 font-normal">UX UI Designer</p>
+                      </div>
+                    </div>
+
+                    {/* Member 2: Lisa Brenan */}
+                    <div
+                      onClick={() => toggleMember('lisa')}
+                      className="flex items-center gap-2.5 text-left cursor-pointer"
+                    >
+                      {selectedMembers.lisa ? (
+                        <CheckSquare className="w-4 h-4 text-[#7B61FF]" />
+                      ) : (
+                        <Square className="w-4 h-4 text-slate-300" />
+                      )}
+                      <img
+                        className="w-6 h-6 rounded-full object-cover"
+                        src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=60&auto=format&fit=crop&q=80"
+                        alt="Lisa"
+                      />
+                      <div>
+                        <p className="text-[11px] font-medium text-slate-900 leading-tight">Lisa Brenan</p>
+                        <p className="text-[9px] text-slate-400 font-normal">Digital Marketer</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Subtle Gradient Fade at bottom of the cards matching screenshot */}
+            <div className="pointer-events-none absolute bottom-0 inset-x-0 h-28 bg-gradient-to-t from-white via-white/80 to-transparent z-10" />
           </div>
         </div>
+      </section>
 
-        {/* ── Signature Sculpted Black Footer (Reference Structure) ── */}
-        <footer className="landing-footer-wrapper">
-          <div className="landing-footer-sculpted-box">
-            {/* Sculpted Dual-Tier Wave Top Edge */}
-            <div className="footer-sculpted-svg-container">
-              <svg
-                className="footer-sculpted-svg"
-                viewBox="0 0 1200 90"
-                preserveAspectRatio="none"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M 0 90 L 0 78 Q 0 48 36 48 L 565 48 C 590 48, 602 72, 620 72 C 640 72, 658 0, 685 0 L 1164 0 Q 1200 0 1200 36 L 1200 90 Z"
-                  fill="#050505"
-                />
-              </svg>
+      {/* ─────────────────────────────────────────────────────────────
+          3. Section: "Enhanced Work Methodologies" (3-Card Section)
+              * Lime Badge: Why Choose Us
+              * Harmonized font-normal Heading & font-medium Card Titles
+          ───────────────────────────────────────────────────────────── */}
+      <section id="capabilities" className="py-10 sm:py-14 bg-white w-full text-center">
+        <div className="w-full max-w-[1300px] mx-auto px-6 sm:px-10 lg:px-12">
+          {/* Lime Green Pill Badge */}
+          <div className="inline-flex items-center px-3.5 py-1 rounded-full text-xs font-semibold bg-[#D4F870] text-slate-950 mb-3 shadow-2xs">
+            Why Choose Us
+          </div>
+
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-normal text-slate-950 tracking-tight leading-[1.15]">
+            Enhanced Work Methodologies
+          </h2>
+          <p className="mt-2.5 text-sm sm:text-base text-slate-500 max-w-2xl mx-auto leading-relaxed font-normal">
+            By adopting structured frameworks like Agile milestones with dedicated supervisor oversight,
+            businesses eliminate traditional freelance risk and establish a culture of guaranteed continuous delivery.
+          </p>
+
+          {/* 3 Value Cards Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8 sm:mt-10 text-left">
+            {/* Card 1: Purple Accent */}
+            <div className="bg-white rounded-2xl p-7 border border-[#E9E4FD] shadow-xs hover:shadow-md transition-all">
+              <div className="w-12 h-12 rounded-xl bg-[#8B7CF8] text-white flex items-center justify-center mb-5 shadow-xs">
+                <Zap className="w-6 h-6 text-white" />
+              </div>
+              <h3 className="text-lg font-medium text-slate-950 tracking-tight mb-2">
+                Increased productivity
+              </h3>
+              <p className="text-xs sm:text-sm text-slate-500 leading-relaxed font-normal">
+                Our platform streamlines your workflow, helping you prioritize tasks, set deadlines, and focus on what truly matters.
+              </p>
             </div>
 
-            <div className="footer-content-body">
-              <div className="footer-top-grid">
-                {/* Col 1: Geometric Logo & Tagline */}
-                <div className="footer-brand-col">
-                  <div className="footer-geom-logo" onClick={() => navigate('/landing')}>
-                    <div className="footer-geom-block solid" />
-                    <div className="footer-geom-block hollow" />
-                  </div>
-                  <p className="footer-brand-tagline">
-                    A Modern Supervised Platform<br />
-                    For Fast-Moving Tech Teams<br />
-                    And Verified Milestone Escrow<br />
-                    For Your Convenience
-                  </p>
-                </div>
-
-                {/* Col 2: Quick Access (4 and 3 sub-columns) */}
-                <div className="footer-links-col">
-                  <h4 className="footer-col-heading">Quick Access</h4>
-                  <div className="footer-links-duo">
-                    <div className="footer-links-subcol">
-                      <a href="#how-it-works" className="footer-link-item">About Us</a>
-                      <a href="#features" className="footer-link-item">
-                        <span className="footer-dot-purple" />
-                        <span>Services</span>
-                      </a>
-                      <span className="footer-link-item" onClick={() => handleAuthAndNavigate('/dashboard')}>
-                        Careers
-                      </span>
-                      <span className="footer-link-item" onClick={() => handleAuthAndNavigate('/dashboard')}>
-                        Learn
-                      </span>
-                    </div>
-                    <div className="footer-links-subcol">
-                      <a href="#estimator" className="footer-link-item">Branches</a>
-                      <a href="#faq" className="footer-link-item">Faq</a>
-                      <a href="#comparison" className="footer-link-item">Blog</a>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Col 3: Elevated Newsletter & Minimalist Social Row */}
-                <div className="footer-news-col">
-                  <p className="footer-news-label">
-                    To Know The Latest News And Updates, Enter Your Email So That We Can Contact You
-                  </p>
-
-                  <form className="footer-news-pill-form" onSubmit={handleSubscribe}>
-                    <input
-                      type="email"
-                      className="footer-news-input"
-                      placeholder="Enter Email Address"
-                      value={newsletterEmail}
-                      onChange={(e) => setNewsletterEmail(e.target.value)}
-                      required
-                    />
-                    <button type="submit" className="footer-news-btn">
-                      <span>{isSubscribed ? 'Subscribed!' : 'Subscribe'}</span>
-                      {isSubscribed ? <Check size={14} strokeWidth={2.5} /> : <ArrowUpRight size={14} strokeWidth={2.5} />}
-                    </button>
-                  </form>
-
-                  <div className="footer-contact-row">
-                    <span className="footer-contact-label">Contact Us :</span>
-                    <div className="footer-social-icons">
-                      {/* Telegram: Circular Purple Pill */}
-                      <div className="social-icon-telegram" title="Telegram">
-                        <Send size={15} />
-                      </div>
-                      {/* WhatsApp: Clean Bare Vector Icon */}
-                      <div className="social-icon-bare" title="WhatsApp">
-                        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                          <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
-                        </svg>
-                      </div>
-                      {/* Twitter / X: Clean Bare Vector Icon */}
-                      <div className="social-icon-bare" title="Twitter / X">
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
-                          <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-                        </svg>
-                      </div>
-                      {/* Instagram: Clean Bare Vector Icon */}
-                      <div className="social-icon-bare" title="Instagram">
-                        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                          <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
-                          <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-                          <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
-                        </svg>
-                      </div>
-                      {/* LinkedIn: Clean Bare Vector Icon */}
-                      <div className="social-icon-bare" title="LinkedIn">
-                        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                          <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
-                          <rect x="2" y="9" width="4" height="12" />
-                          <circle cx="4" cy="4" r="2" />
-                        </svg>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+            {/* Card 2: Cyan Accent */}
+            <div className="bg-white rounded-2xl p-7 border border-[#D9F4FD] shadow-xs hover:shadow-md transition-all">
+              <div className="w-12 h-12 rounded-xl bg-[#38BDF8] text-white flex items-center justify-center mb-5 shadow-xs">
+                <ShieldCheck className="w-6 h-6 text-white" />
               </div>
+              <h3 className="text-lg font-medium text-slate-950 tracking-tight mb-2">
+                Better project oversight
+              </h3>
+              <p className="text-xs sm:text-sm text-slate-500 leading-relaxed font-normal">
+                Gain clear visibility into project progress, identify bottlenecks, and make informed decisions with comprehensive dashboards.
+              </p>
+            </div>
 
-
-              {/* ── AssignX left + Copyright right, same line ── */}
-              <div className="footer-bottom-row">
-                <div className="footer-giant-wordmark" aria-hidden="true">AssignX</div>
-                <div className="footer-copyright-dark">
-                  Copyright © 2026 AssignX Inc. All Rights Reserved.
-                </div>
+            {/* Card 3: Amber / Yellow Accent */}
+            <div className="bg-white rounded-2xl p-7 border border-[#FEEFC4] shadow-xs hover:shadow-md transition-all">
+              <div className="w-12 h-12 rounded-xl bg-[#F5CD52] text-slate-950 flex items-center justify-center mb-5 shadow-xs">
+                <Lock className="w-6 h-6 text-slate-950" />
               </div>
+              <h3 className="text-lg font-medium text-slate-950 tracking-tight mb-2">
+                Enhanced collaboration
+              </h3>
+              <p className="text-xs sm:text-sm text-slate-500 leading-relaxed font-normal">
+                Our platform facilitates seamless collaboration among team members, ensuring everyone is on the same page and working towards common goals.
+              </p>
             </div>
           </div>
-        </footer>
-      </div>
+        </div>
+      </section>
 
-      {/* ── Interactive Demo Video Modal ───────────────────── */}
-      {showDemoModal && (
-        <div
-          style={{
-            position: 'fixed',
-            inset: 0,
-            backgroundColor: 'rgba(17, 17, 17, 0.75)',
-            backdropFilter: 'blur(6px)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            zIndex: 999,
-            padding: '24px'
-          }}
-          onClick={() => setShowDemoModal(false)}
-        >
-          <div
-            style={{
-              backgroundColor: '#FFFFFF',
-              border: '2.5px solid #111111',
-              borderRadius: '24px',
-              maxWidth: '680px',
-              width: '100%',
-              boxShadow: '8px 8px 0px #111111',
-              overflow: 'hidden'
-            }}
-            onClick={e => e.stopPropagation()}
-          >
-            <div
-              style={{
-                padding: '18px 24px',
-                borderBottom: '2px solid #111111',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                backgroundColor: 'var(--color-blue-light)'
-              }}
-            >
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <Play size={18} color="#111111" />
-                <h3 style={{ margin: 0, fontSize: '16px', fontWeight: 800, color: '#111111' }}>
-                  How AssignX Works in 60 Seconds
+      {/* ─────────────────────────────────────────────────────────────
+          4. Section: "Adopt a More Intelligent Work Approach" (Bento Grid)
+             * Lime Badge: Features
+             * Harmonized font-normal Heading & Clean Card Typography
+          ───────────────────────────────────────────────────────────── */}
+      <section id="features" className="py-10 sm:py-14 bg-white w-full text-center">
+        <div className="w-full max-w-[1300px] mx-auto px-6 sm:px-10 lg:px-12">
+          {/* Lime Green Pill Badge */}
+          <div className="inline-flex items-center px-3.5 py-1 rounded-full text-xs font-semibold bg-[#D4F870] text-slate-950 mb-3 shadow-2xs">
+            Features
+          </div>
+
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-normal text-slate-950 tracking-tight leading-[1.15]">
+            Adopt a More Intelligent Work Approach
+          </h2>
+          <p className="mt-2.5 text-sm sm:text-base text-slate-500 max-w-2xl mx-auto leading-relaxed font-normal">
+            It means cultivating a mindset of continuous learning and adaptation, where automated checkoffs handle
+            repetitive tasks, freeing up human capital for creative problem-solving and strategic initiatives.
+          </p>
+
+          {/* Bento Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 mt-8 sm:mt-10 text-left">
+            {/* Left Column (5 cols): Tall Workspace Photo Card */}
+            <div className="lg:col-span-5 relative rounded-3xl overflow-hidden min-h-[480px] lg:min-h-[580px] shadow-sm group">
+              <img
+                src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=900&auto=format&fit=crop&q=80"
+                alt="Real-time Collaboration"
+                className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent flex flex-col justify-end p-8">
+                <div className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-[#D4F870] text-slate-950 w-fit mb-3">
+                  Messaging Feature
+                </div>
+                <h3 className="text-xl sm:text-2xl font-normal text-white leading-tight">
+                  Real-time Collaboration <br />with Team Members
                 </h3>
               </div>
+            </div>
+
+            {/* Right Column (7 cols): Split Top & Bottom */}
+            <div className="lg:col-span-7 flex flex-col gap-6">
+              {/* Top Sub-Card: Soft Lavender Card with Team Checklist */}
+              <div className="bg-[#EBE7FD] rounded-3xl p-6 sm:p-8 border border-[#DFD9FC] flex flex-col md:flex-row items-center justify-between gap-6">
+                <div className="w-full md:w-5/12">
+                  <span className="inline-block px-3 py-1 rounded-full text-[11px] font-semibold bg-[#8B7CF8] text-white mb-3">
+                    Task Assigning Feature
+                  </span>
+                  <h3 className="text-xl sm:text-2xl font-normal text-slate-950 leading-snug">
+                    Invite or Assign Existing Team Member
+                  </h3>
+                </div>
+
+                {/* Floating Member Assignment Box */}
+                <div className="w-full md:w-7/12 bg-white rounded-2xl p-4 shadow-sm border border-slate-100">
+                  <div className="flex items-center gap-1.5 bg-slate-50 px-2.5 py-1.5 rounded-lg border border-slate-150 text-[11px] text-slate-400 mb-3">
+                    <Search className="w-3 h-3 text-slate-400" />
+                    <span>Search name...</span>
+                  </div>
+
+                  <div className="flex items-center justify-between text-[11px] font-semibold text-slate-700 mb-2 pb-1.5 border-b border-slate-100">
+                    <span className="flex items-center gap-1.5">
+                      <Square className="w-3 h-3 text-slate-400" /> Assign All
+                    </span>
+                    <span className="text-[#7B61FF] cursor-pointer font-medium">+ Invite Team Member</span>
+                  </div>
+
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <img
+                          className="w-6 h-6 rounded-full object-cover"
+                          src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=60&auto=format&fit=crop&q=80"
+                          alt="Momina"
+                        />
+                        <div>
+                          <p className="text-[11px] font-medium text-slate-900">Momina Mustehsan</p>
+                          <p className="text-[9px] text-slate-400 font-normal">UX UI Designer</p>
+                        </div>
+                      </div>
+                      <CheckSquare className="w-3.5 h-3.5 text-[#7B61FF]" />
+                    </div>
+
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <img
+                          className="w-6 h-6 rounded-full object-cover"
+                          src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=60&auto=format&fit=crop&q=80"
+                          alt="Lisa"
+                        />
+                        <div>
+                          <p className="text-[11px] font-medium text-slate-900">Lisa Brenan</p>
+                          <p className="text-[9px] text-slate-400 font-normal">Digital Marketer</p>
+                        </div>
+                      </div>
+                      <CheckSquare className="w-3.5 h-3.5 text-[#7B61FF]" />
+                    </div>
+
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <img
+                          className="w-6 h-6 rounded-full object-cover"
+                          src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=60&auto=format&fit=crop&q=80"
+                          alt="Cristopher"
+                        />
+                        <div>
+                          <p className="text-[11px] font-medium text-slate-900">Cristopher Nolan</p>
+                          <p className="text-[9px] text-slate-400 font-normal">Product Manager</p>
+                        </div>
+                      </div>
+                      <Square className="w-3.5 h-3.5 text-slate-300" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Bottom Sub-Row: 2 Cards (White Task Card + Cyan Overview Card) */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 flex-1">
+                {/* Card 1: Detailed Task Card */}
+                <div className="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-xs flex flex-col justify-between">
+                  <div>
+                    <div className="flex items-center justify-between mb-3">
+                      <div className="flex items-center gap-1.5 bg-rose-50 text-rose-600 border border-rose-100 px-2 py-0.5 rounded-full text-[10px] font-semibold">
+                        <span>🔥 High</span>
+                        <span>Deadline: 25th...</span>
+                      </div>
+                      <span className="text-slate-400 text-sm">⋮</span>
+                    </div>
+
+                    <h4 className="text-sm font-medium text-slate-950 leading-snug">
+                      Investigating New Plugin Features and Their Econo...
+                    </h4>
+
+                    <div className="mt-4">
+                      <div className="flex justify-between text-[11px] text-slate-500 font-normal mb-1">
+                        <span>Progress</span>
+                        <span className="font-semibold text-slate-900">40%</span>
+                      </div>
+                      <div className="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                        <div className="h-full bg-emerald-500 rounded-full w-[40%]" />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
+                    <div className="flex items-center gap-1">
+                      <div className="flex -space-x-1.5">
+                        <img
+                          className="w-5 h-5 rounded-full border border-white object-cover"
+                          src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=60&auto=format&fit=crop&q=80"
+                          alt="Av1"
+                        />
+                        <img
+                          className="w-5 h-5 rounded-full border border-white object-cover"
+                          src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=60&auto=format&fit=crop&q=80"
+                          alt="Av2"
+                        />
+                      </div>
+                      <span className="text-[10px] text-slate-400 font-medium">+4</span>
+                    </div>
+                    <div className="flex items-center gap-2.5 text-[10px] text-slate-400">
+                      <span className="flex items-center gap-1">
+                        <Paperclip className="w-3 h-3 text-slate-400" /> 12
+                      </span>
+                      <span className="flex items-center gap-1">
+                        <MessageSquare className="w-3 h-3 text-slate-400" /> 16
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Card 2: Soft Cyan Overview Card */}
+                <div className="bg-[#E2F7FD] rounded-3xl p-6 border border-[#CEEFF8] flex flex-col justify-center items-start">
+                  <span className="inline-block px-3 py-1 rounded-full text-[11px] font-semibold bg-[#38BDF8] text-white mb-3">
+                    Task Overview
+                  </span>
+                  <h3 className="text-xl font-normal text-slate-950 leading-snug">
+                    Complete Task Overview at a Glance
+                  </h3>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ─────────────────────────────────────────────────────────────
+          5. Section: "Integrate with Your Favorite Tools" (Network Hub)
+             * Lime Badge: Sync With Others
+             * Bold Heading & Symmetrical Connected Mind-Map Network
+          ───────────────────────────────────────────────────────────── */}
+      <section id="integrations" className="py-12 sm:py-16 bg-white w-full text-center">
+        <div className="w-full max-w-[1300px] mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Lime Green Pill Badge */}
+          <div className="inline-flex items-center px-4 py-1 rounded-full text-xs sm:text-sm font-semibold bg-[#D4F870] text-slate-950 mb-3.5 shadow-2xs">
+            Sync With Others
+          </div>
+
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-slate-950 tracking-tight leading-[1.15]">
+            Integrate with Your Favorite Tools
+          </h2>
+          <p className="mt-3 text-sm sm:text-base text-slate-500 max-w-2xl mx-auto leading-relaxed font-normal">
+            By centralizing information and enabling data to flow freely between systems, our solution enhances
+            communication, breaks down data silos, and provides a unified view of your projects.
+          </p>
+
+          {/* Network Tree Hub Component */}
+          <IntegrationHub />
+        </div>
+      </section>
+
+      {/* ─────────────────────────────────────────────────────────────
+          6. Section: "Which Plan Suits You Best?" (Pricing Table)
+             * Lime Badge: Pricing Plan
+             * 3 Cards: Essential, Pro (Purple Highlight), Enterprise
+             * Inside Quotes: User testimonials embedded inside cards
+          ───────────────────────────────────────────────────────────── */}
+      <section id="pricing" className="py-10 sm:py-14 bg-white w-full text-center">
+        <div className="w-full max-w-[1300px] mx-auto px-6 sm:px-10 lg:px-12">
+          {/* Lime Green Pill Badge */}
+          <div className="inline-flex items-center px-3.5 py-1 rounded-full text-xs font-semibold bg-[#D4F870] text-slate-950 mb-3 shadow-2xs">
+            Pricing Plan
+          </div>
+
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-normal text-slate-950 tracking-tight leading-[1.15]">
+            Which Plan Suits You Best?
+          </h2>
+          <p className="mt-2.5 text-sm sm:text-base text-slate-500 max-w-2xl mx-auto leading-relaxed font-normal">
+            Finding the perfect plan is about more than just selecting an option; it&apos;s about identifying the
+            solution that precisely aligns with your unique needs and aspirations.
+          </p>
+
+          {/* Pricing Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-8 sm:mt-10 text-left items-stretch">
+            {/* Card 1: Essential */}
+            <div className="bg-white rounded-3xl p-8 border border-slate-200/80 shadow-xs flex flex-col justify-between">
+              <div>
+                <span className="text-sm font-medium text-slate-900 block mb-1">Essential</span>
+                <div className="flex items-baseline gap-1 mb-2">
+                  <span className="text-4xl font-normal text-slate-950 tracking-tight">$25</span>
+                  <span className="text-xs text-slate-400 font-normal">/Month</span>
+                </div>
+                <p className="text-xs text-slate-500 font-normal mb-6">Best Value for Freelancers.</p>
+
+                {/* Embedded Mini Testimonial */}
+                <div className="bg-slate-50 rounded-2xl p-4 border border-slate-100 mb-6">
+                  <div className="flex items-center gap-2.5 mb-2">
+                    <img
+                      className="w-8 h-8 rounded-full object-cover"
+                      src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=60&auto=format&fit=crop&q=80"
+                      alt="Jonathan Smith"
+                    />
+                    <div>
+                      <p className="text-xs font-medium text-slate-900">Jonathan Smith</p>
+                      <p className="text-[10px] text-slate-400 font-normal">Freelance UX UI Designer</p>
+                    </div>
+                  </div>
+                  <p className="text-[11px] text-slate-500 leading-relaxed italic font-normal">
+                    &ldquo;As a freelancer, the FREE plan was an absolute game-changer. It gave me all the essential tools to organize my client.&rdquo;
+                  </p>
+                </div>
+
+                {/* Features List */}
+                <ul className="space-y-3 text-xs text-slate-600 font-normal mb-8">
+                  <li className="flex items-center gap-2">
+                    <span className="w-4 h-4 rounded-full bg-slate-900 text-white flex items-center justify-center text-[9px] font-bold">✓</span>
+                    <span>Up to 5 Team Members.</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="w-4 h-4 rounded-full bg-slate-900 text-white flex items-center justify-center text-[9px] font-bold">✓</span>
+                    <span>Unlimited Projects &amp; Tasks.</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="w-4 h-4 rounded-full bg-slate-900 text-white flex items-center justify-center text-[9px] font-bold">✓</span>
+                    <span>Kanban &amp; List Views.</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="w-4 h-4 rounded-full bg-slate-900 text-white flex items-center justify-center text-[9px] font-bold">✓</span>
+                    <span>10 GB File Storage.</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="w-4 h-4 rounded-full bg-slate-900 text-white flex items-center justify-center text-[9px] font-bold">✓</span>
+                    <span>Standard Email Support.</span>
+                  </li>
+                </ul>
+              </div>
+
+              {/* Solid Black Button */}
               <button
-                className="topbar-icon-btn"
-                style={{ width: '32px', height: '32px' }}
-                onClick={() => setShowDemoModal(false)}
+                onClick={() => handleAuthAndNavigate('/create')}
+                className="w-full bg-[#111111] hover:bg-slate-800 text-white font-semibold py-3 rounded-full text-xs transition-all cursor-pointer"
               >
-                <X size={16} />
+                Select Plan
               </button>
             </div>
 
-            <div style={{ padding: '28px 24px' }}>
-              <div
-                style={{
-                  backgroundColor: '#111111',
-                  borderRadius: '16px',
-                  height: '280px',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  color: '#FFFFFF',
-                  textAlign: 'center',
-                  padding: '20px',
-                  marginBottom: '20px',
-                  position: 'relative'
-                }}
-              >
-                <div
-                  style={{
-                    width: '64px',
-                    height: '64px',
-                    borderRadius: '9999px',
-                    backgroundColor: 'var(--color-lime)',
-                    border: '2px solid #FFFFFF',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    marginBottom: '16px',
-                    cursor: 'pointer'
-                  }}
-                >
-                  <div className="hero-play-triangle" />
+            {/* Card 2: Pro (Center Highlight Purple Card) */}
+            <div className="bg-[#8B7CF8] text-white rounded-3xl p-8 shadow-xl relative flex flex-col justify-between">
+              <div>
+                <span className="text-sm font-medium text-white/90 block mb-1">Pro</span>
+                <div className="flex items-baseline gap-1 mb-2">
+                  <span className="text-4xl font-normal text-white tracking-tight">$79</span>
+                  <span className="text-xs text-white/80 font-normal">/Month</span>
                 </div>
-                <div style={{ fontSize: '18px', fontWeight: 800 }}>
-                  Interactive Walkthrough Video
+                <p className="text-xs text-white/85 font-normal mb-6">Best Value for Growing Businesses.</p>
+
+                {/* Embedded Mini Testimonial (White Box inside Purple Card) */}
+                <div className="bg-white rounded-2xl p-4 shadow-xs text-slate-900 mb-6">
+                  <div className="flex items-center gap-2.5 mb-2">
+                    <img
+                      className="w-8 h-8 rounded-full object-cover"
+                      src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=60&auto=format&fit=crop&q=80"
+                      alt="Rubaba Dowla"
+                    />
+                    <div>
+                      <p className="text-xs font-medium text-slate-900">Rubaba Dowla</p>
+                      <p className="text-[10px] text-slate-400 font-normal">Founder, DigiTech Agency</p>
+                    </div>
+                  </div>
+                  <p className="text-[11px] text-slate-500 leading-relaxed italic font-normal">
+                    &ldquo;The Pro plan worked really hard to make sure our team was satisfied. The automation features and ad-ons.&rdquo;
+                  </p>
                 </div>
-                <div style={{ fontSize: '13px', color: '#AAAAAA', maxWidth: '380px', marginTop: '6px' }}>
-                  See how an appointed supervisor manages your sprint deliverables, code quality checks, and escrow milestone release.
-                </div>
+
+                {/* Features List */}
+                <ul className="space-y-3 text-xs text-white/95 font-normal mb-8">
+                  <li className="flex items-center gap-2">
+                    <span className="w-4 h-4 rounded-full bg-white text-[#8B7CF8] flex items-center justify-center text-[9px] font-bold">✓</span>
+                    <span>Up to 50 Team Members.</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="w-4 h-4 rounded-full bg-white text-[#8B7CF8] flex items-center justify-center text-[9px] font-bold">✓</span>
+                    <span>Everything in Essential, plus:</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="w-4 h-4 rounded-full bg-white text-[#8B7CF8] flex items-center justify-center text-[9px] font-bold">✓</span>
+                    <span>Advanced Reporting &amp; Analytics.</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="w-4 h-4 rounded-full bg-white text-[#8B7CF8] flex items-center justify-center text-[9px] font-bold">✓</span>
+                    <span>Task Automation Rules.</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="w-4 h-4 rounded-full bg-white text-[#8B7CF8] flex items-center justify-center text-[9px] font-bold">✓</span>
+                    <span>Priority Chat &amp; Email Support.</span>
+                  </li>
+                </ul>
               </div>
 
-              <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '12px' }}>
+              {/* Dual Action Buttons: Yellow Select Plan + White Book a Call */}
+              <div className="grid grid-cols-2 gap-3">
                 <button
-                  className="btn btn-secondary"
-                  onClick={() => setShowDemoModal(false)}
+                  onClick={() => handleAuthAndNavigate('/create')}
+                  className="bg-[#F5CD52] hover:bg-[#eec23d] text-slate-950 font-semibold py-3 rounded-full text-xs transition-all text-center cursor-pointer"
                 >
-                  Close
+                  Select Plan
                 </button>
                 <button
-                  className="btn btn-primary"
-                  onClick={() => {
-                    setShowDemoModal(false);
-                    handleAuthAndNavigate('/dashboard');
-                  }}
+                  onClick={() => handleAuthAndNavigate('/dashboard')}
+                  className="bg-white hover:bg-slate-100 text-slate-950 font-semibold py-3 rounded-full text-xs transition-all text-center cursor-pointer"
                 >
-                  <span>Go to Client Panel</span>
-                  <span>→</span>
+                  Book a Call
                 </button>
               </div>
+            </div>
+
+            {/* Card 3: Enterprise */}
+            <div className="bg-white rounded-3xl p-8 border border-slate-200/80 shadow-xs flex flex-col justify-between">
+              <div>
+                <span className="text-sm font-medium text-slate-900 block mb-1">Enterprise</span>
+                <div className="flex items-baseline gap-1 mb-2">
+                  <span className="text-4xl font-normal text-slate-950 tracking-tight">$199</span>
+                  <span className="text-xs text-slate-400 font-normal">/Month</span>
+                </div>
+                <p className="text-xs text-slate-500 font-normal mb-6">Best Value for Large-Scale Operations.</p>
+
+                {/* Embedded Mini Testimonial */}
+                <div className="bg-slate-50 rounded-2xl p-4 border border-slate-100 mb-6">
+                  <div className="flex items-center gap-2.5 mb-2">
+                    <img
+                      className="w-8 h-8 rounded-full object-cover"
+                      src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=60&auto=format&fit=crop&q=80"
+                      alt="Robert Fox"
+                    />
+                    <div>
+                      <p className="text-xs font-medium text-slate-900">Robert Fox</p>
+                      <p className="text-[10px] text-slate-400 font-normal">CEO, AppNova LLC</p>
+                    </div>
+                  </div>
+                  <p className="text-[11px] text-slate-500 leading-relaxed italic font-normal">
+                    &ldquo;This plan provides the robust tools and plugins required. The security features and dedicated personalized support.&rdquo;
+                  </p>
+                </div>
+
+                {/* Features List */}
+                <ul className="space-y-3 text-xs text-slate-600 font-normal mb-8">
+                  <li className="flex items-center gap-2">
+                    <span className="w-4 h-4 rounded-full bg-slate-900 text-white flex items-center justify-center text-[9px] font-bold">✓</span>
+                    <span>Unlimited Team Members.</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="w-4 h-4 rounded-full bg-slate-900 text-white flex items-center justify-center text-[9px] font-bold">✓</span>
+                    <span>Everything in Pro, plus:</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="w-4 h-4 rounded-full bg-slate-900 text-white flex items-center justify-center text-[9px] font-bold">✓</span>
+                    <span>Dedicated Account Manager.</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="w-4 h-4 rounded-full bg-slate-900 text-white flex items-center justify-center text-[9px] font-bold">✓</span>
+                    <span>Advanced Security &amp; SSO.</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="w-4 h-4 rounded-full bg-slate-900 text-white flex items-center justify-center text-[9px] font-bold">✓</span>
+                    <span>24/7 Priority Phone Support.</span>
+                  </li>
+                </ul>
+              </div>
+
+              {/* Solid Black Button */}
+              <button
+                onClick={() => handleAuthAndNavigate('/create')}
+                className="w-full bg-[#111111] hover:bg-slate-800 text-white font-semibold py-3 rounded-full text-xs transition-all cursor-pointer"
+              >
+                Select Plan
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ─────────────────────────────────────────────────────────────
+          7. Section: "They Stopped Being The Bottleneck" (Testimonials)
+             * Exact Layout & Typography from Reference Image 1
+             * Left-aligned heading & subtitle
+             * Two staggered horizontal rows of quote cards with edge fades
+          ───────────────────────────────────────────────────────────── */}
+      {/* ─────────────────────────────────────────────────────────────
+          7. Section: "They Stopped Being The Bottleneck" (Testimonials)
+             * Compact Layout & Typography from Reference Image 1
+             * Reduced vertical padding, margins and card sizes
+          ───────────────────────────────────────────────────────────── */}
+      <section id="testimonials" className="py-8 sm:py-10 bg-white w-full overflow-hidden">
+        {/* Left-Aligned Compact Header */}
+        <div className="w-full max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-12 mb-4 sm:mb-5 text-left">
+          <h2 className="text-3xl sm:text-4xl lg:text-[40px] font-normal text-slate-950 tracking-tight leading-[1.15]">
+            They Stopped Being <br />The Bottleneck
+          </h2>
+          <p className="mt-1.5 text-xs sm:text-sm text-slate-500 max-w-lg leading-relaxed font-normal">
+            Not productivity metrics. Actual founder hours reclaimed — and teams that move without being pushed.
+          </p>
+        </div>
+
+        {/* Dual Staggered Horizontal Marquee Rows with Edge Gradient Fades */}
+        <div className="relative w-full overflow-hidden">
+          {/* Edge Gradient Masks */}
+          <div className="pointer-events-none absolute inset-y-0 left-0 w-14 sm:w-28 bg-gradient-to-r from-white via-white/80 to-transparent z-10" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 w-14 sm:w-28 bg-gradient-to-l from-white via-white/80 to-transparent z-10" />
+
+          {/* Row 1 */}
+          <div className="flex mb-3.5 overflow-hidden">
+            <div className="animate-marquee-left flex gap-4 shrink-0 py-0.5">
+              {[...row1Testimonials, ...row1Testimonials].map((item, idx) => (
+                <div
+                  key={idx}
+                  className="w-[290px] sm:w-[345px] shrink-0 p-5 sm:p-5.5 bg-[#F8F9FA] rounded-xl sm:rounded-2xl border border-slate-200/60 flex flex-col justify-between text-left hover:border-slate-300 hover:bg-[#F5F6F8] transition-all cursor-default"
+                >
+                  <p className="text-slate-800 text-xs sm:text-[12.5px] leading-relaxed font-normal mb-4">
+                    &ldquo;{item.quote}&rdquo;
+                  </p>
+
+                  <div className="flex items-center justify-between pt-3 border-t border-slate-200/50 mt-auto">
+                    <div className="flex items-center gap-2">
+                      <img
+                        className="w-7 h-7 rounded-full object-cover shrink-0"
+                        src={item.avatar}
+                        alt={item.author}
+                      />
+                      <div>
+                        <h4 className="text-xs font-medium text-slate-900 leading-tight">
+                          {item.author}
+                        </h4>
+                        <p className="text-[10px] text-slate-400 font-normal">
+                          {item.role}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center gap-1.5 text-xs font-semibold text-slate-900 opacity-90">
+                      {item.companyIcon && <span className="text-[11px]">{item.companyIcon}</span>}
+                      <span>{item.companyName}</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Row 2 (Staggered Movement) */}
+          <div className="flex overflow-hidden">
+            <div className="animate-marquee-right flex gap-4 shrink-0 py-0.5">
+              {[...row2Testimonials, ...row2Testimonials].map((item, idx) => (
+                <div
+                  key={idx}
+                  className="w-[290px] sm:w-[345px] shrink-0 p-5 sm:p-5.5 bg-[#F8F9FA] rounded-xl sm:rounded-2xl border border-slate-200/60 flex flex-col justify-between text-left hover:border-slate-300 hover:bg-[#F5F6F8] transition-all cursor-default"
+                >
+                  <p className="text-slate-800 text-xs sm:text-[12.5px] leading-relaxed font-normal mb-4">
+                    &ldquo;{item.quote}&rdquo;
+                  </p>
+
+                  <div className="flex items-center justify-between pt-3 border-t border-slate-200/50 mt-auto">
+                    <div className="flex items-center gap-2">
+                      <img
+                        className="w-7 h-7 rounded-full object-cover shrink-0"
+                        src={item.avatar}
+                        alt={item.author}
+                      />
+                      <div>
+                        <h4 className="text-xs font-medium text-slate-900 leading-tight">
+                          {item.author}
+                        </h4>
+                        <p className="text-[10px] text-slate-400 font-normal">
+                          {item.role}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center gap-1.5 text-xs font-semibold text-slate-900 opacity-90">
+                      {item.companyIcon && <span className="text-[11px]">{item.companyIcon}</span>}
+                      <span>{item.companyName}</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ─────────────────────────────────────────────────────────────
+          8. Section: "Get Smarter with Our Recent Posts" (Blog Grid)
+             * Lime Badge: Our Blog
+             * Harmonized font-normal Heading & Editorial Blog Titles
+          ───────────────────────────────────────────────────────────── */}
+      <section id="insights" className="py-10 sm:py-14 bg-white w-full text-center">
+        <div className="w-full max-w-[1300px] mx-auto px-6 sm:px-10 lg:px-12">
+          {/* Lime Green Pill Badge */}
+          <div className="inline-flex items-center px-3.5 py-1 rounded-full text-xs font-semibold bg-[#D4F870] text-slate-950 mb-3 shadow-2xs">
+            Our Blog
+          </div>
+
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-normal text-slate-950 tracking-tight leading-[1.15]">
+            Get Smarter with Our Recent Posts
+          </h2>
+          <p className="mt-2.5 text-sm sm:text-base text-slate-500 max-w-2xl mx-auto leading-relaxed font-normal">
+            Our recent posts are crafted to be more than just content—they are a resource designed to empower you
+            with actionable knowledge and fresh perspectives.
+          </p>
+
+          {/* 5-Card Blog Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8 sm:mt-10 text-left">
+            {/* Blog Post 1 */}
+            <div className="rounded-3xl overflow-hidden relative min-h-[260px] shadow-xs group">
+              <img
+                src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&auto=format&fit=crop&q=80"
+                alt="Post 1"
+                className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex flex-col justify-end p-6">
+                <span className="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-[#D4F870] text-slate-950 w-fit mb-2">
+                  Latest
+                </span>
+                <h4 className="text-sm font-normal text-white leading-snug">
+                  The Synergy Equation: Unlocking Your Team&apos;s Collective Power
+                </h4>
+              </div>
+            </div>
+
+            {/* Blog Post 2 (Center Tall Post spanning rows) */}
+            <div className="rounded-3xl overflow-hidden relative min-h-[260px] lg:row-span-2 lg:min-h-[544px] shadow-xs group">
+              <img
+                src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=600&auto=format&fit=crop&q=80"
+                alt="Post 2"
+                className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex flex-col justify-end p-8">
+                <span className="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-[#D4F870] text-slate-950 w-fit mb-2">
+                  Latest
+                </span>
+                <h4 className="text-base sm:text-lg font-normal text-white leading-snug">
+                  The Art of Alignment: How Great Teams Achieve Goals
+                </h4>
+              </div>
+            </div>
+
+            {/* Blog Post 3 */}
+            <div className="rounded-3xl overflow-hidden relative min-h-[260px] shadow-xs group">
+              <img
+                src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=600&auto=format&fit=crop&q=80"
+                alt="Post 3"
+                className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex flex-col justify-end p-6">
+                <span className="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-[#D4F870] text-slate-950 w-fit mb-2">
+                  Latest
+                </span>
+                <h4 className="text-sm font-normal text-white leading-snug">
+                  The Art of Alignment: How Great Teams Achieve Shared Goals
+                </h4>
+              </div>
+            </div>
+
+            {/* Blog Post 4 */}
+            <div className="rounded-3xl overflow-hidden relative min-h-[260px] shadow-xs group">
+              <img
+                src="https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=600&auto=format&fit=crop&q=80"
+                alt="Post 4"
+                className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex flex-col justify-end p-6">
+                <span className="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-[#D4F870] text-slate-950 w-fit mb-2">
+                  Latest
+                </span>
+                <h4 className="text-sm font-normal text-white leading-snug">
+                  5 Actionable Strategies to Prevent Team Burnout
+                </h4>
+              </div>
+            </div>
+
+            {/* Blog Post 5 */}
+            <div className="rounded-3xl overflow-hidden relative min-h-[260px] shadow-xs group">
+              <img
+                src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=600&auto=format&fit=crop&q=80"
+                alt="Post 5"
+                className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex flex-col justify-end p-6">
+                <span className="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-[#D4F870] text-slate-950 w-fit mb-2">
+                  Latest
+                </span>
+                <h4 className="text-sm font-normal text-white leading-snug">
+                  Building Bridges: Enhancing Cross-Functional Teamwork
+                </h4>
+              </div>
+            </div>
+          </div>
+
+          {/* Purple Pill Button: Read More Articles */}
+          <div className="mt-8">
+            <button
+              onClick={() => handleAuthAndNavigate('/dashboard')}
+              className="bg-[#8B7CF8] hover:bg-[#7867f6] text-white font-medium px-8 py-3 rounded-full text-sm shadow-xs hover:shadow transition-all cursor-pointer"
+            >
+              Read More Articles
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* ─────────────────────────────────────────────────────────────
+          9. Modern Editorial Footer (1:1 Match with Reference Design: Priora style)
+             * Layout:
+               - Left Column: Vibrant Soft Aurora Gradient Card
+                 (AssignX mark, Value Prop, "Follow us", 3 Rounded White Social Buttons: IG, LinkedIn, X)
+               - Middle Columns: PRODUCT & COMPANY Links with subtle top border for Copyright
+               - Right Column: Vertical divider border, Y Combinator W25 Badge,
+                 "Design Clarity, Straight To Your Inbox" headline,
+                 Newsletter Email Input + Metallic Dark "Stay In The Loop" Button + Microcopy
+               - Bottom: Huge faint typographic brand watermark "AssignX" partially cropped
+          ───────────────────────────────────────────────────────────── */}
+      <footer className="w-full bg-[#FAFAFA] border-t border-slate-150/80 pt-12 sm:pt-16 pb-0 relative overflow-hidden text-slate-900">
+        <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-10 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch pb-10 sm:pb-14">
+            
+            {/* ── Left Column: Gradient Aurora Card (4 cols) ───────── */}
+            <div className="lg:col-span-4 flex">
+              <div
+                className="w-full rounded-[28px] p-7 sm:p-8 flex flex-col justify-between shadow-sm border border-white/40 relative overflow-hidden flex-1 min-h-[380px]"
+                style={{
+                  background: 'linear-gradient(165deg, #E6A222 0%, #D48E28 20%, #687BB8 52%, #4964B0 82%, #38539E 100%)'
+                }}
+              >
+                <div className="relative z-10">
+                  {/* Brand Logo & Wordmark: 4-square grid + AssignX in pure white */}
+                  <div className="flex items-center gap-2.5">
+                    <div className="grid grid-cols-2 gap-1 w-5 h-5">
+                      <div className="w-2 h-2 rounded-[2px] bg-white shadow-xs" />
+                      <div className="w-2 h-2 rounded-[2px] bg-white shadow-xs" />
+                      <div className="w-2 h-2 rounded-[2px] bg-white shadow-xs" />
+                      <div className="w-2 h-2 rounded-[2px] bg-white shadow-xs" />
+                    </div>
+                    <span className="text-xl font-semibold tracking-tight text-white drop-shadow-[0_1px_3px_rgba(0,0,0,0.35)]">
+                      AssignX
+                    </span>
+                  </div>
+                </div>
+
+                {/* Middle Value Proposition Copy — High contrast & crisp */}
+                <div className="relative z-10 my-8">
+                  <p className="text-white text-base sm:text-lg font-medium leading-snug drop-shadow-[0_1px_3px_rgba(0,0,0,0.45)] max-w-[270px]">
+                    Your team always knows what to build next, without asking you!
+                  </p>
+                </div>
+
+                {/* Bottom Row: Follow us + 3 Squircle Social Buttons */}
+                <div className="relative z-10 flex items-center justify-between pt-2">
+                  <span className="text-white font-medium text-xs drop-shadow-[0_1px_2px_rgba(0,0,0,0.4)]">
+                    Follow us
+                  </span>
+                  <div className="flex items-center gap-2">
+                    {/* Instagram */}
+                    <a
+                      href="https://instagram.com"
+                      target="_blank"
+                      rel="noreferrer"
+                      className="w-8 h-8 rounded-xl bg-white text-slate-800 flex items-center justify-center shadow-md hover:bg-slate-50 hover:scale-105 transition-all cursor-pointer"
+                      aria-label="Instagram"
+                    >
+                      <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+                      </svg>
+                    </a>
+                    {/* LinkedIn */}
+                    <a
+                      href="https://linkedin.com"
+                      target="_blank"
+                      rel="noreferrer"
+                      className="w-8 h-8 rounded-xl bg-white text-slate-800 flex items-center justify-center shadow-md hover:bg-slate-50 hover:scale-105 transition-all cursor-pointer"
+                      aria-label="LinkedIn"
+                    >
+                      <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                        <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 8.76a1.6 1.6 0 1 0-.03-3.2 1.6 1.6 0 0 0 .03 3.2m1.37 9.74v-8.37H5.09v8.37h2.74z"/>
+                      </svg>
+                    </a>
+                    {/* X (Twitter) */}
+                    <a
+                      href="https://x.com"
+                      target="_blank"
+                      rel="noreferrer"
+                      className="w-8 h-8 rounded-xl bg-white text-slate-800 flex items-center justify-center shadow-md hover:bg-slate-50 hover:scale-105 transition-all cursor-pointer"
+                      aria-label="X"
+                    >
+                      <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* ── Right Bordered Container: Product & Company Links + Newsletter (8 cols) ─── */}
+            <div className="lg:col-span-8 flex">
+              <div className="w-full bg-white rounded-[28px] border border-slate-200/80 shadow-2xs overflow-hidden flex flex-col justify-between">
+                <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-slate-150 h-full">
+                  
+                  {/* Middle Column: Links & Copyright */}
+                  <div className="p-7 sm:p-9 flex flex-col justify-between">
+                    <div className="grid grid-cols-2 gap-6 sm:gap-8">
+                      {/* Column 1: PRODUCT */}
+                      <div>
+                        <h4 className="text-[11px] font-semibold tracking-wider text-slate-400 uppercase mb-4">
+                          PRODUCT
+                        </h4>
+                        <ul className="space-y-3 text-xs sm:text-sm font-normal text-slate-700">
+                          <li>
+                            <button onClick={() => setShowDemoModal(true)} className="hover:text-slate-950 transition-colors text-left cursor-pointer">
+                              How it works
+                            </button>
+                          </li>
+                          <li>
+                            <a href="#capabilities" className="hover:text-slate-950 transition-colors">
+                              Features
+                            </a>
+                          </li>
+                          <li>
+                            <a href="#integrations" className="hover:text-slate-950 transition-colors">
+                              Integrations
+                            </a>
+                          </li>
+                          <li>
+                            <a href="#pricing" className="hover:text-slate-950 transition-colors">
+                              Pricing
+                            </a>
+                          </li>
+                          <li>
+                            <button onClick={() => handleAuthAndNavigate('/dashboard')} className="hover:text-slate-950 transition-colors text-left cursor-pointer">
+                              Changelog
+                            </button>
+                          </li>
+                        </ul>
+                      </div>
+
+                      {/* Column 2: COMPANY */}
+                      <div>
+                        <h4 className="text-[11px] font-semibold tracking-wider text-slate-400 uppercase mb-4">
+                          COMPANY
+                        </h4>
+                        <ul className="space-y-3 text-xs sm:text-sm font-normal text-slate-700">
+                          <li>
+                            <button onClick={() => handleAuthAndNavigate('/create')} className="hover:text-slate-950 transition-colors text-left cursor-pointer">
+                              For founders
+                            </button>
+                          </li>
+                          <li>
+                            <a href="#insights" className="hover:text-slate-950 transition-colors">
+                              Blog
+                            </a>
+                          </li>
+                          <li>
+                            <button onClick={() => setShowDemoModal(true)} className="hover:text-slate-950 transition-colors text-left cursor-pointer">
+                              About
+                            </button>
+                          </li>
+                          <li>
+                            <button onClick={() => handleAuthAndNavigate('/dashboard')} className="hover:text-slate-950 transition-colors text-left cursor-pointer">
+                              Privacy policy
+                            </button>
+                          </li>
+                          <li>
+                            <button onClick={() => handleAuthAndNavigate('/dashboard')} className="hover:text-slate-950 transition-colors text-left cursor-pointer">
+                              Terms of service
+                            </button>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+
+                    {/* Bottom horizontal hairline & Copyright */}
+                    <div className="pt-6 mt-8 sm:mt-12 border-t border-slate-150">
+                      <p className="text-xs text-slate-500 font-normal">
+                        © 2026 AssignX. All rights reserved.
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Right Column: Newsletter & YC Badge */}
+                  <div className="p-7 sm:p-9 flex flex-col justify-between">
+                    <div>
+                      {/* Y Combinator Badge */}
+                      <div className="inline-flex items-center gap-2 mb-6">
+                        <div className="w-5 h-5 bg-[#FF6600] rounded-xs flex items-center justify-center text-white font-bold text-xs leading-none">
+                          Y
+                        </div>
+                        <span className="text-xs font-medium text-slate-800">
+                          Y Combinator · W25
+                        </span>
+                      </div>
+
+                      {/* Newsletter Heading */}
+                      <h3 className="text-xl sm:text-2xl font-normal text-slate-950 tracking-tight leading-snug mb-5 max-w-xs">
+                        Design Clarity, Straight<br />To Your Inbox
+                      </h3>
+
+                      {/* Newsletter Form */}
+                      <form
+                        onSubmit={(e) => {
+                          e.preventDefault();
+                          if (newsletterEmail) {
+                            setNewsletterSubscribed(true);
+                            setTimeout(() => setNewsletterSubscribed(false), 4000);
+                          }
+                        }}
+                        className="space-y-2.5 max-w-sm"
+                      >
+                        <input
+                          type="email"
+                          required
+                          value={newsletterEmail}
+                          onChange={(e) => setNewsletterEmail(e.target.value)}
+                          placeholder="your @email.com"
+                          className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white text-xs sm:text-sm text-slate-900 placeholder:text-slate-400 focus:outline-hidden focus:border-slate-400 shadow-2xs transition-all"
+                        />
+                        <button
+                          type="submit"
+                          className="w-full py-3 px-5 rounded-xl text-white text-xs sm:text-sm font-medium bg-gradient-to-b from-[#3B3A49] via-[#2A2938] to-[#1C1B26] hover:from-[#474558] hover:to-[#22212E] border-t border-white/20 shadow-md transition-all cursor-pointer flex items-center justify-center"
+                        >
+                          {newsletterSubscribed ? '✓ You’re In The Loop!' : 'Stay In The Loop'}
+                        </button>
+                      </form>
+                    </div>
+
+                    {/* Bottom Microcopy */}
+                    <div className="pt-4 sm:pt-6">
+                      <p className="text-[11px] text-slate-500 leading-relaxed font-normal max-w-xs">
+                        *No fluff. Founder-focused insights on async decision-making, AI prioritization, and building faster teams.
+                      </p>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        {/* ─────────────────────────────────────────────────────────
+            Giant Brand Watermark Typography Across the Bottom
+            * Spans full viewport width (occupies more width)
+            * Cuts less at the bottom (~15% baseline only)
+            ───────────────────────────────────────────────────────── */}
+        <div className="w-full flex items-center justify-center overflow-hidden select-none pointer-events-none -mb-2 sm:-mb-4 md:-mb-6 lg:-mb-8">
+          <span className="font-normal text-[17vw] sm:text-[18.5vw] lg:text-[20vw] xl:text-[21vw] text-slate-200/60 tracking-tighter leading-[0.82] select-none block w-full text-center whitespace-nowrap">
+            AssignX
+          </span>
+        </div>
+      </footer>
+
+      {/* ─────────────────────────────────────────────────────────────
+          Video Walkthrough / Consultation Modal
+          ───────────────────────────────────────────────────────────── */}
+      {showDemoModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-fade-in">
+          <div className="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-slate-200 relative">
+            <button
+              onClick={() => setShowDemoModal(false)}
+              className="absolute top-5 right-5 w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-600 transition-colors cursor-pointer"
+              aria-label="Close modal"
+            >
+              <X className="w-4 h-4" />
+            </button>
+
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-[#D4F870] text-slate-950 mb-3">
+              Platform Walkthrough
+            </div>
+
+            <h3 className="text-2xl font-normal text-slate-950 tracking-tight">
+              How AssignX Works
+            </h3>
+            <p className="text-xs sm:text-sm text-slate-600 mt-2 leading-relaxed">
+              Discover how our dedicated supervisors translate your goals into verifiable milestones, conduct QA, and protect your budget through protected escrow.
+            </p>
+
+            <div className="mt-5 rounded-2xl bg-slate-950 aspect-video flex flex-col items-center justify-center text-white relative overflow-hidden border border-slate-800">
+              <div className="w-14 h-14 rounded-full bg-[#F5CD52] text-slate-950 flex items-center justify-center shadow-md cursor-pointer hover:scale-110 transition-transform">
+                <Play className="w-5 h-5 fill-current ml-0.5" />
+              </div>
+              <span className="text-xs text-slate-400 mt-3 font-medium">Click to Play 2-Min Interactive Overview</span>
+            </div>
+
+            <div className="mt-6 flex items-center justify-between pt-4 border-t border-slate-150">
+              <span className="text-xs text-slate-500">Ready to discuss your scope?</span>
+              <button
+                onClick={() => {
+                  setShowDemoModal(false);
+                  handleAuthAndNavigate('/create');
+                }}
+                className="bg-[#F5CD52] hover:bg-[#eec23d] text-slate-950 font-medium px-6 py-2.5 rounded-full text-xs shadow-xs transition-all cursor-pointer"
+              >
+                Post a Project
+              </button>
             </div>
           </div>
         </div>

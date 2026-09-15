@@ -1,5 +1,17 @@
 /* Global Style Entrypoint for AssignX */
-@import './styles/tokens.css';
-@import './styles/base.css';
-@import './styles/layout.css';
-@import './styles/components.css';
+@import "tailwindcss";
+@source "../index.html";
+@source "./**/*.{js,ts,jsx,tsx}";
+
+@theme {
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-heading: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --color-brand-yellow: #F6CF57;
+  --color-brand-purple: #7065F0;
+}
+
+@import './styles/tokens.css' layer(base);
+@import './styles/base.css' layer(base);
+@import './styles/layout.css' layer(components);
+@import './styles/components.css' layer(components);
+@import './styles/landing.css' layer(components);
