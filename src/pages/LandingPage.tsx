@@ -8,6 +8,7 @@ import React, { useState } from 'react';
 import { useNavigation } from '../context/NavigationContext';
 import { useApp } from '../context/AppContext';
 import {
+  Star,
   Play,
   Paperclip,
   MessageSquare,
@@ -218,18 +219,61 @@ export const LandingPage: React.FC = () => {
       <div className="h-16 w-full shrink-0" aria-hidden="true" />
 
       {/* ─────────────────────────────────────────────────────────────
-          2. Hero Section with Orbital Badges & Luminous Product Mockup
-             * Exact 1:1 Match with Reference Design
-             * Y Combinator W25 Badge, Clean Headline, Dual CTAs, Orbital Badges
-             * Interactive 3-Panel Product Mockup Canvas
+          2. Hero Section with Perimeter Workflow Loop
+             * Full viewport min-height (clean hero without lower peeking elements)
+             * Centered Headline, Subtitle, Ratings & Dual CTAs
           ───────────────────────────────────────────────────────────── */}
       <ScrollBlurSection id="overview" maxScale={1.05} maxBlur={8} minOpacity={0.35}>
-        <section className="relative pt-6 pb-12 sm:pb-16 w-full bg-transparent overflow-hidden">
-          <div className="w-full max-w-[1440px] mx-auto text-center">
-            <HeroWorkflow
-              onOpenDemo={() => setShowDemoModal(true)}
-              onNavigate={handleAuthAndNavigate}
-            />
+        <section className="relative min-h-[calc(100vh-4rem)] flex flex-col justify-center items-center py-2 w-full bg-transparent overflow-hidden">
+          <div className="w-full max-w-[1800px] mx-auto px-2 sm:px-4 lg:px-6 text-center my-auto">
+            <HeroWorkflow>
+              {/* Rating / Trustpilot: Clean text and stars, NO outer pill box */}
+              <div className="inline-flex items-center gap-2.5 text-xs sm:text-sm md:text-base font-normal text-slate-600 mb-3.5 sm:mb-4">
+                <div className="flex items-center text-amber-400 gap-0.5">
+                  <Star className="w-4 h-4 sm:w-4.5 sm:h-4.5 fill-amber-400 text-amber-400" />
+                  <Star className="w-4 h-4 sm:w-4.5 sm:h-4.5 fill-amber-400 text-amber-400" />
+                  <Star className="w-4 h-4 sm:w-4.5 sm:h-4.5 fill-amber-400 text-amber-400" />
+                  <Star className="w-4 h-4 sm:w-4.5 sm:h-4.5 fill-amber-400 text-amber-400" />
+                  <Star className="w-4 h-4 sm:w-4.5 sm:h-4.5 fill-amber-400 text-amber-400" />
+                </div>
+                <span className="font-semibold text-slate-900">2.5+ Reviews</span>
+                <span className="text-slate-300">|</span>
+                <span className="font-semibold text-slate-900">4.98</span>
+                <span className="text-emerald-700 font-semibold flex items-center gap-1">
+                  ★ Trustpilot
+                </span>
+              </div>
+
+              {/* Hero Headline — Thicker font-medium Typography with Gradient Accent */}
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[62px] xl:text-[66px] font-medium text-slate-950 tracking-tight leading-[1.14] max-w-[760px] mx-auto text-center">
+                Ready to Redefine <br className="hidden sm:inline" />
+                Your Team&apos;s{' '}
+                <span className="bg-gradient-to-r from-[#FF6B6B] via-[#FF758F] to-[#E855DE] bg-clip-text text-transparent font-semibold">
+                  Productivity?
+                </span>
+              </h1>
+
+              {/* Subtitle */}
+              <p className="mt-4 sm:mt-5 text-sm sm:text-base md:text-lg text-slate-600 max-w-[560px] mx-auto leading-relaxed font-normal">
+                Our robust task management solution provides the tools to help you radically streamline your workflow, comprehensively manage even the most challenging projects.
+              </p>
+
+              {/* Dual Action CTAs (Yellow Golden Pill + Black Pill) */}
+              <div className="flex flex-wrap items-center justify-center gap-4 mt-6 sm:mt-7">
+                <button
+                  onClick={() => handleAuthAndNavigate('/create')}
+                  className="bg-[#F5CD52] hover:bg-[#eec23d] text-slate-950 font-medium px-8 sm:px-9 py-3.5 sm:py-4 rounded-full text-sm sm:text-base md:text-lg shadow-xs hover:shadow-md transition-all cursor-pointer"
+                >
+                  Book a Demo
+                </button>
+                <button
+                  onClick={() => handleAuthAndNavigate('/dashboard')}
+                  className="bg-[#111111] hover:bg-slate-800 text-white font-medium px-8 sm:px-9 py-3.5 sm:py-4 rounded-full text-sm sm:text-base md:text-lg shadow-xs hover:shadow-md transition-all cursor-pointer"
+                >
+                  Contact Sales
+                </button>
+              </div>
+            </HeroWorkflow>
           </div>
         </section>
       </ScrollBlurSection>

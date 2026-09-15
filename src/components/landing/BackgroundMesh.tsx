@@ -7,80 +7,90 @@ export const BackgroundMesh: React.FC = () => {
       aria-hidden="true"
     >
       {/* ─────────────────────────────────────────────────────────────
-          1. Ambient Mesh Gradient Blobs across the entire site
+          1. Ultra-Light Ambient Mesh Gradient Blobs (Warm Cream / Soft Peach / Muted Honey)
          ───────────────────────────────────────────────────────────── */}
       <div className="absolute inset-0 overflow-hidden opacity-40">
-        {/* Soft Warm Vanilla / Cream */}
+        {/* Mesh Bloom 1: Top-Left Soft Warm Vanilla / Cream */}
         <div
-          className="absolute top-[22%] -left-[10%] w-[55vw] h-[55vw] rounded-full blur-[130px] transform-gpu"
+          className="absolute -top-[10%] -left-[10%] w-[55vw] h-[55vw] rounded-full blur-[120px] transform-gpu"
           style={{
             background: 'radial-gradient(circle, rgba(254, 243, 199, 0.6) 0%, rgba(253, 230, 138, 0.25) 50%, transparent 75%)'
           }}
         />
 
-        {/* Soft Peach & Blush Glow */}
+        {/* Mesh Bloom 2: Top-Right Soft Peach & Blush Glow */}
         <div
-          className="absolute top-[26%] -right-[8%] w-[55vw] h-[55vw] rounded-full blur-[130px] transform-gpu"
+          className="absolute -top-[12%] -right-[8%] w-[55vw] h-[55vw] rounded-full blur-[130px] transform-gpu"
           style={{
             background: 'radial-gradient(circle, rgba(255, 228, 215, 0.5) 0%, rgba(254, 215, 170, 0.2) 55%, transparent 80%)'
           }}
         />
 
-        {/* Center Soft Pale Lavender */}
+        {/* Mesh Bloom 3: Center Soft Pale Lavender Whisper */}
         <div
-          className="absolute top-[46%] left-[12%] w-[48vw] h-[48vw] rounded-full blur-[140px] transform-gpu"
+          className="absolute top-[32%] left-[15%] w-[45vw] h-[45vw] rounded-full blur-[140px] transform-gpu"
           style={{
-            background: 'radial-gradient(circle, rgba(237, 233, 254, 0.5) 0%, rgba(224, 231, 255, 0.2) 55%, transparent 75%)'
+            background: 'radial-gradient(circle, rgba(237, 233, 254, 0.45) 0%, rgba(224, 231, 255, 0.15) 55%, transparent 75%)'
           }}
         />
 
-        {/* Warm Honey Sand */}
+        {/* Mesh Bloom 4: Center-Right Warm Honey Sand */}
         <div
-          className="absolute top-[64%] -right-[10%] w-[50vw] h-[50vw] rounded-full blur-[120px] transform-gpu"
+          className="absolute top-[48%] -right-[10%] w-[50vw] h-[50vw] rounded-full blur-[120px] transform-gpu"
           style={{
-            background: 'radial-gradient(circle, rgba(254, 240, 138, 0.45) 0%, rgba(253, 230, 138, 0.2) 50%, transparent 75%)'
+            background: 'radial-gradient(circle, rgba(254, 240, 138, 0.4) 0%, rgba(253, 230, 138, 0.18) 50%, transparent 75%)'
           }}
         />
 
-        {/* Bottom Gentle Muted Rose / Warm Linen */}
+        {/* Mesh Bloom 5: Bottom-Left Gentle Muted Rose / Warm Linen */}
         <div
-          className="absolute top-[82%] -left-[8%] w-[52vw] h-[52vw] rounded-full blur-[130px] transform-gpu"
+          className="absolute top-[68%] -left-[8%] w-[50vw] h-[50vw] rounded-full blur-[130px] transform-gpu"
           style={{
             background: 'radial-gradient(circle, rgba(254, 226, 226, 0.45) 0%, rgba(254, 243, 199, 0.2) 55%, transparent 75%)'
+          }}
+        />
+
+        {/* Mesh Bloom 6: Bottom-Right Soft Pale Amber */}
+        <div
+          className="absolute -bottom-[10%] -right-[8%] w-[55vw] h-[55vw] rounded-full blur-[130px] transform-gpu"
+          style={{
+            background: 'radial-gradient(circle, rgba(253, 230, 138, 0.35) 0%, rgba(254, 243, 199, 0.2) 55%, transparent 80%)'
           }}
         />
       </div>
 
       {/* ─────────────────────────────────────────────────────────────
-          2. Precision Mesh Grid Across the Whole Site (Masked ONLY at Top Hero)
+          2. Very Light Geometric Mesh Grid & Dot Pattern
          ───────────────────────────────────────────────────────────── */}
+      {/* 2a. Precision Grid Lines in very low opacity warm stone */}
       <div
-        className="absolute inset-0 opacity-[0.038]"
+        className="absolute inset-0 opacity-[0.028]"
         style={{
           backgroundImage: `
-            linear-gradient(to right, rgba(30, 20, 10, 1) 1px, transparent 1px),
-            linear-gradient(to bottom, rgba(30, 20, 10, 1) 1px, transparent 1px)
+            linear-gradient(to right, rgba(40, 30, 20, 1) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(40, 30, 20, 1) 1px, transparent 1px)
           `,
-          backgroundSize: '40px 40px',
-          maskImage: 'linear-gradient(to bottom, transparent 0px, transparent 360px, rgba(0,0,0,0.5) 430px, black 490px, black 100%)',
-          WebkitMaskImage: 'linear-gradient(to bottom, transparent 0px, transparent 360px, rgba(0,0,0,0.5) 430px, black 490px, black 100%)'
+          backgroundSize: '48px 48px'
         }}
       />
 
-      {/* ─────────────────────────────────────────────────────────────
-          3. Micro-Dot Matrix across the site
-         ───────────────────────────────────────────────────────────── */}
+      {/* 2b. Delicate Micro-Dot Matrix */}
       <div
         className="absolute inset-0 opacity-[0.032]"
         style={{
           backgroundImage: `
-            radial-gradient(circle at 1px 1px, rgba(30, 20, 10, 1) 1px, transparent 0)
+            radial-gradient(circle at 1px 1px, rgba(40, 30, 20, 1) 1px, transparent 0)
           `,
-          backgroundSize: '20px 20px',
-          maskImage: 'linear-gradient(to bottom, transparent 0px, transparent 360px, black 490px, black 100%)',
-          WebkitMaskImage: 'linear-gradient(to bottom, transparent 0px, transparent 360px, black 490px, black 100%)'
+          backgroundSize: '24px 24px'
         }}
       />
+
+      {/* ─────────────────────────────────────────────────────────────
+          3. Warm Cream Ambient Vignette Overlay
+         ───────────────────────────────────────────────────────────── */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[#FAF8F5]/10 via-transparent to-[#FAF8F5]/30" />
     </div>
   );
 };
+
+
