@@ -49,7 +49,7 @@ export const CentralMessagesPage: React.FC = () => {
       {/* Two-Column Seamless Layout Pinned to Screen */}
       <div className="grid grid-cols-1 lg:grid-cols-[290px_1fr] gap-4 flex-1 min-h-0 overflow-hidden">
         {/* Left Panel: Supervisor Conversation List */}
-        <div className="bg-white/60 dark:bg-zinc-900/40 backdrop-blur-sm border border-stone-200/60 dark:border-zinc-800/60 rounded-2xl p-2.5 flex flex-col h-full shadow-xs">
+        <div className="bg-white dark:bg-zinc-900/90 border border-slate-200/90 dark:border-zinc-800 rounded-2xl p-2.5 flex flex-col h-full shadow-[0_4px_16px_-2px_rgba(15,23,42,0.06),0_2px_6px_-1px_rgba(15,23,42,0.04)]">
           <div className="px-3 py-2.5 text-[11px] font-bold text-slate-400 dark:text-zinc-500 uppercase tracking-wider flex items-center justify-between">
             <span>Assigned Supervisors</span>
             <span className="px-2 py-0.5 rounded-full bg-stone-200/60 dark:bg-zinc-800 text-slate-700 dark:text-zinc-300 font-bold text-[10px]">
@@ -67,11 +67,10 @@ export const CentralMessagesPage: React.FC = () => {
                 <div
                   key={p.id}
                   onClick={() => setSelectedProjectId(p.id)}
-                  className={`p-3 rounded-xl cursor-pointer transition-all ${
-                    isSelected
-                      ? 'bg-white dark:bg-zinc-800/90 shadow-xs border border-stone-200/90 dark:border-zinc-700'
-                      : 'hover:bg-white/60 dark:hover:bg-zinc-800/40 border border-transparent'
-                  }`}
+                  className={`p-3 rounded-xl cursor-pointer transition-all ${isSelected
+                      ? 'bg-blue-50/70 dark:bg-zinc-800 shadow-[0_2px_8px_-1px_rgba(0,82,204,0.15)] border border-blue-200/90 dark:border-blue-900'
+                      : 'hover:bg-slate-50 dark:hover:bg-zinc-800/40 border border-transparent'
+                    }`}
                 >
                   <div className="flex items-start gap-3">
                     <div className="relative shrink-0">
@@ -109,9 +108,9 @@ export const CentralMessagesPage: React.FC = () => {
         </div>
 
         {/* Right Panel: Blended Chat Feed */}
-        <div className="flex flex-col h-full min-w-0">
+        <div className="flex flex-col h-full min-h-0 min-w-0 overflow-hidden">
           {/* Header Bar */}
-          <div className="bg-white/70 dark:bg-zinc-900/60 backdrop-blur-md border border-stone-200/70 dark:border-zinc-800/70 rounded-2xl px-5 py-3 shadow-xs mb-3 flex items-center justify-between shrink-0">
+          <div className="bg-white dark:bg-zinc-900/90 border border-slate-200/90 dark:border-zinc-800 rounded-2xl px-5 py-3 shadow-[0_4px_16px_-2px_rgba(15,23,42,0.06),0_2px_6px_-1px_rgba(15,23,42,0.04)] mb-3 flex items-center justify-between shrink-0">
             <div className="flex items-center gap-3">
               <div className="relative">
                 <img
@@ -162,21 +161,19 @@ export const CentralMessagesPage: React.FC = () => {
 
                   <div className={`flex flex-col ${isClient ? 'items-end' : 'items-start'} max-w-[78%]`}>
                     <div
-                      className={`p-3.5 rounded-2xl text-[13.5px] leading-relaxed shadow-xs ${
-                        isClient
-                          ? 'bg-[#0052CC] text-white rounded-tr-xs'
-                          : 'bg-white dark:bg-zinc-900 text-slate-800 dark:text-slate-100 border border-stone-200/80 dark:border-zinc-800 rounded-tl-xs'
-                      }`}
+                      className={`p-3.5 rounded-2xl text-[13.5px] leading-relaxed ${isClient
+                          ? 'bg-[#0052CC] text-white rounded-tr-xs shadow-[0_3px_10px_-2px_rgba(0,82,204,0.35)]'
+                          : 'bg-white dark:bg-zinc-900 text-slate-800 dark:text-slate-100 border border-slate-200/90 dark:border-zinc-800 rounded-tl-xs shadow-[0_3px_12px_-2px_rgba(15,23,42,0.06)]'
+                        }`}
                     >
                       {msg.content}
 
                       {msg.attachments && msg.attachments.length > 0 && (
                         <div
-                          className={`mt-2.5 pt-2 border-t text-xs font-medium flex flex-col gap-1 ${
-                            isClient
+                          className={`mt-2.5 pt-2 border-t text-xs font-medium flex flex-col gap-1 ${isClient
                               ? 'border-white/20 text-blue-100'
                               : 'border-stone-100 dark:border-zinc-800 text-[#0052CC] dark:text-blue-400'
-                          }`}
+                            }`}
                         >
                           {msg.attachments.map((att, i) => (
                             <div key={i} className="flex items-center gap-1.5">
@@ -202,7 +199,7 @@ export const CentralMessagesPage: React.FC = () => {
           {/* Floating Message Input Bar */}
           <form
             onSubmit={handleSend}
-            className="mt-2 bg-white/90 dark:bg-zinc-900/90 backdrop-blur-md border border-stone-200/90 dark:border-zinc-800/90 rounded-2xl p-2 shadow-xs focus-within:border-[#0052CC] focus-within:shadow-md transition-all shrink-0"
+            className="mt-2 bg-white dark:bg-zinc-900/95 border border-slate-200/90 dark:border-zinc-800 rounded-2xl p-2 shadow-[0_6px_20px_-3px_rgba(15,23,42,0.08),0_2px_6px_-1px_rgba(15,23,42,0.04)] focus-within:border-[#0052CC] focus-within:shadow-[0_8px_24px_-4px_rgba(0,82,204,0.18)] transition-all shrink-0"
           >
             {attachment && (
               <div className="flex items-center justify-between px-3 py-1.5 bg-blue-50 dark:bg-blue-950/40 border border-blue-100 dark:border-blue-900 rounded-xl text-xs text-blue-700 dark:text-blue-300 mb-2">
