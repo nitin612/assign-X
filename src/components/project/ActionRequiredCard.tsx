@@ -43,7 +43,7 @@ export const ActionRequiredCard: React.FC<ActionRequiredCardProps> = ({
   };
 
   return (
-    <div className="bg-white dark:bg-zinc-900/60 border border-stone-200/80 dark:border-zinc-800 rounded-2xl p-4 lg:p-5 flex items-center justify-between gap-4 transition-all hover:border-blue-300 dark:hover:border-blue-900 shadow-xs">
+    <div className="bg-white dark:bg-zinc-900/90 border border-slate-200/90 dark:border-zinc-800 rounded-2xl p-4 lg:p-5 flex items-center justify-between gap-4 transition-all hover:border-blue-300 dark:hover:border-blue-900 shadow-[0_3px_12px_-1px_rgba(15,23,42,0.06),0_1px_4px_-1px_rgba(15,23,42,0.04)] hover:shadow-[0_6px_18px_-2px_rgba(15,23,42,0.08)]">
       <div className="flex items-start gap-3.5 min-w-0 flex-1">
         <div className="w-9 h-9 rounded-xl bg-blue-50 dark:bg-blue-950/60 text-[#0052CC] dark:text-blue-400 flex items-center justify-center shrink-0 mt-0.5 border border-blue-100 dark:border-blue-900/40">
           <AlertCircle size={18} strokeWidth={2} />

@@ -57,24 +57,24 @@
   --brand-dark:         #0F172A;
 
   /* ── Borders & Outlines ──────────────────────────────────── */
-  --border-dark:        #E2E8F0;   /* Clean modern slate border */
+  --border-dark:        #CBD5E1;   /* Clean modern slate border */
   --border-default:     #E2E8F0;
   --border-subtle:      #F1F5F9;
   --border-card:        #E2E8F0;
   --border-width:       1px;
 
   /* ── Soft Modern Shadows ─────────────────────────────────── */
-  --shadow-offset-xs:   0 1px 2px rgba(0, 0, 0, 0.04);
-  --shadow-offset-sm:   0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.02);
-  --shadow-offset-md:   0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.03);
-  --shadow-offset-lg:   0 10px 15px -3px rgba(0, 0, 0, 0.06), 0 4px 6px -4px rgba(0, 0, 0, 0.03);
-  --shadow-offset-xl:   0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.03);
-  --shadow-modal:       0 25px 50px -12px rgba(0, 0, 0, 0.18);
+  --shadow-offset-xs:   0 1px 3px rgba(15, 23, 42, 0.05);
+  --shadow-offset-sm:   0 2px 6px -1px rgba(15, 23, 42, 0.06), 0 1px 3px -1px rgba(15, 23, 42, 0.04);
+  --shadow-offset-md:   0 6px 16px -2px rgba(15, 23, 42, 0.08), 0 3px 6px -2px rgba(15, 23, 42, 0.04);
+  --shadow-offset-lg:   0 12px 24px -4px rgba(15, 23, 42, 0.10), 0 6px 12px -3px rgba(15, 23, 42, 0.05);
+  --shadow-offset-xl:   0 20px 30px -6px rgba(15, 23, 42, 0.12), 0 8px 12px -4px rgba(15, 23, 42, 0.06);
+  --shadow-modal:       0 25px 50px -12px rgba(15, 23, 42, 0.22);
 
-  --shadow-soft-sm:     0 1px 3px rgba(0, 0, 0, 0.04);
-  --shadow-soft-md:     0 4px 12px rgba(0, 0, 0, 0.05);
-  --shadow-soft-lg:     0 10px 25px rgba(0, 0, 0, 0.07);
-  --shadow-subtle:      0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-soft-sm:     0 2px 8px -1px rgba(15, 23, 42, 0.06), 0 1px 3px -1px rgba(15, 23, 42, 0.04);
+  --shadow-soft-md:     0 6px 18px -2px rgba(15, 23, 42, 0.08), 0 3px 8px -2px rgba(15, 23, 42, 0.04);
+  --shadow-soft-lg:     0 14px 30px -4px rgba(15, 23, 42, 0.11), 0 6px 12px -3px rgba(15, 23, 42, 0.05);
+  --shadow-subtle:      0 1px 3px rgba(15, 23, 42, 0.06), 0 1px 2px rgba(15, 23, 42, 0.04);
 
   /* Status Colors */
   --status-success-bg:     #ECFDF5;

@@ -22,7 +22,7 @@ export const MetricCard: React.FC<MetricCardProps> = ({
   trend
 }) => {
   return (
-    <div className="bg-white dark:bg-[#121216] border border-stone-200/80 dark:border-zinc-800/80 rounded-2xl p-5 shadow-xs hover:shadow-md transition-all flex flex-col justify-between">
+    <div className="bg-white dark:bg-[#121216] border border-slate-200/90 dark:border-zinc-800/90 rounded-2xl p-5 shadow-[0_3px_12px_-1px_rgba(15,23,42,0.06),0_1px_4px_-1px_rgba(15,23,42,0.04)] hover:shadow-[0_8px_24px_-3px_rgba(15,23,42,0.09)] hover:border-slate-300 dark:hover:border-zinc-700 transition-all flex flex-col justify-between">
       <div className="flex items-center justify-between mb-3">
         <span className="text-xs font-medium text-slate-500 dark:text-zinc-400">
           {label}

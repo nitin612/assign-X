@@ -167,23 +167,22 @@ export const AppSidebar: React.FC = () => {
         } ${mobileMenuOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}`}
       >
         {/* Top Header Card */}
-        <div className="flex items-center justify-between px-3 py-2.5 mb-2.5 bg-[#0052CC] rounded-2xl text-white shadow-sm">
-          {/* Logo Mark */}
+        <div className="flex items-center justify-between px-3.5 py-2.5 mb-2.5 bg-[#0052CC] rounded-2xl text-white shadow-sm">
+          {/* AssignX Wordmark */}
           <div
-            className="cursor-pointer flex items-center justify-center hover:opacity-90 transition-opacity"
+            className="cursor-pointer flex items-center hover:opacity-90 transition-opacity"
             onClick={() => handleNavigate('/dashboard')}
-            title="Dashboard"
+            title="AssignX Dashboard"
           >
-            <svg width="26" height="26" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M16 3L4 15C3 16 3 17 4 18L16 30L28 18C29 17 29 16 28 15L16 3Z"
-                fill="white"
-              />
-              <path
-                d="M16 9L9 16L16 23L23 16L16 9Z"
-                fill="#0052CC"
-              />
-            </svg>
+            {sidebarCollapsed ? (
+              <span className="font-extrabold text-lg tracking-tight text-white select-none">
+                AX
+              </span>
+            ) : (
+              <span className="font-extrabold text-[17px] tracking-tight text-white select-none">
+                AssignX
+              </span>
+            )}
           </div>
 
           {/* Plus and 3x3 Grid Buttons */}

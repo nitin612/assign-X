@@ -28,6 +28,7 @@ import { HeroWorkflow } from '../components/landing/HeroWorkflow';
 import { WorkCategoriesShowcase } from '../components/landing/WorkCategoriesShowcase';
 import { ScrollBlurSection } from '../components/landing/ScrollBlurSection';
 import { BackgroundMesh } from '../components/landing/BackgroundMesh';
+import { PixelDriftText } from '../components/landing/PixelDriftText';
 
 export const LandingPage: React.FC = () => {
   const { navigate } = useNavigation();
@@ -1249,13 +1250,26 @@ export const LandingPage: React.FC = () => {
         </div>
 
         {/* ─────────────────────────────────────────────────────────
-            Giant Brand Watermark Typography Across the Bottom
-            * Prominently highlighted with crisp gradient depth
+            Interactive Pixel Drift Brand Typography Across the Bottom
+            * Balanced comfortable gap below footer cards
             ───────────────────────────────────────────────────────── */}
-        <div className="w-full flex items-center justify-center overflow-hidden select-none pointer-events-none mt-2 sm:mt-4 -mb-2 sm:-mb-3">
-          <span className="font-bold text-[17vw] sm:text-[18.5vw] lg:text-[20vw] xl:text-[21.5vw] bg-gradient-to-b from-slate-900/35 via-slate-800/20 to-slate-900/5 dark:from-slate-100/25 dark:via-slate-200/10 dark:to-transparent bg-clip-text text-transparent tracking-tighter leading-[0.85] select-none block w-full text-center whitespace-nowrap">
-            AssignX
-          </span>
+        <div className="w-full flex items-center justify-center overflow-hidden select-none mt-4 sm:mt-6 lg:mt-8 -mb-2 sm:-mb-3">
+          <PixelDriftText
+            text="AssignX"
+            verticalAlign="center"
+            colors={
+              isDark
+                ? ['#FFFFFF', '#E2E8F0', '#CBD5E1', '#94A3B8', '#64748B', '#334155', '#18181B']
+                : ['#94A3B8', '#64748B', '#475569', '#334155', '#1E293B', '#0F172A', '#000000']
+            }
+            particleSize={6}
+            particleCount={55}
+            mouseRadius={180}
+            mouseForce={26}
+            fontSize={400}
+            autoFit={true}
+            className="w-full h-[140px] sm:h-[200px] md:h-[260px] lg:h-[310px] xl:h-[360px]"
+          />
         </div>
       </footer>
 
