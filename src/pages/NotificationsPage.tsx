@@ -43,7 +43,7 @@ export const NotificationsPage: React.FC = () => {
   };
 
   return (
-    <div style={{ maxWidth: '800px', margin: '0 auto' }}>
+    <div className="w-full max-w-5xl mx-auto pb-12">
       <div className="flex items-center justify-between mb-5">
         <div>
           <div className="h-[46px] flex items-center">

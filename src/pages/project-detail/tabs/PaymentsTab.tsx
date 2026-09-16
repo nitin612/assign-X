@@ -155,9 +155,9 @@ export const PaymentsTab: React.FC<PaymentsTabProps> = ({ project }) => {
           alignItems: 'center',
           gap: '10px',
           padding: '12px 16px',
-          backgroundColor: '#F8FAFC',
+          backgroundColor: 'var(--bg-subtle)',
           borderRadius: 'var(--radius-lg)',
-          border: '1px solid #E2E8F0',
+          border: '1px solid var(--border-default)',
           fontSize: '12px',
           color: 'var(--text-secondary)'
         }}

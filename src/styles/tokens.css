@@ -144,3 +144,45 @@
   --topbar-height:      64px;
   --max-content-width:  1320px;
 }
+
+/* ── Dark Mode Design Tokens ────────────────────────────── */
+.dark {
+  --bg-canvas:     #000000;
+  --bg-viewport:   #000000;
+  --bg-surface:    #121216;   /* Dark surface */
+  --bg-surface-2:  #18181C;   /* Secondary dark surface */
+  --bg-subtle:     #202026;
+  --bg-muted:      #2A2A32;
+  --bg-hover:      #2E2E38;
+
+  --text-primary:   #FFFFFF;
+  --text-secondary: #CBD5E1;
+  --text-muted:     #94A3B8;
+  --text-tertiary:  #64748B;
+  --text-inverse:   #0F172A;
+
+  --border-dark:    #3F3F46;
+  --border-default: #27272A;
+  --border-subtle:  #1E1E24;
+  --border-card:    #27272A;
+
+  --status-neutral-bg:     #1E1E24;
+  --status-neutral-text:   #CBD5E1;
+  --status-neutral-border: #2E2E38;
+
+  --status-success-bg:     rgba(16, 185, 129, 0.12);
+  --status-success-text:   #34D399;
+  --status-success-border: rgba(16, 185, 129, 0.25);
+
+  --status-warning-bg:     rgba(245, 158, 11, 0.12);
+  --status-warning-text:   #FBBF24;
+  --status-warning-border: rgba(245, 158, 11, 0.25);
+
+  --status-danger-bg:      rgba(239, 68, 68, 0.12);
+  --status-danger-text:    #F87171;
+  --status-danger-border:  rgba(239, 68, 68, 0.25);
+
+  --status-info-bg:        rgba(59, 130, 246, 0.12);
+  --status-info-text:      #60A5FA;
+  --status-info-border:    rgba(59, 130, 246, 0.25);
+}

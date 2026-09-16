@@ -42,7 +42,7 @@ export const MilestonesTab: React.FC<MilestonesTabProps> = ({ project, onSelectT
                 border: isActionRequired
                   ? '1.5px solid #FCD34D'
                   : '1px solid var(--border-default)',
-                backgroundColor: isActionRequired ? '#FFFDF8' : 'var(--bg-surface)',
+                backgroundColor: isActionRequired ? 'var(--bg-surface-2)' : 'var(--bg-surface)',
                 boxShadow: isActionRequired ? '0 2px 8px rgba(245, 158, 11, 0.08)' : 'var(--shadow-subtle)'
               }}
             >

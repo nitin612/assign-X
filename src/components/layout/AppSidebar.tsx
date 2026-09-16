@@ -162,19 +162,22 @@ export const AppSidebar: React.FC = () => {
 
       {/* Outer Sidebar wrapper matching the exact same right-hand canvas background */}
       <aside
-        className={`fixed lg:sticky top-0 left-0 h-screen z-40 flex flex-col p-3 bg-[#FAF8F5] dark:bg-[#000000] transition-all duration-200 select-none ${sidebarCollapsed ? 'w-[84px]' : 'w-[236px]'
-          } ${mobileMenuOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}`}
+        className={`fixed lg:sticky top-0 left-0 h-screen z-40 flex flex-col p-2.5 bg-[#FAF8F5] dark:bg-[#000000] transition-all duration-200 select-none ${
+          sidebarCollapsed ? 'w-[72px] items-center' : 'w-[236px]'
+        } ${mobileMenuOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}`}
       >
         {/* Top Header Card */}
-        <div className="flex items-center justify-between px-3.5 py-2.5 mb-2.5 bg-[#0052CC] rounded-2xl text-white shadow-sm">
+        <div className={`w-full flex mb-2.5 bg-[#0052CC] rounded-2xl text-white shadow-sm transition-all ${
+          sidebarCollapsed ? 'flex-col items-center py-2.5 px-1 gap-2' : 'items-center justify-between px-3.5 py-2.5'
+        }`}>
           {/* AssignX Wordmark */}
           <div
-            className="cursor-pointer flex items-center hover:opacity-90 transition-opacity"
+            className="cursor-pointer flex items-center justify-center hover:opacity-90 transition-opacity"
             onClick={() => handleNavigate('/dashboard')}
             title="AssignX Dashboard"
           >
             {sidebarCollapsed ? (
-              <span className="font-extrabold text-lg tracking-tight text-white select-none">
+              <span className="font-extrabold text-sm tracking-tight text-white select-none text-center">
                 AX
               </span>
             ) : (
@@ -185,23 +188,31 @@ export const AppSidebar: React.FC = () => {
           </div>
 
           {/* Plus and 3x3 Grid Buttons */}
-          <div className="flex items-center gap-2">
+          <div className={`flex items-center justify-center ${sidebarCollapsed ? 'flex-col gap-1.5' : 'gap-2'}`}>
             <button
-              className="text-white/90 hover:text-white hover:bg-white/15 p-1 rounded-lg transition-all cursor-pointer"
+              className="text-white/90 hover:text-white hover:bg-white/15 w-8 h-8 flex items-center justify-center rounded-lg transition-all cursor-pointer relative group"
               onClick={() => handleNavigate('/create')}
-              title="Create Work"
+              title={sidebarCollapsed ? undefined : "Create Work"}
+              aria-label="Create Work"
             >
-              <Plus size={20} strokeWidth={2.4} />
+              <Plus size={18} strokeWidth={2.4} />
+              {sidebarCollapsed && (
+                <div className="pointer-events-none absolute left-full ml-3.5 top-1/2 -translate-y-1/2 px-2.5 py-1 bg-slate-950 dark:bg-zinc-800 text-white text-[11.5px] font-medium rounded-lg shadow-xl whitespace-nowrap opacity-0 group-hover:opacity-100 group-hover:translate-x-0 -translate-x-1 transition-all duration-150 z-50 flex items-center border border-slate-700/60 dark:border-zinc-700">
+                  <span>Create Work</span>
+                  <div className="absolute right-full top-1/2 -translate-y-1/2 border-4 border-transparent border-r-slate-950 dark:border-r-zinc-800" />
+                </div>
+              )}
             </button>
             <button
-              className="text-white/90 hover:text-white hover:bg-white/15 p-1 rounded-lg transition-all cursor-pointer"
-              onClick={() => handleNavigate('/landing')}
-              title="Landing Page"
+              className="text-white/90 hover:text-white hover:bg-white/15 w-8 h-8 flex items-center justify-center rounded-lg transition-all cursor-pointer relative group"
+              onClick={toggleSidebar}
+              title={sidebarCollapsed ? undefined : "Toggle Sidebar (Minimize)"}
+              aria-label={sidebarCollapsed ? "Expand sidebar" : "Collapse sidebar"}
             >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor">
                 <circle cx="4" cy="4" r="2.5" />
                 <circle cx="12" cy="4" r="2.5" />
-                <circle cx="20" cy="4" r="2.5" />
+                <circle cx="20" cy="2.5" />
                 <circle cx="4" cy="12" r="2.5" />
                 <circle cx="12" cy="12" r="2.5" />
                 <circle cx="20" cy="12" r="2.5" />
@@ -209,6 +220,12 @@ export const AppSidebar: React.FC = () => {
                 <circle cx="12" cy="20" r="2.5" />
                 <circle cx="20" cy="20" r="2.5" />
               </svg>
+              {sidebarCollapsed && (
+                <div className="pointer-events-none absolute left-full ml-3.5 top-1/2 -translate-y-1/2 px-2.5 py-1 bg-slate-950 dark:bg-zinc-800 text-white text-[11.5px] font-medium rounded-lg shadow-xl whitespace-nowrap opacity-0 group-hover:opacity-100 group-hover:translate-x-0 -translate-x-1 transition-all duration-150 z-50 flex items-center border border-slate-700/60 dark:border-zinc-700">
+                  <span>Expand Sidebar</span>
+                  <div className="absolute right-full top-1/2 -translate-y-1/2 border-4 border-transparent border-r-slate-950 dark:border-r-zinc-800" />
+                </div>
+              )}
             </button>
             {mobileMenuOpen && (
               <button
@@ -222,40 +239,62 @@ export const AppSidebar: React.FC = () => {
         </div>
 
         {/* Main Royal Blue Body Card */}
-        <div className="flex-1 flex flex-col justify-between bg-[#0052CC] rounded-3xl p-3 text-white overflow-hidden shadow-sm">
-          <div className="flex flex-col flex-1 overflow-hidden">
+        <div className={`w-full flex-1 flex flex-col justify-between bg-[#0052CC] rounded-3xl text-white shadow-sm transition-all ${
+          sidebarCollapsed ? 'p-1.5 items-center overflow-visible' : 'p-2.5 overflow-hidden'
+        }`}>
+          <div className={`flex flex-col flex-1 w-full ${sidebarCollapsed ? 'items-center overflow-visible' : 'overflow-hidden'}`}>
             {/* Navigation List — Previous tabs styled in the reference design */}
-            <nav className="flex flex-col gap-1 overflow-y-auto flex-1 pr-0.5">
+            <nav className={`flex flex-col gap-1 flex-1 w-full ${sidebarCollapsed ? 'items-center overflow-visible' : 'pr-0.5 overflow-y-auto'}`}>
               {mainNavItems.map(item => {
                 const active = isActive(item.path);
 
                 return (
                   <div
                     key={item.label}
-                    className={`flex items-center justify-between px-3 py-2 rounded-2xl text-[13.5px] cursor-pointer transition-all duration-150 ${active
+                    className={`group relative flex items-center cursor-pointer transition-all duration-150 ${
+                      sidebarCollapsed
+                        ? 'w-10 h-10 justify-center rounded-2xl mx-auto'
+                        : 'justify-between px-3 py-2 rounded-2xl text-[13.5px]'
+                    } ${
+                      active
                         ? 'bg-[#1868F6] text-white font-semibold shadow-sm'
                         : 'text-white/90 hover:bg-white/10 hover:text-white font-medium'
-                      } ${sidebarCollapsed ? 'justify-center px-2' : ''}`}
+                    }`}
                     onClick={() => handleNavigate(item.path)}
-                    title={item.label}
+                    title={!sidebarCollapsed ? item.label : undefined}
                   >
-                    <div className="flex items-center gap-2.5 min-w-0">
-                      <span className="shrink-0 flex items-center justify-center text-white">
-                        {item.icon}
-                      </span>
-                      {!sidebarCollapsed && <span className="truncate">{item.label}</span>}
-                    </div>
-                    {item.badge !== undefined && !sidebarCollapsed && (
-                      <span className="text-[10.5px] font-bold px-1.5 py-0.2 rounded-full bg-white/25 text-white">
-                        {item.badge}
-                      </span>
+                    <span className="shrink-0 flex items-center justify-center text-white">
+                      {item.icon}
+                    </span>
+                    {!sidebarCollapsed && (
+                      <>
+                        <span className="truncate flex-1 ml-2.5 text-left">{item.label}</span>
+                        {item.badge !== undefined && (
+                          <span className="text-[10.5px] font-bold px-1.5 py-0.2 rounded-full bg-white/25 text-white ml-2">
+                            {item.badge}
+                          </span>
+                        )}
+                      </>
+                    )}
+
+                    {/* Floating Section Tooltip on Icon Hover when Minimized */}
+                    {sidebarCollapsed && (
+                      <div className="pointer-events-none absolute left-full ml-3.5 top-1/2 -translate-y-1/2 px-3 py-1.5 bg-slate-950 dark:bg-zinc-800 text-white text-[12px] font-semibold rounded-xl shadow-2xl whitespace-nowrap opacity-0 group-hover:opacity-100 group-hover:translate-x-0 -translate-x-1.5 transition-all duration-150 z-50 flex items-center gap-2 border border-slate-700/60 dark:border-zinc-700">
+                        <span>{item.label}</span>
+                        {item.badge !== undefined && (
+                          <span className="text-[10px] font-bold px-1.5 py-0.2 rounded-full bg-blue-500 text-white">
+                            {item.badge}
+                          </span>
+                        )}
+                        <div className="absolute right-full top-1/2 -translate-y-1/2 border-4 border-transparent border-r-slate-950 dark:border-r-zinc-800" />
+                      </div>
                     )}
                   </div>
                 );
               })}
 
               {/* Divider */}
-              <div className="my-1.5 h-px bg-white/15" />
+              <div className={`my-1.5 h-px bg-white/15 ${sidebarCollapsed ? 'w-6 mx-auto' : 'w-full'}`} />
 
               {/* System Nav Items */}
               {systemNavItems.map(item => {
@@ -264,17 +303,30 @@ export const AppSidebar: React.FC = () => {
                 return (
                   <div
                     key={item.label}
-                    className={`flex items-center gap-2.5 px-3 py-2 rounded-2xl text-[13px] cursor-pointer transition-all duration-150 ${active
+                    className={`group relative flex items-center cursor-pointer transition-all duration-150 ${
+                      sidebarCollapsed
+                        ? 'w-10 h-10 justify-center rounded-2xl mx-auto'
+                        : 'gap-2.5 px-3 py-2 rounded-2xl text-[13px]'
+                    } ${
+                      active
                         ? 'bg-[#1868F6] text-white font-semibold shadow-sm'
                         : 'text-white/80 hover:bg-white/10 hover:text-white font-medium'
-                      } ${sidebarCollapsed ? 'justify-center px-2' : ''}`}
+                    }`}
                     onClick={() => handleNavigate(item.path)}
-                    title={item.label}
+                    title={!sidebarCollapsed ? item.label : undefined}
                   >
                     <span className="shrink-0 flex items-center justify-center text-white/90">
                       {item.icon}
                     </span>
-                    {!sidebarCollapsed && <span className="truncate">{item.label}</span>}
+                    {!sidebarCollapsed && <span className="truncate flex-1 ml-2.5 text-left">{item.label}</span>}
+
+                    {/* Floating Section Tooltip on Icon Hover when Minimized */}
+                    {sidebarCollapsed && (
+                      <div className="pointer-events-none absolute left-full ml-3.5 top-1/2 -translate-y-1/2 px-3 py-1.5 bg-slate-950 dark:bg-zinc-800 text-white text-[12px] font-semibold rounded-xl shadow-2xl whitespace-nowrap opacity-0 group-hover:opacity-100 group-hover:translate-x-0 -translate-x-1.5 transition-all duration-150 z-50 flex items-center gap-2 border border-slate-700/60 dark:border-zinc-700">
+                        <span>{item.label}</span>
+                        <div className="absolute right-full top-1/2 -translate-y-1/2 border-4 border-transparent border-r-slate-950 dark:border-r-zinc-800" />
+                      </div>
+                    )}
                   </div>
                 );
               })}
@@ -282,14 +334,15 @@ export const AppSidebar: React.FC = () => {
           </div>
 
           {/* Bottom Profile Pill */}
-          <div className="pt-2.5 shrink-0">
+          <div className="pt-2 shrink-0 flex justify-center w-full">
             <div
-              className={`flex items-center gap-2.5 p-2 bg-white text-slate-900 rounded-2xl shadow-sm cursor-pointer hover:shadow-md transition-all ${sidebarCollapsed ? 'justify-center' : ''
-                }`}
+              className={`group relative flex items-center bg-white dark:bg-[#121216] border border-slate-200/80 dark:border-zinc-800 text-slate-900 dark:text-white rounded-2xl shadow-sm cursor-pointer hover:shadow-md transition-all ${
+                sidebarCollapsed ? 'w-10 h-10 justify-center p-0 mx-auto' : 'w-full gap-2.5 p-2'
+              }`}
               onClick={() => handleNavigate('/settings')}
-              title="Robert Sofia (robert34@gmail.com)"
+              title={!sidebarCollapsed ? "Robert Sofia (robert34@gmail.com)" : undefined}
             >
-              <div className="w-8 h-8 rounded-full overflow-hidden bg-[#F7E7B5] flex items-center justify-center shrink-0 border border-yellow-200">
+              <div className="w-7 h-7 rounded-full overflow-hidden bg-[#F7E7B5] flex items-center justify-center shrink-0 border border-yellow-200 dark:border-yellow-700/50">
                 <img
                   src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&auto=format&fit=crop&q=80"
                   alt="Robert Sofia"
@@ -299,11 +352,20 @@ export const AppSidebar: React.FC = () => {
               {!sidebarCollapsed && (
                 <>
                   <div className="flex flex-col min-w-0 flex-1 leading-tight">
-                    <span className="text-[12px] font-bold text-slate-900 truncate">Robert Sofia</span>
-                    <span className="text-[10px] text-slate-500 truncate">robert34@gmail.com</span>
+                    <span className="text-[12px] font-bold text-slate-900 dark:text-white truncate">Robert Sofia</span>
+                    <span className="text-[10px] text-slate-500 dark:text-zinc-400 truncate">robert34@gmail.com</span>
                   </div>
                   <ChevronRight size={15} className="text-[#0052CC] shrink-0 stroke-[2.5]" />
                 </>
+              )}
+
+              {/* Floating Section Tooltip on Profile Hover when Minimized */}
+              {sidebarCollapsed && (
+                <div className="pointer-events-none absolute left-full ml-3.5 top-1/2 -translate-y-1/2 px-3 py-1.5 bg-slate-950 dark:bg-zinc-800 text-white text-[12px] font-semibold rounded-xl shadow-2xl whitespace-nowrap opacity-0 group-hover:opacity-100 group-hover:translate-x-0 -translate-x-1.5 transition-all duration-150 z-50 flex items-center gap-1.5 border border-slate-700/60 dark:border-zinc-700">
+                  <span>Robert Sofia</span>
+                  <span className="text-[10.5px] text-zinc-400 font-normal">(Profile & Settings)</span>
+                  <div className="absolute right-full top-1/2 -translate-y-1/2 border-4 border-transparent border-r-slate-950 dark:border-r-zinc-800" />
+                </div>
               )}
             </div>
           </div>

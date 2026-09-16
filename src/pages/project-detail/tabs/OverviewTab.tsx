@@ -70,17 +70,7 @@ export const OverviewTab: React.FC<OverviewTabProps> = ({ project, onSelectTab }
                 <span style={{ fontSize: '11px', fontWeight: 800, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
                   Current Operational Phase
                 </span>
-                <span
-                  style={{
-                    fontSize: '11px',
-                    fontWeight: 700,
-                    padding: '1px 8px',
-                    borderRadius: '9999px',
-                    backgroundColor: '#FEF3C7',
-                    color: '#92400E',
-                    border: '1px solid #FCD34D'
-                  }}
-                >
+                <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-amber-100 dark:bg-amber-950/60 text-amber-800 dark:text-amber-300 border border-amber-300 dark:border-amber-800/80">
                   ● Active Sprint
                 </span>
               </div>
@@ -100,15 +90,7 @@ export const OverviewTab: React.FC<OverviewTabProps> = ({ project, onSelectTab }
 
           {/* Active Target Milestone Box */}
           {activeMilestone && (
-            <div
-              style={{
-                backgroundColor: '#F8F8FB',
-                borderRadius: 'var(--radius-lg)',
-                padding: '16px 18px',
-                border: '1px solid #E5E5EB',
-                marginBottom: '14px'
-              }}
-            >
+            <div className="bg-slate-50 dark:bg-zinc-900/90 border border-slate-200 dark:border-zinc-800 rounded-2xl p-4 sm:p-5 mb-3.5 shadow-2xs">
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '8px', marginBottom: '8px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                   <Sparkles size={14} color="var(--brand-primary)" />
@@ -183,14 +165,13 @@ export const OverviewTab: React.FC<OverviewTabProps> = ({ project, onSelectTab }
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2px' }}>
                     <span style={{ fontWeight: 800, fontSize: '10.5px' }}>M{idx + 1}</span>
                     <span
-                      style={{
-                        fontSize: '9.5px',
-                        fontWeight: 700,
-                        padding: '1px 6px',
-                        borderRadius: '4px',
-                        backgroundColor: isDone ? '#DCFCE7' : isActive ? '#FEF3C7' : '#F1F5F9',
-                        color: isDone ? '#166534' : isActive ? '#92400E' : '#64748B'
-                      }}
+                      className={`text-[9.5px] font-bold px-1.5 py-0.5 rounded ${
+                        isDone
+                          ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950/80 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800/60'
+                          : isActive
+                          ? 'bg-amber-100 text-amber-800 dark:bg-amber-950/80 dark:text-amber-300 border border-amber-200 dark:border-amber-800/60'
+                          : 'bg-slate-100 text-slate-600 dark:bg-zinc-800 dark:text-zinc-400 border border-slate-200 dark:border-zinc-700'
+                      }`}
                     >
                       {isDone ? '✓ Paid' : isActive ? '● Active' : 'Pending'}
                     </span>
@@ -263,21 +244,8 @@ export const OverviewTab: React.FC<OverviewTabProps> = ({ project, onSelectTab }
                   fontSize: '13px'
                 }}
               >
-                <div
-                  style={{
-                    width: '28px',
-                    height: '28px',
-                    borderRadius: '9999px',
-                    backgroundColor: '#F0F9FF',
-                    border: '1px solid #BAE6FD',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    flexShrink: 0,
-                    marginTop: '1px'
-                  }}
-                >
-                  <FileCheck size={14} color="#0284C7" />
+                <div className="w-7 h-7 rounded-full bg-blue-50 dark:bg-blue-950/60 border border-blue-200 dark:border-blue-900/60 flex items-center justify-center shrink-0 mt-0.5">
+                  <FileCheck size={14} className="text-[#0052CC] dark:text-blue-400" />
                 </div>
                 <div style={{ flex: 1, minWidth: 0 }}>
                   <div style={{ fontWeight: 700, color: 'var(--text-primary)' }}>{act.title}</div>
@@ -305,7 +273,7 @@ export const OverviewTab: React.FC<OverviewTabProps> = ({ project, onSelectTab }
             <h4 style={{ fontSize: '14px', fontWeight: 700, color: 'var(--text-primary)' }}>
               Project Specifications
             </h4>
-            <span style={{ fontSize: '11px', fontWeight: 700, color: '#166534', backgroundColor: '#DCFCE7', padding: '2px 8px', borderRadius: '4px' }}>
+            <span className="text-[11px] font-bold text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800/80 px-2 py-0.5 rounded-full">
               Escrow Active
             </span>
           </div>
@@ -348,22 +316,8 @@ export const OverviewTab: React.FC<OverviewTabProps> = ({ project, onSelectTab }
             </div>
           </div>
 
-          <div
-            style={{
-              marginTop: '16px',
-              padding: '11px 13px',
-              borderRadius: 'var(--radius-md)',
-              backgroundColor: '#F0F7FF',
-              border: '1px solid #BFDBFE',
-              fontSize: '11.5px',
-              color: '#1E40AF',
-              display: 'flex',
-              alignItems: 'flex-start',
-              gap: '8px',
-              lineHeight: 1.4
-            }}
-          >
-            <ShieldCheck size={16} color="#2563EB" style={{ flexShrink: 0, marginTop: '2px' }} />
+          <div className="mt-4 p-3 rounded-xl bg-blue-50/80 dark:bg-blue-950/40 border border-blue-200/80 dark:border-blue-900/60 text-[11.5px] text-blue-900 dark:text-blue-200 flex items-start gap-2 leading-snug">
+            <ShieldCheck size={16} className="text-[#0052CC] dark:text-blue-400 shrink-0 mt-0.5" />
             <span>
               <strong>100% Escrow Guarantee:</strong> Funds remain securely in escrow until you verify and approve deliverables.
             </span>

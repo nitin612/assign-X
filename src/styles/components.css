@@ -1021,6 +1021,30 @@
   background: var(--bg-surface-2);
 }
 
+.dark .milestone-step-item {
+  background: #16161A;
+  border-color: #27272A;
+}
+
+.dark .milestone-step-item.completed {
+  background: rgba(16, 185, 129, 0.12);
+  border-color: rgba(16, 185, 129, 0.25);
+  color: #34D399;
+}
+
+.dark .milestone-step-item.active {
+  background: rgba(37, 99, 235, 0.15);
+  border-color: rgba(37, 99, 235, 0.35);
+  color: #60A5FA;
+  box-shadow: 0 1px 6px rgba(37, 99, 235, 0.2);
+}
+
+.dark .milestone-step-item.upcoming {
+  background: #18181C;
+  border-color: #27272A;
+  color: #94A3B8;
+}
+
 /* ═══════════════════════════════════════════════════
    FORM ELEMENTS
    ═══════════════════════════════════════════════════ */
@@ -1051,7 +1075,7 @@
   padding: 10px 14px;
   border: 1px solid var(--border-default);
   border-radius: var(--radius-md);
-  background-color: #FFFFFF;
+  background-color: var(--bg-surface);
   color: var(--text-primary);
   font-size: var(--text-sm);
   font-weight: 450;
@@ -1067,7 +1091,7 @@
 }
 
 .form-input:focus, .form-textarea:focus, .form-select:focus {
-  background-color: #FFFFFF;
+  background-color: var(--bg-surface);
   border-color: var(--brand-primary);
   box-shadow: 0 0 0 3px var(--brand-glow);
 }
