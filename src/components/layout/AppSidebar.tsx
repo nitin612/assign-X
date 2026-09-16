@@ -162,28 +162,26 @@ export const AppSidebar: React.FC = () => {
 
       {/* Outer Sidebar wrapper matching the exact same right-hand canvas background */}
       <aside
-        className={`fixed lg:sticky top-0 left-0 h-screen z-40 flex flex-col p-3 bg-[#FAF8F5] dark:bg-[#000000] transition-all duration-200 select-none ${
-          sidebarCollapsed ? 'w-[84px]' : 'w-[236px]'
-        } ${mobileMenuOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}`}
+        className={`fixed lg:sticky top-0 left-0 h-screen z-40 flex flex-col p-3 bg-[#FAF8F5] dark:bg-[#000000] transition-all duration-200 select-none ${sidebarCollapsed ? 'w-[84px]' : 'w-[236px]'
+          } ${mobileMenuOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}`}
       >
         {/* Top Header Card */}
-        <div className="flex items-center justify-between px-3 py-2.5 mb-2.5 bg-[#0052CC] rounded-2xl text-white shadow-sm">
-          {/* Logo Mark */}
+        <div className="flex items-center justify-between px-3.5 py-2.5 mb-2.5 bg-[#0052CC] rounded-2xl text-white shadow-sm">
+          {/* AssignX Wordmark */}
           <div
-            className="cursor-pointer flex items-center justify-center hover:opacity-90 transition-opacity"
+            className="cursor-pointer flex items-center hover:opacity-90 transition-opacity"
             onClick={() => handleNavigate('/dashboard')}
-            title="Dashboard"
+            title="AssignX Dashboard"
           >
-            <svg width="26" height="26" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M16 3L4 15C3 16 3 17 4 18L16 30L28 18C29 17 29 16 28 15L16 3Z"
-                fill="white"
-              />
-              <path
-                d="M16 9L9 16L16 23L23 16L16 9Z"
-                fill="#0052CC"
-              />
-            </svg>
+            {sidebarCollapsed ? (
+              <span className="font-extrabold text-lg tracking-tight text-white select-none">
+                AX
+              </span>
+            ) : (
+              <span className="font-extrabold text-[17px] tracking-tight text-white select-none">
+                AssignX
+              </span>
+            )}
           </div>
 
           {/* Plus and 3x3 Grid Buttons */}
@@ -234,11 +232,10 @@ export const AppSidebar: React.FC = () => {
                 return (
                   <div
                     key={item.label}
-                    className={`flex items-center justify-between px-3 py-2 rounded-2xl text-[13.5px] cursor-pointer transition-all duration-150 ${
-                      active
+                    className={`flex items-center justify-between px-3 py-2 rounded-2xl text-[13.5px] cursor-pointer transition-all duration-150 ${active
                         ? 'bg-[#1868F6] text-white font-semibold shadow-sm'
                         : 'text-white/90 hover:bg-white/10 hover:text-white font-medium'
-                    } ${sidebarCollapsed ? 'justify-center px-2' : ''}`}
+                      } ${sidebarCollapsed ? 'justify-center px-2' : ''}`}
                     onClick={() => handleNavigate(item.path)}
                     title={item.label}
                   >
@@ -267,11 +264,10 @@ export const AppSidebar: React.FC = () => {
                 return (
                   <div
                     key={item.label}
-                    className={`flex items-center gap-2.5 px-3 py-2 rounded-2xl text-[13px] cursor-pointer transition-all duration-150 ${
-                      active
+                    className={`flex items-center gap-2.5 px-3 py-2 rounded-2xl text-[13px] cursor-pointer transition-all duration-150 ${active
                         ? 'bg-[#1868F6] text-white font-semibold shadow-sm'
                         : 'text-white/80 hover:bg-white/10 hover:text-white font-medium'
-                    } ${sidebarCollapsed ? 'justify-center px-2' : ''}`}
+                      } ${sidebarCollapsed ? 'justify-center px-2' : ''}`}
                     onClick={() => handleNavigate(item.path)}
                     title={item.label}
                   >
@@ -288,9 +284,8 @@ export const AppSidebar: React.FC = () => {
           {/* Bottom Profile Pill */}
           <div className="pt-2.5 shrink-0">
             <div
-              className={`flex items-center gap-2.5 p-2 bg-white text-slate-900 rounded-2xl shadow-sm cursor-pointer hover:shadow-md transition-all ${
-                sidebarCollapsed ? 'justify-center' : ''
-              }`}
+              className={`flex items-center gap-2.5 p-2 bg-white text-slate-900 rounded-2xl shadow-sm cursor-pointer hover:shadow-md transition-all ${sidebarCollapsed ? 'justify-center' : ''
+                }`}
               onClick={() => handleNavigate('/settings')}
               title="Robert Sofia (robert34@gmail.com)"
             >
