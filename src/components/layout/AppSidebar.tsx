@@ -5,13 +5,17 @@ import {
   Plus,
   LogOut,
   Settings,
-  HelpCircle
+  HelpCircle,
+  Sun,
+  Moon
 } from 'lucide-react';
 import { useNavigation } from '../../context/NavigationContext';
 import { useApp } from '../../context/AppContext';
+import { useTheme } from '../../context/ThemeContext';
 
 export const AppSidebar: React.FC = () => {
   const { currentRoute, navigate } = useNavigation();
+  const { toggleTheme, isDark } = useTheme();
   const {
     projects,
     notifications,
@@ -161,14 +165,12 @@ export const AppSidebar: React.FC = () => {
 
       {/* Outer Sidebar wrapper matching the exact same right-hand canvas background */}
       <aside
-        className={`fixed lg:sticky top-0 left-0 h-screen z-40 flex flex-col p-2.5 bg-[#FAF8F5] dark:bg-[#000000] transition-all duration-200 select-none ${
-          sidebarCollapsed ? 'w-[72px] items-center' : 'w-[236px]'
-        } ${mobileMenuOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}`}
+        className={`fixed lg:sticky top-0 left-0 h-screen z-40 flex flex-col p-2.5 bg-[#FAF8F5] dark:bg-[#000000] transition-all duration-200 select-none ${sidebarCollapsed ? 'w-[72px] items-center' : 'w-[244px]'
+          } ${mobileMenuOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}`}
       >
         {/* Top Header Card — Apple Frosted Glass */}
-        <div className={`relative overflow-hidden w-full flex mb-2.5 bg-slate-950/75 dark:bg-black/65 backdrop-blur-2xl border border-white/15 dark:border-white/10 rounded-2xl text-white shadow-[inset_0_1px_1px_rgba(255,255,255,0.2),0_8px_24px_rgba(0,0,0,0.2)] transition-all ${
-          sidebarCollapsed ? 'flex-col items-center py-2.5 px-1 gap-2' : 'items-center justify-between px-3.5 py-2.5'
-        }`}>
+        <div className={`relative overflow-hidden w-full flex mb-2.5 bg-slate-950/75 dark:bg-black/65 backdrop-blur-2xl border border-white/15 dark:border-white/10 rounded-2xl text-white shadow-[inset_0_1px_1px_rgba(255,255,255,0.2),0_8px_24px_rgba(0,0,0,0.2)] transition-all ${sidebarCollapsed ? 'flex-col items-center py-2.5 px-1 gap-2' : 'items-center justify-between px-3.5 py-2.5'
+          }`}>
           {/* Apple Specular Top Highlight Glow */}
           <div className="pointer-events-none absolute inset-x-0 top-0 h-1/2 bg-gradient-to-b from-white/[0.09] to-transparent rounded-t-2xl" />
 
@@ -238,9 +240,8 @@ export const AppSidebar: React.FC = () => {
         </div>
 
         {/* Main Frosted Glass Body Card */}
-        <div className={`relative w-full flex-1 flex flex-col justify-between bg-slate-950/75 dark:bg-black/65 backdrop-blur-2xl border border-white/15 dark:border-white/10 rounded-3xl text-white shadow-[inset_0_1px_1px_rgba(255,255,255,0.2),0_12px_36px_rgba(0,0,0,0.22)] transition-all ${
-          sidebarCollapsed ? 'p-1.5 items-center overflow-visible' : 'p-2.5 overflow-hidden'
-        }`}>
+        <div className={`relative w-full flex-1 flex flex-col justify-between bg-slate-950/75 dark:bg-black/65 backdrop-blur-2xl border border-white/15 dark:border-white/10 rounded-3xl text-white shadow-[inset_0_1px_1px_rgba(255,255,255,0.2),0_12px_36px_rgba(0,0,0,0.22)] transition-all ${sidebarCollapsed ? 'p-1.5 items-center overflow-visible' : 'p-2.5 overflow-hidden'
+          }`}>
           {/* Apple Specular Top Highlight Glow */}
           <div className="pointer-events-none absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-white/[0.08] via-white/[0.02] to-transparent rounded-t-3xl" />
 
@@ -253,15 +254,13 @@ export const AppSidebar: React.FC = () => {
                 return (
                   <div
                     key={item.label}
-                    className={`group relative flex items-center cursor-pointer transition-colors duration-150 ${
-                      sidebarCollapsed
-                        ? 'w-10 h-10 justify-center rounded-2xl mx-auto'
-                        : 'justify-between px-3 py-2 rounded-2xl text-[13.5px]'
-                    } ${
-                      active
+                    className={`group relative flex items-center cursor-pointer transition-colors duration-150 ${sidebarCollapsed
+                      ? 'w-10 h-10 justify-center rounded-2xl mx-auto'
+                      : 'justify-between px-3 py-2 rounded-2xl text-[13.5px]'
+                      } ${active
                         ? 'bg-gradient-to-r from-[#FA795C] to-[#D95236] text-white font-semibold shadow-[0_4px_18px_rgba(238,107,80,0.4),inset_0_1px_1px_rgba(255,255,255,0.35)] border border-white/25'
                         : 'text-white/75 hover:bg-white/12 hover:text-white font-medium'
-                    }`}
+                      }`}
                     onClick={() => handleNavigate(item.path)}
                   >
                     <span className="shrink-0 flex items-center justify-center text-white drop-shadow-2xs">
@@ -271,11 +270,10 @@ export const AppSidebar: React.FC = () => {
                       <>
                         <span className="truncate flex-1 ml-2.5 text-left">{item.label}</span>
                         {item.badge !== undefined && (
-                          <span className={`text-[10.5px] font-bold px-1.5 py-0.2 rounded-full ml-2 ${
-                            active
-                              ? 'bg-white/30 text-white border border-white/30 shadow-2xs'
-                              : 'bg-white/15 text-white/90 border border-white/15'
-                          }`}>
+                          <span className={`text-[10.5px] font-bold px-1.5 py-0.2 rounded-full ml-2 ${active
+                            ? 'bg-white/30 text-white border border-white/30 shadow-2xs'
+                            : 'bg-white/15 text-white/90 border border-white/15'
+                            }`}>
                             {item.badge}
                           </span>
                         )}
@@ -298,6 +296,50 @@ export const AppSidebar: React.FC = () => {
                 );
               })}
             </nav>
+
+            {/* Theme Toggle Button (Dark / Light Mode) */}
+            <div className={`w-full pt-2 shrink-0 ${sidebarCollapsed ? 'flex justify-center' : ''}`}>
+              <button
+                onClick={toggleTheme}
+                aria-label={isDark ? 'Switch to Light theme' : 'Switch to Dark theme'}
+                className={`group relative flex items-center w-full transition-all duration-150 cursor-pointer ${sidebarCollapsed
+                  ? 'w-10 h-10 justify-center rounded-2xl bg-white/[0.07] hover:bg-white/[0.14] text-white/80 hover:text-white border border-white/15'
+                  : 'justify-between px-3 py-2 rounded-2xl text-[13px] bg-white/[0.06] hover:bg-white/[0.12] border border-white/15 text-white/90 shadow-2xs'
+                  }`}
+              >
+                <div className="flex items-center gap-2.5">
+                  <span className="shrink-0 flex items-center justify-center">
+                    {isDark ? (
+                      <Moon size={15} className="text-amber-300" />
+                    ) : (
+                      <Sun size={15} className="text-amber-400" />
+                    )}
+                  </span>
+                  {!sidebarCollapsed && (
+                    <span className="font-medium text-white/85 group-hover:text-white truncate">
+                      {isDark ? 'Dark Mode' : 'Light Mode'}
+                    </span>
+                  )}
+                </div>
+
+                {!sidebarCollapsed && (
+                  <div className="w-8 h-4 rounded-full bg-white/20 p-0.5 transition-colors relative flex items-center">
+                    <div
+                      className={`w-3 h-3 rounded-full bg-white shadow-xs transition-transform duration-200 ${isDark ? 'translate-x-4 bg-amber-300' : 'translate-x-0 bg-white'
+                        }`}
+                    />
+                  </div>
+                )}
+
+                {/* Floating Tooltip when Minimized */}
+                {sidebarCollapsed && (
+                  <div className="pointer-events-none absolute left-full ml-3.5 top-1/2 -translate-y-1/2 px-3 py-1.5 bg-slate-950/95 dark:bg-zinc-900/95 backdrop-blur-xl text-white text-[12px] font-semibold rounded-xl shadow-2xl whitespace-nowrap opacity-0 group-hover:opacity-100 group-hover:translate-x-0 -translate-x-1.5 transition-all duration-150 z-50 flex items-center gap-2 border border-white/20">
+                    <span>{isDark ? 'Switch to Light Theme' : 'Switch to Dark Theme'}</span>
+                    <div className="absolute right-full top-1/2 -translate-y-1/2 border-4 border-transparent border-r-slate-950/95" />
+                  </div>
+                )}
+              </button>
+            </div>
           </div>
 
           {/* Bottom Profile Pill with Interactive Popup Menu */}
@@ -305,11 +347,10 @@ export const AppSidebar: React.FC = () => {
             {/* Popover Dropdown Menu */}
             {profileMenuOpen && (
               <div
-                className={`absolute bottom-full mb-2 z-50 bg-slate-950/98 dark:bg-[#0E0E11]/98 backdrop-blur-2xl border border-white/20 dark:border-white/15 rounded-2xl p-2.5 text-white shadow-2xl shadow-black/70 transition-all animate-in fade-in zoom-in-95 duration-150 ${
-                  sidebarCollapsed
-                    ? 'left-full ml-3 bottom-0 w-[240px]'
-                    : 'left-0 right-0 w-full'
-                }`}
+                className={`absolute bottom-full mb-2 z-50 bg-slate-950/98 dark:bg-[#0E0E11]/98 backdrop-blur-2xl border border-white/20 dark:border-white/15 rounded-2xl p-2.5 text-white shadow-2xl shadow-black/70 transition-all animate-in fade-in zoom-in-95 duration-150 ${sidebarCollapsed
+                  ? 'left-full ml-3 bottom-0 w-[240px]'
+                  : 'left-0 right-0 w-full'
+                  }`}
               >
                 {/* User Info Header */}
                 <div className="flex items-center gap-2.5 p-2 rounded-xl bg-white/5 border border-white/10 mb-1">
@@ -337,11 +378,10 @@ export const AppSidebar: React.FC = () => {
                       setProfileMenuOpen(true);
                       handleNavigate('/settings');
                     }}
-                    className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-[13px] font-medium transition-colors text-left cursor-pointer border ${
-                      currentRoute.path === '/settings'
-                        ? 'bg-gradient-to-r from-[#FA795C] to-[#D95236] text-white border-white/20 shadow-sm shadow-orange-500/30'
-                        : 'border-transparent text-white/80 hover:bg-white/10 hover:text-white'
-                    }`}
+                    className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-[13px] font-medium transition-colors text-left cursor-pointer border ${currentRoute.path === '/settings'
+                      ? 'bg-gradient-to-r from-[#FA795C] to-[#D95236] text-white border-white/20 shadow-sm shadow-orange-500/30'
+                      : 'border-transparent text-white/80 hover:bg-white/10 hover:text-white'
+                      }`}
                   >
                     <Settings size={15} className={currentRoute.path === '/settings' ? 'text-white shrink-0' : 'text-white/70 shrink-0'} />
                     <span className="truncate">Profile & Settings</span>
@@ -353,11 +393,10 @@ export const AppSidebar: React.FC = () => {
                       setProfileMenuOpen(true);
                       handleNavigate('/support');
                     }}
-                    className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-[13px] font-medium transition-colors text-left cursor-pointer border ${
-                      currentRoute.path === '/support'
-                        ? 'bg-gradient-to-r from-[#FA795C] to-[#D95236] text-white border-white/20 shadow-sm shadow-orange-500/30'
-                        : 'border-transparent text-white/80 hover:bg-white/10 hover:text-white'
-                    }`}
+                    className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-[13px] font-medium transition-colors text-left cursor-pointer border ${currentRoute.path === '/support'
+                      ? 'bg-gradient-to-r from-[#FA795C] to-[#D95236] text-white border-white/20 shadow-sm shadow-orange-500/30'
+                      : 'border-transparent text-white/80 hover:bg-white/10 hover:text-white'
+                      }`}
                   >
                     <HelpCircle size={15} className={currentRoute.path === '/support' ? 'text-white shrink-0' : 'text-white/70 shrink-0'} />
                     <span className="truncate">Help & Support</span>
@@ -380,11 +419,9 @@ export const AppSidebar: React.FC = () => {
 
             {/* Profile Card Button */}
             <div
-              className={`group relative flex items-center bg-white/[0.08] hover:bg-white/[0.14] border ${
-                profileMenuOpen ? 'border-white/40 bg-white/[0.16]' : 'border-white/15 hover:border-white/25'
-              } shadow-[inset_0_1px_1px_rgba(255,255,255,0.2),0_4px_16px_rgba(0,0,0,0.12)] text-white rounded-2xl cursor-pointer transition-colors duration-150 ${
-                sidebarCollapsed ? 'w-10 h-10 justify-center p-0 mx-auto' : 'w-full gap-2.5 p-2'
-              }`}
+              className={`group relative flex items-center bg-white/[0.08] hover:bg-white/[0.14] border ${profileMenuOpen ? 'border-white/40 bg-white/[0.16]' : 'border-white/15 hover:border-white/25'
+                } shadow-[inset_0_1px_1px_rgba(255,255,255,0.2),0_4px_16px_rgba(0,0,0,0.12)] text-white rounded-2xl cursor-pointer transition-colors duration-150 ${sidebarCollapsed ? 'w-10 h-10 justify-center p-0 mx-auto' : 'w-full gap-2.5 p-2'
+                }`}
               onClick={() => setProfileMenuOpen(prev => !prev)}
             >
               <div className="w-7 h-7 rounded-full overflow-hidden bg-[#F7E7B5] flex items-center justify-center shrink-0 border border-white/30 shadow-2xs">
@@ -402,9 +439,8 @@ export const AppSidebar: React.FC = () => {
                   </div>
                   <ChevronRight
                     size={15}
-                    className={`text-[#FA795C] shrink-0 stroke-[2.5] transition-transform duration-200 ${
-                      profileMenuOpen ? '-rotate-90' : 'rotate-0'
-                    }`}
+                    className={`text-[#FA795C] shrink-0 stroke-[2.5] transition-transform duration-200 ${profileMenuOpen ? '-rotate-90' : 'rotate-0'
+                      }`}
                   />
                 </>
               )}
