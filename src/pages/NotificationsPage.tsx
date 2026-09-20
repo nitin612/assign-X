@@ -35,7 +35,7 @@ export const NotificationsPage: React.FC = () => {
   const getNotificationIcon = (category: string) => {
     switch (category) {
       case 'approvals': return <CheckCircle2 size={16} color="#B45309" />;
-      case 'work': return <Briefcase size={16} color="#2563EB" />;
+      case 'work': return <Briefcase size={16} color="#EE6B50" />;
       case 'messages': return <MessageSquare size={16} color="#475569" />;
       case 'payments': return <CreditCard size={16} color="#059669" />;
       default: return <Bell size={16} color="#64748B" />;
@@ -86,7 +86,7 @@ export const NotificationsPage: React.FC = () => {
           description="You're completely caught up with your supervisors and milestone actions."
         />
       ) : (
-        <div className="card" style={{ padding: 0, overflow: 'hidden' }}>
+        <div className="card shadow-[0_4px_20px_-2px_rgba(15,23,42,0.06),0_2px_6px_-1px_rgba(15,23,42,0.03)] border border-slate-200/90 dark:border-white/10" style={{ padding: 0, overflow: 'hidden' }}>
           {filteredNotifications.map((notif, index) => (
             <div
               key={notif.id}

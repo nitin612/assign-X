@@ -166,50 +166,50 @@ export const AppSidebar: React.FC = () => {
           sidebarCollapsed ? 'w-[72px] items-center' : 'w-[236px]'
         } ${mobileMenuOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}`}
       >
-        {/* Top Header Card */}
-        <div className={`w-full flex mb-2.5 bg-[#0052CC] rounded-2xl text-white shadow-sm transition-all ${
+        {/* Top Header Card — Apple Frosted Glass */}
+        <div className={`relative overflow-hidden w-full flex mb-2.5 bg-slate-950/75 dark:bg-black/65 backdrop-blur-2xl border border-white/15 dark:border-white/10 rounded-2xl text-white shadow-[inset_0_1px_1px_rgba(255,255,255,0.2),0_8px_24px_rgba(0,0,0,0.2)] transition-all ${
           sidebarCollapsed ? 'flex-col items-center py-2.5 px-1 gap-2' : 'items-center justify-between px-3.5 py-2.5'
         }`}>
+          {/* Apple Specular Top Highlight Glow */}
+          <div className="pointer-events-none absolute inset-x-0 top-0 h-1/2 bg-gradient-to-b from-white/[0.09] to-transparent rounded-t-2xl" />
+
           {/* AssignX Wordmark */}
           <div
-            className="cursor-pointer flex items-center justify-center hover:opacity-90 transition-opacity"
+            className="cursor-pointer flex items-center justify-center hover:opacity-90 transition-opacity relative z-10"
             onClick={() => handleNavigate('/dashboard')}
-            title="AssignX Dashboard"
           >
             {sidebarCollapsed ? (
-              <span className="font-extrabold text-sm tracking-tight text-white select-none text-center">
+              <span className="font-extrabold text-sm tracking-tight text-white select-none text-center drop-shadow-xs">
                 AX
               </span>
             ) : (
-              <span className="font-extrabold text-[17px] tracking-tight text-white select-none">
+              <span className="font-extrabold text-[17px] tracking-tight text-white select-none drop-shadow-xs">
                 AssignX
               </span>
             )}
           </div>
 
           {/* Plus and 3x3 Grid Buttons */}
-          <div className={`flex items-center justify-center ${sidebarCollapsed ? 'flex-col gap-1.5' : 'gap-2'}`}>
+          <div className={`flex items-center justify-center relative z-10 ${sidebarCollapsed ? 'flex-col gap-1.5' : 'gap-2'}`}>
             <button
-              className="text-white/90 hover:text-white hover:bg-white/15 w-8 h-8 flex items-center justify-center rounded-lg transition-all cursor-pointer relative group"
+              className="text-white/80 hover:text-white bg-white/5 hover:bg-white/15 w-8 h-8 flex items-center justify-center rounded-xl border border-white/10 transition-colors duration-150 cursor-pointer relative group shadow-2xs"
               onClick={() => handleNavigate('/create')}
-              title={sidebarCollapsed ? undefined : "Create Work"}
               aria-label="Create Work"
             >
-              <Plus size={18} strokeWidth={2.4} />
+              <Plus size={17} strokeWidth={2.4} />
               {sidebarCollapsed && (
-                <div className="pointer-events-none absolute left-full ml-3.5 top-1/2 -translate-y-1/2 px-2.5 py-1 bg-slate-950 dark:bg-zinc-800 text-white text-[11.5px] font-medium rounded-lg shadow-xl whitespace-nowrap opacity-0 group-hover:opacity-100 group-hover:translate-x-0 -translate-x-1 transition-all duration-150 z-50 flex items-center border border-slate-700/60 dark:border-zinc-700">
+                <div className="pointer-events-none absolute left-full ml-3.5 top-1/2 -translate-y-1/2 px-2.5 py-1 bg-slate-950/95 backdrop-blur-xl dark:bg-zinc-900/95 text-white text-[11.5px] font-medium rounded-lg shadow-xl whitespace-nowrap opacity-0 group-hover:opacity-100 group-hover:translate-x-0 -translate-x-1 transition-all duration-150 z-50 flex items-center border border-white/15">
                   <span>Create Work</span>
-                  <div className="absolute right-full top-1/2 -translate-y-1/2 border-4 border-transparent border-r-slate-950 dark:border-r-zinc-800" />
+                  <div className="absolute right-full top-1/2 -translate-y-1/2 border-4 border-transparent border-r-slate-950/95" />
                 </div>
               )}
             </button>
             <button
-              className="text-white/90 hover:text-white hover:bg-white/15 w-8 h-8 flex items-center justify-center rounded-lg transition-all cursor-pointer relative group"
+              className="text-white/80 hover:text-white bg-white/5 hover:bg-white/15 w-8 h-8 flex items-center justify-center rounded-xl border border-white/10 transition-colors duration-150 cursor-pointer relative group shadow-2xs"
               onClick={toggleSidebar}
-              title={sidebarCollapsed ? undefined : "Toggle Sidebar (Minimize)"}
               aria-label={sidebarCollapsed ? "Expand sidebar" : "Collapse sidebar"}
             >
-              <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
                 <circle cx="4" cy="4" r="2.5" />
                 <circle cx="12" cy="4" r="2.5" />
                 <circle cx="20" cy="2.5" />
@@ -221,15 +221,15 @@ export const AppSidebar: React.FC = () => {
                 <circle cx="20" cy="20" r="2.5" />
               </svg>
               {sidebarCollapsed && (
-                <div className="pointer-events-none absolute left-full ml-3.5 top-1/2 -translate-y-1/2 px-2.5 py-1 bg-slate-950 dark:bg-zinc-800 text-white text-[11.5px] font-medium rounded-lg shadow-xl whitespace-nowrap opacity-0 group-hover:opacity-100 group-hover:translate-x-0 -translate-x-1 transition-all duration-150 z-50 flex items-center border border-slate-700/60 dark:border-zinc-700">
+                <div className="pointer-events-none absolute left-full ml-3.5 top-1/2 -translate-y-1/2 px-2.5 py-1 bg-slate-950/95 backdrop-blur-xl dark:bg-zinc-900/95 text-white text-[11.5px] font-medium rounded-lg shadow-xl whitespace-nowrap opacity-0 group-hover:opacity-100 group-hover:translate-x-0 -translate-x-1 transition-all duration-150 z-50 flex items-center border border-white/15">
                   <span>Expand Sidebar</span>
-                  <div className="absolute right-full top-1/2 -translate-y-1/2 border-4 border-transparent border-r-slate-950 dark:border-r-zinc-800" />
+                  <div className="absolute right-full top-1/2 -translate-y-1/2 border-4 border-transparent border-r-slate-950/95" />
                 </div>
               )}
             </button>
             {mobileMenuOpen && (
               <button
-                className="text-white/90 hover:text-white p-1 rounded-lg lg:hidden"
+                className="text-white/80 hover:text-white p-1 rounded-lg lg:hidden"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 <X size={18} />
@@ -238,12 +238,15 @@ export const AppSidebar: React.FC = () => {
           </div>
         </div>
 
-        {/* Main Royal Blue Body Card */}
-        <div className={`w-full flex-1 flex flex-col justify-between bg-[#0052CC] rounded-3xl text-white shadow-sm transition-all ${
+        {/* Main Frosted Glass Body Card */}
+        <div className={`relative w-full flex-1 flex flex-col justify-between bg-slate-950/75 dark:bg-black/65 backdrop-blur-2xl border border-white/15 dark:border-white/10 rounded-3xl text-white shadow-[inset_0_1px_1px_rgba(255,255,255,0.2),0_12px_36px_rgba(0,0,0,0.22)] transition-all ${
           sidebarCollapsed ? 'p-1.5 items-center overflow-visible' : 'p-2.5 overflow-hidden'
         }`}>
-          <div className={`flex flex-col flex-1 w-full ${sidebarCollapsed ? 'items-center overflow-visible' : 'overflow-hidden'}`}>
-            {/* Navigation List — Previous tabs styled in the reference design */}
+          {/* Apple Specular Top Highlight Glow */}
+          <div className="pointer-events-none absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-white/[0.08] via-white/[0.02] to-transparent rounded-t-3xl" />
+
+          <div className={`relative z-10 flex flex-col flex-1 w-full ${sidebarCollapsed ? 'items-center overflow-visible' : 'overflow-hidden'}`}>
+            {/* Navigation List — Styled in Apple Frosted Glass theme */}
             <nav className={`flex flex-col gap-1 flex-1 w-full ${sidebarCollapsed ? 'items-center overflow-visible' : 'pr-0.5 overflow-y-auto'}`}>
               {mainNavItems.map(item => {
                 const active = isActive(item.path);
@@ -251,26 +254,29 @@ export const AppSidebar: React.FC = () => {
                 return (
                   <div
                     key={item.label}
-                    className={`group relative flex items-center cursor-pointer transition-all duration-150 ${
+                    className={`group relative flex items-center cursor-pointer transition-colors duration-150 ${
                       sidebarCollapsed
                         ? 'w-10 h-10 justify-center rounded-2xl mx-auto'
                         : 'justify-between px-3 py-2 rounded-2xl text-[13.5px]'
                     } ${
                       active
-                        ? 'bg-[#1868F6] text-white font-semibold shadow-sm'
-                        : 'text-white/90 hover:bg-white/10 hover:text-white font-medium'
+                        ? 'bg-gradient-to-r from-[#FA795C] to-[#D95236] text-white font-semibold shadow-[0_4px_18px_rgba(238,107,80,0.4),inset_0_1px_1px_rgba(255,255,255,0.35)] border border-white/25'
+                        : 'text-white/75 hover:bg-white/12 hover:text-white font-medium'
                     }`}
                     onClick={() => handleNavigate(item.path)}
-                    title={!sidebarCollapsed ? item.label : undefined}
                   >
-                    <span className="shrink-0 flex items-center justify-center text-white">
+                    <span className="shrink-0 flex items-center justify-center text-white drop-shadow-2xs">
                       {item.icon}
                     </span>
                     {!sidebarCollapsed && (
                       <>
                         <span className="truncate flex-1 ml-2.5 text-left">{item.label}</span>
                         {item.badge !== undefined && (
-                          <span className="text-[10.5px] font-bold px-1.5 py-0.2 rounded-full bg-white/25 text-white ml-2">
+                          <span className={`text-[10.5px] font-bold px-1.5 py-0.2 rounded-full ml-2 ${
+                            active
+                              ? 'bg-white/30 text-white border border-white/30 shadow-2xs'
+                              : 'bg-white/15 text-white/90 border border-white/15'
+                          }`}>
                             {item.badge}
                           </span>
                         )}
@@ -279,22 +285,22 @@ export const AppSidebar: React.FC = () => {
 
                     {/* Floating Section Tooltip on Icon Hover when Minimized */}
                     {sidebarCollapsed && (
-                      <div className="pointer-events-none absolute left-full ml-3.5 top-1/2 -translate-y-1/2 px-3 py-1.5 bg-slate-950 dark:bg-zinc-800 text-white text-[12px] font-semibold rounded-xl shadow-2xl whitespace-nowrap opacity-0 group-hover:opacity-100 group-hover:translate-x-0 -translate-x-1.5 transition-all duration-150 z-50 flex items-center gap-2 border border-slate-700/60 dark:border-zinc-700">
+                      <div className="pointer-events-none absolute left-full ml-3.5 top-1/2 -translate-y-1/2 px-3 py-1.5 bg-slate-950/95 dark:bg-zinc-900/95 backdrop-blur-xl text-white text-[12px] font-semibold rounded-xl shadow-2xl whitespace-nowrap opacity-0 group-hover:opacity-100 group-hover:translate-x-0 -translate-x-1.5 transition-all duration-150 z-50 flex items-center gap-2 border border-white/20">
                         <span>{item.label}</span>
                         {item.badge !== undefined && (
-                          <span className="text-[10px] font-bold px-1.5 py-0.2 rounded-full bg-blue-500 text-white">
+                          <span className="text-[10px] font-bold px-1.5 py-0.2 rounded-full bg-[#EE6B50] text-white shadow-xs">
                             {item.badge}
                           </span>
                         )}
-                        <div className="absolute right-full top-1/2 -translate-y-1/2 border-4 border-transparent border-r-slate-950 dark:border-r-zinc-800" />
+                        <div className="absolute right-full top-1/2 -translate-y-1/2 border-4 border-transparent border-r-slate-950/95" />
                       </div>
                     )}
                   </div>
                 );
               })}
 
-              {/* Divider */}
-              <div className={`my-1.5 h-px bg-white/15 ${sidebarCollapsed ? 'w-6 mx-auto' : 'w-full'}`} />
+              {/* Frosted Divider */}
+              <div className={`my-1.5 h-px bg-gradient-to-r from-transparent via-white/15 to-transparent ${sidebarCollapsed ? 'w-6 mx-auto' : 'w-full'}`} />
 
               {/* System Nav Items */}
               {systemNavItems.map(item => {
@@ -303,28 +309,27 @@ export const AppSidebar: React.FC = () => {
                 return (
                   <div
                     key={item.label}
-                    className={`group relative flex items-center cursor-pointer transition-all duration-150 ${
+                    className={`group relative flex items-center cursor-pointer transition-colors duration-150 ${
                       sidebarCollapsed
                         ? 'w-10 h-10 justify-center rounded-2xl mx-auto'
                         : 'gap-2.5 px-3 py-2 rounded-2xl text-[13px]'
                     } ${
                       active
-                        ? 'bg-[#1868F6] text-white font-semibold shadow-sm'
-                        : 'text-white/80 hover:bg-white/10 hover:text-white font-medium'
+                        ? 'bg-gradient-to-r from-[#FA795C] to-[#D95236] text-white font-semibold shadow-[0_4px_18px_rgba(238,107,80,0.4),inset_0_1px_1px_rgba(255,255,255,0.35)] border border-white/25'
+                        : 'text-white/70 hover:bg-white/12 hover:text-white font-medium'
                     }`}
                     onClick={() => handleNavigate(item.path)}
-                    title={!sidebarCollapsed ? item.label : undefined}
                   >
-                    <span className="shrink-0 flex items-center justify-center text-white/90">
+                    <span className="shrink-0 flex items-center justify-center text-white/80">
                       {item.icon}
                     </span>
                     {!sidebarCollapsed && <span className="truncate flex-1 ml-2.5 text-left">{item.label}</span>}
 
                     {/* Floating Section Tooltip on Icon Hover when Minimized */}
                     {sidebarCollapsed && (
-                      <div className="pointer-events-none absolute left-full ml-3.5 top-1/2 -translate-y-1/2 px-3 py-1.5 bg-slate-950 dark:bg-zinc-800 text-white text-[12px] font-semibold rounded-xl shadow-2xl whitespace-nowrap opacity-0 group-hover:opacity-100 group-hover:translate-x-0 -translate-x-1.5 transition-all duration-150 z-50 flex items-center gap-2 border border-slate-700/60 dark:border-zinc-700">
+                      <div className="pointer-events-none absolute left-full ml-3.5 top-1/2 -translate-y-1/2 px-3 py-1.5 bg-slate-950/95 dark:bg-zinc-900/95 backdrop-blur-xl text-white text-[12px] font-semibold rounded-xl shadow-2xl whitespace-nowrap opacity-0 group-hover:opacity-100 group-hover:translate-x-0 -translate-x-1.5 transition-all duration-150 z-50 flex items-center gap-2 border border-white/20">
                         <span>{item.label}</span>
-                        <div className="absolute right-full top-1/2 -translate-y-1/2 border-4 border-transparent border-r-slate-950 dark:border-r-zinc-800" />
+                        <div className="absolute right-full top-1/2 -translate-y-1/2 border-4 border-transparent border-r-slate-950/95" />
                       </div>
                     )}
                   </div>
@@ -333,16 +338,15 @@ export const AppSidebar: React.FC = () => {
             </nav>
           </div>
 
-          {/* Bottom Profile Pill */}
-          <div className="pt-2 shrink-0 flex justify-center w-full">
+          {/* Bottom Profile Pill — Apple Frosted Glass Card */}
+          <div className="relative z-10 pt-2 shrink-0 flex justify-center w-full">
             <div
-              className={`group relative flex items-center bg-white dark:bg-[#121216] border border-slate-200/80 dark:border-zinc-800 text-slate-900 dark:text-white rounded-2xl shadow-sm cursor-pointer hover:shadow-md transition-all ${
+              className={`group relative flex items-center bg-white/[0.08] hover:bg-white/[0.14] border border-white/15 hover:border-white/25 shadow-[inset_0_1px_1px_rgba(255,255,255,0.2),0_4px_16px_rgba(0,0,0,0.12)] text-white rounded-2xl cursor-pointer transition-colors duration-150 ${
                 sidebarCollapsed ? 'w-10 h-10 justify-center p-0 mx-auto' : 'w-full gap-2.5 p-2'
               }`}
               onClick={() => handleNavigate('/settings')}
-              title={!sidebarCollapsed ? "Robert Sofia (robert34@gmail.com)" : undefined}
             >
-              <div className="w-7 h-7 rounded-full overflow-hidden bg-[#F7E7B5] flex items-center justify-center shrink-0 border border-yellow-200 dark:border-yellow-700/50">
+              <div className="w-7 h-7 rounded-full overflow-hidden bg-[#F7E7B5] flex items-center justify-center shrink-0 border border-white/30 shadow-2xs">
                 <img
                   src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&auto=format&fit=crop&q=80"
                   alt="Robert Sofia"
@@ -352,19 +356,19 @@ export const AppSidebar: React.FC = () => {
               {!sidebarCollapsed && (
                 <>
                   <div className="flex flex-col min-w-0 flex-1 leading-tight">
-                    <span className="text-[12px] font-bold text-slate-900 dark:text-white truncate">Robert Sofia</span>
-                    <span className="text-[10px] text-slate-500 dark:text-zinc-400 truncate">robert34@gmail.com</span>
+                    <span className="text-[12px] font-bold text-white truncate drop-shadow-2xs">Robert Sofia</span>
+                    <span className="text-[10px] text-white/60 truncate">robert34@gmail.com</span>
                   </div>
-                  <ChevronRight size={15} className="text-[#0052CC] shrink-0 stroke-[2.5]" />
+                  <ChevronRight size={15} className="text-[#FA795C] shrink-0 stroke-[2.5]" />
                 </>
               )}
 
               {/* Floating Section Tooltip on Profile Hover when Minimized */}
               {sidebarCollapsed && (
-                <div className="pointer-events-none absolute left-full ml-3.5 top-1/2 -translate-y-1/2 px-3 py-1.5 bg-slate-950 dark:bg-zinc-800 text-white text-[12px] font-semibold rounded-xl shadow-2xl whitespace-nowrap opacity-0 group-hover:opacity-100 group-hover:translate-x-0 -translate-x-1.5 transition-all duration-150 z-50 flex items-center gap-1.5 border border-slate-700/60 dark:border-zinc-700">
+                <div className="pointer-events-none absolute left-full ml-3.5 top-1/2 -translate-y-1/2 px-3 py-1.5 bg-slate-950/95 dark:bg-zinc-900/95 backdrop-blur-xl text-white text-[12px] font-semibold rounded-xl shadow-2xl whitespace-nowrap opacity-0 group-hover:opacity-100 group-hover:translate-x-0 -translate-x-1.5 transition-all duration-150 z-50 flex items-center gap-1.5 border border-white/20">
                   <span>Robert Sofia</span>
-                  <span className="text-[10.5px] text-zinc-400 font-normal">(Profile & Settings)</span>
-                  <div className="absolute right-full top-1/2 -translate-y-1/2 border-4 border-transparent border-r-slate-950 dark:border-r-zinc-800" />
+                  <span className="text-[10.5px] text-white/70 font-normal">(Profile & Settings)</span>
+                  <div className="absolute right-full top-1/2 -translate-y-1/2 border-4 border-transparent border-r-slate-950/95" />
                 </div>
               )}
             </div>

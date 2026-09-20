@@ -116,7 +116,7 @@ export const CentralPaymentsPage: React.FC = () => {
       </div>
 
       {/* Payment History Table */}
-      <div className="table-container">
+      <div className="table-container shadow-[0_4px_20px_-2px_rgba(15,23,42,0.06),0_2px_6px_-1px_rgba(15,23,42,0.03)] border border-slate-200/90 dark:border-white/10">
         <table className="data-table">
           <thead>
             <tr>

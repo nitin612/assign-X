@@ -479,61 +479,63 @@ export const WorkCategoriesShowcase: React.FC = () => {
   }, [updatePillPosition]);
 
   return (
-    <section id="work-categories" className="py-16 sm:py-24 bg-transparent w-full overflow-hidden text-center">
-      <div className="w-full max-w-[1340px] mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="work-categories" className="py-6 sm:py-10 lg:py-14 bg-transparent w-full overflow-hidden text-center">
+      <div className="w-full max-w-[1340px] mx-auto px-3 sm:px-6 lg:px-8">
         {/* ─────────────────────────────────────────────────────────────
-            1. Title Section: Exact Match to Hero / Reference Typography
+            1. Title Section: Tight, high-contrast mobile & desktop typography
            ───────────────────────────────────────────────────────────── */}
-        <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-12">
-          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-[62px] font-medium text-slate-950 dark:text-white tracking-tight leading-[1.14] max-w-[760px] mx-auto text-center">
+        <div className="text-center max-w-3xl mx-auto mb-3.5 sm:mb-8">
+          <h2 className="text-2xl sm:text-5xl md:text-6xl lg:text-[62px] font-semibold text-slate-950 dark:text-white tracking-tight leading-tight max-w-[760px] mx-auto text-center">
             Get more done with doers
           </h2>
-          <p className="mt-4 sm:mt-5 text-sm sm:text-base md:text-lg text-slate-600 dark:text-slate-400 max-w-[560px] mx-auto leading-relaxed font-normal">
-            Assign is the platform where people turn ideas and tasks into finished work — from web development and mobile apps to AI workflows, assignments, and design.
+          <p className="mt-1.5 sm:mt-4 text-xs sm:text-base md:text-lg text-slate-600 dark:text-slate-300 max-w-[560px] mx-auto leading-relaxed font-normal px-2">
+            Turn tasks into completed milestones — from web development and mobile apps to AI workflows and design.
           </p>
         </div>
 
         {/* ─────────────────────────────────────────────────────────────
-            2. Pill Segmented Filter Tabs (Centered floating bar with sliding magic pill)
+            2. Pill Segmented Filter Tabs (Responsive with smooth touch scroll)
            ───────────────────────────────────────────────────────────── */}
-        <div className="flex justify-center mb-10 sm:mb-14">
-          <div
-            ref={containerRef}
-            className="relative inline-flex items-center p-1 bg-[#F1F3F6]/90 dark:bg-[#0D0D0E] rounded-full border border-slate-200/80 dark:border-white/10 shadow-xs max-w-full overflow-x-auto scrollbar-none"
-          >
-            {/* Sliding Magic Pill Indicator */}
+        <div className="flex justify-center mb-4 sm:mb-8 relative max-w-full">
+          <div className="w-full max-w-full overflow-x-auto scrollbar-none flex justify-start sm:justify-center px-1 py-1">
             <div
-              className="absolute top-1 bottom-1 rounded-full bg-[#ECEBFF] dark:bg-[#1E1A38] border-2 border-[#1E6FFB] dark:border-[#8B7CF8] shadow-xs pointer-events-none transition-all duration-350 ease-[cubic-bezier(0.25,1,0.3,1)]"
-              style={{
-                left: `${pillStyle.left}px`,
-                width: `${pillStyle.width}px`,
-                opacity: pillStyle.opacity,
-                transform: 'translateZ(0)'
-              }}
-            />
+              ref={containerRef}
+              className="relative inline-flex items-center p-1 bg-[#F1F3F6]/90 dark:bg-[#0D0D0E] rounded-full border border-slate-200/80 dark:border-white/10 shadow-xs shrink-0 mx-auto"
+            >
+              {/* Sliding Magic Pill Indicator */}
+              <div
+                className="absolute top-1 bottom-1 rounded-full bg-[#FEF3F0] dark:bg-[#2A1713] border-2 border-[#EE6B50] dark:border-[#FA795C] shadow-xs pointer-events-none transition-all duration-350 ease-[cubic-bezier(0.25,1,0.3,1)]"
+                style={{
+                  left: `${pillStyle.left}px`,
+                  width: `${pillStyle.width}px`,
+                  opacity: pillStyle.opacity,
+                  transform: 'translateZ(0)'
+                }}
+              />
 
-            {CATEGORIES.map((category, index) => {
-              const isActive = category.id === activeTabId;
-              const isLast = category.id === 'custom';
+              {CATEGORIES.map((category, index) => {
+                const isActive = category.id === activeTabId;
+                const isLast = category.id === 'custom';
 
-              return (
-                <button
-                  key={category.id}
-                  ref={(el) => {
-                    tabRefs.current[index] = el;
-                  }}
-                  onClick={() => setActiveTabId(category.id)}
-                  className={`relative z-10 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium transition-colors duration-250 whitespace-nowrap cursor-pointer flex items-center gap-1.5 select-none ${
-                    isActive
-                      ? 'text-[#4338CA] font-semibold'
-                      : 'text-slate-600 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white'
-                  }`}
-                >
-                  {isLast && <Plus className={`w-3.5 h-3.5 transition-colors ${isActive ? 'text-indigo-600' : 'text-slate-500 dark:text-slate-400'}`} />}
-                  <span>{category.tabLabel}</span>
-                </button>
-              );
-            })}
+                return (
+                  <button
+                    key={category.id}
+                    ref={(el) => {
+                      tabRefs.current[index] = el;
+                    }}
+                    onClick={() => setActiveTabId(category.id)}
+                    className={`relative z-10 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium transition-colors duration-250 whitespace-nowrap cursor-pointer flex items-center gap-1.5 select-none ${
+                      isActive
+                        ? 'text-[#D95236] dark:text-[#FA795C] font-semibold'
+                        : 'text-slate-600 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white'
+                    }`}
+                  >
+                    {isLast && <Plus className={`w-3.5 h-3.5 transition-colors ${isActive ? 'text-[#EE6B50]' : 'text-slate-500 dark:text-slate-400'}`} />}
+                    <span>{category.tabLabel}</span>
+                  </button>
+                );
+              })}
+            </div>
           </div>
         </div>
 
@@ -542,31 +544,31 @@ export const WorkCategoriesShowcase: React.FC = () => {
            ───────────────────────────────────────────────────────────── */}
         <div
           key={activeCategory.id}
-          className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center animate-showcase-fade"
+          className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-10 items-center animate-showcase-fade"
         >
           {/* Left Column: Heading, Description, CTA */}
           <div className="lg:col-span-4 text-left flex flex-col items-start pr-0 lg:pr-4">
-            <h3 className="text-3xl sm:text-4xl lg:text-[42px] font-medium text-slate-950 dark:text-white tracking-tight leading-[1.14]">
+            <h3 className="text-xl sm:text-4xl lg:text-[42px] font-semibold text-slate-950 dark:text-white tracking-tight leading-snug">
               {activeCategory.headingPrefix}{' '}
-              <span className="text-[#5452F6] font-semibold">{activeCategory.highlightWord}</span>
+              <span className="text-[#EE6B50] font-semibold">{activeCategory.highlightWord}</span>
             </h3>
 
-            <p className="mt-4 sm:mt-5 text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed font-normal">
+            <p className="mt-2 sm:mt-5 text-xs sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed font-normal">
               {activeCategory.description}
             </p>
 
-            <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row items-start sm:items-center gap-4">
+            <div className="mt-3.5 sm:mt-8 flex flex-row items-center gap-3 sm:gap-4 w-full sm:w-auto">
               <button
                 onClick={() => handleAuthAndNavigate('/dashboard')}
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#5452F6] hover:bg-[#4338CA] text-white font-medium text-sm sm:text-base shadow-md shadow-indigo-500/25 transition-all transform hover:scale-[1.02] active:scale-95 cursor-pointer"
+                className="inline-flex items-center justify-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 rounded-full bg-gradient-to-b from-[#FA795C] to-[#D95236] hover:brightness-105 active:scale-95 text-white font-semibold text-xs sm:text-base shadow-md shadow-orange-500/25 transition-all cursor-pointer whitespace-nowrap"
               >
                 <span>Get Started</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
 
-              <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-300">
-                <ShieldCheck className="w-4 h-4 text-emerald-500" />
-                <span>Milestone escrow protected</span>
+              <div className="flex items-center gap-1.5 text-[11px] sm:text-xs text-slate-600 dark:text-slate-300">
+                <ShieldCheck className="w-4 h-4 text-emerald-500 shrink-0" />
+                <span>Escrow protected</span>
               </div>
             </div>
           </div>
@@ -607,39 +609,39 @@ export const WorkCategoriesShowcase: React.FC = () => {
                       <button
                         onClick={() => setActiveView('table')}
                         className={`pb-2 flex items-center gap-1.5 transition-colors relative cursor-pointer ${
-                          activeView === 'table' ? 'text-[#0073EA] dark:text-[#38BDF8] font-semibold' : 'hover:text-slate-800 dark:hover:text-white'
+                          activeView === 'table' ? 'text-[#EE6B50] dark:text-[#FA795C] font-semibold' : 'hover:text-slate-800 dark:hover:text-white'
                         }`}
                       >
                         <Table2 className="w-3.5 h-3.5" />
                         <span>Main table</span>
                         {activeView === 'table' && (
-                          <div className="absolute bottom-0 inset-x-0 h-0.5 bg-[#0073EA] dark:bg-[#38BDF8] rounded-full" />
+                          <div className="absolute bottom-0 inset-x-0 h-0.5 bg-[#EE6B50] dark:bg-[#FA795C] rounded-full" />
                         )}
                       </button>
 
                       <button
                         onClick={() => setActiveView('gantt')}
                         className={`pb-2 flex items-center gap-1.5 transition-colors relative cursor-pointer ${
-                          activeView === 'gantt' ? 'text-[#0073EA] dark:text-[#38BDF8] font-semibold' : 'hover:text-slate-800 dark:hover:text-white'
+                          activeView === 'gantt' ? 'text-[#EE6B50] dark:text-[#FA795C] font-semibold' : 'hover:text-slate-800 dark:hover:text-white'
                         }`}
                       >
                         <Calendar className="w-3.5 h-3.5" />
                         <span>Gantt</span>
                         {activeView === 'gantt' && (
-                          <div className="absolute bottom-0 inset-x-0 h-0.5 bg-[#0073EA] dark:bg-[#38BDF8] rounded-full" />
+                          <div className="absolute bottom-0 inset-x-0 h-0.5 bg-[#EE6B50] dark:bg-[#FA795C] rounded-full" />
                         )}
                       </button>
 
                       <button
                         onClick={() => setActiveView('kanban')}
                         className={`pb-2 flex items-center gap-1.5 transition-colors relative cursor-pointer ${
-                          activeView === 'kanban' ? 'text-[#0073EA] dark:text-[#38BDF8] font-semibold' : 'hover:text-slate-800 dark:hover:text-white'
+                          activeView === 'kanban' ? 'text-[#EE6B50] dark:text-[#FA795C] font-semibold' : 'hover:text-slate-800 dark:hover:text-white'
                         }`}
                       >
                         <Kanban className="w-3.5 h-3.5" />
                         <span>Kanban</span>
                         {activeView === 'kanban' && (
-                          <div className="absolute bottom-0 inset-x-0 h-0.5 bg-[#0073EA] dark:bg-[#38BDF8] rounded-full" />
+                          <div className="absolute bottom-0 inset-x-0 h-0.5 bg-[#EE6B50] dark:bg-[#FA795C] rounded-full" />
                         )}
                       </button>
 
@@ -649,12 +651,12 @@ export const WorkCategoriesShowcase: React.FC = () => {
                     </div>
                   </div>
 
-                  {/* Table Content Area with Left Blue Indicator Line */}
-                  <div className="flex-1 flex overflow-x-auto">
-                    {/* Tiny Left Vertical Icon Rail (Matching reference) */}
-                    <div className="w-10 py-4 flex flex-col items-center gap-4 border-r border-slate-100 dark:border-white/10 text-slate-400 shrink-0">
+                  {/* Table Content Area with Left Coral Indicator Line */}
+                  <div className="flex-1 flex overflow-x-auto scrollbar-none">
+                    {/* Tiny Left Vertical Icon Rail (Hidden on small mobile to give room) */}
+                    <div className="hidden sm:flex w-10 py-4 flex-col items-center gap-4 border-r border-slate-100 dark:border-white/10 text-slate-400 shrink-0">
                       <Home className="w-3.5 h-3.5 hover:text-slate-700 cursor-pointer" />
-                      <Table2 className="w-3.5 h-3.5 text-indigo-600 cursor-pointer" />
+                      <Table2 className="w-3.5 h-3.5 text-[#EE6B50] cursor-pointer" />
                       <Heart className="w-3.5 h-3.5 hover:text-slate-700 cursor-pointer" />
                       <Bell className="w-3.5 h-3.5 hover:text-slate-700 cursor-pointer" />
                       <Volume2 className="w-3.5 h-3.5 hover:text-slate-700 cursor-pointer" />
@@ -664,20 +666,20 @@ export const WorkCategoriesShowcase: React.FC = () => {
                     </div>
 
                     {/* Table Rows & Columns */}
-                    <div className="flex-1 flex flex-col min-w-[320px]">
+                    <div className="flex-1 flex flex-col w-full min-w-[280px] sm:min-w-[320px]">
                       {/* Column Headers */}
                       <div className="grid grid-cols-12 text-[11px] font-semibold text-slate-500 dark:text-slate-300 border-b border-slate-100 dark:border-white/10 py-2.5 px-3 bg-slate-50/50 dark:bg-white/5">
-                        <div className="col-span-6 flex items-center gap-1.5 text-[#0073EA] dark:text-[#38BDF8] font-medium">
+                        <div className="col-span-6 flex items-center gap-1.5 text-[#EE6B50] dark:text-[#FA795C] font-medium">
                           <span>Deliverables</span>
                         </div>
                         <div className="col-span-3">Status</div>
                         <div className="col-span-3 text-right">Escrow</div>
                       </div>
 
-                      {/* Interactive Rows with Left Blue Border Accent */}
+                      {/* Interactive Rows with Left Coral Border Accent */}
                       <div className="flex-1 flex flex-col divide-y divide-slate-100 dark:divide-white/10 relative">
-                        {/* Blue Left Vertical Accent Bar */}
-                        <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#0073EA] dark:bg-[#38BDF8]" />
+                        {/* Coral Left Vertical Accent Bar */}
+                        <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-[#FA795C] to-[#D95236]" />
 
                         {activeCategory.tableRows.map((row, index) => (
                           <div
@@ -687,7 +689,7 @@ export const WorkCategoriesShowcase: React.FC = () => {
                             {/* Deliverable Title & Tag */}
                             <div className="col-span-6 pr-2">
                               <div className="flex items-center gap-2">
-                                <span className="text-xs font-medium text-slate-900 dark:text-white truncate group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                                <span className="text-xs font-medium text-slate-900 dark:text-white truncate group-hover:text-[#EE6B50] dark:group-hover:text-[#FA795C] transition-colors">
                                   {row.title}
                                 </span>
                               </div>
@@ -761,9 +763,9 @@ export const WorkCategoriesShowcase: React.FC = () => {
 
                     {/* Chat Bubble Thread */}
                     <div className="mt-4 space-y-3.5 text-left">
-                      {/* User Request Bubble (Light Sky Blue matching screenshot) */}
+                      {/* User Request Bubble */}
                       <div className="flex items-end justify-end gap-2">
-                        <div className="bg-[#DCEFFE] dark:bg-[#18202F] text-slate-900 dark:text-slate-100 dark:text-slate-100 rounded-2xl rounded-tr-xs p-3 text-xs font-normal leading-relaxed shadow-2xs max-w-[85%]">
+                        <div className="bg-[#FFE8E2] dark:bg-[#2A1815] text-slate-900 dark:text-orange-100 rounded-2xl rounded-tr-xs p-3 text-xs font-normal leading-relaxed shadow-2xs max-w-[85%]">
                           {activeCategory.userPrompt}
                         </div>
                         <img
@@ -784,8 +786,8 @@ export const WorkCategoriesShowcase: React.FC = () => {
                           <p className="text-[11px] font-medium text-slate-500 dark:text-slate-300 mb-1.5 flex items-center gap-1.5">
                             <span>{activeCategory.doerStatus}</span>
                             <span className="flex h-1.5 w-1.5 relative">
-                              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75" />
-                              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-indigo-600" />
+                              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#FA795C] opacity-75" />
+                              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#EE6B50]" />
                             </span>
                           </p>
 
@@ -810,7 +812,7 @@ export const WorkCategoriesShowcase: React.FC = () => {
                       </span>
                       <button
                         onClick={() => handleAuthAndNavigate('/dashboard')}
-                        className="bg-[#5452F6] hover:bg-[#4338CA] text-white p-1.5 rounded-lg text-xs font-medium transition-colors cursor-pointer"
+                        className="bg-gradient-to-b from-[#FA795C] to-[#D95236] hover:brightness-105 active:scale-98 text-white p-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer shadow-xs"
                         title="Send task specification"
                       >
                         <Send className="w-3 h-3" />

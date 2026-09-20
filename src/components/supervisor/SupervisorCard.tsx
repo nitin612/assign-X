@@ -91,7 +91,7 @@ export const SupervisorCard: React.FC<SupervisorCardProps> = ({
             <h3 style={{ fontSize: '16px', fontWeight: 600, color: 'var(--text-primary)' }}>
               {supervisor.name}
             </h3>
-            <span className="text-[11px] text-blue-600 dark:text-blue-300 bg-blue-50 dark:bg-blue-950/60 border border-blue-200/80 dark:border-blue-900/60 px-1.5 py-0.5 rounded font-medium inline-flex items-center gap-1">
+            <span className="text-[11px] text-[#EE6B50] dark:text-orange-300 bg-orange-50 dark:bg-orange-950/60 border border-orange-200/80 dark:border-orange-900/60 px-1.5 py-0.5 rounded font-medium inline-flex items-center gap-1">
               <CheckCircle2 size={11} /> Lead
             </span>
           </div>

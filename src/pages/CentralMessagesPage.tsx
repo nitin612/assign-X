@@ -68,7 +68,7 @@ export const CentralMessagesPage: React.FC = () => {
                   key={p.id}
                   onClick={() => setSelectedProjectId(p.id)}
                   className={`p-3 rounded-xl cursor-pointer transition-all ${isSelected
-                      ? 'bg-blue-50/70 dark:bg-zinc-800 shadow-[0_2px_8px_-1px_rgba(0,82,204,0.15)] border border-blue-200/90 dark:border-blue-900'
+                      ? 'bg-orange-50/70 dark:bg-zinc-800 shadow-[0_2px_8px_-1px_rgba(238,107,80,0.15)] border border-orange-200/90 dark:border-orange-900/60'
                       : 'hover:bg-slate-50 dark:hover:bg-zinc-800/40 border border-transparent'
                     }`}
                 >
@@ -84,7 +84,7 @@ export const CentralMessagesPage: React.FC = () => {
 
                     <div className="flex-1 min-w-0">
                       <div className="flex justify-between items-baseline mb-0.5">
-                        <h4 className={`text-xs truncate ${isSelected ? 'font-bold text-[#0052CC] dark:text-blue-400' : 'font-semibold text-slate-900 dark:text-white'}`}>
+                        <h4 className={`text-xs truncate ${isSelected ? 'font-bold text-[#EE6B50] dark:text-orange-400' : 'font-semibold text-slate-900 dark:text-white'}`}>
                           {p.supervisor.name}
                         </h4>
                         <span className="text-[10px] text-slate-400 dark:text-zinc-500 shrink-0 ml-1 font-medium">
@@ -125,7 +125,7 @@ export const CentralMessagesPage: React.FC = () => {
                   <span className="text-sm font-bold text-slate-900 dark:text-white">
                     {selectedProject.supervisor.name}
                   </span>
-                  <span className="text-[10.5px] font-bold text-[#0052CC] dark:text-blue-400 bg-blue-50 dark:bg-blue-950/60 border border-blue-200/70 dark:border-blue-900 px-2 py-0.5 rounded-full">
+                  <span className="text-[10.5px] font-bold text-[#EE6B50] dark:text-orange-400 bg-orange-50 dark:bg-orange-950/60 border border-orange-200/70 dark:border-orange-900 px-2 py-0.5 rounded-full">
                     Supervisor
                   </span>
                 </div>
@@ -136,7 +136,7 @@ export const CentralMessagesPage: React.FC = () => {
             </div>
 
             <div className="hidden sm:flex items-center gap-1.5 text-xs text-slate-500 dark:text-zinc-400 bg-stone-100/70 dark:bg-zinc-800/60 border border-stone-200/60 dark:border-zinc-700/60 px-3 py-1.5 rounded-full">
-              <Shield size={13} className="text-[#0052CC] dark:text-blue-400" />
+              <Shield size={13} className="text-[#EE6B50] dark:text-orange-400" />
               <span>{selectedProject.supervisor.responseTime}</span>
             </div>
           </div>
@@ -162,7 +162,7 @@ export const CentralMessagesPage: React.FC = () => {
                   <div className={`flex flex-col ${isClient ? 'items-end' : 'items-start'} max-w-[78%]`}>
                     <div
                       className={`p-3.5 rounded-2xl text-[13.5px] leading-relaxed ${isClient
-                          ? 'bg-[#0052CC] text-white rounded-tr-xs shadow-[0_3px_10px_-2px_rgba(0,82,204,0.35)]'
+                          ? 'bg-gradient-to-b from-[#FA795C] to-[#D95236] text-white rounded-tr-xs shadow-[0_3px_12px_-2px_rgba(238,107,80,0.35)]'
                           : 'bg-white dark:bg-zinc-900 text-slate-800 dark:text-slate-100 border border-slate-200/90 dark:border-zinc-800 rounded-tl-xs shadow-[0_3px_12px_-2px_rgba(15,23,42,0.06)]'
                         }`}
                     >
@@ -171,8 +171,8 @@ export const CentralMessagesPage: React.FC = () => {
                       {msg.attachments && msg.attachments.length > 0 && (
                         <div
                           className={`mt-2.5 pt-2 border-t text-xs font-medium flex flex-col gap-1 ${isClient
-                              ? 'border-white/20 text-blue-100'
-                              : 'border-stone-100 dark:border-zinc-800 text-[#0052CC] dark:text-blue-400'
+                              ? 'border-white/20 text-orange-100'
+                              : 'border-stone-100 dark:border-zinc-800 text-[#EE6B50] dark:text-orange-400'
                             }`}
                         >
                           {msg.attachments.map((att, i) => (
@@ -188,7 +188,7 @@ export const CentralMessagesPage: React.FC = () => {
 
                     <div className="flex items-center gap-1.5 text-[11px] text-slate-400 dark:text-zinc-500 mt-1 px-1">
                       <span>{msg.timestamp}</span>
-                      {isClient && <CheckCheck size={13} className="text-blue-500" />}
+                      {isClient && <CheckCheck size={13} className="text-[#EE6B50]" />}
                     </div>
                   </div>
                 </div>
@@ -199,16 +199,16 @@ export const CentralMessagesPage: React.FC = () => {
           {/* Floating Message Input Bar */}
           <form
             onSubmit={handleSend}
-            className="mt-2 bg-white dark:bg-zinc-900/95 border border-slate-200/90 dark:border-zinc-800 rounded-2xl p-2 shadow-[0_6px_20px_-3px_rgba(15,23,42,0.08),0_2px_6px_-1px_rgba(15,23,42,0.04)] focus-within:border-[#0052CC] focus-within:shadow-[0_8px_24px_-4px_rgba(0,82,204,0.18)] transition-all shrink-0"
+            className="mt-2 bg-white dark:bg-zinc-900/95 border border-slate-200/90 dark:border-zinc-800 rounded-2xl p-2 shadow-[0_6px_20px_-3px_rgba(15,23,42,0.08),0_2px_6px_-1px_rgba(15,23,42,0.04)] focus-within:border-[#EE6B50] focus-within:shadow-[0_8px_24px_-4px_rgba(238,107,80,0.18)] transition-all shrink-0"
           >
             {attachment && (
-              <div className="flex items-center justify-between px-3 py-1.5 bg-blue-50 dark:bg-blue-950/40 border border-blue-100 dark:border-blue-900 rounded-xl text-xs text-blue-700 dark:text-blue-300 mb-2">
+              <div className="flex items-center justify-between px-3 py-1.5 bg-orange-50 dark:bg-orange-950/40 border border-orange-100 dark:border-orange-900 rounded-xl text-xs text-orange-700 dark:text-orange-300 mb-2">
                 <span className="flex items-center gap-1.5 truncate">
                   📎 {attachment}
                 </span>
                 <button
                   type="button"
-                  className="text-blue-500 hover:text-blue-700 ml-2 font-bold cursor-pointer"
+                  className="text-orange-500 hover:text-orange-700 ml-2 font-bold cursor-pointer"
                   onClick={() => setAttachment(null)}
                 >
                   ✕
@@ -236,7 +236,7 @@ export const CentralMessagesPage: React.FC = () => {
 
               <button
                 type="submit"
-                className="p-2.5 rounded-xl bg-[#0052CC] hover:bg-[#0047B3] text-white disabled:opacity-40 disabled:pointer-events-none transition-all cursor-pointer shadow-xs"
+                className="p-2.5 rounded-xl bg-gradient-to-b from-[#FA795C] to-[#D95236] hover:brightness-105 active:scale-98 text-white disabled:opacity-40 disabled:pointer-events-none transition-all cursor-pointer shadow-xs"
                 disabled={!inputMessage.trim() && !attachment}
               >
                 <Send size={15} />

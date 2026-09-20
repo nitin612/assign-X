@@ -4,6 +4,8 @@ export type WorkCategory =
   | 'Website Development'
   | 'Mobile App Development'
   | 'UI/UX Design'
+  | 'Video Editing'
+  | 'AI & Automation'
   | 'Graphic Design'
   | 'Digital Marketing'
   | 'Content Writing'

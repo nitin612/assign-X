@@ -19,12 +19,17 @@ import {
   Plus,
   Shield,
   Clock,
-  CheckCircle2
+  CheckCircle2,
+  Video,
+  Bot
 } from 'lucide-react';
 
 export const CreateWorkFlow: React.FC = () => {
   const { createWorkRequest } = useApp();
-  const { navigate } = useNavigation();
+  const { currentRoute, navigate } = useNavigation();
+
+  // Read query category if present from CTA clicks
+  const initialCategory = (currentRoute.query.category as WorkCategory) || 'Website Development';
 
   const [step, setStep] = useState<number>(1);
   const totalSteps = 6;
@@ -32,7 +37,7 @@ export const CreateWorkFlow: React.FC = () => {
   // Form State
   const [formData, setFormData] = useState<NewWorkRequest>({
     outcomeDescription: '',
-    category: 'Website Development',
+    category: initialCategory,
     title: '',
     detailedDescription: '',
     requiredFeatures: [''],
@@ -72,6 +77,24 @@ export const CreateWorkFlow: React.FC = () => {
       budget: 120000
     },
     {
+      icon: '🎬',
+      title: 'High-Impact Brand Video & 3D Motion',
+      category: 'Video Editing' as WorkCategory,
+      prompt:
+        'I need 4K commercial video editing, 3D motion graphics, sound design, and vertical reels for a flagship product launch across Instagram, TikTok, and YouTube.',
+      details: 'Color grading in DaVinci Resolve, After Effects 3D motion typography, sound mastering, and aspect-ratio cuts.',
+      budget: 45000
+    },
+    {
+      icon: '🤖',
+      title: 'Custom AI Agent & Workflow Automation',
+      category: 'AI & Automation' as WorkCategory,
+      prompt:
+        'I need an autonomous AI customer support agent integrated with OpenAI GPT-4o, Zendesk, and PostgreSQL database with vector search RAG pipeline.',
+      details: 'LangChain/LlamaIndex backend, Pinecone vector store, real-time fallback to human supervisor, and analytics dashboard.',
+      budget: 85000
+    },
+    {
       icon: '🎨',
       title: 'B2B SaaS Design System in Figma',
       category: 'UI/UX Design' as WorkCategory,
@@ -79,15 +102,6 @@ export const CreateWorkFlow: React.FC = () => {
         'I need a complete enterprise design system and UI/UX prototype in Figma for a B2B analytics platform, including 35+ responsive dashboard screens, interactive states, and design tokens.',
       details: 'Atomic component library, Auto-layout tokens, light/dark mode variants, and clickable prototype for developer handoff.',
       budget: 80000
-    },
-    {
-      icon: '⚡',
-      title: 'Fullstack AI SaaS MVP Platform',
-      category: 'Website Development' as WorkCategory,
-      prompt:
-        'I need a full-stack Next.js and Tailwind SaaS application with OpenAI API streaming, Stripe subscription billing, user auth via Clerk, and a responsive analytics workspace.',
-      details: 'Next.js App Router, Postgres via Supabase, OpenAI streaming endpoints, Stripe Customer Portal, and role-based permissions.',
-      budget: 95000
     }
   ];
 
@@ -102,37 +116,51 @@ export const CreateWorkFlow: React.FC = () => {
     {
       category: 'Website Development',
       icon: Globe,
-      color: '#0052CC',
-      bgColor: '#EFF6FF',
+      color: '#6366F1',
+      bgColor: '#EEF2FF',
       description: 'Web applications, responsive company sites, e-commerce, and high-converting portals.'
     },
     {
       category: 'Mobile App Development',
       icon: Smartphone,
-      color: '#7C3AED',
-      bgColor: '#F5F3FF',
+      color: '#3B82F6',
+      bgColor: '#EFF6FF',
       description: 'Native iOS & Android apps, React Native systems, and App Store releases.'
     },
     {
       category: 'UI/UX Design',
       icon: Layout,
-      color: '#059669',
-      bgColor: '#ECFDF5',
+      color: '#8B7CF8',
+      bgColor: '#F5F3FF',
       description: 'Figma interactive prototypes, design systems, wireframes, and UX research.'
+    },
+    {
+      category: 'Video Editing',
+      icon: Video,
+      color: '#F59E0B',
+      bgColor: '#FEF3C7',
+      description: '4K commercial editing, 3D motion graphics, YouTube series, and viral short-form reels.'
+    },
+    {
+      category: 'AI & Automation',
+      icon: Bot,
+      color: '#10B981',
+      bgColor: '#ECFDF5',
+      description: 'Custom AI agents, LLM integrations, RAG knowledge bases, and n8n workflow automations.'
     },
     {
       category: 'Graphic Design',
       icon: Palette,
-      color: '#D97706',
-      bgColor: '#FFFBEB',
+      color: '#EC4899',
+      bgColor: '#FDF2F8',
       description: 'Brand identity, modern logo marks, marketing collateral, and 3D visual assets.'
     },
     {
       category: 'Digital Marketing',
       icon: Megaphone,
-      color: '#DC2626',
+      color: '#EF4444',
       bgColor: '#FEF2F2',
-      description: 'SEO strategy, performance marketing campaigns, and conversion optimization.'
+      description: 'SEO strategy, technical audit, performance ad creatives, and conversion optimization.'
     },
     {
       category: 'Content Writing',
@@ -201,7 +229,7 @@ export const CreateWorkFlow: React.FC = () => {
   return (
     <div className="w-full max-w-5xl mx-auto pb-16">
       {/* ── Wide Modern Stepper Bar ── */}
-      <div className="bg-white/80 dark:bg-zinc-900/60 backdrop-blur-md border border-stone-200/80 dark:border-zinc-800/80 rounded-2xl p-4 sm:p-5 mb-8 shadow-xs">
+      <div className="bg-white dark:bg-[#121216] border border-slate-200/90 dark:border-white/10 rounded-2xl p-4 sm:p-5 mb-8 shadow-[0_4px_20px_-2px_rgba(15,23,42,0.06),0_2px_6px_-1px_rgba(15,23,42,0.03)]">
         <div className="flex items-center justify-between gap-4 mb-4 flex-wrap">
           <button
             className="flex items-center gap-2 text-xs font-semibold text-slate-600 dark:text-slate-400 hover:text-slate-950 dark:hover:text-white px-3 py-1.5 rounded-xl bg-stone-100/70 hover:bg-stone-200/70 dark:bg-zinc-800/60 dark:hover:bg-zinc-700/60 transition-all cursor-pointer"
@@ -215,7 +243,7 @@ export const CreateWorkFlow: React.FC = () => {
             <span className="text-xs text-slate-500 dark:text-zinc-400 font-medium">
               Step <strong className="text-slate-900 dark:text-white font-semibold">{step}</strong> of {totalSteps}
             </span>
-            <span className="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-blue-50 text-[#0052CC] dark:bg-blue-950/60 dark:text-blue-400 border border-blue-200/60 dark:border-blue-900">
+            <span className="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-orange-50 text-[#EE6B50] dark:bg-orange-950/60 dark:text-orange-400 border border-orange-200/60 dark:border-orange-900">
               {Math.round((step / totalSteps) * 100)}% Complete
             </span>
           </div>
@@ -240,7 +268,7 @@ export const CreateWorkFlow: React.FC = () => {
                   isPassed ? 'cursor-pointer hover:bg-stone-50 dark:hover:bg-zinc-800/40' : ''
                 } ${
                   isActive
-                    ? 'bg-blue-50/80 dark:bg-blue-950/50 border border-blue-200 dark:border-blue-900 shadow-2xs'
+                    ? 'bg-orange-50/80 dark:bg-orange-950/50 border border-orange-200 dark:border-orange-900 shadow-2xs'
                     : isPassed
                     ? 'bg-emerald-50/40 dark:bg-emerald-950/20 border border-emerald-200/60 dark:border-emerald-900/40'
                     : 'bg-stone-50/60 dark:bg-zinc-800/30 border border-transparent opacity-60'
@@ -249,7 +277,7 @@ export const CreateWorkFlow: React.FC = () => {
                 <div
                   className={`w-6 h-6 rounded-full flex items-center justify-center shrink-0 text-xs font-bold transition-all ${
                     isActive
-                      ? 'bg-[#0052CC] text-white shadow-2xs'
+                      ? 'bg-gradient-to-b from-[#FA795C] to-[#D95236] text-white shadow-2xs'
                       : isPassed
                       ? 'bg-emerald-500 text-white'
                       : 'bg-stone-200 text-slate-500 dark:bg-zinc-700 dark:text-zinc-400'
@@ -262,7 +290,7 @@ export const CreateWorkFlow: React.FC = () => {
                   <div
                     className={`text-xs font-semibold truncate ${
                       isActive
-                        ? 'text-[#0052CC] dark:text-blue-400'
+                        ? 'text-[#EE6B50] dark:text-orange-400'
                         : isPassed
                         ? 'text-emerald-800 dark:text-emerald-300'
                         : 'text-slate-600 dark:text-zinc-400'
@@ -284,7 +312,7 @@ export const CreateWorkFlow: React.FC = () => {
         <div className="flex flex-col gap-6">
           <div>
             <div className="h-[46px] flex items-center">
-              <span className="text-xs font-semibold text-[#0052CC] dark:text-blue-400 uppercase tracking-wider bg-blue-50 dark:bg-blue-950/60 px-2.5 py-1 rounded-full border border-blue-100 dark:border-blue-900">
+              <span className="text-xs font-semibold text-[#EE6B50] dark:text-orange-400 uppercase tracking-wider bg-orange-50 dark:bg-orange-950/60 px-2.5 py-1 rounded-full border border-orange-100 dark:border-orange-900">
                 Step 1 of 6 • Objective Definition
               </span>
             </div>
@@ -297,10 +325,10 @@ export const CreateWorkFlow: React.FC = () => {
           </div>
 
           {/* Main Interactive Prompt Box */}
-          <div className="bg-white dark:bg-[#121216] border border-stone-200/90 dark:border-zinc-800/90 rounded-3xl p-5 sm:p-6 shadow-sm hover:shadow-md transition-all flex flex-col gap-4">
+          <div className="bg-white dark:bg-[#121216] border border-slate-200/90 dark:border-white/10 rounded-3xl p-5 sm:p-6 shadow-[0_4px_20px_-2px_rgba(15,23,42,0.06),0_2px_6px_-1px_rgba(15,23,42,0.03)] hover:shadow-[0_12px_32px_-4px_rgba(15,23,42,0.10)] transition-all flex flex-col gap-4">
             <div className="relative">
               <textarea
-                className="w-full bg-stone-50/50 dark:bg-zinc-900/50 border border-stone-200/80 dark:border-zinc-800 rounded-2xl p-4 sm:p-5 text-base sm:text-[17px] text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-zinc-500 focus:outline-none focus:border-[#0052CC] focus:ring-4 focus:ring-blue-500/10 transition-all resize-y min-h-[160px] leading-relaxed font-normal"
+                className="w-full bg-stone-50/50 dark:bg-zinc-900/50 border border-stone-200/80 dark:border-zinc-800 rounded-2xl p-4 sm:p-5 text-base sm:text-[17px] text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-zinc-500 focus:outline-none focus:border-[#EE6B50] focus:ring-4 focus:ring-orange-500/10 transition-all resize-y min-h-[160px] leading-relaxed font-normal"
                 placeholder="e.g. I need a modern, high-converting website for my restaurant where customers can see our menu, reserve a table, and view our private events space..."
                 value={formData.outcomeDescription}
                 onChange={(e) => setFormData({ ...formData, outcomeDescription: e.target.value })}
@@ -313,10 +341,10 @@ export const CreateWorkFlow: React.FC = () => {
               <div className="flex items-center gap-2">
                 <button
                   type="button"
-                  className="flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-950/60 dark:to-indigo-950/60 text-[#0052CC] dark:text-blue-300 hover:text-blue-700 dark:hover:text-white border border-blue-200 dark:border-blue-900 text-xs font-semibold shadow-2xs hover:shadow-xs transition-all cursor-pointer"
+                  className="flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-orange-50 to-amber-50 dark:from-orange-950/60 dark:to-amber-950/60 text-[#EE6B50] dark:text-orange-300 hover:text-[#D95236] dark:hover:text-white border border-orange-200 dark:border-orange-900 text-xs font-semibold shadow-2xs hover:shadow-xs transition-all cursor-pointer"
                   onClick={() => handleSelectTemplate(promptTemplates[0])}
                 >
-                  <Sparkles size={14} className="text-[#0052CC] dark:text-blue-400" />
+                  <Sparkles size={14} className="text-[#EE6B50] dark:text-orange-400" />
                   <span>Use Sample Prompt</span>
                 </button>
               </div>
@@ -345,15 +373,15 @@ export const CreateWorkFlow: React.FC = () => {
                 <div
                   key={idx}
                   onClick={() => handleSelectTemplate(tmpl)}
-                  className="bg-white dark:bg-[#121216] border border-stone-200/80 dark:border-zinc-800/80 hover:border-blue-300 dark:hover:border-blue-800/80 rounded-2xl p-4 shadow-2xs hover:shadow-sm transition-all cursor-pointer group flex flex-col justify-between"
+                  className="bg-white dark:bg-[#121216] border border-slate-200/90 dark:border-white/10 hover:border-orange-300 dark:hover:border-orange-800/80 rounded-2xl p-4 shadow-[0_4px_20px_-2px_rgba(15,23,42,0.05),0_2px_6px_-1px_rgba(15,23,42,0.02)] hover:shadow-[0_10px_28px_-3px_rgba(15,23,42,0.09)] hover:-translate-y-0.5 transition-all cursor-pointer group flex flex-col justify-between"
                 >
                   <div>
                     <div className="flex items-center justify-between mb-1.5">
-                      <div className="flex items-center gap-2 font-semibold text-sm text-slate-900 dark:text-white group-hover:text-[#0052CC] dark:group-hover:text-blue-400 transition-colors">
+                      <div className="flex items-center gap-2 font-semibold text-sm text-slate-900 dark:text-white group-hover:text-[#EE6B50] dark:group-hover:text-orange-400 transition-colors">
                         <span className="text-base">{tmpl.icon}</span>
                         <span>{tmpl.title}</span>
                       </div>
-                      <span className="text-[11px] font-medium text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/60 px-2 py-0.5 rounded-full">
+                      <span className="text-[11px] font-medium text-[#EE6B50] dark:text-orange-400 bg-orange-50 dark:bg-orange-950/60 px-2 py-0.5 rounded-full">
                         ₹{(tmpl.budget / 1000).toFixed(0)}k est.
                       </span>
                     </div>
@@ -361,7 +389,7 @@ export const CreateWorkFlow: React.FC = () => {
                       {tmpl.prompt}
                     </p>
                   </div>
-                  <div className="mt-2.5 pt-2 border-t border-stone-100 dark:border-zinc-800/60 flex items-center justify-between text-[11px] text-slate-400 group-hover:text-blue-600 dark:group-hover:text-blue-400 font-medium">
+                  <div className="mt-2.5 pt-2 border-t border-stone-100 dark:border-zinc-800/60 flex items-center justify-between text-[11px] text-slate-400 group-hover:text-[#EE6B50] dark:group-hover:text-orange-400 font-medium">
                     <span>Click to apply template</span>
                     <ArrowRight size={12} className="group-hover:translate-x-0.5 transition-transform" />
                   </div>
@@ -373,7 +401,7 @@ export const CreateWorkFlow: React.FC = () => {
           {/* 3 Value Pillars / Trust Guarantees */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
             <div className="flex items-center gap-3 p-3.5 rounded-2xl bg-stone-100/60 dark:bg-zinc-900/40 border border-stone-200/60 dark:border-zinc-800/60">
-              <Shield size={18} className="text-[#0052CC] shrink-0" />
+              <Shield size={18} className="text-[#EE6B50] shrink-0" />
               <div>
                 <div className="text-xs font-semibold text-slate-900 dark:text-white">100% Escrow Protected</div>
                 <div className="text-[11px] text-slate-500 dark:text-zinc-400">Funds released on milestone approval</div>
@@ -398,7 +426,7 @@ export const CreateWorkFlow: React.FC = () => {
           {/* Bottom Next Step Button */}
           <div className="flex justify-end pt-3">
             <button
-              className="flex items-center gap-2 px-6 py-3 rounded-xl bg-[#0052CC] hover:bg-[#0047B3] text-white font-semibold text-sm shadow-sm hover:shadow-md disabled:opacity-40 disabled:pointer-events-none transition-all cursor-pointer"
+              className="flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-b from-[#FA795C] to-[#D95236] hover:brightness-105 active:scale-98 shadow-md text-white font-semibold text-sm shadow-sm hover:shadow-md disabled:opacity-40 disabled:pointer-events-none transition-all cursor-pointer"
               disabled={!formData.outcomeDescription.trim()}
               onClick={handleNext}
             >
@@ -416,7 +444,7 @@ export const CreateWorkFlow: React.FC = () => {
         <div className="flex flex-col gap-6">
           <div>
             <div className="h-[46px] flex items-center">
-              <span className="text-xs font-semibold text-[#0052CC] dark:text-blue-400 uppercase tracking-wider bg-blue-50 dark:bg-blue-950/60 px-2.5 py-1 rounded-full border border-blue-100 dark:border-blue-900">
+              <span className="text-xs font-semibold text-[#EE6B50] dark:text-orange-400 uppercase tracking-wider bg-orange-50 dark:bg-orange-950/60 px-2.5 py-1 rounded-full border border-orange-100 dark:border-orange-900">
                 Step 2 of 6 • Specialization
               </span>
             </div>
@@ -439,7 +467,7 @@ export const CreateWorkFlow: React.FC = () => {
                   onClick={() => setFormData({ ...formData, category: cat.category })}
                   className={`bg-white dark:bg-[#121216] border rounded-2xl p-4.5 cursor-pointer transition-all flex flex-col justify-between ${
                     isSelected
-                      ? 'border-[#0052CC] ring-2 ring-blue-500/20 shadow-md -translate-y-0.5'
+                      ? 'border-[#EE6B50] ring-2 ring-orange-500/20 shadow-md -translate-y-0.5'
                       : 'border-stone-200/80 dark:border-zinc-800/80 hover:border-stone-300 dark:hover:border-zinc-700 shadow-2xs hover:shadow-xs'
                   }`}
                 >
@@ -452,7 +480,7 @@ export const CreateWorkFlow: React.FC = () => {
                     </div>
 
                     {isSelected ? (
-                      <span className="w-5 h-5 rounded-full bg-[#0052CC] text-white flex items-center justify-center">
+                      <span className="w-5 h-5 rounded-full bg-[#EE6B50] text-white flex items-center justify-center">
                         <Check size={12} strokeWidth={3} />
                       </span>
                     ) : (
@@ -481,7 +509,7 @@ export const CreateWorkFlow: React.FC = () => {
               Back
             </button>
             <button
-              className="flex items-center gap-2 px-6 py-2.5 rounded-xl bg-[#0052CC] hover:bg-[#0047B3] text-white font-semibold text-sm shadow-xs transition-all cursor-pointer"
+              className="flex items-center gap-2 px-6 py-2.5 rounded-xl bg-gradient-to-b from-[#FA795C] to-[#D95236] hover:brightness-105 active:scale-98 shadow-md text-white font-semibold text-sm shadow-xs transition-all cursor-pointer"
               onClick={handleNext}
             >
               <span>Continue to Details</span>
@@ -498,7 +526,7 @@ export const CreateWorkFlow: React.FC = () => {
         <div className="flex flex-col gap-6">
           <div>
             <div className="h-[46px] flex items-center">
-              <span className="text-xs font-semibold text-[#0052CC] dark:text-blue-400 uppercase tracking-wider bg-blue-50 dark:bg-blue-950/60 px-2.5 py-1 rounded-full border border-blue-100 dark:border-blue-900">
+              <span className="text-xs font-semibold text-[#EE6B50] dark:text-orange-400 uppercase tracking-wider bg-orange-50 dark:bg-orange-950/60 px-2.5 py-1 rounded-full border border-orange-100 dark:border-orange-900">
                 Step 3 of 6 • Specifications
               </span>
             </div>
@@ -517,7 +545,7 @@ export const CreateWorkFlow: React.FC = () => {
               </label>
               <input
                 type="text"
-                className="w-full bg-stone-50 dark:bg-zinc-900/60 border border-stone-200 dark:border-zinc-800 rounded-xl px-4 py-2.5 text-sm text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-[#0052CC] focus:ring-2 focus:ring-blue-500/10 font-medium"
+                className="w-full bg-stone-50 dark:bg-zinc-900/60 border border-stone-200 dark:border-zinc-800 rounded-xl px-4 py-2.5 text-sm text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-[#EE6B50] focus:ring-2 focus:ring-orange-500/10 font-medium"
                 placeholder="e.g. Fine Dining Restaurant Website & Table Booking Engine"
                 value={formData.title}
                 onChange={(e) => setFormData({ ...formData, title: e.target.value })}
@@ -529,7 +557,7 @@ export const CreateWorkFlow: React.FC = () => {
                 Detailed Scope or Requirements
               </label>
               <textarea
-                className="w-full bg-stone-50 dark:bg-zinc-900/60 border border-stone-200 dark:border-zinc-800 rounded-xl p-4 text-sm text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-[#0052CC] focus:ring-2 focus:ring-blue-500/10 font-normal leading-relaxed"
+                className="w-full bg-stone-50 dark:bg-zinc-900/60 border border-stone-200 dark:border-zinc-800 rounded-xl p-4 text-sm text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-[#EE6B50] focus:ring-2 focus:ring-orange-500/10 font-normal leading-relaxed"
                 rows={4}
                 placeholder="Mention specific features, target audience, integration needs, or success metrics..."
                 value={formData.detailedDescription}
@@ -541,7 +569,7 @@ export const CreateWorkFlow: React.FC = () => {
             {!showOptionalFields ? (
               <button
                 type="button"
-                className="flex items-center gap-1.5 text-xs font-semibold text-[#0052CC] dark:text-blue-400 hover:underline cursor-pointer py-1 self-start"
+                className="flex items-center gap-1.5 text-xs font-semibold text-[#EE6B50] dark:text-orange-400 hover:underline cursor-pointer py-1 self-start"
                 onClick={() => setShowOptionalFields(true)}
               >
                 <Plus size={14} />
@@ -584,9 +612,9 @@ export const CreateWorkFlow: React.FC = () => {
                       const demoFile = `Scope_Brief_${Date.now().toString().slice(-4)}.pdf`;
                       setFormData(prev => ({ ...prev, attachments: [...prev.attachments, demoFile] }));
                     }}
-                    className="border-2 border-dashed border-stone-200 dark:border-zinc-800 rounded-2xl p-5 text-center bg-stone-50/50 dark:bg-zinc-900/30 hover:bg-blue-50/30 transition-colors cursor-pointer"
+                    className="border-2 border-dashed border-stone-200 dark:border-zinc-800 rounded-2xl p-5 text-center bg-stone-50/50 dark:bg-zinc-900/30 hover:bg-orange-50/30 transition-colors cursor-pointer"
                   >
-                    <UploadCloud size={24} className="text-[#0052CC] mx-auto mb-1.5" />
+                    <UploadCloud size={24} className="text-[#EE6B50] mx-auto mb-1.5" />
                     <div className="text-xs font-semibold text-slate-800 dark:text-white">Click to attach mockups, briefs, or assets</div>
                     <div className="text-[11px] text-slate-400 dark:text-zinc-500 mt-0.5">PDF, ZIP, PNG, DOCX up to 50MB</div>
                   </div>
@@ -596,7 +624,7 @@ export const CreateWorkFlow: React.FC = () => {
                       {formData.attachments.map((att, i) => (
                         <span
                           key={i}
-                          className="inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1 rounded-full bg-blue-50 text-blue-700 dark:bg-blue-950/60 dark:text-blue-300 border border-blue-100 dark:border-blue-900"
+                          className="inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1 rounded-full bg-orange-50 text-[#D95236] dark:bg-orange-950/60 dark:text-orange-300 border border-orange-100 dark:border-orange-900"
                         >
                           📎 {att}
                         </span>
@@ -616,7 +644,7 @@ export const CreateWorkFlow: React.FC = () => {
               Back
             </button>
             <button
-              className="flex items-center gap-2 px-6 py-2.5 rounded-xl bg-[#0052CC] hover:bg-[#0047B3] text-white font-semibold text-sm shadow-xs transition-all cursor-pointer"
+              className="flex items-center gap-2 px-6 py-2.5 rounded-xl bg-gradient-to-b from-[#FA795C] to-[#D95236] hover:brightness-105 active:scale-98 shadow-md text-white font-semibold text-sm shadow-xs transition-all cursor-pointer"
               onClick={handleNext}
             >
               <span>Continue to Budget</span>
@@ -633,7 +661,7 @@ export const CreateWorkFlow: React.FC = () => {
         <div className="flex flex-col gap-6">
           <div>
             <div className="h-[46px] flex items-center">
-              <span className="text-xs font-semibold text-[#0052CC] dark:text-blue-400 uppercase tracking-wider bg-blue-50 dark:bg-blue-950/60 px-2.5 py-1 rounded-full border border-blue-100 dark:border-blue-900">
+              <span className="text-xs font-semibold text-[#EE6B50] dark:text-orange-400 uppercase tracking-wider bg-orange-50 dark:bg-orange-950/60 px-2.5 py-1 rounded-full border border-orange-100 dark:border-orange-900">
                 Step 4 of 6 • Financial Allocation
               </span>
             </div>
@@ -653,7 +681,7 @@ export const CreateWorkFlow: React.FC = () => {
                 type="button"
                 className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer ${
                   formData.budgetFixed === amount && formData.budgetType === 'fixed'
-                    ? 'bg-[#0052CC] text-white shadow-xs'
+                    ? 'bg-gradient-to-b from-[#FA795C] to-[#D95236] text-white shadow-xs'
                     : 'bg-white dark:bg-zinc-900 text-slate-700 dark:text-zinc-300 border border-stone-200 dark:border-zinc-800 hover:bg-stone-50'
                 }`}
                 onClick={() => setFormData({ ...formData, budgetType: 'fixed', budgetFixed: amount })}
@@ -668,7 +696,7 @@ export const CreateWorkFlow: React.FC = () => {
             <label
               className={`flex items-start gap-4 p-5 bg-white dark:bg-[#121216] border rounded-2xl cursor-pointer transition-all ${
                 formData.budgetType === 'range'
-                  ? 'border-[#0052CC] ring-2 ring-blue-500/20 shadow-md'
+                  ? 'border-[#EE6B50] ring-2 ring-orange-500/20 shadow-md'
                   : 'border-stone-200/80 dark:border-zinc-800/80 hover:border-stone-300'
               }`}
             >
@@ -677,7 +705,7 @@ export const CreateWorkFlow: React.FC = () => {
                 name="budget_type"
                 checked={formData.budgetType === 'range'}
                 onChange={() => setFormData({ ...formData, budgetType: 'range' })}
-                className="mt-1 accent-[#0052CC]"
+                className="mt-1 accent-[#EE6B50]"
               />
               <div className="flex-1 min-w-0">
                 <h3 className="text-sm font-semibold text-slate-950 dark:text-white mb-0.5">
@@ -717,7 +745,7 @@ export const CreateWorkFlow: React.FC = () => {
             <label
               className={`flex items-start gap-4 p-5 bg-white dark:bg-[#121216] border rounded-2xl cursor-pointer transition-all ${
                 formData.budgetType === 'fixed'
-                  ? 'border-[#0052CC] ring-2 ring-blue-500/20 shadow-md'
+                  ? 'border-[#EE6B50] ring-2 ring-orange-500/20 shadow-md'
                   : 'border-stone-200/80 dark:border-zinc-800/80 hover:border-stone-300'
               }`}
             >
@@ -726,7 +754,7 @@ export const CreateWorkFlow: React.FC = () => {
                 name="budget_type"
                 checked={formData.budgetType === 'fixed'}
                 onChange={() => setFormData({ ...formData, budgetType: 'fixed' })}
-                className="mt-1 accent-[#0052CC]"
+                className="mt-1 accent-[#EE6B50]"
               />
               <div className="flex-1 min-w-0">
                 <h3 className="text-sm font-semibold text-slate-950 dark:text-white mb-0.5">
@@ -754,7 +782,7 @@ export const CreateWorkFlow: React.FC = () => {
             <label
               className={`flex items-start gap-4 p-5 bg-white dark:bg-[#121216] border rounded-2xl cursor-pointer transition-all ${
                 formData.budgetType === 'estimate'
-                  ? 'border-[#0052CC] ring-2 ring-blue-500/20 shadow-md'
+                  ? 'border-[#EE6B50] ring-2 ring-orange-500/20 shadow-md'
                   : 'border-stone-200/80 dark:border-zinc-800/80 hover:border-stone-300'
               }`}
             >
@@ -763,7 +791,7 @@ export const CreateWorkFlow: React.FC = () => {
                 name="budget_type"
                 checked={formData.budgetType === 'estimate'}
                 onChange={() => setFormData({ ...formData, budgetType: 'estimate' })}
-                className="mt-1 accent-[#0052CC]"
+                className="mt-1 accent-[#EE6B50]"
               />
               <div className="flex-1 min-w-0">
                 <h3 className="text-sm font-semibold text-slate-950 dark:text-white mb-0.5">
@@ -784,7 +812,7 @@ export const CreateWorkFlow: React.FC = () => {
               Back
             </button>
             <button
-              className="flex items-center gap-2 px-6 py-2.5 rounded-xl bg-[#0052CC] hover:bg-[#0047B3] text-white font-semibold text-sm shadow-xs transition-all cursor-pointer"
+              className="flex items-center gap-2 px-6 py-2.5 rounded-xl bg-gradient-to-b from-[#FA795C] to-[#D95236] hover:brightness-105 active:scale-98 shadow-md text-white font-semibold text-sm shadow-xs transition-all cursor-pointer"
               onClick={handleNext}
             >
               <span>Continue to Timeline</span>
@@ -801,7 +829,7 @@ export const CreateWorkFlow: React.FC = () => {
         <div className="flex flex-col gap-6">
           <div>
             <div className="h-[46px] flex items-center">
-              <span className="text-xs font-semibold text-[#0052CC] dark:text-blue-400 uppercase tracking-wider bg-blue-50 dark:bg-blue-950/60 px-2.5 py-1 rounded-full border border-blue-100 dark:border-blue-900">
+              <span className="text-xs font-semibold text-[#EE6B50] dark:text-orange-400 uppercase tracking-wider bg-orange-50 dark:bg-orange-950/60 px-2.5 py-1 rounded-full border border-orange-100 dark:border-orange-900">
                 Step 5 of 6 • Delivery Horizon
               </span>
             </div>
@@ -817,7 +845,7 @@ export const CreateWorkFlow: React.FC = () => {
             <label
               className={`flex items-start gap-4 p-5 bg-white dark:bg-[#121216] border rounded-2xl cursor-pointer transition-all ${
                 formData.timelineType === 'asap'
-                  ? 'border-[#0052CC] ring-2 ring-blue-500/20 shadow-md'
+                  ? 'border-[#EE6B50] ring-2 ring-orange-500/20 shadow-md'
                   : 'border-stone-200/80 dark:border-zinc-800/80 hover:border-stone-300'
               }`}
             >
@@ -826,7 +854,7 @@ export const CreateWorkFlow: React.FC = () => {
                 name="timeline_type"
                 checked={formData.timelineType === 'asap'}
                 onChange={() => setFormData({ ...formData, timelineType: 'asap' })}
-                className="mt-1 accent-[#0052CC]"
+                className="mt-1 accent-[#EE6B50]"
               />
               <div>
                 <h3 className="text-sm font-semibold text-slate-950 dark:text-white mb-0.5">
@@ -841,7 +869,7 @@ export const CreateWorkFlow: React.FC = () => {
             <label
               className={`flex items-start gap-4 p-5 bg-white dark:bg-[#121216] border rounded-2xl cursor-pointer transition-all ${
                 formData.timelineType === 'deadline'
-                  ? 'border-[#0052CC] ring-2 ring-blue-500/20 shadow-md'
+                  ? 'border-[#EE6B50] ring-2 ring-orange-500/20 shadow-md'
                   : 'border-stone-200/80 dark:border-zinc-800/80 hover:border-stone-300'
               }`}
             >
@@ -850,7 +878,7 @@ export const CreateWorkFlow: React.FC = () => {
                 name="timeline_type"
                 checked={formData.timelineType === 'deadline'}
                 onChange={() => setFormData({ ...formData, timelineType: 'deadline' })}
-                className="mt-1 accent-[#0052CC]"
+                className="mt-1 accent-[#EE6B50]"
               />
               <div className="flex-1 min-w-0">
                 <h3 className="text-sm font-semibold text-slate-950 dark:text-white mb-0.5">
@@ -876,7 +904,7 @@ export const CreateWorkFlow: React.FC = () => {
             <label
               className={`flex items-start gap-4 p-5 bg-white dark:bg-[#121216] border rounded-2xl cursor-pointer transition-all ${
                 formData.timelineType === 'flexible'
-                  ? 'border-[#0052CC] ring-2 ring-blue-500/20 shadow-md'
+                  ? 'border-[#EE6B50] ring-2 ring-orange-500/20 shadow-md'
                   : 'border-stone-200/80 dark:border-zinc-800/80 hover:border-stone-300'
               }`}
             >
@@ -885,7 +913,7 @@ export const CreateWorkFlow: React.FC = () => {
                 name="timeline_type"
                 checked={formData.timelineType === 'flexible'}
                 onChange={() => setFormData({ ...formData, timelineType: 'flexible' })}
-                className="mt-1 accent-[#0052CC]"
+                className="mt-1 accent-[#EE6B50]"
               />
               <div>
                 <h3 className="text-sm font-semibold text-slate-950 dark:text-white mb-0.5">
@@ -906,7 +934,7 @@ export const CreateWorkFlow: React.FC = () => {
               Back
             </button>
             <button
-              className="flex items-center gap-2 px-6 py-2.5 rounded-xl bg-[#0052CC] hover:bg-[#0047B3] text-white font-semibold text-sm shadow-xs transition-all cursor-pointer"
+              className="flex items-center gap-2 px-6 py-2.5 rounded-xl bg-gradient-to-b from-[#FA795C] to-[#D95236] hover:brightness-105 active:scale-98 shadow-md text-white font-semibold text-sm shadow-xs transition-all cursor-pointer"
               onClick={handleNext}
             >
               <span>Review Work Request</span>
@@ -923,7 +951,7 @@ export const CreateWorkFlow: React.FC = () => {
         <div className="flex flex-col gap-6">
           <div>
             <div className="h-[46px] flex items-center">
-              <span className="text-xs font-semibold text-[#0052CC] dark:text-blue-400 uppercase tracking-wider bg-blue-50 dark:bg-blue-950/60 px-2.5 py-1 rounded-full border border-blue-100 dark:border-blue-900">
+              <span className="text-xs font-semibold text-[#EE6B50] dark:text-orange-400 uppercase tracking-wider bg-orange-50 dark:bg-orange-950/60 px-2.5 py-1 rounded-full border border-orange-100 dark:border-orange-900">
                 Step 6 of 6 • Summary & Handoff
               </span>
             </div>
@@ -943,7 +971,7 @@ export const CreateWorkFlow: React.FC = () => {
                   Scope Brief
                 </span>
                 <button
-                  className="text-xs font-semibold text-[#0052CC] hover:underline cursor-pointer"
+                  className="text-xs font-semibold text-[#EE6B50] hover:underline cursor-pointer"
                   onClick={() => setStep(1)}
                 >
                   Edit
@@ -965,13 +993,13 @@ export const CreateWorkFlow: React.FC = () => {
                     Category
                   </span>
                   <button
-                    className="text-xs font-semibold text-[#0052CC] hover:underline cursor-pointer"
+                    className="text-xs font-semibold text-[#EE6B50] hover:underline cursor-pointer"
                     onClick={() => setStep(2)}
                   >
                     Edit
                   </button>
                 </div>
-                <span className="inline-flex items-center text-xs font-semibold bg-blue-50 text-[#0052CC] dark:bg-blue-950/60 dark:text-blue-400 px-2.5 py-0.5 rounded-full">
+                <span className="inline-flex items-center text-xs font-semibold bg-orange-50 text-[#EE6B50] dark:bg-orange-950/60 dark:text-orange-400 px-2.5 py-0.5 rounded-full">
                   {formData.category}
                 </span>
               </div>
@@ -982,7 +1010,7 @@ export const CreateWorkFlow: React.FC = () => {
                     Budget
                   </span>
                   <button
-                    className="text-xs font-semibold text-[#0052CC] hover:underline cursor-pointer"
+                    className="text-xs font-semibold text-[#EE6B50] hover:underline cursor-pointer"
                     onClick={() => setStep(4)}
                   >
                     Edit
@@ -1002,7 +1030,7 @@ export const CreateWorkFlow: React.FC = () => {
                     Timeline
                   </span>
                   <button
-                    className="text-xs font-semibold text-[#0052CC] hover:underline cursor-pointer"
+                    className="text-xs font-semibold text-[#EE6B50] hover:underline cursor-pointer"
                     onClick={() => setStep(5)}
                   >
                     Edit
@@ -1028,7 +1056,7 @@ export const CreateWorkFlow: React.FC = () => {
 
             <button
               type="button"
-              className="flex items-center gap-2 px-7 py-3 rounded-xl bg-[#0052CC] hover:bg-[#0047B3] text-white font-semibold text-sm shadow-sm hover:shadow-md transition-all cursor-pointer"
+              className="flex items-center gap-2 px-7 py-3 rounded-xl bg-gradient-to-b from-[#FA795C] to-[#D95236] hover:brightness-105 active:scale-98 shadow-md text-white font-semibold text-sm shadow-sm hover:shadow-md transition-all cursor-pointer"
               onClick={() => handleSubmit(false)}
             >
               <span>Submit Work Request</span>

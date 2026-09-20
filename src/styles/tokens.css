@@ -5,13 +5,13 @@
 
 :root {
   /* ── Canvas & Surfaces ───────────────────────────────────── */
-  --bg-canvas:     #FAF8F5;   /* Modern warm cream canvas matching landing page */
-  --bg-viewport:   #FAF8F5;
+  --bg-canvas:     #F4F5F8;   /* Clean modern canvas for elevated card depth */
+  --bg-viewport:   #F4F5F8;
   --bg-surface:    #FFFFFF;   /* Pure white cards and containers */
-  --bg-surface-2:  #F7F5F0;   /* Subtle cream background */
-  --bg-subtle:     #F3EFEA;   /* Secondary backgrounds, inactive tags */
-  --bg-muted:      #E8E3DC;   /* Track backgrounds, borders */
-  --bg-hover:      #EDE8E1;   /* Hover states */
+  --bg-surface-2:  #F8F9FA;   /* Subtle light surface */
+  --bg-subtle:     #EDEFF3;   /* Secondary backgrounds, inactive tags */
+  --bg-muted:      #E2E5EB;   /* Track backgrounds, borders */
+  --bg-hover:      #E9ECF1;   /* Hover states */
 
   /* ── Typography (Near-Black & Hierarchy) ─────────────────── */
   --text-primary:   #0F172A;   /* Slate 900 */
@@ -20,26 +20,26 @@
   --text-tertiary:  #94A3B8;   /* Slate 400 */
   --text-inverse:   #FFFFFF;   /* White */
 
-  /* ── Brand Colors (Modern Royal Blue Theme) ──────────────── */
-  /* Primary: Royal Blue #0052CC / #2563EB */
-  --brand-primary:      #0052CC;
-  --brand-hover:        #0747A6;
-  --brand-light:        #EFF6FF;
-  --brand-subtle:       rgba(0, 82, 204, 0.08);
-  --brand-border:       #BFDBFE;
-  --brand-glow:         rgba(0, 82, 204, 0.15);
-  --brand-gradient:     linear-gradient(135deg, #0052CC 0%, #2563EB 100%);
+  /* ── Brand Colors (Warm Sunset Coral / Orange Theme) ────── */
+  /* Primary: Coral / Sunset Orange #FA795C / #EE6B50 / #D95236 */
+  --brand-primary:      #EE6B50;
+  --brand-hover:        #D95236;
+  --brand-light:        #FEF3F0;
+  --brand-subtle:       rgba(238, 107, 80, 0.08);
+  --brand-border:       #FED7CF;
+  --brand-glow:         rgba(238, 107, 80, 0.2);
+  --brand-gradient:     linear-gradient(180deg, #FA795C 0%, #D95236 100%);
 
   /* Secondary Accents */
-  --color-coral:        #EF4444;
-  --color-coral-hover:  #DC2626;
-  --color-coral-light:  #FEF2F2;
-  --color-coral-subtle: rgba(239, 68, 68, 0.08);
+  --color-coral:        #EE6B50;
+  --color-coral-hover:  #D95236;
+  --color-coral-light:  #FEF3F0;
+  --color-coral-subtle: rgba(238, 107, 80, 0.08);
 
-  --color-blue:         #0052CC;
-  --color-blue-hover:   #0747A6;
-  --color-blue-light:   #EFF6FF;
-  --color-blue-subtle:  rgba(0, 82, 204, 0.08);
+  --color-blue:         #EE6B50;
+  --color-blue-hover:   #D95236;
+  --color-blue-light:   #FEF3F0;
+  --color-blue-subtle:  rgba(238, 107, 80, 0.08);
 
   --color-lime:         #10B981;
   --color-lime-hover:   #059669;
@@ -52,7 +52,7 @@
   --color-purple-subtle: rgba(124, 58, 237, 0.12);
 
   --color-black:        #0F172A;
-  --brand-secondary:    #4F46E5;
+  --brand-secondary:    #FA795C;
   --brand-accent:       #10B981;
   --brand-dark:         #0F172A;
 
@@ -63,18 +63,18 @@
   --border-card:        #E2E8F0;
   --border-width:       1px;
 
-  /* ── Soft Modern Shadows ─────────────────────────────────── */
-  --shadow-offset-xs:   0 1px 2px rgba(0, 0, 0, 0.04);
-  --shadow-offset-sm:   0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.02);
-  --shadow-offset-md:   0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.03);
-  --shadow-offset-lg:   0 10px 15px -3px rgba(0, 0, 0, 0.06), 0 4px 6px -4px rgba(0, 0, 0, 0.03);
-  --shadow-offset-xl:   0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.03);
-  --shadow-modal:       0 25px 50px -12px rgba(0, 0, 0, 0.18);
+  /* ── Soft Modern Shadows (Elevated for crisp depth) ─────── */
+  --shadow-offset-xs:   0 1px 3px rgba(15, 23, 42, 0.04);
+  --shadow-offset-sm:   0 2px 6px rgba(15, 23, 42, 0.05), 0 1px 2px rgba(15, 23, 42, 0.03);
+  --shadow-offset-md:   0 6px 16px -2px rgba(15, 23, 42, 0.06), 0 2px 4px -2px rgba(15, 23, 42, 0.03);
+  --shadow-offset-lg:   0 14px 26px -4px rgba(15, 23, 42, 0.08), 0 4px 8px -3px rgba(15, 23, 42, 0.04);
+  --shadow-offset-xl:   0 24px 36px -6px rgba(15, 23, 42, 0.10), 0 8px 14px -5px rgba(15, 23, 42, 0.04);
+  --shadow-modal:       0 25px 50px -12px rgba(0, 0, 0, 0.22);
 
-  --shadow-soft-sm:     0 1px 3px rgba(0, 0, 0, 0.04);
-  --shadow-soft-md:     0 4px 12px rgba(0, 0, 0, 0.05);
-  --shadow-soft-lg:     0 10px 25px rgba(0, 0, 0, 0.07);
-  --shadow-subtle:      0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-soft-sm:     0 4px 20px -2px rgba(15, 23, 42, 0.06), 0 2px 6px -1px rgba(15, 23, 42, 0.03);
+  --shadow-soft-md:     0 10px 28px -4px rgba(15, 23, 42, 0.08), 0 4px 10px -2px rgba(15, 23, 42, 0.04);
+  --shadow-soft-lg:     0 16px 40px -6px rgba(15, 23, 42, 0.12), 0 6px 16px -3px rgba(15, 23, 42, 0.06);
+  --shadow-subtle:      0 2px 8px rgba(15, 23, 42, 0.05);
 
   /* Status Colors */
   --status-success-bg:     #ECFDF5;

@@ -30,7 +30,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
     switch (category) {
       case 'Website Development':
         return {
-          pill: 'bg-blue-50 text-blue-700 dark:bg-blue-950/50 dark:text-blue-300',
+          pill: 'bg-orange-50 text-orange-700 dark:bg-orange-950/50 dark:text-orange-300',
           icon: <Globe size={11} className="mr-1" />
         };
       case 'Mobile App Development':
@@ -65,8 +65,8 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
     switch (status) {
       case 'In Progress':
         return (
-          <span className="flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-blue-50 text-blue-700 dark:bg-blue-950/60 dark:text-blue-300">
-            <span className="w-1.5 h-1.5 rounded-full bg-blue-500" />
+          <span className="flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-orange-50 text-orange-700 dark:bg-orange-950/60 dark:text-orange-300">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#EE6B50]" />
             In Progress
           </span>
         );
@@ -104,7 +104,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
 
   return (
     <div
-      className="bg-white dark:bg-[#121216] border border-stone-200/80 dark:border-zinc-800/80 rounded-2xl p-5 shadow-xs hover:shadow-md hover:-translate-y-0.5 transition-all flex flex-col justify-between cursor-pointer group"
+      className="bg-white dark:bg-[#121216] border border-slate-200/90 dark:border-white/10 rounded-2xl p-5 shadow-[0_4px_20px_-2px_rgba(15,23,42,0.06),0_2px_6px_-1px_rgba(15,23,42,0.03)] hover:shadow-[0_14px_36px_-4px_rgba(15,23,42,0.12)] hover:-translate-y-1 transition-all flex flex-col justify-between cursor-pointer group"
       onClick={() => navigate(`/work/${project.id}`)}
     >
       <div className="flex flex-col gap-3">
@@ -125,7 +125,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
 
         {/* ── Title & Progress Percentage ── */}
         <div className="flex items-start justify-between gap-2 mt-1">
-          <h3 className="text-[15px] font-semibold text-slate-900 dark:text-white leading-snug group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+          <h3 className="text-[15px] font-semibold text-slate-900 dark:text-white leading-snug group-hover:text-[#EE6B50] dark:group-hover:text-orange-400 transition-colors">
             {project.title}
           </h3>
           <span className="text-[11px] font-medium px-2 py-0.5 rounded-full bg-slate-100 dark:bg-zinc-800 text-slate-700 dark:text-zinc-300 shrink-0">
@@ -189,7 +189,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
                   project.progress === 100
                     ? '#22C55E'
                     : project.progress > 50
-                    ? '#3B82F6'
+                    ? '#EE6B50'
                     : '#F59E0B'
               }}
             />
@@ -206,7 +206,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
               alt={project.supervisor.name}
               className="w-7 h-7 rounded-full object-cover border-2 border-white dark:border-zinc-900 shrink-0"
             />
-            <div className="w-5 h-5 rounded-full bg-blue-600 text-white text-[9px] font-bold flex items-center justify-center -ml-2 border border-white dark:border-zinc-900">
+            <div className="w-5 h-5 rounded-full bg-[#EE6B50] text-white text-[9px] font-bold flex items-center justify-center -ml-2 border border-white dark:border-zinc-900">
               +2
             </div>
           </div>
@@ -216,7 +216,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
               <span className="text-xs font-semibold text-slate-800 dark:text-zinc-200 truncate">
                 {project.supervisor.name}
               </span>
-              <CheckCircle2 size={11} className="text-blue-500 shrink-0" />
+              <CheckCircle2 size={11} className="text-[#EE6B50] shrink-0" />
             </div>
             <span className="text-[10.5px] text-slate-400 dark:text-zinc-400 font-normal">
               Lead Supervisor
@@ -225,7 +225,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
         </div>
 
         <button
-          className="text-xs font-semibold text-slate-700 dark:text-zinc-300 hover:text-blue-600 dark:hover:text-blue-400 flex items-center gap-1 group-hover:translate-x-0.5 transition-all"
+          className="text-xs font-semibold text-slate-700 dark:text-zinc-300 hover:text-[#EE6B50] dark:hover:text-orange-400 flex items-center gap-1 group-hover:translate-x-0.5 transition-all"
           onClick={(e) => {
             e.stopPropagation();
             navigate(`/work/${project.id}`);

@@ -43,9 +43,9 @@ export const ActionRequiredCard: React.FC<ActionRequiredCardProps> = ({
   };
 
   return (
-    <div className="bg-white dark:bg-zinc-900/60 border border-stone-200/80 dark:border-zinc-800 rounded-2xl p-4 lg:p-5 flex items-center justify-between gap-4 transition-all hover:border-blue-300 dark:hover:border-blue-900 shadow-xs">
+    <div className="bg-white dark:bg-[#121216] border border-slate-200/90 dark:border-white/10 rounded-2xl p-4 lg:p-5 flex items-center justify-between gap-4 transition-all hover:border-[#EE6B50]/40 shadow-[0_4px_20px_-2px_rgba(15,23,42,0.06),0_2px_6px_-1px_rgba(15,23,42,0.03)] hover:shadow-[0_10px_28px_-3px_rgba(15,23,42,0.09)]">
       <div className="flex items-start gap-3.5 min-w-0 flex-1">
-        <div className="w-9 h-9 rounded-xl bg-blue-50 dark:bg-blue-950/60 text-[#0052CC] dark:text-blue-400 flex items-center justify-center shrink-0 mt-0.5 border border-blue-100 dark:border-blue-900/40">
+        <div className="w-9 h-9 rounded-xl bg-amber-50 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 flex items-center justify-center shrink-0 mt-0.5 border border-amber-200/60 dark:border-amber-900/40">
           <AlertCircle size={18} strokeWidth={2} />
         </div>
 
@@ -71,7 +71,7 @@ export const ActionRequiredCard: React.FC<ActionRequiredCardProps> = ({
       </div>
 
       <button
-        className="px-4 py-2 rounded-xl bg-[#0052CC] hover:bg-[#0047B3] text-white font-semibold text-xs flex items-center gap-1.5 shrink-0 shadow-xs hover:shadow-sm cursor-pointer transition-all"
+        className="px-4 py-2 rounded-full bg-gradient-to-b from-[#FA795C] to-[#D95236] hover:brightness-105 active:scale-98 text-white font-semibold text-xs flex items-center gap-1.5 shrink-0 shadow-md transition-all cursor-pointer"
         onClick={handleClick}
       >
         <span>{getActionLabel()}</span>

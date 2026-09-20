@@ -317,7 +317,7 @@
   border-radius: 16px;
   padding: 24px 20px 18px;
   border: 1px solid #E2E8F0;
-  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.07), 0 2px 6px -1px rgba(15, 23, 42, 0.04);
+  box-shadow: 0 6px 24px -2px rgba(15, 23, 42, 0.08), 0 2px 6px -1px rgba(15, 23, 42, 0.04);
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -327,7 +327,7 @@
 .dark .milestone-scrubber-card {
   background: #121216;
   border-color: rgba(255, 255, 255, 0.1);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.6);
 }
 
 .scrubber-track-container {
@@ -343,7 +343,7 @@
   border-radius: 50%;
   border: 1px solid #E2E8F0;
   background: #FFFFFF;
-  color: #2563EB;
+  color: #EE6B50;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -564,7 +564,7 @@
 }
 
 .scrubber-day-letter.active-day {
-  color: #2563EB;
+  color: #EE6B50;
   font-weight: 800;
 }
 
@@ -949,7 +949,7 @@
   width: 22px;
   height: 22px;
   border-radius: 50%;
-  background: #2563EB;
+  background: #EE6B50;
   color: #FFFFFF;
   font-size: 9.5px;
   font-weight: 800;

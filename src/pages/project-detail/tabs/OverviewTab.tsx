@@ -244,8 +244,8 @@ export const OverviewTab: React.FC<OverviewTabProps> = ({ project, onSelectTab }
                   fontSize: '13px'
                 }}
               >
-                <div className="w-7 h-7 rounded-full bg-blue-50 dark:bg-blue-950/60 border border-blue-200 dark:border-blue-900/60 flex items-center justify-center shrink-0 mt-0.5">
-                  <FileCheck size={14} className="text-[#0052CC] dark:text-blue-400" />
+                <div className="w-7 h-7 rounded-full bg-orange-50 dark:bg-orange-950/60 border border-orange-200 dark:border-orange-900/60 flex items-center justify-center shrink-0 mt-0.5">
+                  <FileCheck size={14} className="text-[#EE6B50] dark:text-orange-400" />
                 </div>
                 <div style={{ flex: 1, minWidth: 0 }}>
                   <div style={{ fontWeight: 700, color: 'var(--text-primary)' }}>{act.title}</div>
@@ -310,14 +310,14 @@ export const OverviewTab: React.FC<OverviewTabProps> = ({ project, onSelectTab }
 
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
               <span style={{ color: 'var(--text-muted)' }}>Protected in Escrow</span>
-              <span style={{ fontWeight: 700, color: '#2563EB', fontFamily: 'var(--font-heading)' }}>
+              <span style={{ fontWeight: 700, color: '#EE6B50', fontFamily: 'var(--font-heading)' }}>
                 ₹{(project.budget - project.paidAmount).toLocaleString('en-IN')}
               </span>
             </div>
           </div>
 
-          <div className="mt-4 p-3 rounded-xl bg-blue-50/80 dark:bg-blue-950/40 border border-blue-200/80 dark:border-blue-900/60 text-[11.5px] text-blue-900 dark:text-blue-200 flex items-start gap-2 leading-snug">
-            <ShieldCheck size={16} className="text-[#0052CC] dark:text-blue-400 shrink-0 mt-0.5" />
+          <div className="mt-4 p-3 rounded-xl bg-orange-50/80 dark:bg-orange-950/40 border border-orange-200/80 dark:border-orange-900/60 text-[11.5px] text-orange-900 dark:text-orange-200 flex items-start gap-2 leading-snug">
+            <ShieldCheck size={16} className="text-[#EE6B50] dark:text-orange-400 shrink-0 mt-0.5" />
             <span>
               <strong>100% Escrow Guarantee:</strong> Funds remain securely in escrow until you verify and approve deliverables.
             </span>

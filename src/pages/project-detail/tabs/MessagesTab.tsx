@@ -50,7 +50,7 @@ export const MessagesTab: React.FC<MessagesTabProps> = ({ project }) => {
               <span className="text-sm font-bold text-slate-900 dark:text-white">
                 {project.supervisor.name}
               </span>
-              <span className="text-[10.5px] font-bold text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/60 border border-blue-200 dark:border-blue-900 px-2 py-0.5 rounded-full">
+              <span className="text-[10.5px] font-bold text-[#EE6B50] dark:text-orange-400 bg-orange-50 dark:bg-orange-950/60 border border-orange-200 dark:border-orange-900 px-2 py-0.5 rounded-full">
                 Lead
               </span>
             </div>
@@ -61,7 +61,7 @@ export const MessagesTab: React.FC<MessagesTabProps> = ({ project }) => {
         </div>
 
         <div className="hidden sm:flex items-center gap-1.5 text-xs text-slate-500 dark:text-zinc-400 bg-slate-50 dark:bg-zinc-800/60 border border-slate-200/70 dark:border-zinc-700/60 px-3 py-1.5 rounded-full">
-          <Shield size={13} className="text-blue-600 dark:text-blue-400" />
+          <Shield size={13} className="text-[#EE6B50] dark:text-orange-400" />
           <span>Direct Accountable Channel</span>
         </div>
       </div>
@@ -94,7 +94,7 @@ export const MessagesTab: React.FC<MessagesTabProps> = ({ project }) => {
                 <div
                   className={`p-4 rounded-2xl text-sm leading-relaxed shadow-xs ${
                     isClient
-                      ? 'bg-[#0052CC] text-white rounded-tr-xs'
+                      ? 'bg-gradient-to-b from-[#FA795C] to-[#D95236] text-white rounded-tr-xs shadow-[0_3px_12px_-2px_rgba(238,107,80,0.35)]'
                       : 'bg-white dark:bg-[#121216] text-slate-800 dark:text-slate-100 border border-stone-200/80 dark:border-zinc-800/80 rounded-tl-xs'
                   }`}
                 >
@@ -104,8 +104,8 @@ export const MessagesTab: React.FC<MessagesTabProps> = ({ project }) => {
                     <div
                       className={`mt-2.5 pt-2 border-t text-xs font-medium flex flex-col gap-1 ${
                         isClient
-                          ? 'border-white/20 text-blue-100'
-                          : 'border-stone-100 dark:border-zinc-800 text-blue-600 dark:text-blue-400'
+                          ? 'border-white/20 text-orange-100'
+                          : 'border-stone-100 dark:border-zinc-800 text-[#EE6B50] dark:text-orange-400'
                       }`}
                     >
                       {msg.attachments.map((att, i) => (
@@ -121,7 +121,7 @@ export const MessagesTab: React.FC<MessagesTabProps> = ({ project }) => {
 
                 <div className="flex items-center gap-1.5 text-[11px] text-slate-400 dark:text-zinc-500 mt-1 px-1">
                   <span>{msg.timestamp}</span>
-                  {isClient && <CheckCheck size={13} className="text-blue-500" />}
+                  {isClient && <CheckCheck size={13} className="text-[#EE6B50]" />}
                 </div>
               </div>
             </div>
@@ -132,16 +132,16 @@ export const MessagesTab: React.FC<MessagesTabProps> = ({ project }) => {
       {/* Message Input Form */}
       <form
         onSubmit={handleSend}
-        className="mt-3 bg-white dark:bg-[#121216] border border-stone-200/90 dark:border-zinc-800/90 rounded-2xl p-2 shadow-xs focus-within:border-[#0052CC] focus-within:shadow-md transition-all shrink-0"
+        className="mt-3 bg-white dark:bg-[#121216] border border-stone-200/90 dark:border-zinc-800/90 rounded-2xl p-2 shadow-xs focus-within:border-[#EE6B50] focus-within:shadow-[0_8px_24px_-4px_rgba(238,107,80,0.18)] transition-all shrink-0"
       >
         {attachment && (
-          <div className="flex items-center justify-between px-3 py-1.5 bg-blue-50 dark:bg-blue-950/40 border border-blue-100 dark:border-blue-900 rounded-xl text-xs text-blue-700 dark:text-blue-300 mb-2">
+          <div className="flex items-center justify-between px-3 py-1.5 bg-orange-50 dark:bg-orange-950/40 border border-orange-100 dark:border-orange-900 rounded-xl text-xs text-orange-700 dark:text-orange-300 mb-2">
             <span className="flex items-center gap-1.5 truncate">
               📎 {attachment}
             </span>
             <button
               type="button"
-              className="text-blue-500 hover:text-blue-700 ml-2 font-bold cursor-pointer"
+              className="text-orange-500 hover:text-orange-700 ml-2 font-bold cursor-pointer"
               onClick={() => setAttachment(null)}
             >
               ✕
@@ -169,7 +169,7 @@ export const MessagesTab: React.FC<MessagesTabProps> = ({ project }) => {
 
           <button
             type="submit"
-            className="p-2.5 rounded-xl bg-[#0052CC] hover:bg-[#0047B3] text-white disabled:opacity-40 disabled:pointer-events-none transition-all cursor-pointer shadow-xs"
+            className="p-2.5 rounded-xl bg-gradient-to-b from-[#FA795C] to-[#D95236] hover:brightness-105 active:scale-98 text-white disabled:opacity-40 disabled:pointer-events-none transition-all cursor-pointer shadow-xs"
             disabled={!inputMessage.trim() && !attachment}
           >
             <Send size={15} />

@@ -83,13 +83,13 @@ export const ProfileSettingsPage: React.FC = () => {
                     key={s.id}
                     onClick={() => setActiveSection(s.id)}
                     className={`flex items-start gap-3 p-3 rounded-xl text-left w-full transition-all cursor-pointer ${isActive
-                      ? 'bg-blue-50/90 dark:bg-blue-950/50 text-[#0052CC] dark:text-blue-400 border border-blue-200/80 dark:border-blue-900/80 shadow-2xs'
+                      ? 'bg-indigo-50/90 dark:bg-indigo-950/50 text-[#6366F1] dark:text-indigo-400 border border-indigo-200/80 dark:border-indigo-900/80 shadow-2xs'
                       : 'text-slate-700 dark:text-zinc-300 hover:text-slate-950 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-zinc-800/40 border border-transparent'
                       }`}
                   >
-                    <Icon size={18} className={`shrink-0 mt-0.5 ${isActive ? 'text-[#0052CC] dark:text-blue-400' : 'text-slate-400 dark:text-zinc-500'}`} />
+                    <Icon size={18} className={`shrink-0 mt-0.5 ${isActive ? 'text-[#6366F1] dark:text-indigo-400' : 'text-slate-400 dark:text-zinc-500'}`} />
                     <div className="min-w-0 flex-1">
-                      <div className={`text-xs font-bold leading-tight ${isActive ? 'text-[#0052CC] dark:text-blue-400' : 'text-slate-900 dark:text-white'}`}>
+                      <div className={`text-xs font-bold leading-tight ${isActive ? 'text-[#6366F1] dark:text-indigo-400' : 'text-slate-950 dark:text-white'}`}>
                         {s.label}
                       </div>
                       <div className="text-[11px] text-slate-500 dark:text-zinc-400 truncate mt-0.5 font-normal">
@@ -103,9 +103,9 @@ export const ProfileSettingsPage: React.FC = () => {
           </div>
 
           {/* Account Summary Card */}
-          <div className="bg-gradient-to-br from-blue-50/60 to-indigo-50/40 dark:from-zinc-900/90 dark:to-zinc-900/50 border border-blue-100 dark:border-zinc-800 rounded-2xl p-4 shadow-2xs">
+          <div className="bg-gradient-to-br from-indigo-50/60 to-purple-50/40 dark:from-zinc-900/90 dark:to-zinc-900/50 border border-indigo-100 dark:border-zinc-800 rounded-2xl p-4 shadow-2xs">
             <div className="flex items-center gap-3 mb-3">
-              <div className="w-10 h-10 rounded-full bg-[#0052CC] text-white font-bold flex items-center justify-center text-sm shadow-xs">
+              <div className="w-10 h-10 rounded-full bg-slate-950 dark:bg-white text-white dark:text-slate-950 font-bold flex items-center justify-center text-sm shadow-xs">
                 AV
               </div>
               <div className="min-w-0 flex-1">
@@ -114,7 +114,7 @@ export const ProfileSettingsPage: React.FC = () => {
               </div>
             </div>
 
-            <div className="space-y-2 pt-2 border-t border-blue-100/80 dark:border-zinc-800 text-[11.5px]">
+            <div className="space-y-2 pt-2 border-t border-orange-100/80 dark:border-zinc-800 text-[11.5px]">
               <div className="flex justify-between items-center text-slate-600 dark:text-zinc-400">
                 <span>Escrow Protection:</span>
                 <span className="font-semibold text-emerald-600 dark:text-emerald-400">100% Safeguarded</span>
@@ -391,7 +391,7 @@ export const ProfileSettingsPage: React.FC = () => {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="p-4 rounded-xl border border-blue-200 dark:border-blue-900/60 bg-blue-50/40 dark:bg-blue-950/20 flex items-center justify-between">
+                  <div className="p-4 rounded-xl border border-orange-200 dark:border-orange-900/60 bg-orange-50/40 dark:bg-orange-950/20 flex items-center justify-between">
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-8 rounded-md bg-slate-900 text-white font-bold text-[11px] flex items-center justify-center">
                         VISA
@@ -401,7 +401,7 @@ export const ProfileSettingsPage: React.FC = () => {
                         <div className="text-[11px] text-slate-500 dark:text-zinc-400">Expires 09/28 · Primary Escrow Card</div>
                       </div>
                     </div>
-                    <span className="text-[11px] font-bold text-[#0052CC] dark:text-blue-400">Default</span>
+                    <span className="text-[11px] font-bold text-[#EE6B50] dark:text-orange-400">Default</span>
                   </div>
 
                   <div className="p-4 rounded-xl border border-slate-200 dark:border-zinc-800 bg-slate-50/50 dark:bg-zinc-900/50 flex items-center justify-between">
@@ -439,7 +439,7 @@ export const ProfileSettingsPage: React.FC = () => {
                   { title: 'Weekly work progress digest', desc: 'A consolidated summary of ongoing milestone velocity.', def: false }
                 ].map((pref, i) => (
                   <div key={i} className="p-4 rounded-xl border border-slate-200/80 dark:border-zinc-800 bg-slate-50/50 dark:bg-zinc-900/50 flex items-start gap-3">
-                    <input type="checkbox" defaultChecked={pref.def} className="mt-1 accent-[#0052CC] w-4 h-4 rounded-md cursor-pointer" />
+                    <input type="checkbox" defaultChecked={pref.def} className="mt-1 accent-[#EE6B50] w-4 h-4 rounded-md cursor-pointer" />
                     <div>
                       <div className="text-xs font-bold text-slate-900 dark:text-white leading-snug">{pref.title}</div>
                       <div className="text-[11.5px] text-slate-500 dark:text-zinc-400 mt-0.5 leading-tight">{pref.desc}</div>

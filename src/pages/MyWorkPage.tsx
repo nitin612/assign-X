@@ -96,7 +96,7 @@ export const MyWorkPage: React.FC = () => {
         </div>
 
         <button
-          className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#0052CC] hover:bg-[#0047B3] text-white font-semibold text-sm shadow-xs hover:shadow-sm hover:-translate-y-0.5 transition-all cursor-pointer"
+          className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-b from-[#FA795C] to-[#D95236] hover:brightness-105 active:scale-98 text-white font-semibold text-sm shadow-md hover:shadow-lg transition-all cursor-pointer"
           onClick={() => navigate('/create')}
         >
           <span>Create New Work</span>
@@ -112,18 +112,18 @@ export const MyWorkPage: React.FC = () => {
           return (
             <button
               key={tab.id}
-              className={`flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-medium cursor-pointer transition-all ${
+              className={`flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold cursor-pointer transition-all ${
                 isActive
-                  ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-900 shadow-xs'
+                  ? 'bg-gradient-to-b from-[#FA795C] to-[#D95236] text-white shadow-[0_3px_12px_-1px_rgba(238,107,80,0.35)]'
                   : 'bg-white dark:bg-zinc-900 text-slate-600 dark:text-zinc-400 hover:bg-slate-100 dark:hover:bg-zinc-800 border border-stone-200/80 dark:border-zinc-800'
               }`}
               onClick={() => setActiveTab(tab.id)}
             >
               <span>{tab.label}</span>
               <span
-                className={`px-1.5 py-0.2 text-[10px] rounded-full font-semibold ${
+                className={`px-1.5 py-0.2 text-[10px] rounded-full font-bold ${
                   isActive
-                    ? 'bg-blue-500 text-white'
+                    ? 'bg-white/30 text-white border border-white/30'
                     : 'bg-slate-100 dark:bg-zinc-800 text-slate-500 dark:text-zinc-400'
                 }`}
               >
@@ -135,7 +135,7 @@ export const MyWorkPage: React.FC = () => {
       </div>
 
       {/* ── Search & Filters Bar ── */}
-      <div className="flex items-center justify-between flex-wrap gap-3 bg-white dark:bg-[#121216] p-3 rounded-2xl border border-slate-200/80 dark:border-zinc-800/80 shadow-xs">
+      <div className="flex items-center justify-between flex-wrap gap-3 bg-white dark:bg-[#121216] p-3.5 rounded-2xl border border-slate-200/90 dark:border-white/10 shadow-[0_4px_20px_-2px_rgba(15,23,42,0.06),0_2px_6px_-1px_rgba(15,23,42,0.03)]">
         <div className="flex items-center gap-3 flex-wrap flex-1 min-w-[280px]">
           {/* Search Box */}
           <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-50 dark:bg-zinc-800/60 border border-slate-200 dark:border-zinc-700/60 flex-1 max-w-md">

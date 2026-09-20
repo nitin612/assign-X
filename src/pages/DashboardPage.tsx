@@ -76,7 +76,7 @@ export const DashboardPage: React.FC = () => {
       case 'Pending Client Action':
         return '#F59E0B'; // Amber
       default:
-        return '#3B82F6'; // Blue / Upcoming
+        return '#EE6B50'; // Coral / Upcoming
     }
   };
 
@@ -96,7 +96,7 @@ export const DashboardPage: React.FC = () => {
   // Position calculation for milestones
   const total = projectMilestones.length || 1;
   const currentPosPercent = total === 1 ? 50 : Math.round(14 + (selectedMilestoneIndex * 72) / (total - 1));
-  const pinColor = activeMilestone ? getMilestonePinColor(activeMilestone.status) : '#3B82F6';
+  const pinColor = activeMilestone ? getMilestonePinColor(activeMilestone.status) : '#EE6B50';
 
   return (
     <div className="flex flex-col gap-8 w-full max-w-7xl mx-auto pb-12">
@@ -122,7 +122,7 @@ export const DashboardPage: React.FC = () => {
         </div>
 
         <button
-          className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#0052CC] hover:bg-[#0047B3] text-white font-semibold text-sm shadow-xs hover:shadow-sm hover:-translate-y-0.5 transition-all cursor-pointer"
+          className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-b from-[#FA795C] to-[#D95236] hover:brightness-105 active:scale-98 text-white font-semibold text-sm shadow-md hover:shadow-lg transition-all cursor-pointer"
           onClick={() => navigate('/create')}
         >
           <span>Create New Work</span>
@@ -146,7 +146,7 @@ export const DashboardPage: React.FC = () => {
               <span className="text-[15px] font-semibold text-slate-950 dark:text-white">
                 {currentProject.title}
               </span>
-              <span className="text-xs px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 dark:bg-blue-950/60 dark:text-blue-300 font-medium border border-blue-100 dark:border-blue-900/40">
+              <span className="text-xs px-2.5 py-0.5 rounded-full bg-orange-50 text-orange-700 dark:bg-orange-950/60 dark:text-orange-300 font-medium border border-orange-100 dark:border-orange-900/40">
                 {currentProject.currentPhase} · {currentProject.progress}% Done
               </span>
             </motion.div>
@@ -223,7 +223,7 @@ export const DashboardPage: React.FC = () => {
                   </div>
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-1.5">
-                      <CheckCircle2 size={12} className="text-blue-500 fill-blue-500 text-white" />
+                      <CheckCircle2 size={12} className="text-[#EE6B50] fill-[#EE6B50] text-white" />
                       <ChevronsUp size={12} className="text-red-500" strokeWidth={3} />
                       <span className="text-[11px] font-semibold text-[#92400E] dark:text-[#FDE68A]">
                         ₹{activeMilestone.amount.toLocaleString('en-IN')}
@@ -262,7 +262,7 @@ export const DashboardPage: React.FC = () => {
                         whileTap={{ scale: 0.9 }}
                         animate={{
                           scale: isSelected ? 1.15 : 1,
-                          boxShadow: isSelected ? '0 0 0 4px rgba(12, 91, 244, 0.25)' : '0 2px 4px rgba(0,0,0,0.15)'
+                          boxShadow: isSelected ? '0 0 0 4px rgba(238, 107, 80, 0.35)' : '0 2px 4px rgba(0,0,0,0.15)'
                         }}
                         className="scrubber-pin-circle"
                         style={{ backgroundColor: msPinColor }}
@@ -287,7 +287,7 @@ export const DashboardPage: React.FC = () => {
                   className="scrubber-date-col cursor-pointer hover:opacity-80 transition-opacity"
                   onClick={() => setSelectedMilestoneIndex(idx)}
                 >
-                  <div className={`scrubber-date-label ${selectedMilestoneIndex === idx ? 'text-blue-600 dark:text-blue-400 font-bold' : ''}`}>
+                  <div className={`scrubber-date-label ${selectedMilestoneIndex === idx ? 'text-[#EE6B50] dark:text-orange-400 font-bold' : ''}`}>
                     {ms.dueDate || `Milestone ${idx + 1}`}
                   </div>
                   <div className="scrubber-days-row">
@@ -371,7 +371,7 @@ export const DashboardPage: React.FC = () => {
               <button
                 key={p.id}
                 className={`text-[11px] font-semibold px-2.5 py-1 rounded-full transition-all cursor-pointer ${selectedProjectIndex === pIdx
-                    ? 'bg-blue-600 text-white shadow-xs'
+                    ? 'bg-gradient-to-b from-[#FA795C] to-[#D95236] text-white shadow-xs'
                     : 'bg-slate-100 dark:bg-zinc-800 text-slate-600 dark:text-zinc-400 hover:bg-slate-200 dark:hover:bg-zinc-700'
                   }`}
                 onClick={() => {
@@ -392,8 +392,8 @@ export const DashboardPage: React.FC = () => {
           label="Active Work"
           value={activeProjects.length || 4}
           subtext="Under active supervision"
-          icon={<Briefcase size={17} color="#0052CC" />}
-          iconBg="rgba(0, 82, 204, 0.08)"
+          icon={<Briefcase size={17} color="#EE6B50" />}
+          iconBg="rgba(238, 107, 80, 0.08)"
         />
         <MetricCard
           label="Awaiting Action"
@@ -433,7 +433,7 @@ export const DashboardPage: React.FC = () => {
 
             {actionRequiredProjects.length > 2 && (
               <button
-                className="text-xs font-semibold text-slate-700 dark:text-zinc-300 hover:text-blue-600 dark:hover:text-blue-400 flex items-center gap-1 cursor-pointer transition-colors"
+                className="text-xs font-semibold text-slate-700 dark:text-zinc-300 hover:text-[#EE6B50] dark:hover:text-orange-400 flex items-center gap-1 cursor-pointer transition-colors"
                 onClick={() => setShowAllActions(!showAllActions)}
               >
                 <span>{showAllActions ? 'Show Less' : `View All (${actionRequiredProjects.length})`}</span>
@@ -487,7 +487,7 @@ export const DashboardPage: React.FC = () => {
           </div>
 
           <button
-            className="text-xs font-semibold text-slate-700 dark:text-zinc-300 hover:text-blue-600 dark:hover:text-blue-400 flex items-center gap-1 cursor-pointer transition-colors"
+            className="text-xs font-semibold text-slate-700 dark:text-zinc-300 hover:text-[#EE6B50] dark:hover:text-orange-400 flex items-center gap-1 cursor-pointer transition-colors"
             onClick={() => navigate('/work')}
           >
             <span>View All ({filteredProjects.length})</span>

@@ -19,6 +19,7 @@ import {
   ShieldCheck,
   Lock,
   X,
+  Menu,
   CheckSquare,
   Send,
   FileText
@@ -38,6 +39,9 @@ export const LandingPage: React.FC = () => {
     login();
     navigate(targetPath);
   };
+
+  // Mobile Hamburger Menu State
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   // Video Demo Modal
   const [showDemoModal, setShowDemoModal] = useState(false);
@@ -153,43 +157,46 @@ export const LandingPage: React.FC = () => {
           ───────────────────────────────────────────────────────────── */}
       <header
         className={`fixed top-0 left-0 right-0 z-50 w-full transition-all duration-200 ${isScrolled
-          ? 'bg-[#FAF8F5]/85 dark:bg-[#000000]/85 backdrop-blur-md shadow-xs border-b border-stone-200/60 dark:border-white/10'
+          ? 'bg-[#FAF8F5]/90 dark:bg-[#000000]/90 backdrop-blur-md shadow-xs border-b border-stone-200/60 dark:border-white/10'
           : 'bg-transparent'
           }`}
       >
-        <div className="w-full max-w-[1640px] mx-auto px-6 sm:px-10 lg:px-12 h-16 flex items-center justify-between">
+        <div className="w-full max-w-[1640px] mx-auto px-4 sm:px-8 lg:px-12 h-16 flex items-center justify-between">
           {/* Brand Wordmark — Pure Text, High Contrast */}
           <div
             onClick={() => navigate('/landing')}
             className="cursor-pointer group"
           >
-            <span className="text-2xl font-bold tracking-tight text-slate-950 dark:text-white dark:text-white group-hover:text-[#7B61FF] transition-colors">
+            <span className="text-2xl font-bold tracking-tight text-slate-950 dark:text-white group-hover:text-[#EE6B50] transition-colors">
               AssignX
             </span>
           </div>
 
           {/* Center Navigation Links — Highly Visible Slate-900 Text */}
           <nav className="hidden md:flex items-center gap-8 text-[15px] font-medium text-slate-900 dark:text-slate-100 dark:text-slate-200">
-            <a href="#overview" className="text-slate-950 dark:text-white dark:text-white font-semibold hover:text-[#7B61FF] transition-colors">
+            <a href="#overview" className="text-slate-950 dark:text-white font-semibold hover:text-[#EE6B50] transition-colors">
               Home
             </a>
-            <a href="#capabilities" className="text-slate-800 dark:text-slate-200 hover:text-[#7B61FF] dark:hover:text-white transition-colors flex items-center gap-1">
+            <a href="#capabilities" className="text-slate-800 dark:text-slate-200 hover:text-[#EE6B50] dark:hover:text-white transition-colors flex items-center gap-1">
               <span>Features</span>
               <span className="text-[10px] text-slate-500">▾</span>
             </a>
-            <a href="#integrations" className="text-slate-800 dark:text-slate-200 hover:text-[#7B61FF] dark:hover:text-white transition-colors">
-              Integrations
+            <a href="#work-categories" className="text-slate-800 dark:text-slate-200 hover:text-[#EE6B50] dark:hover:text-white transition-colors">
+              Categories
             </a>
-            <a href="#insights" className="text-slate-800 dark:text-slate-200 hover:text-[#7B61FF] dark:hover:text-white transition-colors">
+            <a href="#integrations" className="text-slate-800 dark:text-slate-200 hover:text-[#EE6B50] dark:hover:text-white transition-colors">
+              Workflow
+            </a>
+            <a href="#insights" className="text-slate-800 dark:text-slate-200 hover:text-[#EE6B50] dark:hover:text-white transition-colors">
               Blog
             </a>
-            <a href="#testimonials" className="text-slate-800 dark:text-slate-200 hover:text-[#7B61FF] dark:hover:text-white transition-colors">
+            <a href="#testimonials" className="text-slate-800 dark:text-slate-200 hover:text-[#EE6B50] dark:hover:text-white transition-colors">
               Testimonials
             </a>
           </nav>
 
-          {/* Right Actions: Theme Toggle + Login + Soft Purple Pill CTA */}
-          <div className="flex items-center gap-4 sm:gap-5">
+          {/* Right Actions (Desktop): Theme Toggle + Login + Pill CTA */}
+          <div className="hidden md:flex items-center gap-4 sm:gap-5">
             <button
               onClick={toggleTheme}
               aria-label={isDark ? 'Switch to light theme' : 'Switch to dark theme'}
@@ -200,18 +207,105 @@ export const LandingPage: React.FC = () => {
             </button>
             <button
               onClick={() => handleAuthAndNavigate('/dashboard')}
-              className="text-[15px] font-semibold text-slate-900 dark:text-white hover:text-[#7B61FF] transition-colors cursor-pointer"
+              className="text-[15px] font-semibold text-slate-900 dark:text-white hover:text-[#EE6B50] transition-colors cursor-pointer"
             >
               Login
             </button>
             <button
               onClick={() => handleAuthAndNavigate('/create')}
-              className="bg-[#8B7CF8] hover:bg-[#7867f6] text-white text-sm font-semibold px-6 py-2.5 rounded-full shadow-xs hover:shadow transition-all cursor-pointer"
+              className="bg-gradient-to-b from-[#FA795C] to-[#D95236] hover:brightness-105 active:scale-98 text-white text-sm font-semibold px-6 py-2.5 rounded-full shadow-xs hover:shadow transition-all cursor-pointer"
             >
               + Create Work
             </button>
           </div>
+
+          {/* Right Actions (Mobile & Tablet): Quick + Create + Hamburger Menu */}
+          <div className="flex md:hidden items-center gap-2">
+            <button
+              onClick={() => handleAuthAndNavigate('/create')}
+              className="bg-gradient-to-b from-[#FA795C] to-[#D95236] hover:brightness-105 active:scale-95 text-white text-xs font-semibold px-3.5 py-1.5 rounded-full shadow-2xs transition-all cursor-pointer"
+            >
+              + Create
+            </button>
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="w-9 h-9 rounded-xl flex items-center justify-center bg-slate-100 hover:bg-slate-200 dark:bg-slate-800/90 dark:hover:bg-slate-700 text-slate-800 dark:text-white border border-slate-200/80 dark:border-white/10 shadow-2xs transition-all cursor-pointer"
+              aria-label="Toggle navigation menu"
+            >
+              {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+            </button>
+          </div>
         </div>
+
+        {/* ── Mobile Slide-down Navigation Drawer ── */}
+        {mobileMenuOpen && (
+          <div className="md:hidden border-b border-stone-200/80 dark:border-white/10 bg-[#FAF8F5]/98 dark:bg-[#0D0D0E]/98 backdrop-blur-2xl px-5 py-5 shadow-2xl animate-fade-in flex flex-col gap-4">
+            <nav className="flex flex-col gap-2.5 text-[15px] font-semibold text-slate-800 dark:text-slate-200">
+              <a
+                href="#overview"
+                onClick={() => setMobileMenuOpen(false)}
+                className="py-1.5 px-2 rounded-lg hover:bg-black/5 dark:hover:bg-white/5 hover:text-[#EE6B50] transition-colors"
+              >
+                Home
+              </a>
+              <a
+                href="#capabilities"
+                onClick={() => setMobileMenuOpen(false)}
+                className="py-1.5 px-2 rounded-lg hover:bg-black/5 dark:hover:bg-white/5 hover:text-[#EE6B50] transition-colors"
+              >
+                Features & Oversight
+              </a>
+              <a
+                href="#work-categories"
+                onClick={() => setMobileMenuOpen(false)}
+                className="py-1.5 px-2 rounded-lg hover:bg-black/5 dark:hover:bg-white/5 hover:text-[#EE6B50] transition-colors"
+              >
+                Work Categories & Demo
+              </a>
+              <a
+                href="#integrations"
+                onClick={() => setMobileMenuOpen(false)}
+                className="py-1.5 px-2 rounded-lg hover:bg-black/5 dark:hover:bg-white/5 hover:text-[#EE6B50] transition-colors"
+              >
+                Delivery Network
+              </a>
+              <a
+                href="#insights"
+                onClick={() => setMobileMenuOpen(false)}
+                className="py-1.5 px-2 rounded-lg hover:bg-black/5 dark:hover:bg-white/5 hover:text-[#EE6B50] transition-colors"
+              >
+                Blog & Insights
+              </a>
+              <a
+                href="#testimonials"
+                onClick={() => setMobileMenuOpen(false)}
+                className="py-1.5 px-2 rounded-lg hover:bg-black/5 dark:hover:bg-white/5 hover:text-[#EE6B50] transition-colors"
+              >
+                Client Reviews
+              </a>
+            </nav>
+
+            <div className="pt-3 border-t border-slate-200/70 dark:border-white/10 flex items-center justify-between gap-3">
+              <button
+                onClick={toggleTheme}
+                className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-100 dark:bg-zinc-800 text-xs font-semibold text-slate-700 dark:text-slate-200 cursor-pointer"
+              >
+                {isDark ? <Sun className="w-4 h-4 text-amber-300" /> : <Moon className="w-4 h-4 text-slate-700" />}
+                <span>{isDark ? 'Light Mode' : 'Dark Mode'}</span>
+              </button>
+
+              <button
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  handleAuthAndNavigate('/dashboard');
+                }}
+                className="text-xs font-semibold text-slate-900 dark:text-white hover:text-[#EE6B50] px-4 py-2 rounded-xl border border-slate-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 cursor-pointer shadow-2xs"
+              >
+                Login to Dashboard
+              </button>
+            </div>
+          </div>
+        )}
       </header>
 
       {/* Spacer to guarantee seamless layout flow under the fixed navbar */}
@@ -219,55 +313,53 @@ export const LandingPage: React.FC = () => {
 
       {/* ─────────────────────────────────────────────────────────────
           2. Hero Section with Perimeter Workflow Loop
-             * Full viewport min-height (clean hero without lower peeking elements)
+             * Clean, structured mobile and desktop hero
              * Centered Headline, Subtitle, Ratings & Dual CTAs
           ───────────────────────────────────────────────────────────── */}
       <ScrollBlurSection id="overview" maxScale={1.05} maxBlur={8} minOpacity={0.35}>
-        <section className="relative min-h-[calc(100vh-4rem)] flex flex-col justify-center items-center py-2 w-full bg-transparent overflow-hidden">
+        <section className="relative min-h-0 lg:min-h-[calc(100vh-4.5rem)] flex flex-col justify-center items-center pt-2 pb-2 lg:py-2 w-full bg-transparent overflow-hidden">
           <div className="w-full max-w-[1800px] mx-auto px-2 sm:px-4 lg:px-6 text-center my-auto">
             <HeroWorkflow>
-              {/* Rating / Trustpilot */}
-              <div className="inline-flex items-center gap-2.5 text-xs sm:text-sm md:text-base font-normal text-slate-600 dark:text-slate-300 mb-3.5 sm:mb-4">
-                <div className="flex items-center text-amber-400 gap-0.5">
-                  <Star className="w-4 h-4 sm:w-4.5 sm:h-4.5 fill-amber-400 text-amber-400" />
-                  <Star className="w-4 h-4 sm:w-4.5 sm:h-4.5 fill-amber-400 text-amber-400" />
-                  <Star className="w-4 h-4 sm:w-4.5 sm:h-4.5 fill-amber-400 text-amber-400" />
-                  <Star className="w-4 h-4 sm:w-4.5 sm:h-4.5 fill-amber-400 text-amber-400" />
-                  <Star className="w-4 h-4 sm:w-4.5 sm:h-4.5 fill-amber-400 text-amber-400" />
+              {/* Rating / Trustpilot Badge */}
+              <div className="inline-flex items-center gap-1.5 sm:gap-2.5 px-3 py-1 sm:px-4 sm:py-1 rounded-full bg-stone-100/90 dark:bg-zinc-800/80 border border-slate-200/80 dark:border-white/10 text-[11px] sm:text-xs md:text-sm font-normal text-slate-700 dark:text-slate-300 mb-3 sm:mb-4 whitespace-nowrap shadow-2xs">
+                <div className="flex items-center text-amber-400 gap-0.5 shrink-0">
+                  <Star className="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-amber-400 text-amber-400" />
+                  <Star className="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-amber-400 text-amber-400" />
+                  <Star className="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-amber-400 text-amber-400" />
+                  <Star className="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-amber-400 text-amber-400" />
+                  <Star className="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-amber-400 text-amber-400" />
                 </div>
-                <span className="font-semibold text-slate-900 dark:text-slate-100">2.5k+ Delivered Projects</span>
+                <span className="font-semibold text-slate-900 dark:text-slate-100">2.5k+ Delivered</span>
                 <span className="text-slate-300 dark:text-slate-600">|</span>
                 <span className="font-semibold text-slate-900 dark:text-slate-100">4.98</span>
-                <span className="text-emerald-700 dark:text-emerald-400 font-semibold flex items-center gap-1">
-                  ★ Trustpilot
-                </span>
+                <span className="text-emerald-700 dark:text-emerald-400 font-semibold">★ Trustpilot</span>
               </div>
 
-              {/* Hero Headline — Thicker font-medium Typography with Gradient Accent */}
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[62px] xl:text-[66px] font-medium text-slate-950 dark:text-white dark:text-white tracking-tight leading-[1.14] max-w-[760px] mx-auto text-center">
-                Tell Us What You Need. <br className="hidden sm:inline" />
-                We Deliver The{' '}
+              {/* Hero Headline — 3-Line Punchy Value Proposition with Gradient Accent */}
+              <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-[58px] xl:text-[62px] font-medium text-slate-950 dark:text-white tracking-tight leading-[1.14] max-w-[820px] mx-auto text-center px-1">
+                Assign any task. <br />
+                Done by experts. <br />
                 <span className="bg-gradient-to-r from-[#FF6B6B] via-[#FF758F] to-[#E855DE] bg-clip-text text-transparent font-semibold">
-                  Result.
+                  Supervised by us.
                 </span>
               </h1>
 
               {/* Subtitle */}
-              <p className="mt-4 sm:mt-5 text-sm sm:text-base md:text-lg text-slate-600 dark:text-slate-300 max-w-[560px] mx-auto leading-relaxed font-normal">
+              <p className="mt-3 sm:mt-5 text-xs sm:text-base md:text-lg text-slate-600 dark:text-slate-300 max-w-sm sm:max-w-[560px] mx-auto leading-relaxed font-normal px-2">
                 No finding freelancers. No managing workers. AssignX pairs you with a dedicated supervisor who directs the team, runs QA, and delivers ready-to-approve milestones.
               </p>
 
               {/* Dual Action CTAs */}
-              <div className="flex flex-wrap items-center justify-center gap-4 mt-6 sm:mt-7">
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mt-5 sm:mt-7 w-full sm:w-auto px-4 max-w-sm sm:max-w-none mx-auto">
                 <button
                   onClick={() => handleAuthAndNavigate('/create')}
-                  className="bg-[#F5CD52] hover:bg-[#eec23d] text-slate-950 font-semibold px-8 sm:px-9 py-3.5 sm:py-4 rounded-full text-sm sm:text-base md:text-lg shadow-xs hover:shadow-md transition-all cursor-pointer"
+                  className="w-full sm:w-auto bg-gradient-to-b from-[#FA795C] to-[#D95236] hover:brightness-105 active:scale-98 text-white font-semibold px-7 sm:px-9 py-3 sm:py-4 rounded-full text-sm sm:text-base md:text-lg shadow-[0_4px_18px_rgba(238,107,80,0.35)] hover:shadow-[0_6px_22px_rgba(238,107,80,0.45)] transition-all cursor-pointer"
                 >
                   + Create New Work
                 </button>
                 <button
                   onClick={() => setShowDemoModal(true)}
-                  className="bg-[#111111] hover:bg-slate-800 text-white font-medium px-8 sm:px-9 py-3.5 sm:py-4 rounded-full text-sm sm:text-base md:text-lg shadow-xs hover:shadow-md transition-all cursor-pointer flex items-center gap-2"
+                  className="w-full sm:w-auto bg-[#111111] hover:bg-slate-800 text-white font-medium px-7 sm:px-9 py-3 sm:py-4 rounded-full text-sm sm:text-base md:text-lg shadow-xs hover:shadow-md transition-all cursor-pointer flex items-center justify-center gap-2"
                 >
                   <Play className="w-4 h-4 fill-white" />
                   <span>See How It Works</span>
@@ -278,63 +370,7 @@ export const LandingPage: React.FC = () => {
         </section>
       </ScrollBlurSection>
 
-      {/* ─────────────────────────────────────────────────────────────
-          2a. Social Proof Logo Strip (Dedicated Section Below Hero Fold)
-         ───────────────────────────────────────────────────────────── */}
-      <ScrollBlurSection maxScale={1.03} maxBlur={5} minOpacity={0.5}>
-        <section className="py-12 sm:py-16 bg-transparent w-full border-t border-slate-200/50 dark:border-white/10 dark:border-white/10">
-          <div className="w-full max-w-[1640px] mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="bg-[#F8F9FA] dark:bg-[#0D0D0E] rounded-3xl py-7 px-8 border border-slate-150/80 dark:border-white/10 max-w-[1360px] 2xl:max-w-[1440px] mx-auto">
-              <p className="text-xs sm:text-sm font-semibold text-slate-800 dark:text-slate-300 mb-6 text-center">
-                Trusted by the world&apos;s most innovative teams
-              </p>
-              <div className="flex flex-wrap items-center justify-center gap-10 sm:gap-14">
-                {/* Contentful */}
-                <div className="flex items-center gap-2">
-                  <div className="w-5 h-5 rounded-full border-[3.5px] border-t-[#0040C8] border-r-[#FFBC00] border-b-[#E62C4E] border-l-transparent -rotate-45" />
-                  <span className="font-bold text-slate-900 dark:text-slate-100 tracking-tight text-base sm:text-lg">contentful</span>
-                </div>
 
-                {/* Haskell */}
-                <div className="flex items-center gap-2">
-                  <div className="flex items-center font-mono font-black text-[#5D4F85] text-lg tracking-tighter">
-                    <span>&gt;&gt;</span>
-                    <span className="text-sm font-bold ml-0.5">=</span>
-                  </div>
-                  <span className="font-bold text-slate-900 dark:text-slate-100 tracking-tight text-base sm:text-lg">Haskell</span>
-                </div>
-
-                {/* Eventbrite */}
-                <div className="flex items-center">
-                  <span className="font-bold text-[#F05537] tracking-tight text-base sm:text-lg lowercase">eventbrite</span>
-                </div>
-
-                {/* Airwallex */}
-                <div className="flex items-center gap-2">
-                  <svg className="w-5 h-5 shrink-0" viewBox="0 0 24 24" fill="none">
-                    <path d="M4 17L10 6L14 13L18 6L21 17H17L14 10L10 17H4Z" fill="#FF4D4D" />
-                  </svg>
-                  <span className="font-bold text-slate-900 dark:text-slate-100 tracking-tight text-base sm:text-lg">Airwallex</span>
-                </div>
-
-                {/* Meteor */}
-                <div className="flex items-center gap-0.5">
-                  <span className="font-extrabold text-slate-900 dark:text-slate-100 tracking-wider text-base sm:text-lg flex items-center">
-                    METE
-                    <span className="inline-flex items-center justify-center text-[#DE4F4F] mx-0.5">
-                      <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none">
-                        <circle cx="12" cy="12" r="3.5" fill="#DE4F4F" />
-                        <path d="M12 4L12 7M12 17L12 20M4 12L7 12M17 12L20 12M6 6L8 8M16 16L18 18M6 18L8 16M16 8L18 6" stroke="#DE4F4F" strokeWidth="2" strokeLinecap="round" />
-                      </svg>
-                    </span>
-                    R
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-      </ScrollBlurSection>
 
       {/* ─────────────────────────────────────────────────────────────
           2. Category Work Showcase (Interactive Tabs & Doer Dashboard Mockup)
@@ -350,7 +386,7 @@ export const LandingPage: React.FC = () => {
              * 4 Interactive Fanned-Out Perspective Cards
           ───────────────────────────────────────────────────────────── */}
       <ScrollBlurSection id="workspace-preview" maxScale={1.04} maxBlur={6} minOpacity={0.4}>
-        <section className="py-12 sm:py-16 bg-transparent w-full text-center border-t border-slate-200/50 dark:border-white/10">
+        <section className="py-6 sm:py-10 lg:py-12 bg-transparent w-full text-center border-t border-slate-200/50 dark:border-white/10">
           <div className="w-full max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-12">
             {/* Lime Green Pill Badge */}
             <div className="inline-flex items-center px-4 py-1 rounded-full text-xs sm:text-sm font-semibold bg-[#D4F870] text-slate-950 font-semibold mb-3.5 shadow-2xs">
@@ -492,14 +528,14 @@ export const LandingPage: React.FC = () => {
                     </div>
 
                     {/* 03 Frontend Dev */}
-                    <div className="flex items-center justify-between p-2.5 rounded-xl border border-blue-200 bg-blue-50/30 transition-all">
+                    <div className="flex items-center justify-between p-2.5 rounded-xl border border-orange-200 bg-orange-50/40 transition-all">
                       <div className="flex items-center gap-2">
-                        <span className="bg-blue-100 text-blue-800 border border-blue-200 px-1.5 py-0.5 rounded text-[11px] font-medium">
+                        <span className="bg-orange-100 text-[#D95236] border border-orange-200 px-1.5 py-0.5 rounded text-[11px] font-medium">
                           03
                         </span>
-                        <span className="text-xs font-medium text-blue-800">Frontend (68%)</span>
+                        <span className="text-xs font-medium text-orange-950 dark:text-orange-200">Frontend (68%)</span>
                       </div>
-                      <span className="text-[10px] font-bold text-blue-700">Review</span>
+                      <span className="text-[10px] font-bold text-[#EE6B50]">Review</span>
                     </div>
                   </div>
                 </div>
@@ -571,7 +607,7 @@ export const LandingPage: React.FC = () => {
               * Harmonized font-normal Heading & font-medium Card Titles
           ───────────────────────────────────────────────────────────── */}
       <ScrollBlurSection id="capabilities" maxScale={1.04} maxBlur={6} minOpacity={0.4}>
-        <section className="py-10 sm:py-14 bg-transparent w-full text-center">
+        <section className="py-6 sm:py-10 lg:py-12 bg-transparent w-full text-center">
           <div className="w-full max-w-[1300px] mx-auto px-6 sm:px-10 lg:px-12">
             {/* Lime Green Pill Badge */}
             <div className="inline-flex items-center px-3.5 py-1 rounded-full text-xs font-semibold bg-[#D4F870] text-slate-950 font-semibold mb-3 shadow-2xs">
@@ -587,9 +623,9 @@ export const LandingPage: React.FC = () => {
 
             {/* 3 Value Cards Grid */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8 sm:mt-10 text-left">
-              {/* Card 1: Purple Accent */}
-              <div className="bg-white dark:bg-[#0D0D0E] rounded-2xl p-7 border border-[#E9E4FD] dark:border-[#332A5E] shadow-xs hover:shadow-md transition-all">
-                <div className="w-12 h-12 rounded-xl bg-[#8B7CF8] text-white flex items-center justify-center mb-5 shadow-xs">
+              {/* Card 1: Sunset Coral Accent */}
+              <div className="bg-white dark:bg-[#0D0D0E] rounded-2xl p-7 border border-[#FED7CF] dark:border-[#5E2A20] shadow-xs hover:shadow-md transition-all">
+                <div className="w-12 h-12 rounded-xl bg-gradient-to-b from-[#FA795C] to-[#D95236] text-white flex items-center justify-center mb-5 shadow-xs">
                   <Zap className="w-6 h-6 text-white" />
                 </div>
                 <h3 className="text-lg font-medium text-slate-950 dark:text-white tracking-tight mb-2">
@@ -636,7 +672,7 @@ export const LandingPage: React.FC = () => {
              * Harmonized font-normal Heading & Clean Card Typography
           ───────────────────────────────────────────────────────────── */}
       <ScrollBlurSection id="features" maxScale={1.04} maxBlur={6} minOpacity={0.4}>
-        <section className="py-10 sm:py-14 bg-transparent w-full text-center">
+        <section className="py-6 sm:py-10 lg:py-12 bg-transparent w-full text-center">
           <div className="w-full max-w-[1300px] mx-auto px-6 sm:px-10 lg:px-12">
             {/* Lime Green Pill Badge */}
             <div className="inline-flex items-center px-3.5 py-1 rounded-full text-xs font-semibold bg-[#D4F870] text-slate-950 font-semibold mb-3 shadow-2xs">
@@ -675,9 +711,9 @@ export const LandingPage: React.FC = () => {
               {/* Right Column (7 cols): Split Top & Bottom */}
               <div className="lg:col-span-7 flex flex-col gap-6">
                 {/* Top Sub-Card: Supervisor Team Coordination */}
-                <div className="bg-[#EBE7FD] dark:bg-[#151124] rounded-3xl p-6 sm:p-8 border border-[#DFD9FC] dark:border-[#382E6B] flex flex-col md:flex-row items-center justify-between gap-6">
+                <div className="bg-[#FDECE7] dark:bg-[#24130F] rounded-3xl p-6 sm:p-8 border border-[#FCD3C9] dark:border-[#4D2319] flex flex-col md:flex-row items-center justify-between gap-6">
                   <div className="w-full md:w-5/12">
-                    <span className="inline-block px-3 py-1 rounded-full text-[11px] font-semibold bg-[#8B7CF8] text-white mb-3">
+                    <span className="inline-block px-3 py-1 rounded-full text-[11px] font-semibold bg-gradient-to-b from-[#FA795C] to-[#D95236] text-white mb-3">
                       Behind The Scenes
                     </span>
                     <h3 className="text-xl sm:text-2xl font-medium text-slate-950 dark:text-white leading-snug">
@@ -695,7 +731,7 @@ export const LandingPage: React.FC = () => {
                       <span>Assigned Project Supervisor</span>
                     </div>
 
-                    <div className="p-2.5 rounded-xl bg-purple-50/70 border border-purple-100 mb-3 flex items-center justify-between">
+                    <div className="p-2.5 rounded-xl bg-[#FEF3F0] border border-[#FCD3C9] dark:bg-[#2A1713] dark:border-[#4E271D] mb-3 flex items-center justify-between">
                       <div className="flex items-center gap-2.5">
                         <img
                           className="w-8 h-8 rounded-full object-cover border"
@@ -719,7 +755,7 @@ export const LandingPage: React.FC = () => {
                       </div>
                       <div className="flex items-center justify-between py-1 border-b border-slate-100 dark:border-white/10">
                         <span>Backend & Database APIs</span>
-                        <span className="font-semibold text-blue-600">In Progress</span>
+                        <span className="font-semibold text-[#EE6B50]">In Progress</span>
                       </div>
                       <div className="flex items-center justify-between py-1">
                         <span>Automated CI/CD Pipeline</span>
@@ -794,18 +830,18 @@ export const LandingPage: React.FC = () => {
              * Bold Heading & Symmetrical Connected Mind-Map Network
           ───────────────────────────────────────────────────────────── */}
       <ScrollBlurSection id="integrations" maxScale={1.04} maxBlur={6} minOpacity={0.4}>
-        <section className="py-12 sm:py-20 bg-transparent w-full text-center overflow-hidden">
+        <section className="py-6 sm:py-10 lg:py-14 bg-transparent w-full text-center overflow-hidden">
           <div className="w-full max-w-[1640px] 2xl:max-w-[1720px] mx-auto px-3 sm:px-6 lg:px-8">
             {/* Lime Green Pill Badge */}
             <div className="inline-flex items-center px-4 py-1 rounded-full text-xs sm:text-sm font-semibold bg-[#D4F870] text-slate-950 font-semibold mb-3.5 shadow-2xs">
-              Ecosystem & Tools
+              Full-Cycle Delivery Network
             </div>
 
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium text-slate-950 dark:text-white tracking-tight leading-[1.15]">
-              Seamless Integration with Your Workflow
+              How Your Work Gets Done on AssignX
             </h2>
             <p className="mt-2.5 text-sm sm:text-base text-slate-600 dark:text-slate-300 max-w-2xl mx-auto leading-relaxed font-normal">
-              Connect your existing tools to AssignX. Access Figma files, preview Vercel deployments, receive Slack notifications, and download itemized tax invoices effortlessly.
+              From your initial request to final sign-off, AssignX coordinates vetted experts, enforces rigorous supervisor QA, and secures your funds with milestone escrow.
             </p>
 
             {/* Full-Width Organic Root Integration Network */}
@@ -820,7 +856,7 @@ export const LandingPage: React.FC = () => {
              * Editorial Blog Titles & Dynamic Grid
           ───────────────────────────────────────────────────────────── */}
       <ScrollBlurSection id="insights" maxScale={1.04} maxBlur={6} minOpacity={0.4}>
-        <section className="py-10 sm:py-14 bg-transparent w-full text-center">
+        <section className="py-6 sm:py-10 lg:py-12 bg-transparent w-full text-center">
           <div className="w-full max-w-[1300px] mx-auto px-6 sm:px-10 lg:px-12">
             {/* Lime Green Pill Badge */}
             <div className="inline-flex items-center px-3.5 py-1 rounded-full text-xs font-semibold bg-[#D4F870] text-slate-950 font-semibold mb-3 shadow-2xs">
@@ -910,7 +946,7 @@ export const LandingPage: React.FC = () => {
         {/* ─────────────────────────────────────────────────────────────
             8. Testimonials Section (Dual-Row Marquee)
            ───────────────────────────────────────────────────────────── */}
-        <section id="testimonials" className="py-8 sm:py-10 bg-transparent w-full overflow-hidden">
+        <section id="testimonials" className="py-6 sm:py-8 bg-transparent w-full overflow-hidden">
           {/* Left-Aligned Compact Header */}
           <div className="w-full max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-12 mb-4 sm:mb-5 text-left">
             <h2 className="text-3xl sm:text-4xl lg:text-[40px] font-medium text-slate-950 dark:text-white tracking-tight leading-[1.15]">
@@ -924,40 +960,40 @@ export const LandingPage: React.FC = () => {
           {/* Dual Staggered Horizontal Marquee Rows with Edge Gradient Fades */}
           <div className="relative w-full overflow-hidden">
             {/* Edge Gradient Masks */}
-            <div className="pointer-events-none absolute inset-y-0 left-0 w-14 sm:w-28 bg-gradient-to-r from-[#FAF8F5] via-[#FAF8F5]/80 to-transparent dark:from-black dark:via-black/80 dark:to-transparent z-10" />
-            <div className="pointer-events-none absolute inset-y-0 right-0 w-14 sm:w-28 bg-gradient-to-l from-[#FAF8F5] via-[#FAF8F5]/80 to-transparent dark:from-black dark:via-black/80 dark:to-transparent z-10" />
+            <div className="pointer-events-none absolute inset-y-0 left-0 w-6 sm:w-20 lg:w-28 bg-gradient-to-r from-[#FAF8F5] via-[#FAF8F5]/80 to-transparent dark:from-black dark:via-black/80 dark:to-transparent z-10" />
+            <div className="pointer-events-none absolute inset-y-0 right-0 w-6 sm:w-20 lg:w-28 bg-gradient-to-l from-[#FAF8F5] via-[#FAF8F5]/80 to-transparent dark:from-black dark:via-black/80 dark:to-transparent z-10" />
 
             {/* Row 1 */}
-            <div className="flex mb-3.5 overflow-hidden">
-              <div className="animate-marquee-left flex gap-4 shrink-0 py-0.5">
+            <div className="flex mb-2.5 sm:mb-3.5 overflow-hidden">
+              <div className="animate-marquee-left flex gap-2.5 sm:gap-4 shrink-0 py-0.5">
                 {[...row1Testimonials, ...row1Testimonials].map((item, idx) => (
                   <div
                     key={idx}
-                    className="w-[290px] sm:w-[345px] shrink-0 p-5 sm:p-5.5 bg-[#F8F9FA] dark:bg-[#0D0D0E] rounded-xl sm:rounded-2xl border border-slate-200/60 dark:border-white/10 flex flex-col justify-between text-left hover:border-slate-300 dark:hover:border-slate-700 hover:bg-[#F5F6F8] dark:hover:bg-[#141416] transition-all cursor-default"
+                    className="w-[210px] sm:w-[290px] md:w-[340px] shrink-0 p-3.5 sm:p-5 bg-[#F8F9FA] dark:bg-[#0D0D0E] rounded-xl sm:rounded-2xl border border-slate-200/60 dark:border-white/10 flex flex-col justify-between text-left hover:border-slate-300 dark:hover:border-slate-700 hover:bg-[#F5F6F8] dark:hover:bg-[#141416] transition-all cursor-default"
                   >
-                    <p className="text-slate-800 dark:text-slate-200 text-xs sm:text-[12.5px] leading-relaxed font-normal mb-4">
+                    <p className="text-slate-800 dark:text-slate-200 text-[11px] sm:text-xs md:text-[12.5px] leading-relaxed font-normal mb-2.5 sm:mb-4">
                       &ldquo;{item.quote}&rdquo;
                     </p>
 
-                    <div className="flex items-center justify-between pt-3 border-t border-slate-200/50 dark:border-white/10 mt-auto">
-                      <div className="flex items-center gap-2">
+                    <div className="flex items-center justify-between pt-2 sm:pt-3 border-t border-slate-200/50 dark:border-white/10 mt-auto">
+                      <div className="flex items-center gap-1.5 sm:gap-2">
                         <img
-                          className="w-7 h-7 rounded-full object-cover shrink-0"
+                          className="w-5.5 h-5.5 sm:w-7 sm:h-7 rounded-full object-cover shrink-0"
                           src={item.avatar}
                           alt={item.author}
                         />
                         <div>
-                          <h4 className="text-xs font-medium text-slate-900 dark:text-white leading-tight">
+                          <h4 className="text-[11px] sm:text-xs font-medium text-slate-900 dark:text-white leading-tight">
                             {item.author}
                           </h4>
-                          <p className="text-[10px] text-slate-400 font-normal">
+                          <p className="text-[9px] sm:text-[10px] text-slate-400 font-normal">
                             {item.role}
                           </p>
                         </div>
                       </div>
 
-                      <div className="flex items-center gap-1.5 text-xs font-semibold text-slate-900 dark:text-slate-200 opacity-90">
-                        {item.companyIcon && <span className="text-[11px]">{item.companyIcon}</span>}
+                      <div className="flex items-center gap-1 text-[10.5px] sm:text-xs font-semibold text-slate-900 dark:text-slate-200 opacity-90">
+                        {item.companyIcon && <span className="text-[10px] sm:text-[11px]">{item.companyIcon}</span>}
                         <span>{item.companyName}</span>
                       </div>
                     </div>
@@ -968,35 +1004,35 @@ export const LandingPage: React.FC = () => {
 
             {/* Row 2 (Staggered Movement) */}
             <div className="flex overflow-hidden">
-              <div className="animate-marquee-right flex gap-4 shrink-0 py-0.5">
+              <div className="animate-marquee-right flex gap-2.5 sm:gap-4 shrink-0 py-0.5">
                 {[...row2Testimonials, ...row2Testimonials].map((item, idx) => (
                   <div
                     key={idx}
-                    className="w-[290px] sm:w-[345px] shrink-0 p-5 sm:p-5.5 bg-[#F8F9FA] dark:bg-[#0D0D0E] rounded-xl sm:rounded-2xl border border-slate-200/60 dark:border-white/10 flex flex-col justify-between text-left hover:border-slate-300 dark:hover:border-slate-700 hover:bg-[#F5F6F8] dark:hover:bg-[#161E31] transition-all cursor-default"
+                    className="w-[210px] sm:w-[290px] md:w-[340px] shrink-0 p-3.5 sm:p-5 bg-[#F8F9FA] dark:bg-[#0D0D0E] rounded-xl sm:rounded-2xl border border-slate-200/60 dark:border-white/10 flex flex-col justify-between text-left hover:border-slate-300 dark:hover:border-slate-700 hover:bg-[#F5F6F8] dark:hover:bg-[#161E31] transition-all cursor-default"
                   >
-                    <p className="text-slate-800 dark:text-slate-200 text-xs sm:text-[12.5px] leading-relaxed font-normal mb-4">
+                    <p className="text-slate-800 dark:text-slate-200 text-[11px] sm:text-xs md:text-[12.5px] leading-relaxed font-normal mb-2.5 sm:mb-4">
                       &ldquo;{item.quote}&rdquo;
                     </p>
 
-                    <div className="flex items-center justify-between pt-3 border-t border-slate-200/50 dark:border-white/10 mt-auto">
-                      <div className="flex items-center gap-2">
+                    <div className="flex items-center justify-between pt-2 sm:pt-3 border-t border-slate-200/50 dark:border-white/10 mt-auto">
+                      <div className="flex items-center gap-1.5 sm:gap-2">
                         <img
-                          className="w-7 h-7 rounded-full object-cover shrink-0"
+                          className="w-5.5 h-5.5 sm:w-7 sm:h-7 rounded-full object-cover shrink-0"
                           src={item.avatar}
                           alt={item.author}
                         />
                         <div>
-                          <h4 className="text-xs font-medium text-slate-900 dark:text-white leading-tight">
+                          <h4 className="text-[11px] sm:text-xs font-medium text-slate-900 dark:text-white leading-tight">
                             {item.author}
                           </h4>
-                          <p className="text-[10px] text-slate-400 font-normal">
+                          <p className="text-[9px] sm:text-[10px] text-slate-400 font-normal">
                             {item.role}
                           </p>
                         </div>
                       </div>
 
-                      <div className="flex items-center gap-1.5 text-xs font-semibold text-slate-900 dark:text-slate-200 opacity-90">
-                        {item.companyIcon && <span className="text-[11px]">{item.companyIcon}</span>}
+                      <div className="flex items-center gap-1 text-[10.5px] sm:text-xs font-semibold text-slate-900 dark:text-slate-200 opacity-90">
+                        {item.companyIcon && <span className="text-[10px] sm:text-[11px]">{item.companyIcon}</span>}
                         <span>{item.companyName}</span>
                       </div>
                     </div>
@@ -1285,7 +1321,7 @@ export const LandingPage: React.FC = () => {
             </p>
 
             <div className="mt-5 rounded-2xl bg-slate-950 aspect-video flex flex-col items-center justify-center text-white relative overflow-hidden border border-slate-800">
-              <div className="w-14 h-14 rounded-full bg-[#F5CD52] text-slate-950 flex items-center justify-center shadow-md cursor-pointer hover:scale-110 transition-transform">
+              <div className="w-14 h-14 rounded-full bg-gradient-to-b from-[#FA795C] to-[#D95236] text-white flex items-center justify-center shadow-lg shadow-[#EE6B50]/30 cursor-pointer hover:scale-110 transition-transform">
                 <Play className="w-5 h-5 fill-current ml-0.5" />
               </div>
               <span className="text-xs text-slate-400 mt-3 font-medium">Click to Play 2-Min Interactive Overview</span>
@@ -1298,7 +1334,7 @@ export const LandingPage: React.FC = () => {
                   setShowDemoModal(false);
                   handleAuthAndNavigate('/create');
                 }}
-                className="bg-[#8B7CF8] hover:bg-[#7867f6] text-white font-medium px-6 py-2.5 rounded-full text-xs shadow-xs transition-all cursor-pointer"
+                className="bg-gradient-to-b from-[#FA795C] to-[#D95236] hover:brightness-105 active:scale-98 text-white font-medium px-6 py-2.5 rounded-full text-xs shadow-xs transition-all cursor-pointer"
               >
                 + Create Work Request
               </button>
