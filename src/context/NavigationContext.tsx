@@ -1,8 +1,8 @@
-/* Client-Side Hash Router for AssignX */
+/* Clean HTML5 Pathname Router for AssignX (No # signs) */
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
 export interface RouteInfo {
-  path: string; // e.g., '/dashboard', '/work', '/work/proj-1', '/create', '/messages', etc.
+  path: string; // e.g., '/', '/landing', '/dashboard', '/work', '/work/proj-1', '/create', etc.
   params: Record<string, string>;
   query: Record<string, string>;
 }
@@ -15,22 +15,21 @@ interface NavigationContextType {
 
 const NavigationContext = createContext<NavigationContextType | undefined>(undefined);
 
-function parseHash(hash: string): RouteInfo {
-  // Remove leading '#' or '#/'
-  let clean = hash.replace(/^#\/?/, '');
-  if (!clean) {
-    clean = 'landing';
+function parsePath(pathname: string, search: string = window.location.search): RouteInfo {
+  // Normalize pathname
+  let clean = pathname.trim();
+  if (!clean || clean === '') {
+    clean = '/';
   }
 
-  const [pathPart, queryPart] = clean.split('?');
   const query: Record<string, string> = {};
-  if (queryPart) {
-    new URLSearchParams(queryPart).forEach((val, key) => {
+  if (search) {
+    new URLSearchParams(search).forEach((val, key) => {
       query[key] = val;
     });
   }
 
-  const segments = pathPart.split('/').filter(Boolean);
+  const segments = clean.split('/').filter(Boolean);
   const params: Record<string, string> = {};
 
   if (segments[0] === 'work' && segments[1]) {
@@ -42,35 +41,52 @@ function parseHash(hash: string): RouteInfo {
     params.requestId = segments[1];
   }
 
+  // If root or empty, path is '/'
+  const path = segments.length === 0 ? '/' : '/' + segments[0];
+
   return {
-    path: '/' + (segments[0] || 'landing'),
+    path,
     params,
     query
   };
 }
 
 export const NavigationProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [currentRoute, setCurrentRoute] = useState<RouteInfo>(() =>
-    parseHash(window.location.hash)
-  );
+  const [currentRoute, setCurrentRoute] = useState<RouteInfo>(() => {
+    // If there was a legacy hash, strip it and normalize
+    if (window.location.hash) {
+      const cleanFromHash = window.location.hash.replace(/^#\/?/, '');
+      if (cleanFromHash && cleanFromHash !== 'landing' && cleanFromHash !== 'dashboard') {
+        window.history.replaceState({}, '', '/' + cleanFromHash);
+        return parsePath('/' + cleanFromHash);
+      } else {
+        window.history.replaceState({}, '', '/');
+        return parsePath('/');
+      }
+    }
+    return parsePath(window.location.pathname);
+  });
 
   useEffect(() => {
-    const handleHashChange = () => {
-      setCurrentRoute(parseHash(window.location.hash));
+    // Clean up any stray hash immediately
+    if (window.location.hash) {
+      window.history.replaceState({}, '', window.location.pathname || '/');
+    }
+
+    const handlePopState = () => {
+      setCurrentRoute(parsePath(window.location.pathname));
       window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
-    window.addEventListener('hashchange', handleHashChange);
-    if (!window.location.hash) {
-      window.location.hash = '#/dashboard';
-    }
-
-    return () => window.removeEventListener('hashchange', handleHashChange);
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
   }, []);
 
   const navigate = (route: string) => {
-    const targetHash = route.startsWith('#') ? route : `#/${route.replace(/^\//, '')}`;
-    window.location.hash = targetHash;
+    const cleanRoute = route.startsWith('/') ? route : `/${route}`;
+    window.history.pushState({}, '', cleanRoute);
+    setCurrentRoute(parsePath(cleanRoute));
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const goBack = () => {
@@ -92,3 +108,4 @@ export const useNavigation = () => {
   }
   return context;
 };
+

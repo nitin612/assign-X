@@ -23,14 +23,13 @@ const AppRouter: React.FC = () => {
   const { currentRoute } = useNavigation();
   const { isLoggedIn } = useApp();
 
-  // If not logged in, or on /landing, render full Landing Page
-  if (!isLoggedIn || currentRoute.path === '/landing') {
+  // When opening the site (initial root / or /landing) or if not logged in, render the Landing Page
+  if (currentRoute.path === '/landing' || currentRoute.path === '/' || !isLoggedIn) {
     return <LandingPage />;
   }
 
   const renderCurrentPage = () => {
     switch (currentRoute.path) {
-      case '/':
       case '/dashboard':
         return <DashboardPage />;
 
