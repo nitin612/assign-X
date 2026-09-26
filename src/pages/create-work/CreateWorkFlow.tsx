@@ -17,6 +17,8 @@ import {
   UploadCloud,
   Check,
   Plus,
+  Shield,
+  Clock,
   CheckCircle2,
   Video,
   Bot
@@ -358,20 +360,8 @@ export const CreateWorkFlow: React.FC = () => {
             </div>
           </div>
 
-          {/* Primary Action Button directly beneath text input */}
-          <div className="flex justify-end">
-            <button
-              className="w-full sm:w-auto flex items-center justify-center gap-2 px-7 py-3.5 rounded-2xl bg-gradient-to-b from-[#FA795C] to-[#D95236] hover:brightness-105 active:scale-98 text-white font-semibold text-sm shadow-[0_4px_18px_rgba(238,107,80,0.35)] hover:shadow-[0_6px_22px_rgba(238,107,80,0.45)] disabled:opacity-40 disabled:pointer-events-none transition-all cursor-pointer"
-              disabled={!formData.outcomeDescription.trim()}
-              onClick={handleNext}
-            >
-              <span>Continue to Category</span>
-              <ArrowRight size={16} />
-            </button>
-          </div>
-
           {/* Quick Preset Inspiration Cards */}
-          <div className="pt-2">
+          <div>
             <div className="flex items-center justify-between mb-3">
               <span className="text-xs font-semibold text-slate-600 dark:text-zinc-400">
                 Or pick a popular project starting point:
@@ -406,6 +396,43 @@ export const CreateWorkFlow: React.FC = () => {
                 </div>
               ))}
             </div>
+          </div>
+
+          {/* 3 Value Pillars / Trust Guarantees */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
+            <div className="flex items-center gap-3 p-3.5 rounded-2xl bg-stone-100/60 dark:bg-zinc-900/40 border border-stone-200/60 dark:border-zinc-800/60">
+              <Shield size={18} className="text-[#EE6B50] shrink-0" />
+              <div>
+                <div className="text-xs font-semibold text-slate-900 dark:text-white">100% Escrow Protected</div>
+                <div className="text-[11px] text-slate-500 dark:text-zinc-400">Funds released on milestone approval</div>
+              </div>
+            </div>
+            <div className="flex items-center gap-3 p-3.5 rounded-2xl bg-stone-100/60 dark:bg-zinc-900/40 border border-stone-200/60 dark:border-zinc-800/60">
+              <CheckCircle2 size={18} className="text-emerald-600 shrink-0" />
+              <div>
+                <div className="text-xs font-semibold text-slate-900 dark:text-white">Dedicated Supervisor</div>
+                <div className="text-[11px] text-slate-500 dark:text-zinc-400">Direct technical lead manages QA</div>
+              </div>
+            </div>
+            <div className="flex items-center gap-3 p-3.5 rounded-2xl bg-stone-100/60 dark:bg-zinc-900/40 border border-stone-200/60 dark:border-zinc-800/60">
+              <Clock size={18} className="text-amber-600 shrink-0" />
+              <div>
+                <div className="text-xs font-semibold text-slate-900 dark:text-white">Scoping within 2h</div>
+                <div className="text-[11px] text-slate-500 dark:text-zinc-400">Milestone timeline formulated fast</div>
+              </div>
+            </div>
+          </div>
+
+          {/* Bottom Next Step Button */}
+          <div className="flex justify-end pt-3">
+            <button
+              className="flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-b from-[#FA795C] to-[#D95236] hover:brightness-105 active:scale-98 shadow-md text-white font-semibold text-sm shadow-sm hover:shadow-md disabled:opacity-40 disabled:pointer-events-none transition-all cursor-pointer"
+              disabled={!formData.outcomeDescription.trim()}
+              onClick={handleNext}
+            >
+              <span>Continue to Category</span>
+              <ArrowRight size={16} />
+            </button>
           </div>
         </div>
       )}

@@ -106,45 +106,31 @@ export const HeroWorkflow: React.FC<HeroWorkflowProps> = ({ children }) => {
 
         {/* SVG Curved Connecting Paths */}
         <svg
-          className="absolute inset-0 w-full h-full pointer-events-none drop-shadow-md"
+          className="absolute inset-0 w-full h-full pointer-events-none"
           viewBox="0 0 1560 750"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
           <defs>
-            {/* Top Gradient (Coral -> Rose -> Purple) */}
+            {/* Top Gradient (Coral -> Violet) with userSpaceOnUse */}
             <linearGradient id="hw-wide-top-grad" gradientUnits="userSpaceOnUse" x1="220" y1="40" x2="1050" y2="40">
-              <stop offset="0%" stopColor="#EE6B50" />
-              <stop offset="50%" stopColor="#F43F5E" />
-              <stop offset="100%" stopColor="#A855F7" />
-            </linearGradient>
-
-            {/* Top-Right to Right (Purple -> Indigo -> Pink) */}
-            <linearGradient id="hw-wide-tr-grad" gradientUnits="userSpaceOnUse" x1="1010" y1="40" x2="1425" y2="200">
-              <stop offset="0%" stopColor="#A855F7" />
-              <stop offset="50%" stopColor="#6366F1" />
-              <stop offset="100%" stopColor="#3B82F6" />
-            </linearGradient>
-
-            {/* Right Gradient (Blue -> Pink -> Coral) */}
-            <linearGradient id="hw-wide-right-grad" gradientUnits="userSpaceOnUse" x1="1425" y1="180" x2="1425" y2="680">
-              <stop offset="0%" stopColor="#3B82F6" />
-              <stop offset="50%" stopColor="#EC4899" />
-              <stop offset="100%" stopColor="#F43F5E" />
-            </linearGradient>
-
-            {/* Bottom-Right to Bottom-Center (Pink -> Orange -> Cyan) */}
-            <linearGradient id="hw-wide-bottom-grad" gradientUnits="userSpaceOnUse" x1="1425" y1="710" x2="600" y2="710">
-              <stop offset="0%" stopColor="#F43F5E" />
-              <stop offset="50%" stopColor="#FB923C" />
-              <stop offset="100%" stopColor="#06B6D4" />
-            </linearGradient>
-
-            {/* Bottom-Left to Left-Top (Cyan -> Emerald -> Coral) */}
-            <linearGradient id="hw-wide-left-grad" gradientUnits="userSpaceOnUse" x1="600" y1="710" x2="135" y2="160">
-              <stop offset="0%" stopColor="#06B6D4" />
-              <stop offset="50%" stopColor="#10B981" />
+              <stop offset="0%" stopColor="#FF6B6B" />
+              <stop offset="45%" stopColor="#FF85A2" />
               <stop offset="100%" stopColor="#EE6B50" />
+            </linearGradient>
+
+            {/* Right Gradient (Violet -> Rose) */}
+            <linearGradient id="hw-wide-right-grad" gradientUnits="userSpaceOnUse" x1="1425" y1="180" x2="1425" y2="680">
+              <stop offset="0%" stopColor="#EE6B50" />
+              <stop offset="50%" stopColor="#C4B5FD" />
+              <stop offset="100%" stopColor="#FF758F" />
+            </linearGradient>
+
+            {/* Bottom Gradient (Rose -> Slate) */}
+            <linearGradient id="hw-wide-bottom-grad" gradientUnits="userSpaceOnUse" x1="1425" y1="710" x2="135" y2="710">
+              <stop offset="0%" stopColor="#FF758F" />
+              <stop offset="50%" stopColor="#CBD5E1" />
+              <stop offset="100%" stopColor="#E2E8F0" />
             </linearGradient>
           </defs>
 
@@ -152,7 +138,7 @@ export const HeroWorkflow: React.FC<HeroWorkflowProps> = ({ children }) => {
           <path
             d="M 245 95 C 310 95, 330 40, 385 40"
             stroke="url(#hw-wide-top-grad)"
-            strokeWidth="2.25"
+            strokeWidth="2.5"
             strokeLinecap="round"
           />
 
@@ -160,15 +146,15 @@ export const HeroWorkflow: React.FC<HeroWorkflowProps> = ({ children }) => {
           <path
             d="M 580 40 L 870 40"
             stroke="url(#hw-wide-top-grad)"
-            strokeWidth="2.25"
+            strokeWidth="2.5"
             strokeLinecap="round"
           />
 
           {/* 3. UI/UX Design right (1010, 40) -> Mobile App top (1425, 110) */}
           <path
             d="M 1010 40 C 1220 40, 1425 45, 1425 110"
-            stroke="url(#hw-wide-tr-grad)"
-            strokeWidth="2.25"
+            stroke="#C4B5FD"
+            strokeWidth="2.5"
             strokeLinecap="round"
           />
 
@@ -176,7 +162,7 @@ export const HeroWorkflow: React.FC<HeroWorkflowProps> = ({ children }) => {
           <path
             d="M 1425 200 C 1425 320, 1530 390, 1530 450 C 1530 510, 1425 490, 1425 555"
             stroke="url(#hw-wide-right-grad)"
-            strokeWidth="2.25"
+            strokeWidth="2.5"
             strokeLinecap="round"
           />
 
@@ -184,61 +170,61 @@ export const HeroWorkflow: React.FC<HeroWorkflowProps> = ({ children }) => {
           <path
             d="M 1425 645 C 1425 710, 1320 710, 1210 710"
             stroke="url(#hw-wide-bottom-grad)"
-            strokeWidth="2.25"
+            strokeWidth="2.5"
             strokeLinecap="round"
           />
 
           {/* 6. SEO & Growth left (950, 710) -> Cloud & DevOps right (765, 715) */}
           <path
             d="M 950 710 C 890 710, 830 715, 765 715"
-            stroke="url(#hw-wide-bottom-grad)"
-            strokeWidth="2.25"
+            stroke="#CBD5E1"
+            strokeWidth="2.5"
             strokeLinecap="round"
           />
 
           {/* 7. Cloud & DevOps left (595, 715) -> Brand Identity right (445, 710) */}
           <path
             d="M 595 715 L 445 710"
-            stroke="url(#hw-wide-left-grad)"
-            strokeWidth="2.25"
+            stroke="#CBD5E1"
+            strokeWidth="2.5"
             strokeLinecap="round"
           />
 
           {/* 8. Brand Identity left (275, 710) -> Backend & Database bottom (135, 645) */}
           <path
             d="M 275 710 C 190 710, 135 690, 135 645"
-            stroke="url(#hw-wide-left-grad)"
-            strokeWidth="2.25"
+            stroke="#CBD5E1"
+            strokeWidth="2.5"
             strokeLinecap="round"
           />
 
           {/* 9. Backend & Database top (135, 555) -> Web Dev card bottom (135, 160) */}
           <path
             d="M 135 555 L 135 160"
-            stroke="url(#hw-wide-left-grad)"
-            strokeWidth="2.25"
+            stroke="#E2E8F0"
+            strokeWidth="2.5"
             strokeLinecap="round"
           />
 
-          {/* High-Contrast Anchor Connection Pins with Glowing Core */}
-          <circle cx="245" cy="95" r="3.5" fill="#EE6B50" stroke="#ffffff" strokeWidth="1.5" className="drop-shadow-xs" />
-          <circle cx="385" cy="40" r="3.5" fill="#EE6B50" stroke="#ffffff" strokeWidth="1.5" className="drop-shadow-xs" />
-          <circle cx="580" cy="40" r="3.5" fill="#F43F5E" stroke="#ffffff" strokeWidth="1.5" className="drop-shadow-xs" />
-          <circle cx="870" cy="40" r="3.5" fill="#F43F5E" stroke="#ffffff" strokeWidth="1.5" className="drop-shadow-xs" />
-          <circle cx="1010" cy="40" r="3.5" fill="#A855F7" stroke="#ffffff" strokeWidth="1.5" className="drop-shadow-xs" />
-          <circle cx="1425" cy="110" r="3.5" fill="#3B82F6" stroke="#ffffff" strokeWidth="1.5" className="drop-shadow-xs" />
-          <circle cx="1425" cy="200" r="3.5" fill="#3B82F6" stroke="#ffffff" strokeWidth="1.5" className="drop-shadow-xs" />
-          <circle cx="1425" cy="555" r="3.5" fill="#EC4899" stroke="#ffffff" strokeWidth="1.5" className="drop-shadow-xs" />
-          <circle cx="1425" cy="645" r="3.5" fill="#F43F5E" stroke="#ffffff" strokeWidth="1.5" className="drop-shadow-xs" />
-          <circle cx="1210" cy="710" r="3.5" fill="#FB923C" stroke="#ffffff" strokeWidth="1.5" className="drop-shadow-xs" />
-          <circle cx="950" cy="710" r="3.5" fill="#FB923C" stroke="#ffffff" strokeWidth="1.5" className="drop-shadow-xs" />
-          <circle cx="765" cy="715" r="3.5" fill="#06B6D4" stroke="#ffffff" strokeWidth="1.5" className="drop-shadow-xs" />
-          <circle cx="595" cy="715" r="3.5" fill="#06B6D4" stroke="#ffffff" strokeWidth="1.5" className="drop-shadow-xs" />
-          <circle cx="445" cy="710" r="3.5" fill="#10B981" stroke="#ffffff" strokeWidth="1.5" className="drop-shadow-xs" />
-          <circle cx="275" cy="710" r="3.5" fill="#10B981" stroke="#ffffff" strokeWidth="1.5" className="drop-shadow-xs" />
-          <circle cx="135" cy="645" r="3.5" fill="#10B981" stroke="#ffffff" strokeWidth="1.5" className="drop-shadow-xs" />
-          <circle cx="135" cy="555" r="3.5" fill="#EE6B50" stroke="#ffffff" strokeWidth="1.5" className="drop-shadow-xs" />
-          <circle cx="135" cy="160" r="3.5" fill="#EE6B50" stroke="#ffffff" strokeWidth="1.5" className="drop-shadow-xs" />
+          {/* Precise Anchor Connection Dots */}
+          <circle cx="245" cy="95" r="3.5" fill="#1E293B" />
+          <circle cx="385" cy="40" r="3.5" fill="#1E293B" />
+          <circle cx="580" cy="40" r="3.5" fill="#1E293B" />
+          <circle cx="870" cy="40" r="3.5" fill="#1E293B" />
+          <circle cx="1010" cy="40" r="3.5" fill="#1E293B" />
+          <circle cx="1425" cy="110" r="3.5" fill="#1E293B" />
+          <circle cx="1425" cy="200" r="3.5" fill="#1E293B" />
+          <circle cx="1425" cy="555" r="3.5" fill="#1E293B" />
+          <circle cx="1425" cy="645" r="3.5" fill="#1E293B" />
+          <circle cx="1210" cy="710" r="3.5" fill="#1E293B" />
+          <circle cx="950" cy="710" r="3.5" fill="#1E293B" />
+          <circle cx="765" cy="715" r="3.5" fill="#1E293B" />
+          <circle cx="595" cy="715" r="3.5" fill="#1E293B" />
+          <circle cx="445" cy="710" r="3.5" fill="#1E293B" />
+          <circle cx="275" cy="710" r="3.5" fill="#1E293B" />
+          <circle cx="135" cy="645" r="3.5" fill="#1E293B" />
+          <circle cx="135" cy="555" r="3.5" fill="#1E293B" />
+          <circle cx="135" cy="160" r="3.5" fill="#1E293B" />
         </svg>
 
         {/* ─────────────────────────────────────────────────────────────

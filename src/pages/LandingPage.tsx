@@ -26,10 +26,9 @@ import {
 } from 'lucide-react';
 import { IntegrationHub } from '../components/landing/IntegrationHub';
 import { HeroWorkflow } from '../components/landing/HeroWorkflow';
-import { ServicesDirectorySection } from '../components/landing/ServicesDirectorySection';
+import { WorkCategoriesShowcase } from '../components/landing/WorkCategoriesShowcase';
 import { ScrollBlurSection } from '../components/landing/ScrollBlurSection';
 import { BackgroundMesh } from '../components/landing/BackgroundMesh';
-import heroVideo from '../assets/backvideo.mp4';
 
 export const LandingPage: React.FC = () => {
   const { navigate } = useNavigation();
@@ -149,23 +148,6 @@ export const LandingPage: React.FC = () => {
       {/* Whole Background Ambient Mesh Gradient & Micro-Grid Canvas */}
       <BackgroundMesh />
 
-      {/* Video Background Covering Top Navigation Bar & Hero Section */}
-      <div className="absolute top-0 left-0 right-0 h-[100vh] lg:h-[108vh] min-h-[750px] max-h-[1150px] overflow-hidden pointer-events-none select-none z-0">
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="w-full h-full object-cover opacity-85 dark:opacity-70 brightness-95 contrast-110 dark:brightness-60 dark:contrast-120"
-        >
-          <source src={heroVideo} type="video/mp4" />
-        </video>
-        {/* Soft Ambient Tint Scrim to ensure crisp text legibility while keeping video motion vibrant */}
-        <div className="absolute inset-0 bg-[#FAF8F5]/70 dark:bg-black/65 backdrop-blur-[1px]" />
-        {/* Smooth Bottom Fade into Page Content */}
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#FAF8F5] dark:to-[#000000]" />
-      </div>
-
       {/* ─────────────────────────────────────────────────────────────
           1. Clean Navbar (Fixed Top, Sticking Reliably During Scroll)
              * Brand: Pure text "AssignX" (No Logo Icon, No Subtitle)
@@ -174,9 +156,9 @@ export const LandingPage: React.FC = () => {
              * Dynamic scroll transition: seamless at top, frosted glass on scroll
           ───────────────────────────────────────────────────────────── */}
       <header
-        className={`fixed top-0 left-0 right-0 z-50 w-full transition-all duration-300 ${isScrolled
+        className={`fixed top-0 left-0 right-0 z-50 w-full transition-all duration-200 ${isScrolled
           ? 'bg-[#FAF8F5]/90 dark:bg-[#000000]/90 backdrop-blur-md shadow-xs border-b border-stone-200/60 dark:border-white/10'
-          : 'bg-transparent border-b border-transparent'
+          : 'bg-transparent'
           }`}
       >
         <div className="w-full max-w-[1640px] mx-auto px-4 sm:px-8 lg:px-12 h-16 flex items-center justify-between">
@@ -195,15 +177,18 @@ export const LandingPage: React.FC = () => {
             <a href="#overview" className="text-slate-950 dark:text-white font-semibold hover:text-[#EE6B50] transition-colors">
               Home
             </a>
-            <a href="#services" className="text-slate-800 dark:text-slate-200 hover:text-[#EE6B50] dark:hover:text-white transition-colors">
-              Services
-            </a>
             <a href="#capabilities" className="text-slate-800 dark:text-slate-200 hover:text-[#EE6B50] dark:hover:text-white transition-colors flex items-center gap-1">
               <span>Features</span>
               <span className="text-[10px] text-slate-500">▾</span>
             </a>
+            <a href="#work-categories" className="text-slate-800 dark:text-slate-200 hover:text-[#EE6B50] dark:hover:text-white transition-colors">
+              Categories
+            </a>
             <a href="#integrations" className="text-slate-800 dark:text-slate-200 hover:text-[#EE6B50] dark:hover:text-white transition-colors">
               Workflow
+            </a>
+            <a href="#insights" className="text-slate-800 dark:text-slate-200 hover:text-[#EE6B50] dark:hover:text-white transition-colors">
+              Blog
             </a>
             <a href="#testimonials" className="text-slate-800 dark:text-slate-200 hover:text-[#EE6B50] dark:hover:text-white transition-colors">
               Testimonials
@@ -264,18 +249,18 @@ export const LandingPage: React.FC = () => {
                 Home
               </a>
               <a
-                href="#services"
-                onClick={() => setMobileMenuOpen(false)}
-                className="py-1.5 px-2 rounded-lg hover:bg-black/5 dark:hover:bg-white/5 hover:text-[#EE6B50] transition-colors"
-              >
-                Services
-              </a>
-              <a
                 href="#capabilities"
                 onClick={() => setMobileMenuOpen(false)}
                 className="py-1.5 px-2 rounded-lg hover:bg-black/5 dark:hover:bg-white/5 hover:text-[#EE6B50] transition-colors"
               >
                 Features & Oversight
+              </a>
+              <a
+                href="#work-categories"
+                onClick={() => setMobileMenuOpen(false)}
+                className="py-1.5 px-2 rounded-lg hover:bg-black/5 dark:hover:bg-white/5 hover:text-[#EE6B50] transition-colors"
+              >
+                Work Categories & Demo
               </a>
               <a
                 href="#integrations"
@@ -333,10 +318,10 @@ export const LandingPage: React.FC = () => {
           ───────────────────────────────────────────────────────────── */}
       <ScrollBlurSection id="overview" maxScale={1.05} maxBlur={8} minOpacity={0.35}>
         <section className="relative min-h-0 lg:min-h-[calc(100vh-4.5rem)] flex flex-col justify-center items-center pt-2 pb-2 lg:py-2 w-full bg-transparent overflow-hidden">
-          <div className="relative z-10 w-full max-w-[1800px] mx-auto px-2 sm:px-4 lg:px-6 text-center my-auto">
+          <div className="w-full max-w-[1800px] mx-auto px-2 sm:px-4 lg:px-6 text-center my-auto">
             <HeroWorkflow>
               {/* Rating / Trustpilot Badge */}
-              <div className="inline-flex items-center gap-1.5 sm:gap-2.5 px-3.5 py-1.5 sm:px-4 sm:py-1.5 rounded-full bg-white/95 dark:bg-zinc-900/90 border border-slate-200/90 dark:border-white/10 text-[11px] sm:text-xs md:text-sm font-medium text-slate-800 dark:text-slate-200 mb-3 sm:mb-4 whitespace-nowrap shadow-xs backdrop-blur-md">
+              <div className="inline-flex items-center gap-1.5 sm:gap-2.5 px-3 py-1 sm:px-4 sm:py-1 rounded-full bg-stone-100/90 dark:bg-zinc-800/80 border border-slate-200/80 dark:border-white/10 text-[11px] sm:text-xs md:text-sm font-normal text-slate-700 dark:text-slate-300 mb-3 sm:mb-4 whitespace-nowrap shadow-2xs">
                 <div className="flex items-center text-amber-400 gap-0.5 shrink-0">
                   <Star className="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-amber-400 text-amber-400" />
                   <Star className="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-amber-400 text-amber-400" />
@@ -344,23 +329,23 @@ export const LandingPage: React.FC = () => {
                   <Star className="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-amber-400 text-amber-400" />
                   <Star className="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-amber-400 text-amber-400" />
                 </div>
-                <span className="font-semibold text-slate-950 dark:text-slate-100">2.5k+ Delivered</span>
+                <span className="font-semibold text-slate-900 dark:text-slate-100">2.5k+ Delivered</span>
                 <span className="text-slate-300 dark:text-slate-600">|</span>
-                <span className="font-semibold text-slate-950 dark:text-slate-100">4.98</span>
+                <span className="font-semibold text-slate-900 dark:text-slate-100">4.98</span>
                 <span className="text-emerald-700 dark:text-emerald-400 font-semibold">★ Trustpilot</span>
               </div>
 
               {/* Hero Headline — 3-Line Punchy Value Proposition with Gradient Accent */}
-              <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-[58px] xl:text-[62px] font-bold text-slate-950 dark:text-white tracking-tight leading-[1.14] max-w-[820px] mx-auto text-center px-1 drop-shadow-xs">
+              <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-[58px] xl:text-[62px] font-medium text-slate-950 dark:text-white tracking-tight leading-[1.14] max-w-[820px] mx-auto text-center px-1">
                 Assign any task. <br />
                 Done by experts. <br />
-                <span className="bg-gradient-to-r from-[#FF6B6B] via-[#FF758F] to-[#E855DE] bg-clip-text text-transparent font-extrabold">
+                <span className="bg-gradient-to-r from-[#FF6B6B] via-[#FF758F] to-[#E855DE] bg-clip-text text-transparent font-semibold">
                   Supervised by us.
                 </span>
               </h1>
 
               {/* Subtitle */}
-              <p className="mt-3 sm:mt-5 text-xs sm:text-base md:text-lg text-slate-800 dark:text-slate-200 font-medium max-w-sm sm:max-w-[580px] mx-auto leading-relaxed px-2">
+              <p className="mt-3 sm:mt-5 text-xs sm:text-base md:text-lg text-slate-600 dark:text-slate-300 max-w-sm sm:max-w-[560px] mx-auto leading-relaxed font-normal px-2">
                 No finding freelancers. No managing workers. AssignX pairs you with a dedicated supervisor who directs the team, runs QA, and delivers ready-to-approve milestones.
               </p>
 
@@ -388,10 +373,10 @@ export const LandingPage: React.FC = () => {
 
 
       {/* ─────────────────────────────────────────────────────────────
-          2. Services Directory Catalog ("Get more services done with doers")
+          2. Category Work Showcase (Interactive Tabs & Doer Dashboard Mockup)
          ───────────────────────────────────────────────────────────── */}
-      <ScrollBlurSection id="services" maxScale={1.04} maxBlur={6} minOpacity={0.4}>
-        <ServicesDirectorySection />
+      <ScrollBlurSection id="work-categories" maxScale={1.04} maxBlur={6} minOpacity={0.4}>
+        <WorkCategoriesShowcase />
       </ScrollBlurSection>
 
       {/* ─────────────────────────────────────────────────────────────
