@@ -9,10 +9,8 @@ import { useNavigation } from '../context/NavigationContext';
 import { useApp } from '../context/AppContext';
 import { useTheme } from '../context/ThemeContext';
 import {
-  Star,
   Sun,
   Moon,
-  Play,
   Paperclip,
   MessageSquare,
   Zap,
@@ -25,7 +23,7 @@ import {
   FileText
 } from 'lucide-react';
 import { IntegrationHub } from '../components/landing/IntegrationHub';
-import { HeroWorkflow } from '../components/landing/HeroWorkflow';
+import { FiverrHeroSection } from '../components/landing/FiverrHeroSection';
 import { WorkCategoriesShowcase } from '../components/landing/WorkCategoriesShowcase';
 import { ScrollBlurSection } from '../components/landing/ScrollBlurSection';
 import { BackgroundMesh } from '../components/landing/BackgroundMesh';
@@ -312,62 +310,13 @@ export const LandingPage: React.FC = () => {
       <div className="h-16 w-full shrink-0" aria-hidden="true" />
 
       {/* ─────────────────────────────────────────────────────────────
-          2. Hero Section with Perimeter Workflow Loop
-             * Clean, structured mobile and desktop hero
-             * Centered Headline, Subtitle, Ratings & Dual CTAs
+          2. Fiverr / Upwork-Inspired Hero Section with Interactive Search & Live Video
+             * Split 2-column layout (Search + Category suggestions + Video Showcase)
+             * Real-time Supervisor & Escrow live badges
+             * Trusted company logo cloud & popular service cards
           ───────────────────────────────────────────────────────────── */}
-      <ScrollBlurSection id="overview" maxScale={1.05} maxBlur={8} minOpacity={0.35}>
-        <section className="relative min-h-0 lg:min-h-[calc(100vh-4.5rem)] flex flex-col justify-center items-center pt-2 pb-2 lg:py-2 w-full bg-transparent overflow-hidden">
-          <div className="w-full max-w-[1800px] mx-auto px-2 sm:px-4 lg:px-6 text-center my-auto">
-            <HeroWorkflow>
-              {/* Rating / Trustpilot Badge */}
-              <div className="inline-flex items-center gap-1.5 sm:gap-2.5 px-3 py-1 sm:px-4 sm:py-1 rounded-full bg-stone-100/90 dark:bg-zinc-800/80 border border-slate-200/80 dark:border-white/10 text-[11px] sm:text-xs md:text-sm font-normal text-slate-700 dark:text-slate-300 mb-3 sm:mb-4 whitespace-nowrap shadow-2xs">
-                <div className="flex items-center text-amber-400 gap-0.5 shrink-0">
-                  <Star className="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-amber-400 text-amber-400" />
-                  <Star className="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-amber-400 text-amber-400" />
-                  <Star className="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-amber-400 text-amber-400" />
-                  <Star className="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-amber-400 text-amber-400" />
-                  <Star className="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-amber-400 text-amber-400" />
-                </div>
-                <span className="font-semibold text-slate-900 dark:text-slate-100">2.5k+ Delivered</span>
-                <span className="text-slate-300 dark:text-slate-600">|</span>
-                <span className="font-semibold text-slate-900 dark:text-slate-100">4.98</span>
-                <span className="text-emerald-700 dark:text-emerald-400 font-semibold">★ Trustpilot</span>
-              </div>
-
-              {/* Hero Headline — 3-Line Punchy Value Proposition with Gradient Accent */}
-              <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-[58px] xl:text-[62px] font-medium text-slate-950 dark:text-white tracking-tight leading-[1.14] max-w-[820px] mx-auto text-center px-1">
-                Assign any task. <br />
-                Done by experts. <br />
-                <span className="bg-gradient-to-r from-[#FF6B6B] via-[#FF758F] to-[#E855DE] bg-clip-text text-transparent font-semibold">
-                  Supervised by us.
-                </span>
-              </h1>
-
-              {/* Subtitle */}
-              <p className="mt-3 sm:mt-5 text-xs sm:text-base md:text-lg text-slate-600 dark:text-slate-300 max-w-sm sm:max-w-[560px] mx-auto leading-relaxed font-normal px-2">
-                No finding freelancers. No managing workers. AssignX pairs you with a dedicated supervisor who directs the team, runs QA, and delivers ready-to-approve milestones.
-              </p>
-
-              {/* Dual Action CTAs */}
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mt-5 sm:mt-7 w-full sm:w-auto px-4 max-w-sm sm:max-w-none mx-auto">
-                <button
-                  onClick={() => handleAuthAndNavigate('/create')}
-                  className="w-full sm:w-auto bg-gradient-to-b from-[#FA795C] to-[#D95236] hover:brightness-105 active:scale-98 text-white font-semibold px-7 sm:px-9 py-3 sm:py-4 rounded-full text-sm sm:text-base md:text-lg shadow-[0_4px_18px_rgba(238,107,80,0.35)] hover:shadow-[0_6px_22px_rgba(238,107,80,0.45)] transition-all cursor-pointer"
-                >
-                  + Create New Work
-                </button>
-                <button
-                  onClick={() => setShowDemoModal(true)}
-                  className="w-full sm:w-auto bg-[#111111] hover:bg-slate-800 text-white font-medium px-7 sm:px-9 py-3 sm:py-4 rounded-full text-sm sm:text-base md:text-lg shadow-xs hover:shadow-md transition-all cursor-pointer flex items-center justify-center gap-2"
-                >
-                  <Play className="w-4 h-4 fill-white" />
-                  <span>See How It Works</span>
-                </button>
-              </div>
-            </HeroWorkflow>
-          </div>
-        </section>
+      <ScrollBlurSection id="overview" maxScale={1.03} maxBlur={6} minOpacity={0.4}>
+        <FiverrHeroSection onOpenDemo={() => setShowDemoModal(true)} />
       </ScrollBlurSection>
 
 
@@ -1298,43 +1247,81 @@ export const LandingPage: React.FC = () => {
       {/* ─────────────────────────────────────────────────────────────
           Video Walkthrough / Consultation Modal
           ───────────────────────────────────────────────────────────── */}
+      {/* ─────────────────────────────────────────────────────────────
+          Enhanced Interactive Video Walkthrough Modal
+          ───────────────────────────────────────────────────────────── */}
       {showDemoModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-fade-in">
-          <div className="bg-white dark:bg-[#0D0D0E] rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-slate-200 dark:border-white/10 relative">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/75 backdrop-blur-md animate-fade-in">
+          <div className="bg-white dark:bg-[#0E0E12] rounded-3xl max-w-2xl w-full p-5 sm:p-7 shadow-2xl border border-slate-200 dark:border-white/10 relative max-h-[92vh] overflow-y-auto">
             <button
               onClick={() => setShowDemoModal(false)}
-              className="absolute top-5 right-5 w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 flex items-center justify-center text-slate-600 dark:text-slate-300 transition-colors cursor-pointer"
+              className="absolute top-4 right-4 sm:top-5 sm:right-5 w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 flex items-center justify-center text-slate-600 dark:text-slate-300 transition-colors cursor-pointer z-10"
               aria-label="Close modal"
             >
               <X className="w-4 h-4" />
             </button>
 
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-[#D4F870] text-slate-950 font-semibold mb-3">
-              Platform Walkthrough
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-[#D4F870] text-slate-950 mb-2.5">
+              Supervised Delivery Walkthrough
             </div>
 
-            <h3 className="text-2xl font-normal text-slate-950 dark:text-white tracking-tight">
-              How AssignX Works
+            <h3 className="text-xl sm:text-2xl font-bold text-slate-950 dark:text-white tracking-tight">
+              How AssignX Manages Your Deliverables
             </h3>
-            <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-2 leading-relaxed">
-              Tell AssignX what you need → Track work → Communicate with your supervisor → Approve results → Make milestone payments. Zero freelancer management on your side.
+            <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-1 leading-relaxed">
+              From intake to final code review: See how a dedicated supervisor orchestrates vetted talent and releases escrow payments only on approval.
             </p>
 
-            <div className="mt-5 rounded-2xl bg-slate-950 aspect-video flex flex-col items-center justify-center text-white relative overflow-hidden border border-slate-800">
-              <div className="w-14 h-14 rounded-full bg-gradient-to-b from-[#FA795C] to-[#D95236] text-white flex items-center justify-center shadow-lg shadow-[#EE6B50]/30 cursor-pointer hover:scale-110 transition-transform">
-                <Play className="w-5 h-5 fill-current ml-0.5" />
-              </div>
-              <span className="text-xs text-slate-400 mt-3 font-medium">Click to Play 2-Min Interactive Overview</span>
+            {/* Video Player Container */}
+            <div className="mt-4 rounded-2xl bg-black aspect-video w-full relative overflow-hidden border border-slate-800 shadow-xl">
+              <video
+                src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4"
+                poster="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1200&auto=format&fit=crop&q=80"
+                controls
+                autoPlay
+                playsInline
+                className="w-full h-full object-cover"
+              />
             </div>
 
-            <div className="mt-6 flex items-center justify-between pt-4 border-t border-slate-150">
-              <span className="text-xs text-slate-500">Ready to start your project?</span>
+            {/* 3 Interactive Walkthrough Steps */}
+            <div className="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-2.5 text-left">
+              <div className="p-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200/80 dark:border-white/10">
+                <span className="text-[10px] font-bold text-[#EE6B50] uppercase tracking-wider block">Step 01</span>
+                <p className="text-xs font-bold text-slate-900 dark:text-white mt-0.5">Describe Your Task</p>
+                <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5 leading-snug">
+                  Guided 6-step wizard locks in requirements & budget.
+                </p>
+              </div>
+
+              <div className="p-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200/80 dark:border-white/10">
+                <span className="text-[10px] font-bold text-emerald-500 uppercase tracking-wider block">Step 02</span>
+                <p className="text-xs font-bold text-slate-900 dark:text-white mt-0.5">Supervisor Runs QA</p>
+                <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5 leading-snug">
+                  Tech lead directs talent and verifies code & milestones.
+                </p>
+              </div>
+
+              <div className="p-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200/80 dark:border-white/10">
+                <span className="text-[10px] font-bold text-indigo-500 uppercase tracking-wider block">Step 03</span>
+                <p className="text-xs font-bold text-slate-900 dark:text-white mt-0.5">Approve & Release</p>
+                <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5 leading-snug">
+                  100% escrow protection. Funds released on approval.
+                </p>
+              </div>
+            </div>
+
+            {/* Footer Modal CTA */}
+            <div className="mt-5 flex flex-col sm:flex-row items-center justify-between gap-3 pt-4 border-t border-slate-150 dark:border-white/10">
+              <span className="text-xs text-slate-500 dark:text-slate-400 text-center sm:text-left">
+                Start your sprint with zero management hassle.
+              </span>
               <button
                 onClick={() => {
                   setShowDemoModal(false);
                   handleAuthAndNavigate('/create');
                 }}
-                className="bg-gradient-to-b from-[#FA795C] to-[#D95236] hover:brightness-105 active:scale-98 text-white font-medium px-6 py-2.5 rounded-full text-xs shadow-xs transition-all cursor-pointer"
+                className="w-full sm:w-auto bg-gradient-to-b from-[#FA795C] to-[#D95236] hover:brightness-105 active:scale-98 text-white font-semibold px-6 py-2.5 rounded-full text-xs shadow-md shadow-[#EE6B50]/30 transition-all cursor-pointer"
               >
                 + Create Work Request
               </button>

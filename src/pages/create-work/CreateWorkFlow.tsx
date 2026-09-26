@@ -17,8 +17,6 @@ import {
   UploadCloud,
   Check,
   Plus,
-  Shield,
-  Clock,
   CheckCircle2,
   Video,
   Bot
