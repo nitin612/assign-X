@@ -113,70 +113,70 @@ export const CreateWorkFlow: React.FC = () => {
     bgColor: string;
     description: string;
   }[] = [
-    {
-      category: 'Website Development',
-      icon: Globe,
-      color: '#6366F1',
-      bgColor: '#EEF2FF',
-      description: 'Web applications, responsive company sites, e-commerce, and high-converting portals.'
-    },
-    {
-      category: 'Mobile App Development',
-      icon: Smartphone,
-      color: '#3B82F6',
-      bgColor: '#EFF6FF',
-      description: 'Native iOS & Android apps, React Native systems, and App Store releases.'
-    },
-    {
-      category: 'UI/UX Design',
-      icon: Layout,
-      color: '#8B7CF8',
-      bgColor: '#F5F3FF',
-      description: 'Figma interactive prototypes, design systems, wireframes, and UX research.'
-    },
-    {
-      category: 'Video Editing',
-      icon: Video,
-      color: '#F59E0B',
-      bgColor: '#FEF3C7',
-      description: '4K commercial editing, 3D motion graphics, YouTube series, and viral short-form reels.'
-    },
-    {
-      category: 'AI & Automation',
-      icon: Bot,
-      color: '#10B981',
-      bgColor: '#ECFDF5',
-      description: 'Custom AI agents, LLM integrations, RAG knowledge bases, and n8n workflow automations.'
-    },
-    {
-      category: 'Graphic Design',
-      icon: Palette,
-      color: '#EC4899',
-      bgColor: '#FDF2F8',
-      description: 'Brand identity, modern logo marks, marketing collateral, and 3D visual assets.'
-    },
-    {
-      category: 'Digital Marketing',
-      icon: Megaphone,
-      color: '#EF4444',
-      bgColor: '#FEF2F2',
-      description: 'SEO strategy, technical audit, performance ad creatives, and conversion optimization.'
-    },
-    {
-      category: 'Content Writing',
-      icon: PenTool,
-      color: '#0891B2',
-      bgColor: '#ECFEFF',
-      description: 'Technical copywriting, product manuals, brand copy, and narrative positioning.'
-    },
-    {
-      category: 'Other',
-      icon: Cpu,
-      color: '#475569',
-      bgColor: '#F1F5F9',
-      description: 'DevOps, cloud migration, data engineering, custom APIs, or multi-disciplinary.'
-    }
-  ];
+      {
+        category: 'Website Development',
+        icon: Globe,
+        color: '#6366F1',
+        bgColor: '#EEF2FF',
+        description: 'Web applications, responsive company sites, e-commerce, and high-converting portals.'
+      },
+      {
+        category: 'Mobile App Development',
+        icon: Smartphone,
+        color: '#3B82F6',
+        bgColor: '#EFF6FF',
+        description: 'Native iOS & Android apps, React Native systems, and App Store releases.'
+      },
+      {
+        category: 'UI/UX Design',
+        icon: Layout,
+        color: '#8B7CF8',
+        bgColor: '#F5F3FF',
+        description: 'Figma interactive prototypes, design systems, wireframes, and UX research.'
+      },
+      {
+        category: 'Video Editing',
+        icon: Video,
+        color: '#F59E0B',
+        bgColor: '#FEF3C7',
+        description: '4K commercial editing, 3D motion graphics, YouTube series, and viral short-form reels.'
+      },
+      {
+        category: 'AI & Automation',
+        icon: Bot,
+        color: '#10B981',
+        bgColor: '#ECFDF5',
+        description: 'Custom AI agents, LLM integrations, RAG knowledge bases, and n8n workflow automations.'
+      },
+      {
+        category: 'Graphic Design',
+        icon: Palette,
+        color: '#EC4899',
+        bgColor: '#FDF2F8',
+        description: 'Brand identity, modern logo marks, marketing collateral, and 3D visual assets.'
+      },
+      {
+        category: 'Digital Marketing',
+        icon: Megaphone,
+        color: '#EF4444',
+        bgColor: '#FEF2F2',
+        description: 'SEO strategy, technical audit, performance ad creatives, and conversion optimization.'
+      },
+      {
+        category: 'Content Writing',
+        icon: PenTool,
+        color: '#0891B2',
+        bgColor: '#ECFEFF',
+        description: 'Technical copywriting, product manuals, brand copy, and narrative positioning.'
+      },
+      {
+        category: 'Other',
+        icon: Cpu,
+        color: '#475569',
+        bgColor: '#F1F5F9',
+        description: 'DevOps, cloud migration, data engineering, custom APIs, or multi-disciplinary.'
+      }
+    ];
 
   const stepTitles = [
     'Outcome',
@@ -264,37 +264,33 @@ export const CreateWorkFlow: React.FC = () => {
                     setStep(stepNum);
                   }
                 }}
-                className={`flex items-center gap-2.5 p-2 sm:p-2.5 rounded-xl transition-all ${
-                  isPassed ? 'cursor-pointer hover:bg-stone-50 dark:hover:bg-zinc-800/40' : ''
-                } ${
-                  isActive
+                className={`flex items-center gap-2.5 p-2 sm:p-2.5 rounded-xl transition-all ${isPassed ? 'cursor-pointer hover:bg-stone-50 dark:hover:bg-zinc-800/40' : ''
+                  } ${isActive
                     ? 'bg-orange-50/80 dark:bg-orange-950/50 border border-orange-200 dark:border-orange-900 shadow-2xs'
                     : isPassed
-                    ? 'bg-emerald-50/40 dark:bg-emerald-950/20 border border-emerald-200/60 dark:border-emerald-900/40'
-                    : 'bg-stone-50/60 dark:bg-zinc-800/30 border border-transparent opacity-60'
-                }`}
+                      ? 'bg-emerald-50/40 dark:bg-emerald-950/20 border border-emerald-200/60 dark:border-emerald-900/40'
+                      : 'bg-stone-50/60 dark:bg-zinc-800/30 border border-transparent opacity-60'
+                  }`}
               >
                 <div
-                  className={`w-6 h-6 rounded-full flex items-center justify-center shrink-0 text-xs font-bold transition-all ${
-                    isActive
-                      ? 'bg-gradient-to-b from-[#FA795C] to-[#D95236] text-white shadow-2xs'
-                      : isPassed
+                  className={`w-6 h-6 rounded-full flex items-center justify-center shrink-0 text-xs font-bold transition-all ${isActive
+                    ? 'bg-gradient-to-b from-[#FA795C] to-[#D95236] text-white shadow-2xs'
+                    : isPassed
                       ? 'bg-emerald-500 text-white'
                       : 'bg-stone-200 text-slate-500 dark:bg-zinc-700 dark:text-zinc-400'
-                  }`}
+                    }`}
                 >
                   {isPassed ? <Check size={12} strokeWidth={3} /> : stepNum}
                 </div>
 
                 <div className="min-w-0 flex-1">
                   <div
-                    className={`text-xs font-semibold truncate ${
-                      isActive
-                        ? 'text-[#EE6B50] dark:text-orange-400'
-                        : isPassed
+                    className={`text-xs font-semibold truncate ${isActive
+                      ? 'text-[#EE6B50] dark:text-orange-400'
+                      : isPassed
                         ? 'text-emerald-800 dark:text-emerald-300'
                         : 'text-slate-600 dark:text-zinc-400'
-                    }`}
+                      }`}
                   >
                     {t}
                   </div>
@@ -361,7 +357,18 @@ export const CreateWorkFlow: React.FC = () => {
           </div>
 
           {/* Quick Preset Inspiration Cards */}
-          <div>
+          <div className="pt-2">
+            {/* Primary Action Button directly beneath text input */}
+            <div className="flex justify-end">
+              <button
+                className="w-full sm:w-auto flex items-center justify-center gap-2 px-7 py-3.5 rounded-2xl bg-gradient-to-b from-[#FA795C] to-[#D95236] hover:brightness-105 active:scale-98 text-white font-semibold text-sm shadow-[0_4px_18px_rgba(238,107,80,0.35)] hover:shadow-[0_6px_22px_rgba(238,107,80,0.45)] disabled:opacity-40 disabled:pointer-events-none transition-all cursor-pointer"
+                disabled={!formData.outcomeDescription.trim()}
+                onClick={handleNext}
+              >
+                <span>Continue to Category</span>
+                <ArrowRight size={16} />
+              </button>
+            </div>
             <div className="flex items-center justify-between mb-3">
               <span className="text-xs font-semibold text-slate-600 dark:text-zinc-400">
                 Or pick a popular project starting point:
@@ -397,43 +404,6 @@ export const CreateWorkFlow: React.FC = () => {
               ))}
             </div>
           </div>
-
-          {/* 3 Value Pillars / Trust Guarantees */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
-            <div className="flex items-center gap-3 p-3.5 rounded-2xl bg-stone-100/60 dark:bg-zinc-900/40 border border-stone-200/60 dark:border-zinc-800/60">
-              <Shield size={18} className="text-[#EE6B50] shrink-0" />
-              <div>
-                <div className="text-xs font-semibold text-slate-900 dark:text-white">100% Escrow Protected</div>
-                <div className="text-[11px] text-slate-500 dark:text-zinc-400">Funds released on milestone approval</div>
-              </div>
-            </div>
-            <div className="flex items-center gap-3 p-3.5 rounded-2xl bg-stone-100/60 dark:bg-zinc-900/40 border border-stone-200/60 dark:border-zinc-800/60">
-              <CheckCircle2 size={18} className="text-emerald-600 shrink-0" />
-              <div>
-                <div className="text-xs font-semibold text-slate-900 dark:text-white">Dedicated Supervisor</div>
-                <div className="text-[11px] text-slate-500 dark:text-zinc-400">Direct technical lead manages QA</div>
-              </div>
-            </div>
-            <div className="flex items-center gap-3 p-3.5 rounded-2xl bg-stone-100/60 dark:bg-zinc-900/40 border border-stone-200/60 dark:border-zinc-800/60">
-              <Clock size={18} className="text-amber-600 shrink-0" />
-              <div>
-                <div className="text-xs font-semibold text-slate-900 dark:text-white">Scoping within 2h</div>
-                <div className="text-[11px] text-slate-500 dark:text-zinc-400">Milestone timeline formulated fast</div>
-              </div>
-            </div>
-          </div>
-
-          {/* Bottom Next Step Button */}
-          <div className="flex justify-end pt-3">
-            <button
-              className="flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-b from-[#FA795C] to-[#D95236] hover:brightness-105 active:scale-98 shadow-md text-white font-semibold text-sm shadow-sm hover:shadow-md disabled:opacity-40 disabled:pointer-events-none transition-all cursor-pointer"
-              disabled={!formData.outcomeDescription.trim()}
-              onClick={handleNext}
-            >
-              <span>Continue to Category</span>
-              <ArrowRight size={16} />
-            </button>
-          </div>
         </div>
       )}
 
@@ -465,11 +435,10 @@ export const CreateWorkFlow: React.FC = () => {
                 <div
                   key={cat.category}
                   onClick={() => setFormData({ ...formData, category: cat.category })}
-                  className={`bg-white dark:bg-[#121216] border rounded-2xl p-4.5 cursor-pointer transition-all flex flex-col justify-between ${
-                    isSelected
-                      ? 'border-[#EE6B50] ring-2 ring-orange-500/20 shadow-md -translate-y-0.5'
-                      : 'border-stone-200/80 dark:border-zinc-800/80 hover:border-stone-300 dark:hover:border-zinc-700 shadow-2xs hover:shadow-xs'
-                  }`}
+                  className={`bg-white dark:bg-[#121216] border rounded-2xl p-4.5 cursor-pointer transition-all flex flex-col justify-between ${isSelected
+                    ? 'border-[#EE6B50] ring-2 ring-orange-500/20 shadow-md -translate-y-0.5'
+                    : 'border-stone-200/80 dark:border-zinc-800/80 hover:border-stone-300 dark:hover:border-zinc-700 shadow-2xs hover:shadow-xs'
+                    }`}
                 >
                   <div className="flex items-center justify-between mb-3">
                     <div
@@ -679,11 +648,10 @@ export const CreateWorkFlow: React.FC = () => {
               <button
                 key={amount}
                 type="button"
-                className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer ${
-                  formData.budgetFixed === amount && formData.budgetType === 'fixed'
-                    ? 'bg-gradient-to-b from-[#FA795C] to-[#D95236] text-white shadow-xs'
-                    : 'bg-white dark:bg-zinc-900 text-slate-700 dark:text-zinc-300 border border-stone-200 dark:border-zinc-800 hover:bg-stone-50'
-                }`}
+                className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer ${formData.budgetFixed === amount && formData.budgetType === 'fixed'
+                  ? 'bg-gradient-to-b from-[#FA795C] to-[#D95236] text-white shadow-xs'
+                  : 'bg-white dark:bg-zinc-900 text-slate-700 dark:text-zinc-300 border border-stone-200 dark:border-zinc-800 hover:bg-stone-50'
+                  }`}
                 onClick={() => setFormData({ ...formData, budgetType: 'fixed', budgetFixed: amount })}
               >
                 ₹{amount.toLocaleString('en-IN')}
@@ -694,11 +662,10 @@ export const CreateWorkFlow: React.FC = () => {
           <div className="flex flex-col gap-3">
             {/* Range */}
             <label
-              className={`flex items-start gap-4 p-5 bg-white dark:bg-[#121216] border rounded-2xl cursor-pointer transition-all ${
-                formData.budgetType === 'range'
-                  ? 'border-[#EE6B50] ring-2 ring-orange-500/20 shadow-md'
-                  : 'border-stone-200/80 dark:border-zinc-800/80 hover:border-stone-300'
-              }`}
+              className={`flex items-start gap-4 p-5 bg-white dark:bg-[#121216] border rounded-2xl cursor-pointer transition-all ${formData.budgetType === 'range'
+                ? 'border-[#EE6B50] ring-2 ring-orange-500/20 shadow-md'
+                : 'border-stone-200/80 dark:border-zinc-800/80 hover:border-stone-300'
+                }`}
             >
               <input
                 type="radio"
@@ -743,11 +710,10 @@ export const CreateWorkFlow: React.FC = () => {
 
             {/* Fixed */}
             <label
-              className={`flex items-start gap-4 p-5 bg-white dark:bg-[#121216] border rounded-2xl cursor-pointer transition-all ${
-                formData.budgetType === 'fixed'
-                  ? 'border-[#EE6B50] ring-2 ring-orange-500/20 shadow-md'
-                  : 'border-stone-200/80 dark:border-zinc-800/80 hover:border-stone-300'
-              }`}
+              className={`flex items-start gap-4 p-5 bg-white dark:bg-[#121216] border rounded-2xl cursor-pointer transition-all ${formData.budgetType === 'fixed'
+                ? 'border-[#EE6B50] ring-2 ring-orange-500/20 shadow-md'
+                : 'border-stone-200/80 dark:border-zinc-800/80 hover:border-stone-300'
+                }`}
             >
               <input
                 type="radio"
@@ -780,11 +746,10 @@ export const CreateWorkFlow: React.FC = () => {
 
             {/* Estimate by AssignX */}
             <label
-              className={`flex items-start gap-4 p-5 bg-white dark:bg-[#121216] border rounded-2xl cursor-pointer transition-all ${
-                formData.budgetType === 'estimate'
-                  ? 'border-[#EE6B50] ring-2 ring-orange-500/20 shadow-md'
-                  : 'border-stone-200/80 dark:border-zinc-800/80 hover:border-stone-300'
-              }`}
+              className={`flex items-start gap-4 p-5 bg-white dark:bg-[#121216] border rounded-2xl cursor-pointer transition-all ${formData.budgetType === 'estimate'
+                ? 'border-[#EE6B50] ring-2 ring-orange-500/20 shadow-md'
+                : 'border-stone-200/80 dark:border-zinc-800/80 hover:border-stone-300'
+                }`}
             >
               <input
                 type="radio"
@@ -843,11 +808,10 @@ export const CreateWorkFlow: React.FC = () => {
 
           <div className="flex flex-col gap-3">
             <label
-              className={`flex items-start gap-4 p-5 bg-white dark:bg-[#121216] border rounded-2xl cursor-pointer transition-all ${
-                formData.timelineType === 'asap'
-                  ? 'border-[#EE6B50] ring-2 ring-orange-500/20 shadow-md'
-                  : 'border-stone-200/80 dark:border-zinc-800/80 hover:border-stone-300'
-              }`}
+              className={`flex items-start gap-4 p-5 bg-white dark:bg-[#121216] border rounded-2xl cursor-pointer transition-all ${formData.timelineType === 'asap'
+                ? 'border-[#EE6B50] ring-2 ring-orange-500/20 shadow-md'
+                : 'border-stone-200/80 dark:border-zinc-800/80 hover:border-stone-300'
+                }`}
             >
               <input
                 type="radio"
@@ -867,11 +831,10 @@ export const CreateWorkFlow: React.FC = () => {
             </label>
 
             <label
-              className={`flex items-start gap-4 p-5 bg-white dark:bg-[#121216] border rounded-2xl cursor-pointer transition-all ${
-                formData.timelineType === 'deadline'
-                  ? 'border-[#EE6B50] ring-2 ring-orange-500/20 shadow-md'
-                  : 'border-stone-200/80 dark:border-zinc-800/80 hover:border-stone-300'
-              }`}
+              className={`flex items-start gap-4 p-5 bg-white dark:bg-[#121216] border rounded-2xl cursor-pointer transition-all ${formData.timelineType === 'deadline'
+                ? 'border-[#EE6B50] ring-2 ring-orange-500/20 shadow-md'
+                : 'border-stone-200/80 dark:border-zinc-800/80 hover:border-stone-300'
+                }`}
             >
               <input
                 type="radio"
@@ -902,11 +865,10 @@ export const CreateWorkFlow: React.FC = () => {
             </label>
 
             <label
-              className={`flex items-start gap-4 p-5 bg-white dark:bg-[#121216] border rounded-2xl cursor-pointer transition-all ${
-                formData.timelineType === 'flexible'
-                  ? 'border-[#EE6B50] ring-2 ring-orange-500/20 shadow-md'
-                  : 'border-stone-200/80 dark:border-zinc-800/80 hover:border-stone-300'
-              }`}
+              className={`flex items-start gap-4 p-5 bg-white dark:bg-[#121216] border rounded-2xl cursor-pointer transition-all ${formData.timelineType === 'flexible'
+                ? 'border-[#EE6B50] ring-2 ring-orange-500/20 shadow-md'
+                : 'border-stone-200/80 dark:border-zinc-800/80 hover:border-stone-300'
+                }`}
             >
               <input
                 type="radio"
