@@ -27,6 +27,7 @@ import { FiverrHeroSection } from '../components/landing/FiverrHeroSection';
 import { WorkCategoriesShowcase } from '../components/landing/WorkCategoriesShowcase';
 import { ScrollBlurSection } from '../components/landing/ScrollBlurSection';
 import { BackgroundMesh } from '../components/landing/BackgroundMesh';
+import VariableFontHoverByLetter from '../components/originkit/ui/variable-font-hover';
 
 export const LandingPage: React.FC = () => {
   const { navigate } = useNavigation();
@@ -1234,13 +1235,20 @@ export const LandingPage: React.FC = () => {
         </div>
 
         {/* ─────────────────────────────────────────────────────────
-            Giant Brand Watermark Typography Across the Bottom
-            * Prominently highlighted with crisp gradient depth
+            Giant Brand Variable Font Weight Hover Across the Bottom
+            * Interactive variable typography morphing weight on hover with previous watermark gradient
             ───────────────────────────────────────────────────────── */}
-        <div className="w-full flex items-center justify-center overflow-hidden select-none pointer-events-none mt-2 sm:mt-4 -mb-2 sm:-mb-3">
-          <span className="font-bold text-[17vw] sm:text-[18.5vw] lg:text-[20vw] xl:text-[21.5vw] bg-gradient-to-b from-slate-900/35 via-slate-800/20 to-slate-900/5 dark:from-slate-100/25 dark:via-slate-200/10 dark:to-transparent bg-clip-text text-transparent tracking-tighter leading-[0.85] select-none block w-full text-center whitespace-nowrap">
-            AssignX
-          </span>
+        <div className="w-full flex items-center justify-center overflow-hidden select-none mt-2 sm:mt-4 -mb-2 sm:-mb-3 py-2 cursor-pointer group">
+          <VariableFontHoverByLetter
+            label="AssignX"
+            fromWeight={200}
+            toWeight={650}
+            staggerDuration={45}
+            staggerFrom="center"
+            fontSize="clamp(3.5rem, 19vw, 17rem)"
+            innerClassName="bg-gradient-to-b from-slate-900/35 via-slate-800/20 to-slate-900/5 dark:from-slate-100/25 dark:via-slate-200/10 dark:to-transparent bg-clip-text text-transparent"
+            className="tracking-tight leading-[0.85]"
+          />
         </div>
       </footer>
 
