@@ -194,7 +194,7 @@ export const FiverrHeroSection: React.FC<{ onOpenDemo?: () => void }> = () => {
           1. Clean Hero Panoramic Video Container
          ───────────────────────────────────────────────────────────── */}
       <div className="w-full max-w-[1580px] mx-auto px-3 sm:px-6 lg:px-8">
-        <div className="relative rounded-3xl sm:rounded-[32px] overflow-hidden bg-slate-950 border border-slate-800/80 shadow-2xl shadow-slate-950/40 min-h-[480px] sm:min-h-[520px] lg:min-h-[550px] xl:min-h-[570px] flex flex-col justify-center py-10 sm:py-14 lg:py-16 px-6 sm:px-10 lg:px-14 text-white">
+        <div className="relative rounded-3xl sm:rounded-[32px] overflow-hidden bg-slate-950 border border-slate-800/80 shadow-2xl shadow-slate-950/40 min-h-[520px] sm:min-h-[560px] lg:min-h-[600px] xl:min-h-[630px] flex flex-col justify-center py-12 sm:py-16 lg:py-20 px-6 sm:px-10 lg:px-14 text-white">
           
           {/* Background Video Element (src/assets/backvideo.mp4) */}
           <div className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none select-none z-0">
@@ -396,9 +396,9 @@ export const FiverrHeroSection: React.FC<{ onOpenDemo?: () => void }> = () => {
       {/* ─────────────────────────────────────────────────────────────
           2. Fiverr/Upwork Signature "Trusted By" Client Logo Cloud
          ───────────────────────────────────────────────────────────── */}
-      <div className="mt-5 sm:mt-7 w-full max-w-[1400px] mx-auto px-4 sm:px-8">
-        <div className="pt-3 sm:pt-4 border-t border-slate-200/70 dark:border-white/10 text-center">
-          <p className="text-[11px] sm:text-xs font-bold text-slate-400 dark:text-zinc-500 tracking-wider uppercase mb-3.5">
+      <div className="mt-2.5 sm:mt-3.5 w-full max-w-[1400px] mx-auto px-4 sm:px-8">
+        <div className="pt-2 sm:pt-2.5 border-t border-slate-200/70 dark:border-white/10 text-center">
+          <p className="text-[11px] sm:text-xs font-bold text-slate-400 dark:text-zinc-500 tracking-wider uppercase mb-2.5">
             Trusted by founders & engineering teams building next-gen products
           </p>
 

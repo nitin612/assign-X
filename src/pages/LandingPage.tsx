@@ -142,7 +142,7 @@ export const LandingPage: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen w-full bg-[#FAF8F5] dark:bg-[#000000] text-slate-900 dark:text-slate-100 dark:text-slate-100 font-sans selection:bg-amber-200 dark:selection:bg-indigo-900 selection:text-slate-900 dark:text-slate-100 dark:selection:text-white overflow-x-clip relative transition-colors duration-300">
+    <div className="min-h-screen w-full bg-[#FAF8F5] dark:bg-[#000000] text-slate-900 dark:text-slate-100 font-sans selection:bg-amber-200 dark:selection:bg-indigo-900 selection:text-slate-900 dark:selection:text-white overflow-x-clip relative transition-colors duration-300">
       {/* Whole Background Ambient Mesh Gradient & Micro-Grid Canvas */}
       <BackgroundMesh />
 

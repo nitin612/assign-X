@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useLayoutEffect, useState } from 'react';
 
 type Theme = 'light' | 'dark';
 
@@ -11,33 +11,52 @@ interface ThemeContextType {
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
+const applyThemeToDOM = (theme: Theme) => {
+  if (typeof document === 'undefined') return;
+  const root = document.documentElement;
+  if (theme === 'dark') {
+    root.classList.add('dark');
+  } else {
+    root.classList.remove('dark');
+  }
+};
+
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [theme, setThemeState] = useState<Theme>(() => {
-    const saved = typeof window !== 'undefined' ? (localStorage.getItem('assignx_theme') as Theme | null) : null;
-    if (saved === 'light' || saved === 'dark') {
-      return saved;
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('assignx_theme') as Theme | null;
+      if (saved === 'light' || saved === 'dark') {
+        applyThemeToDOM(saved);
+        return saved;
+      }
+      if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        applyThemeToDOM('dark');
+        return 'dark';
+      }
     }
-    if (typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      return 'dark';
-    }
+    applyThemeToDOM('light');
     return 'light';
   });
 
-  useEffect(() => {
-    const root = document.documentElement;
-    if (theme === 'dark') {
-      root.classList.add('dark');
-    } else {
-      root.classList.remove('dark');
+  useLayoutEffect(() => {
+    applyThemeToDOM(theme);
+    try {
+      localStorage.setItem('assignx_theme', theme);
+    } catch {
+      // Ignore localStorage errors
     }
-    localStorage.setItem('assignx_theme', theme);
   }, [theme]);
 
   const toggleTheme = () => {
-    setThemeState((prev) => (prev === 'light' ? 'dark' : 'light'));
+    setThemeState((prev) => {
+      const nextTheme = prev === 'light' ? 'dark' : 'light';
+      applyThemeToDOM(nextTheme);
+      return nextTheme;
+    });
   };
 
   const setTheme = (newTheme: Theme) => {
+    applyThemeToDOM(newTheme);
     setThemeState(newTheme);
   };
 
@@ -55,3 +74,4 @@ export const useTheme = (): ThemeContextType => {
   }
   return context;
 };
+
