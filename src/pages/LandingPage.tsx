@@ -340,14 +340,14 @@ export const LandingPage: React.FC = () => {
           <div className="w-full max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-12">
             {/* Lime Green Pill Badge */}
             <div className="inline-flex items-center px-4 py-1 rounded-full text-xs sm:text-sm font-semibold bg-[#D4F870] text-slate-950 font-semibold mb-3.5 shadow-2xs">
-              Client Panel Preview
+              Your Client Dashboard
             </div>
 
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium text-slate-950 dark:text-white dark:text-white tracking-tight leading-[1.15]">
-              Real-time Oversight, Zero Micromanagement
+              See Every Update. Do Zero Managing.
             </h2>
             <p className="mt-2.5 text-sm sm:text-base text-slate-600 dark:text-slate-300 max-w-2xl mx-auto leading-relaxed font-normal">
-              Track milestones, collaborate with your appointed supervisor, and monitor active deliverables inside an all-in-one execution hub.
+              Check milestone progress, chat with your supervisor, and review completed work — all from one simple dashboard. No spreadsheets, no status meetings.
             </p>
 
             {/* ─────────────────────────────────────────────────────────
@@ -561,14 +561,14 @@ export const LandingPage: React.FC = () => {
           <div className="w-full max-w-[1300px] mx-auto px-6 sm:px-10 lg:px-12">
             {/* Lime Green Pill Badge */}
             <div className="inline-flex items-center px-3.5 py-1 rounded-full text-xs font-semibold bg-[#D4F870] text-slate-950 font-semibold mb-3 shadow-2xs">
-              Why Choose AssignX
+              How It Works
             </div>
 
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium text-slate-950 dark:text-white tracking-tight leading-[1.15]">
-              How Managed Delivery Protects Your Work
+              Three Steps from Idea to Delivered Product
             </h2>
             <p className="mt-2.5 text-sm sm:text-base text-slate-600 dark:text-slate-300 max-w-2xl mx-auto leading-relaxed font-normal">
-              Traditional marketplaces force you to become an unpaid project manager. AssignX pairs you with dedicated technical supervisors who oversee vetted talent and guarantee milestone delivery.
+              On other platforms, you hire freelancers and hope for the best. On AssignX, a dedicated supervisor manages the team, runs quality checks, and holds payments in escrow until you're satisfied.
             </p>
 
             {/* 3 Value Cards Grid */}
@@ -579,10 +579,10 @@ export const LandingPage: React.FC = () => {
                   <Zap className="w-6 h-6 text-white" />
                 </div>
                 <h3 className="text-lg font-medium text-slate-950 dark:text-white tracking-tight mb-2">
-                  1. Tell Us What You Need
+                  1. Describe What You Need
                 </h3>
                 <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 leading-relaxed font-normal">
-                  No technical jargon or complicated job postings. Simply describe your vision in our 6-step guided intake, select a category, and specify your budget.
+                  No technical terms required. Write what you want to build in plain English, pick a category, and set your budget. Our short guided form does the rest.
                 </p>
               </div>
 
@@ -592,10 +592,10 @@ export const LandingPage: React.FC = () => {
                   <ShieldCheck className="w-6 h-6 text-white" />
                 </div>
                 <h3 className="text-lg font-medium text-slate-950 dark:text-white tracking-tight mb-2">
-                  2. Dedicated Supervisor Oversight
+                  2. A Supervisor Runs the Team
                 </h3>
                 <p className="text-xs sm:text-sm text-slate-500 leading-relaxed font-normal">
-                  An experienced technical supervisor owns your project. They coordinate talent behind the scenes, enforce code quality, run QA, and keep you updated.
+                  We assign you a dedicated technical supervisor. They hire the right people, manage daily work, check code quality, and send you progress updates — so you don't have to.
                 </p>
               </div>
 
@@ -605,10 +605,10 @@ export const LandingPage: React.FC = () => {
                   <Lock className="w-6 h-6 text-slate-950 dark:text-white" />
                 </div>
                 <h3 className="text-lg font-medium text-slate-950 dark:text-white tracking-tight mb-2">
-                  3. Protected Milestone Escrow
+                  3. Pay Only When You're Happy
                 </h3>
                 <p className="text-xs sm:text-sm text-slate-500 leading-relaxed font-normal">
-                  Never pay upfront for incomplete work. Funds are held safely in escrow and released strictly after you inspect, review, and approve each deliverable.
+                  Your money is held securely in escrow. It's only released after you review and approve each piece of work. No surprises, no disputes.
                 </p>
               </div>
             </div>
@@ -626,14 +626,14 @@ export const LandingPage: React.FC = () => {
           <div className="w-full max-w-[1300px] mx-auto px-6 sm:px-10 lg:px-12">
             {/* Lime Green Pill Badge */}
             <div className="inline-flex items-center px-3.5 py-1 rounded-full text-xs font-semibold bg-[#D4F870] text-slate-950 font-semibold mb-3 shadow-2xs">
-              Client Panel Features
+              Platform Features
             </div>
 
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium text-slate-950 dark:text-white tracking-tight leading-[1.15]">
-              Everything You Need to Track, Review & Approve
+              Built So You Stay in Control Without Doing the Work
             </h2>
             <p className="mt-2.5 text-sm sm:text-base text-slate-600 dark:text-slate-300 max-w-2xl mx-auto leading-relaxed font-normal">
-              The AssignX client panel reduces your work to 5 simple steps: Request, Understand, Track, Approve, and Pay. Everything else is handled by AssignX behind the scenes.
+              Your role is simple: share your idea, review progress, and approve the final result. AssignX takes care of everything in between.
             </p>
 
             {/* Bento Grid */}
@@ -647,13 +647,13 @@ export const LandingPage: React.FC = () => {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent flex flex-col justify-end p-8">
                   <div className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-[#D4F870] text-slate-950 font-semibold w-fit mb-3">
-                    Supervisor Channel
+                    Direct Messaging
                   </div>
                   <h3 className="text-xl sm:text-2xl font-medium text-white leading-tight">
-                    Direct Communication <br />With Your Project Lead
+                    Always Know What's <br />Happening With Your Project
                   </h3>
                   <p className="text-xs text-slate-200 mt-2 leading-relaxed font-normal">
-                    Ask questions, provide feedback, and receive milestone previews directly from your assigned supervisor.
+                    Message your supervisor anytime. Get updates, share feedback, and preview completed work before approving it.
                   </p>
                 </div>
               </div>
@@ -664,13 +664,13 @@ export const LandingPage: React.FC = () => {
                 <div className="bg-[#FDECE7] dark:bg-[#24130F] rounded-3xl p-6 sm:p-8 border border-[#FCD3C9] dark:border-[#4D2319] flex flex-col md:flex-row items-center justify-between gap-6">
                   <div className="w-full md:w-5/12">
                     <span className="inline-block px-3 py-1 rounded-full text-[11px] font-semibold bg-gradient-to-b from-[#FA795C] to-[#D95236] text-white mb-3">
-                      Behind The Scenes
+                      Hands-Free Team Management
                     </span>
                     <h3 className="text-xl sm:text-2xl font-medium text-slate-950 dark:text-white leading-snug">
-                      Your Supervisor Manages The Entire Team
+                      We Hire, Manage, and Coordinate the Team For You
                     </h3>
                     <p className="text-xs text-slate-600 dark:text-slate-300 mt-2 leading-relaxed">
-                      You never need to source workers, manage tasks, or run daily standups.
+                      No recruiting, no daily check-ins, no task delegation. Your supervisor handles all of that.
                     </p>
                   </div>
 
@@ -758,13 +758,13 @@ export const LandingPage: React.FC = () => {
                   {/* Card 2: Soft Cyan Overview Card */}
                   <div className="bg-[#E2F7FD] dark:bg-[#081B26] rounded-3xl p-6 border border-[#CEEFF8] dark:border-[#13425A] flex flex-col justify-center items-start">
                     <span className="inline-block px-3 py-1 rounded-full text-[11px] font-semibold bg-[#38BDF8] text-white mb-3">
-                      Action Required Hub
+                      Needs Your Attention
                     </span>
                     <h3 className="text-xl font-normal text-slate-950 dark:text-white leading-snug">
-                      Instant Visibility Into Work Requiring Your Input
+                      See Exactly What Needs Your Input Right Now
                     </h3>
                     <p className="text-xs text-slate-600 mt-2 leading-relaxed">
-                      Review designs, approve completed milestones, or release payments in one click.
+                      Approve a design, sign off on a milestone, or release payment — all in one click.
                     </p>
                   </div>
                 </div>
@@ -784,14 +784,14 @@ export const LandingPage: React.FC = () => {
           <div className="w-full max-w-[1640px] 2xl:max-w-[1720px] mx-auto px-3 sm:px-6 lg:px-8">
             {/* Lime Green Pill Badge */}
             <div className="inline-flex items-center px-4 py-1 rounded-full text-xs sm:text-sm font-semibold bg-[#D4F870] text-slate-950 font-semibold mb-3.5 shadow-2xs">
-              Full-Cycle Delivery Network
+              The AssignX Workflow
             </div>
 
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium text-slate-950 dark:text-white tracking-tight leading-[1.15]">
-              How Your Work Gets Done on AssignX
+              From Your Idea to a Finished Product
             </h2>
             <p className="mt-2.5 text-sm sm:text-base text-slate-600 dark:text-slate-300 max-w-2xl mx-auto leading-relaxed font-normal">
-              From your initial request to final sign-off, AssignX coordinates vetted experts, enforces rigorous supervisor QA, and secures your funds with milestone escrow.
+              You submit a request. We match you with a supervisor and the right team. Work happens. You review and approve. Payments only release when you're satisfied.
             </p>
 
             {/* Full-Width Organic Root Integration Network */}
@@ -810,14 +810,14 @@ export const LandingPage: React.FC = () => {
           <div className="w-full max-w-[1300px] mx-auto px-6 sm:px-10 lg:px-12">
             {/* Lime Green Pill Badge */}
             <div className="inline-flex items-center px-3.5 py-1 rounded-full text-xs font-semibold bg-[#D4F870] text-slate-950 font-semibold mb-3 shadow-2xs">
-              Knowledge & Insights
+              From Our Blog
             </div>
 
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium text-slate-950 dark:text-white tracking-tight leading-[1.15]">
-              Get Smarter with Our Recent Posts
+              Practical Guides for Founders Building with a Team
             </h2>
             <p className="mt-2.5 text-sm sm:text-base text-slate-600 dark:text-slate-300 max-w-2xl mx-auto leading-relaxed font-normal">
-              Actionable guides on managed project delivery, milestone escrow protection, and scaling products without the headache of managing contractors.
+              Learn how to get software built without managing people — from protecting your budget with escrow to running smooth milestone reviews.
             </p>
 
             {/* 5-Card Blog Grid */}
@@ -834,7 +834,7 @@ export const LandingPage: React.FC = () => {
                     Managed Delivery
                   </span>
                   <h4 className="text-sm font-medium text-white leading-snug">
-                    Why Managing Freelancers is Broken (And How Dedicated Supervisors Fix It)
+                    Why Hiring Freelancers Directly Often Fails — And What to Do Instead
                   </h4>
                 </div>
               </div>
@@ -851,7 +851,7 @@ export const LandingPage: React.FC = () => {
                     Client Guide
                   </span>
                   <h4 className="text-base sm:text-lg font-medium text-white leading-snug">
-                    The 5-Step Client Journey: From Plain-English Requirement to Production Launch
+                    How AssignX Takes Your Idea from a Simple Description to a Live Product
                   </h4>
                 </div>
               </div>
@@ -868,7 +868,7 @@ export const LandingPage: React.FC = () => {
                     Budget Security
                   </span>
                   <h4 className="text-sm font-medium text-white leading-snug">
-                    Milestone Escrow: How Smart Founders Protect Their Project Budget
+                    What is Milestone Escrow and Why It Keeps Your Budget Safe
                   </h4>
                 </div>
               </div>
@@ -885,7 +885,7 @@ export const LandingPage: React.FC = () => {
                     Case Study
                   </span>
                   <h4 className="text-sm font-medium text-white leading-snug">
-                    How Founders Build Scalable Software Without Tech Management Overhead
+                    How to Ship Software Without Becoming a Full-Time Project Manager
                   </h4>
                 </div>
               </div>
@@ -900,10 +900,10 @@ export const LandingPage: React.FC = () => {
           {/* Left-Aligned Compact Header */}
           <div className="w-full max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-12 mb-4 sm:mb-5 text-left">
             <h2 className="text-3xl sm:text-4xl lg:text-[40px] font-medium text-slate-950 dark:text-white tracking-tight leading-[1.15]">
-              They Stopped Being <br />The Project Bottleneck
+              What Our Clients <br />Are Saying
             </h2>
             <p className="mt-1.5 text-xs sm:text-sm text-slate-600 max-w-lg leading-relaxed font-normal">
-              Actual founder hours reclaimed, zero worker micromanagement, and verified deliverables shipped on time.
+              Founders and product leaders who handed off the management and got their projects delivered on time.
             </p>
           </div>
 
@@ -1035,7 +1035,7 @@ export const LandingPage: React.FC = () => {
                 {/* Middle Value Proposition Copy */}
                 <div className="relative z-10 my-8">
                   <p className="text-white text-base sm:text-lg font-medium leading-snug drop-shadow-[0_1px_3px_rgba(0,0,0,0.45)] max-w-[270px]">
-                    Tell AssignX what you need. Track progress. Approve results.
+                    Describe your project. We build it. You approve it.
                   </p>
                 </div>
 
@@ -1188,7 +1188,7 @@ export const LandingPage: React.FC = () => {
 
                       {/* Newsletter Heading */}
                       <h3 className="text-xl sm:text-2xl font-medium text-slate-950 dark:text-white tracking-tight leading-snug mb-5 max-w-xs">
-                        Product Delivery Insights, Straight To Your Inbox
+                        Tips on Building Better Products, In Your Inbox
                       </h3>
 
                       {/* Newsletter Form */}
@@ -1222,7 +1222,7 @@ export const LandingPage: React.FC = () => {
                     {/* Bottom Microcopy */}
                     <div className="pt-4 sm:pt-6">
                       <p className="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed font-normal max-w-xs">
-                        *No spam. Founder-focused insights on managed project delivery, milestone workflows, and async execution.
+                        No spam. Just useful content on building software without the management headache.
                       </p>
                     </div>
                   </div>

@@ -290,11 +290,11 @@ export const IntegrationHub: React.FC = () => {
             <div className="flex items-center gap-1.5 mb-0.5">
               <span className="w-1.5 h-1.5 rounded-full bg-gradient-to-r from-[#FA795C] to-[#D95236] group-hover:scale-125 transition-transform" />
               <span className="text-[12.5px] font-semibold text-slate-900 dark:text-white tracking-tight group-hover:text-[#EE6B50] transition-colors">
-                AI Task Briefing
+                You Describe the Goal
               </span>
             </div>
             <span className="text-[10px] text-slate-500 dark:text-zinc-400 font-normal pl-3 block leading-none">
-              Outcome-based scoping
+              Plain English, no tech jargon
             </span>
           </div>
         </div>
@@ -308,11 +308,11 @@ export const IntegrationHub: React.FC = () => {
             <div className="flex items-center gap-1.5 mb-0.5">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 group-hover:scale-125 transition-transform" />
               <span className="text-[12.5px] font-semibold text-slate-900 dark:text-white tracking-tight group-hover:text-[#EE6B50] transition-colors">
-                Vetted Senior Doers
+                Expert Team Assigned
               </span>
             </div>
             <span className="text-[10px] text-slate-500 dark:text-zinc-400 font-normal pl-3 block leading-none">
-              Top 1% specialized talent
+              Screened, senior specialists
             </span>
           </div>
         </div>
@@ -326,11 +326,11 @@ export const IntegrationHub: React.FC = () => {
             <div className="flex items-center gap-1.5 mb-0.5">
               <span className="w-1.5 h-1.5 rounded-full bg-indigo-500 group-hover:scale-125 transition-transform" />
               <span className="text-[12.5px] font-semibold text-slate-900 dark:text-white tracking-tight group-hover:text-[#EE6B50] transition-colors">
-                Dedicated Supervisor
+                Your Dedicated Supervisor
               </span>
             </div>
             <span className="text-[10px] text-slate-500 dark:text-zinc-400 font-normal pl-3 block leading-none">
-              Owns quality & timeline
+              Manages the team for you
             </span>
           </div>
         </div>
@@ -344,11 +344,11 @@ export const IntegrationHub: React.FC = () => {
             <div className="flex items-center gap-1.5 mb-0.5">
               <span className="w-1.5 h-1.5 rounded-full bg-gradient-to-r from-[#FA795C] to-[#D95236] group-hover:scale-125 transition-transform" />
               <span className="text-[12.5px] font-semibold text-slate-900 dark:text-white tracking-tight group-hover:text-[#EE6B50] transition-colors">
-                Async Orchestration
+                No Meetings Required
               </span>
             </div>
             <span className="text-[10px] text-slate-500 dark:text-zinc-400 font-normal pl-3 block leading-none">
-              Zero daily standups for you
+              Work happens without you
             </span>
           </div>
         </div>
@@ -362,11 +362,11 @@ export const IntegrationHub: React.FC = () => {
             <div className="flex items-center gap-1.5 mb-0.5">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 group-hover:scale-125 transition-transform" />
               <span className="text-[12.5px] font-semibold text-slate-900 dark:text-white tracking-tight group-hover:text-[#EE6B50] transition-colors">
-                Automated QA Review
+                Quality Checked First
               </span>
             </div>
             <span className="text-[10px] text-slate-500 dark:text-zinc-400 font-normal pl-3 block leading-none">
-              Supervisor-verified passes
+              Supervisor reviews before you do
             </span>
           </div>
         </div>
@@ -380,11 +380,11 @@ export const IntegrationHub: React.FC = () => {
             <div className="flex items-center gap-1.5 mb-0.5">
               <span className="w-1.5 h-1.5 rounded-full bg-amber-500 group-hover:scale-125 transition-transform" />
               <span className="text-[12.5px] font-semibold text-slate-900 dark:text-white tracking-tight group-hover:text-[#EE6B50] transition-colors">
-                Milestone Scrubber
+                Track Every Milestone
               </span>
             </div>
             <span className="text-[10px] text-slate-500 dark:text-zinc-400 font-normal pl-3 block leading-none">
-              Live deliverable tracking
+              See real progress, always
             </span>
           </div>
         </div>
@@ -400,11 +400,11 @@ export const IntegrationHub: React.FC = () => {
             <div className="flex items-center gap-1.5 mb-0.5">
               <span className="w-1.5 h-1.5 rounded-full bg-indigo-500 group-hover:scale-125 transition-transform" />
               <span className="text-[12.5px] font-semibold text-slate-900 dark:text-white tracking-tight group-hover:text-[#EE6B50] transition-colors">
-                Production-Ready Code
+                You Own the Code
               </span>
             </div>
             <span className="text-[10px] text-slate-500 dark:text-zinc-400 font-normal pl-3 block leading-none">
-              Clean architecture & repos
+              Clean, documented & yours
             </span>
           </div>
         </div>
@@ -418,11 +418,11 @@ export const IntegrationHub: React.FC = () => {
             <div className="flex items-center gap-1.5 mb-0.5">
               <span className="w-1.5 h-1.5 rounded-full bg-purple-500 group-hover:scale-125 transition-transform" />
               <span className="text-[12.5px] font-semibold text-slate-900 dark:text-white tracking-tight group-hover:text-[#EE6B50] transition-colors">
-                Zero Management Overhead
+                No Team Management
               </span>
             </div>
             <span className="text-[10px] text-slate-500 dark:text-zinc-400 font-normal pl-3 block leading-none">
-              Save 20+ hrs per week
+              Save 20+ hours a week
             </span>
           </div>
         </div>
@@ -436,11 +436,11 @@ export const IntegrationHub: React.FC = () => {
             <div className="flex items-center gap-1.5 mb-0.5">
               <span className="w-1.5 h-1.5 rounded-full bg-amber-500 group-hover:scale-125 transition-transform" />
               <span className="text-[12.5px] font-semibold text-slate-900 dark:text-white tracking-tight group-hover:text-[#EE6B50] transition-colors">
-                Protected Escrow
+                Pay Only on Approval
               </span>
             </div>
             <span className="text-[10px] text-slate-500 dark:text-zinc-400 font-normal pl-3 block leading-none">
-              Funds safe until approval
+              Money held safe until you're happy
             </span>
           </div>
         </div>
@@ -454,11 +454,11 @@ export const IntegrationHub: React.FC = () => {
             <div className="flex items-center gap-1.5 mb-0.5">
               <span className="w-1.5 h-1.5 rounded-full bg-gradient-to-r from-[#FA795C] to-[#D95236] group-hover:scale-125 transition-transform" />
               <span className="text-[12.5px] font-semibold text-slate-900 dark:text-white tracking-tight group-hover:text-[#EE6B50] transition-colors">
-                Supervisor Channel
+                One Person to Talk To
               </span>
             </div>
             <span className="text-[10px] text-slate-500 dark:text-zinc-400 font-normal pl-3 block leading-none">
-              Single point of contact
+              Your supervisor, always available
             </span>
           </div>
         </div>
@@ -472,11 +472,11 @@ export const IntegrationHub: React.FC = () => {
             <div className="flex items-center gap-1.5 mb-0.5">
               <span className="w-1.5 h-1.5 rounded-full bg-blue-500 group-hover:scale-125 transition-transform" />
               <span className="text-[12.5px] font-semibold text-slate-900 dark:text-white tracking-tight group-hover:text-[#EE6B50] transition-colors">
-                Automated Invoicing
+                Auto Billing & Receipts
               </span>
             </div>
             <span className="text-[10px] text-slate-500 dark:text-zinc-400 font-normal pl-3 block leading-none">
-              Instant receipts & GST
+              Invoices sent automatically
             </span>
           </div>
         </div>
@@ -490,11 +490,11 @@ export const IntegrationHub: React.FC = () => {
             <div className="flex items-center gap-1.5 mb-0.5">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 group-hover:scale-125 transition-transform" />
               <span className="text-[12.5px] font-semibold text-slate-900 dark:text-white tracking-tight group-hover:text-[#EE6B50] transition-colors">
-                1-Click Approval
+                Approve in One Click
               </span>
             </div>
             <span className="text-[10px] text-slate-500 dark:text-zinc-400 font-normal pl-3 block leading-none">
-              Instant sign-off & release
+              Review, approve, done
             </span>
           </div>
         </div>
