@@ -3,13 +3,13 @@ import { ContainerScroll } from '../ui/container-scroll-animation';
 
 export const DashboardScrollShowcase: React.FC = () => {
   return (
-    <section id="dashboard-scroll" className="py-6 sm:py-10 bg-transparent w-full text-center overflow-visible">
+    <section id="dashboard-scroll" className="-mt-6 sm:-mt-10 md:-mt-14 pt-0 pb-4 sm:pb-8 bg-transparent w-full text-center overflow-visible">
       <div className="w-full max-w-[1360px] mx-auto px-3 sm:px-6 lg:px-8">
         <ContainerScroll
           titleComponent={
-            <div className="flex flex-col items-center justify-center max-w-4xl mx-auto px-4 mb-4 sm:mb-8">
+            <div className="flex flex-col items-center justify-center max-w-4xl mx-auto px-4 mb-3 sm:mb-5">
               {/* Lime Green Pill Badge */}
-              <div className="inline-flex items-center px-3.5 py-1 rounded-full text-xs font-semibold bg-[#D4F870] text-slate-950 mb-3.5 shadow-2xs">
+              <div className="inline-flex items-center px-3.5 py-1 rounded-full text-xs font-semibold bg-[#D4F870] text-slate-950 mb-2.5 shadow-2xs">
                 Your Central Command Center
               </div>
 
@@ -20,7 +20,7 @@ export const DashboardScrollShowcase: React.FC = () => {
                 </span>
               </h2>
 
-              <p className="mt-3 sm:mt-4 text-xs sm:text-base md:text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto leading-relaxed font-normal">
+              <p className="mt-2.5 sm:mt-3 text-xs sm:text-base md:text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto leading-relaxed font-normal">
                 Check milestone progress, inspect supervisor QA tests, approve escrow releases, and chat directly with your team lead — all from one simple dashboard.
               </p>
             </div>

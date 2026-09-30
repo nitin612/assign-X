@@ -423,7 +423,7 @@ export const LandingPage: React.FC = () => {
           </div>
         </section>
       </ScrollBlurSection>
- 
+
       {/* ─────────────────────────────────────────────────────────────
           3b. Central Command Dashboard 3D Scroll Perspective Showcase
           ───────────────────────────────────────────────────────────── */}
