@@ -1,9 +1,10 @@
 /* Master Application Root for AssignX Client Panel */
 import React from 'react';
 import { NavigationProvider, useNavigation } from './context/NavigationContext';
-import { AppProvider } from './context/AppContext';
+import { AppProvider, useApp } from './context/AppContext';
 import { ThemeProvider } from './context/ThemeContext';
 import { AppLayout } from './components/layout/AppLayout';
+import { SmoothScroll } from './components/common/SmoothScroll';
 
 // Pages
 import { LandingPage } from './pages/LandingPage';
@@ -17,7 +18,6 @@ import { CentralPaymentsPage } from './pages/CentralPaymentsPage';
 import { NotificationsPage } from './pages/NotificationsPage';
 import { ProfileSettingsPage } from './pages/ProfileSettingsPage';
 import { SupportDisputesPage } from './pages/SupportDisputesPage';
-import { useApp } from './context/AppContext';
 
 const AppRouter: React.FC = () => {
   const { currentRoute } = useNavigation();
@@ -74,7 +74,9 @@ export default function App() {
     <ThemeProvider>
       <NavigationProvider>
         <AppProvider>
-          <AppRouter />
+          <SmoothScroll>
+            <AppRouter />
+          </SmoothScroll>
         </AppProvider>
       </NavigationProvider>
     </ThemeProvider>

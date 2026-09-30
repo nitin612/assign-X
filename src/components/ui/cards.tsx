@@ -314,7 +314,7 @@ export const assignXCards: Card[] = [
         </div>
       </div>
     ),
-    className: "bg-gradient-to-b from-[#18181B] to-[#09090B] text-white border border-white/15 shadow-2xl shadow-black/80",
+    className: "bg-gradient-to-b from-[#18181B] to-[#09090B] !text-white [&_h2]:!text-white [&_p]:!text-slate-200 border border-white/15 shadow-2xl shadow-black/80",
     config: {
       y: -10,
       x: 720,
@@ -545,7 +545,10 @@ export const Cards = ({
                 <div className="mt-auto w-full pt-1.5 sm:pt-3">
                   <motion.h2
                     layoutId={card.title + "title"}
-                    className="font-bold text-left text-[11px] sm:text-lg md:text-xl tracking-tight leading-snug line-clamp-1 sm:line-clamp-2"
+                    className={cn(
+                      "font-bold text-left text-[11px] sm:text-lg md:text-xl tracking-tight leading-snug line-clamp-1 sm:line-clamp-2",
+                      card.className.includes("text-slate-900") ? "!text-slate-950" : "!text-white"
+                    )}
                   >
                     {card.title}
                   </motion.h2>
@@ -558,7 +561,10 @@ export const Cards = ({
                         animate={{ opacity: 1, y: 0, height: "auto" }}
                         exit={{ opacity: 0, y: 12, height: 0 }}
                         transition={{ duration: 0.25, ease: "easeOut" }}
-                        className="mt-1 sm:mt-2 text-left text-[9.5px] sm:text-xs md:text-sm text-current/85 leading-relaxed font-normal"
+                        className={cn(
+                          "mt-1 sm:mt-2 text-left text-[9.5px] sm:text-xs md:text-sm leading-relaxed font-normal",
+                          card.className.includes("text-slate-900") ? "!text-slate-700" : "!text-slate-200"
+                        )}
                       >
                         {card.description}
                       </motion.p>

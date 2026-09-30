@@ -16,8 +16,7 @@ import {
   Bot,
   Palette,
   GraduationCap,
-  Layers,
-  ShieldCheck
+  Layers
 } from 'lucide-react';
 import { useNavigation } from '../../context/NavigationContext';
 import { useApp } from '../../context/AppContext';

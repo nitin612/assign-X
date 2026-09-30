@@ -25,6 +25,7 @@ import { ScrollBlurSection } from '../components/landing/ScrollBlurSection';
 import { BackgroundMesh } from '../components/landing/BackgroundMesh';
 import VariableFontHoverByLetter from '../components/originkit/ui/variable-font-hover';
 import { Cards } from '../components/ui/cards';
+import { DashboardScrollShowcase } from '../components/landing/DashboardScrollShowcase';
 
 export const LandingPage: React.FC = () => {
   const { navigate } = useNavigation();
@@ -421,6 +422,13 @@ export const LandingPage: React.FC = () => {
             </div>
           </div>
         </section>
+      </ScrollBlurSection>
+ 
+      {/* ─────────────────────────────────────────────────────────────
+          3b. Central Command Dashboard 3D Scroll Perspective Showcase
+          ───────────────────────────────────────────────────────────── */}
+      <ScrollBlurSection id="dashboard-preview" className="!overflow-visible" maxScale={1.03} maxBlur={5} minOpacity={0.5}>
+        <DashboardScrollShowcase />
       </ScrollBlurSection>
 
       {/* ─────────────────────────────────────────────────────────────
