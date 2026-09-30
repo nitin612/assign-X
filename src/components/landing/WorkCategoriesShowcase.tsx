@@ -21,6 +21,7 @@ import {
 } from 'lucide-react';
 import { useNavigation } from '../../context/NavigationContext';
 import { useApp } from '../../context/AppContext';
+import { Tabs } from '../ui/tabs';
 
 interface CategoryData {
   id: string;
@@ -365,7 +366,7 @@ const CATEGORIES: CategoryData[] = [
   },
   {
     id: 'custom',
-    tabLabel: 'Post any task',
+    tabLabel: '+ Post any task',
     icon: Layers,
     headingPrefix: 'Custom scripts, audits and migrations.',
     highlightWord: 'Done.',
@@ -428,189 +429,86 @@ const CATEGORIES: CategoryData[] = [
 ];
 
 export const WorkCategoriesShowcase: React.FC = () => {
-  const [activeTabId, setActiveTabId] = useState<string>('web-dev');
-  const [activeView, setActiveView] = useState<'table' | 'gantt' | 'kanban'>('table');
-  const [pillStyle, setPillStyle] = useState<{ left: number; width: number; height: number; opacity: number }>({
-    left: 0,
-    width: 0,
-    height: 0,
-    opacity: 0
-  });
-
-  const tabRefs = React.useRef<(HTMLButtonElement | null)[]>([]);
-  const containerRef = React.useRef<HTMLDivElement | null>(null);
-
   const { navigate } = useNavigation();
   const { login } = useApp();
+  const [activeView, setActiveView] = useState<'table' | 'gantt' | 'kanban'>('table');
 
   const handleAuthAndNavigate = (targetPath: string = '/dashboard') => {
     login();
     navigate(targetPath);
   };
 
-  const activeIndex = CATEGORIES.findIndex((c) => c.id === activeTabId);
-  const activeCategory = CATEGORIES[activeIndex !== -1 ? activeIndex : 0];
+  // Convert categories into Aceternity Tabs format with 3D stacked cards
+  const tabItems = CATEGORIES.map((category) => ({
+    title: category.tabLabel,
+    value: category.id,
+    content: (
+      <div className="w-full h-full min-h-[460px] lg:min-h-[440px] bg-gradient-to-b from-white via-white to-slate-50/90 dark:from-[#0E0E12] dark:via-[#0E0E12] dark:to-[#09090C] border border-slate-200/90 dark:border-white/12 rounded-3xl p-5 sm:p-7 lg:p-8 shadow-[0_25px_60px_-15px_rgba(15,23,42,0.2),0_12px_24px_-6px_rgba(15,23,42,0.12),0_0_1px_1px_rgba(15,23,42,0.08)] dark:shadow-[0_30px_70px_-15px_rgba(0,0,0,0.85),0_0_1px_1px_rgba(255,255,255,0.1)] ring-1 ring-slate-900/5 dark:ring-white/5 relative overflow-hidden backdrop-blur-2xl flex flex-col justify-between">
+        {/* Subtle Ambient Card Glow */}
+        <div className="absolute top-0 right-0 w-96 h-96 bg-[#EE6B50]/15 dark:bg-[#EE6B50]/15 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20" />
+        <div className="absolute bottom-0 left-0 w-80 h-80 bg-purple-600/10 dark:bg-purple-600/15 rounded-full blur-3xl pointer-events-none -ml-20 -mb-20" />
 
-  // Update sliding pill position dynamically on active tab change or resize
-  const updatePillPosition = React.useCallback(() => {
-    const currentTab = tabRefs.current[activeIndex];
-    const container = containerRef.current;
-
-    if (currentTab && container) {
-      const tabRect = currentTab.getBoundingClientRect();
-
-      setPillStyle({
-        left: currentTab.offsetLeft,
-        width: tabRect.width,
-        height: tabRect.height,
-        opacity: 1
-      });
-    }
-  }, [activeIndex]);
-
-  React.useLayoutEffect(() => {
-    updatePillPosition();
-  }, [updatePillPosition, activeTabId]);
-
-  React.useEffect(() => {
-    const handleResize = () => updatePillPosition();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, [updatePillPosition]);
-
-  return (
-    <section id="work-categories" className="py-6 sm:py-10 lg:py-14 bg-transparent w-full overflow-hidden text-center">
-      <div className="w-full max-w-[1340px] mx-auto px-3 sm:px-6 lg:px-8">
-        {/* ─────────────────────────────────────────────────────────────
-            1. Title Section: Tight, high-contrast mobile & desktop typography
-           ───────────────────────────────────────────────────────────── */}
-        <div className="text-center max-w-3xl mx-auto mb-3.5 sm:mb-8">
-          <h2 className="text-2xl sm:text-5xl md:text-6xl lg:text-[62px] font-semibold text-slate-950 dark:text-white tracking-tight leading-tight max-w-[760px] mx-auto text-center">
-            Get more done with doers
-          </h2>
-          <p className="mt-1.5 sm:mt-4 text-xs sm:text-base md:text-lg text-slate-600 dark:text-slate-300 max-w-[560px] mx-auto leading-relaxed font-normal px-2">
-            Turn tasks into completed milestones — from web development and mobile apps to AI workflows and design.
-          </p>
-        </div>
-
-        {/* ─────────────────────────────────────────────────────────────
-            2. Pill Segmented Filter Tabs (Responsive with smooth touch scroll)
-           ───────────────────────────────────────────────────────────── */}
-        <div className="flex justify-center mb-4 sm:mb-8 relative max-w-full">
-          <div className="w-full max-w-full overflow-x-auto scrollbar-none flex justify-start sm:justify-center px-1 py-1">
-            <div
-              ref={containerRef}
-              className="relative inline-flex items-center p-1 bg-[#F1F3F6]/90 dark:bg-[#0D0D0E] rounded-full border border-slate-200/80 dark:border-white/10 shadow-xs shrink-0 mx-auto"
-            >
-              {/* Sliding Magic Pill Indicator */}
-              <div
-                className="absolute top-1 bottom-1 rounded-full bg-[#FEF3F0] dark:bg-[#2A1713] border-2 border-[#EE6B50] dark:border-[#FA795C] shadow-xs pointer-events-none transition-all duration-350 ease-[cubic-bezier(0.25,1,0.3,1)]"
-                style={{
-                  left: `${pillStyle.left}px`,
-                  width: `${pillStyle.width}px`,
-                  opacity: pillStyle.opacity,
-                  transform: 'translateZ(0)'
-                }}
-              />
-
-              {CATEGORIES.map((category, index) => {
-                const isActive = category.id === activeTabId;
-                const isLast = category.id === 'custom';
-
-                return (
-                  <button
-                    key={category.id}
-                    ref={(el) => {
-                      tabRefs.current[index] = el;
-                    }}
-                    onClick={() => setActiveTabId(category.id)}
-                    className={`relative z-10 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium transition-colors duration-250 whitespace-nowrap cursor-pointer flex items-center gap-1.5 select-none ${
-                      isActive
-                        ? 'text-[#D95236] dark:text-[#FA795C] font-semibold'
-                        : 'text-slate-600 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white'
-                    }`}
-                  >
-                    {isLast && <Plus className={`w-3.5 h-3.5 transition-colors ${isActive ? 'text-[#EE6B50]' : 'text-slate-500 dark:text-slate-400'}`} />}
-                    <span>{category.tabLabel}</span>
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-        </div>
-
-        {/* ─────────────────────────────────────────────────────────────
-            3. Main 2-Column Showcase Area (Left Copy / Right Board Mockup)
-           ───────────────────────────────────────────────────────────── */}
-        <div
-          key={activeCategory.id}
-          className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-10 items-center animate-showcase-fade"
-        >
-          {/* Left Column: Heading, Description, CTA */}
-          <div className="lg:col-span-4 text-left flex flex-col items-start pr-0 lg:pr-4">
-            <h3 className="text-xl sm:text-4xl lg:text-[42px] font-semibold text-slate-950 dark:text-white tracking-tight leading-snug">
-              {activeCategory.headingPrefix}{' '}
-              <span className="text-[#EE6B50] font-semibold">{activeCategory.highlightWord}</span>
+        <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center h-full">
+          {/* Left Column: Heading, Description & CTA */}
+          <div className="lg:col-span-5 text-left flex flex-col items-start justify-center pr-0 lg:pr-2">
+            <h3 className="text-2xl sm:text-3xl lg:text-[38px] font-bold text-slate-950 dark:text-white tracking-tight leading-tight">
+              {category.headingPrefix}{' '}
+              <span className="text-[#EE6B50] dark:text-[#FA795C] font-bold">{category.highlightWord}</span>
             </h3>
 
-            <p className="mt-2 sm:mt-5 text-xs sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed font-normal">
-              {activeCategory.description}
+            <p className="mt-3 sm:mt-4 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed font-normal">
+              {category.description}
             </p>
 
-            <div className="mt-3.5 sm:mt-8 flex flex-row items-center gap-3 sm:gap-4 w-full sm:w-auto">
+            <div className="mt-5 sm:mt-6 flex flex-wrap items-center gap-3 sm:gap-4 w-full sm:w-auto">
               <button
                 onClick={() => handleAuthAndNavigate('/dashboard')}
-                className="inline-flex items-center justify-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 rounded-full bg-gradient-to-b from-[#FA795C] to-[#D95236] hover:brightness-105 active:scale-95 text-white font-semibold text-xs sm:text-base shadow-md shadow-orange-500/25 transition-all cursor-pointer whitespace-nowrap"
+                className="inline-flex items-center justify-center gap-2 px-6 py-2.5 sm:py-3 rounded-full bg-gradient-to-b from-[#FA795C] to-[#D95236] hover:brightness-105 active:scale-95 text-white font-semibold text-xs sm:text-sm shadow-md shadow-orange-500/25 transition-all cursor-pointer whitespace-nowrap"
               >
                 <span>Get Started</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
 
-              <div className="flex items-center gap-1.5 text-[11px] sm:text-xs text-slate-600 dark:text-slate-300">
-                <ShieldCheck className="w-4 h-4 text-emerald-500 shrink-0" />
-                <span>Escrow protected</span>
-              </div>
             </div>
           </div>
 
           {/* Right Column: High-Fidelity Interactive Dashboard Mockup */}
-          <div className="lg:col-span-8 w-full">
-            {/* Outer Gray Frame (Exact match to screenshot container) */}
-            <div className="bg-[#EAEBED]/70 dark:bg-[#141416] rounded-[26px] p-3 sm:p-5 border border-slate-200 dark:border-white/10 dark:border-white/10 shadow-inner">
-              {/* Inner White Dashboard Card */}
-              <div className="bg-white dark:bg-[#0B0B0D] rounded-2xl border border-slate-200 dark:border-white/10 shadow-xl shadow-slate-200/40 overflow-hidden flex flex-col md:flex-row min-h-[420px]">
-                
+          <div className="lg:col-span-7 w-full h-full flex flex-col justify-center">
+            {/* Outer Frame */}
+            <div className="bg-[#ECEEF2] dark:bg-[#18181F]/90 rounded-2xl p-2.5 sm:p-3.5 border border-slate-300/80 dark:border-white/10 shadow-inner">
+              {/* Inner Dashboard Card */}
+              <div className="bg-white dark:bg-[#101015] rounded-xl border border-slate-200/90 dark:border-white/10 shadow-md shadow-slate-300/50 dark:shadow-2xl overflow-hidden flex flex-col md:flex-row min-h-[340px] sm:min-h-[360px]">
+
                 {/* ─────────────────────────────────────────────────────
                     Left Pane: Workspace Table (60% width)
                    ───────────────────────────────────────────────────── */}
-                <div className="flex-1 flex flex-col border-b md:border-b-0 md:border-r border-slate-150 min-w-0 bg-white dark:bg-[#0B0B0D]">
-                  
+                <div className="flex-1 flex flex-col border-b md:border-b-0 md:border-r border-slate-200 dark:border-white/10 min-w-0 bg-white dark:bg-[#101015]">
+
                   {/* Top Workspace Header & Views Bar */}
-                  <div className="p-4 sm:p-5 pb-0 flex flex-col gap-3">
-                    <div className="flex items-center gap-3">
+                  <div className="p-3.5 sm:p-4 pb-0 flex flex-col gap-2.5">
+                    <div className="flex items-center gap-2.5">
                       {/* Left Multi-color mini 4-square App icon */}
-                      <div className="w-6 h-6 rounded-md bg-gradient-to-br from-indigo-500 via-rose-500 to-amber-400 p-0.5 shadow-2xs flex items-center justify-center shrink-0">
-                        <div className="grid grid-cols-2 gap-0.5 w-3.5 h-3.5">
-                          <div className="bg-white dark:bg-[#0B0B0D] rounded-[1px]" />
-                          <div className="bg-white dark:bg-[#0B0B0D] rounded-[1px]" />
-                          <div className="bg-white dark:bg-[#0B0B0D] rounded-[1px]" />
-                          <div className="bg-white dark:bg-[#0B0B0D] rounded-[1px]" />
+                      <div className="w-5 h-5 rounded-md bg-gradient-to-br from-indigo-500 via-rose-500 to-amber-400 p-0.5 shadow-2xs flex items-center justify-center shrink-0">
+                        <div className="grid grid-cols-2 gap-0.5 w-3 h-3">
+                          <div className="bg-white dark:bg-[#101015] rounded-[1px]" />
+                          <div className="bg-white dark:bg-[#101015] rounded-[1px]" />
+                          <div className="bg-white dark:bg-[#101015] rounded-[1px]" />
+                          <div className="bg-white dark:bg-[#101015] rounded-[1px]" />
                         </div>
                       </div>
 
                       {/* Board Name */}
-                      <h4 className="text-base sm:text-lg font-semibold text-slate-900 dark:text-slate-100 tracking-tight truncate">
-                        {activeCategory.projectTitle}
+                      <h4 className="text-xs sm:text-sm font-semibold text-slate-900 dark:text-white tracking-tight truncate">
+                        {category.projectTitle}
                       </h4>
                     </div>
 
                     {/* View Switcher Bar (Main Table, Gantt, Kanban, +) */}
-                    <div className="flex items-center gap-4 text-xs font-medium text-slate-500 dark:text-slate-400 border-b border-slate-150 dark:border-white/10 pt-2">
+                    <div className="flex items-center gap-3 text-xs font-medium text-slate-500 dark:text-slate-400 border-b border-slate-150 dark:border-white/10 pt-1.5">
                       <button
                         onClick={() => setActiveView('table')}
-                        className={`pb-2 flex items-center gap-1.5 transition-colors relative cursor-pointer ${
-                          activeView === 'table' ? 'text-[#EE6B50] dark:text-[#FA795C] font-semibold' : 'hover:text-slate-800 dark:hover:text-white'
-                        }`}
+                        className={`pb-2 flex items-center gap-1 transition-colors relative cursor-pointer text-[11px] sm:text-xs ${activeView === 'table' ? 'text-[#EE6B50] dark:text-[#FA795C] font-semibold' : 'hover:text-slate-900 dark:hover:text-white'
+                          }`}
                       >
                         <Table2 className="w-3.5 h-3.5" />
                         <span>Main table</span>
@@ -621,9 +519,8 @@ export const WorkCategoriesShowcase: React.FC = () => {
 
                       <button
                         onClick={() => setActiveView('gantt')}
-                        className={`pb-2 flex items-center gap-1.5 transition-colors relative cursor-pointer ${
-                          activeView === 'gantt' ? 'text-[#EE6B50] dark:text-[#FA795C] font-semibold' : 'hover:text-slate-800 dark:hover:text-white'
-                        }`}
+                        className={`pb-2 flex items-center gap-1 transition-colors relative cursor-pointer text-[11px] sm:text-xs ${activeView === 'gantt' ? 'text-[#EE6B50] dark:text-[#FA795C] font-semibold' : 'hover:text-slate-900 dark:hover:text-white'
+                          }`}
                       >
                         <Calendar className="w-3.5 h-3.5" />
                         <span>Gantt</span>
@@ -634,9 +531,8 @@ export const WorkCategoriesShowcase: React.FC = () => {
 
                       <button
                         onClick={() => setActiveView('kanban')}
-                        className={`pb-2 flex items-center gap-1.5 transition-colors relative cursor-pointer ${
-                          activeView === 'kanban' ? 'text-[#EE6B50] dark:text-[#FA795C] font-semibold' : 'hover:text-slate-800 dark:hover:text-white'
-                        }`}
+                        className={`pb-2 flex items-center gap-1 transition-colors relative cursor-pointer text-[11px] sm:text-xs ${activeView === 'kanban' ? 'text-[#EE6B50] dark:text-[#FA795C] font-semibold' : 'hover:text-slate-900 dark:hover:text-white'
+                          }`}
                       >
                         <Kanban className="w-3.5 h-3.5" />
                         <span>Kanban</span>
@@ -645,31 +541,31 @@ export const WorkCategoriesShowcase: React.FC = () => {
                         )}
                       </button>
 
-                      <button className="pb-2 text-slate-400 hover:text-slate-700 cursor-pointer">
-                        <Plus className="w-3.5 h-3.5" />
+                      <button className="pb-2 text-slate-400 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 cursor-pointer">
+                        <Plus className="w-3 h-3" />
                       </button>
                     </div>
                   </div>
 
                   {/* Table Content Area with Left Coral Indicator Line */}
                   <div className="flex-1 flex overflow-x-auto scrollbar-none">
-                    {/* Tiny Left Vertical Icon Rail (Hidden on small mobile to give room) */}
-                    <div className="hidden sm:flex w-10 py-4 flex-col items-center gap-4 border-r border-slate-100 dark:border-white/10 text-slate-400 shrink-0">
-                      <Home className="w-3.5 h-3.5 hover:text-slate-700 cursor-pointer" />
-                      <Table2 className="w-3.5 h-3.5 text-[#EE6B50] cursor-pointer" />
-                      <Heart className="w-3.5 h-3.5 hover:text-slate-700 cursor-pointer" />
-                      <Bell className="w-3.5 h-3.5 hover:text-slate-700 cursor-pointer" />
-                      <Volume2 className="w-3.5 h-3.5 hover:text-slate-700 cursor-pointer" />
+                    {/* Tiny Left Vertical Icon Rail */}
+                    <div className="hidden sm:flex w-7 py-3 flex-col items-center gap-3 border-r border-slate-100 dark:border-white/10 text-slate-400 dark:text-slate-500 shrink-0">
+                      <Home className="w-3 h-3 hover:text-slate-800 dark:hover:text-white cursor-pointer" />
+                      <Table2 className="w-3 h-3 text-[#EE6B50] cursor-pointer" />
+                      <Heart className="w-3 h-3 hover:text-slate-800 dark:hover:text-white cursor-pointer" />
+                      <Bell className="w-3 h-3 hover:text-slate-800 dark:hover:text-white cursor-pointer" />
+                      <Volume2 className="w-3 h-3 hover:text-slate-800 dark:hover:text-white cursor-pointer" />
                       <div className="mt-auto">
-                        <MoreHorizontal className="w-3.5 h-3.5 hover:text-slate-700 cursor-pointer" />
+                        <MoreHorizontal className="w-3 h-3 hover:text-slate-800 dark:hover:text-white cursor-pointer" />
                       </div>
                     </div>
 
                     {/* Table Rows & Columns */}
-                    <div className="flex-1 flex flex-col w-full min-w-[280px] sm:min-w-[320px]">
+                    <div className="flex-1 flex flex-col w-full min-w-[240px] sm:min-w-[280px]">
                       {/* Column Headers */}
-                      <div className="grid grid-cols-12 text-[11px] font-semibold text-slate-500 dark:text-slate-300 border-b border-slate-100 dark:border-white/10 py-2.5 px-3 bg-slate-50/50 dark:bg-white/5">
-                        <div className="col-span-6 flex items-center gap-1.5 text-[#EE6B50] dark:text-[#FA795C] font-medium">
+                      <div className="grid grid-cols-12 text-[10px] font-semibold text-slate-500 dark:text-slate-400 border-b border-slate-100 dark:border-white/10 py-1.5 px-2 bg-slate-50/70 dark:bg-white/5">
+                        <div className="col-span-6 flex items-center gap-1 text-[#EE6B50] dark:text-[#FA795C] font-medium">
                           <span>Deliverables</span>
                         </div>
                         <div className="col-span-3">Status</div>
@@ -679,33 +575,33 @@ export const WorkCategoriesShowcase: React.FC = () => {
                       {/* Interactive Rows with Left Coral Border Accent */}
                       <div className="flex-1 flex flex-col divide-y divide-slate-100 dark:divide-white/10 relative">
                         {/* Coral Left Vertical Accent Bar */}
-                        <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-[#FA795C] to-[#D95236]" />
+                        <div className="absolute left-0 top-0 bottom-0 w-0.5 bg-gradient-to-b from-[#FA795C] to-[#D95236]" />
 
-                        {activeCategory.tableRows.map((row, index) => (
+                        {category.tableRows.map((row, index) => (
                           <div
                             key={index}
-                            className="grid grid-cols-12 items-center py-2.5 px-3 hover:bg-slate-50/80 transition-colors pl-3.5 group text-left"
+                            className="grid grid-cols-12 items-center py-2 px-2 hover:bg-slate-50/80 dark:hover:bg-white/5 transition-colors pl-2.5 group text-left"
                           >
                             {/* Deliverable Title & Tag */}
-                            <div className="col-span-6 pr-2">
-                              <div className="flex items-center gap-2">
-                                <span className="text-xs font-medium text-slate-900 dark:text-white truncate group-hover:text-[#EE6B50] dark:group-hover:text-[#FA795C] transition-colors">
+                            <div className="col-span-6 pr-1">
+                              <div className="flex items-center gap-1">
+                                <span className="text-[11px] font-medium text-slate-900 dark:text-white truncate group-hover:text-[#EE6B50] dark:group-hover:text-[#FA795C] transition-colors">
                                   {row.title}
                                 </span>
                               </div>
-                              <div className="flex items-center gap-1.5 mt-0.5">
-                                <span className="text-[10px] px-1.5 py-0.2 bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-slate-300 rounded">
+                              <div className="flex items-center gap-1 mt-0.5">
+                                <span className="text-[9px] px-1 py-0.2 bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-slate-300 rounded">
                                   {row.tag}
                                 </span>
-                                <span className="text-[10px] text-slate-400">·</span>
-                                <span className="text-[10px] text-slate-400 dark:text-slate-400 truncate">{row.assignee}</span>
+                                <span className="text-[9px] text-slate-400">·</span>
+                                <span className="text-[9px] text-slate-500 dark:text-slate-400 truncate">{row.assignee}</span>
                               </div>
                             </div>
 
                             {/* Status Pill */}
                             <div className="col-span-3">
                               <span
-                                className={`inline-block px-2.5 py-1 rounded text-[10.5px] font-medium leading-none text-center shadow-2xs ${row.statusBg}`}
+                                className={`inline-block px-1.5 py-0.5 rounded text-[9.5px] font-medium leading-none text-center ${row.statusBg}`}
                               >
                                 {row.statusText}
                               </span>
@@ -713,25 +609,12 @@ export const WorkCategoriesShowcase: React.FC = () => {
 
                             {/* Escrow Value */}
                             <div className="col-span-3 text-right">
-                              <span className="text-xs font-semibold text-slate-900 dark:text-slate-100 font-mono">
+                              <span className="text-[11px] font-semibold text-slate-900 dark:text-white font-mono">
                                 {row.escrow}
                               </span>
                             </div>
                           </div>
                         ))}
-
-                        {/* Faded Ghost Row to match modern UI mockup */}
-                        <div className="grid grid-cols-12 items-center py-2.5 px-3 pl-3.5 opacity-40">
-                          <div className="col-span-6">
-                            <div className="h-3 w-32 bg-slate-200 dark:bg-white/10 rounded-sm animate-pulse" />
-                          </div>
-                          <div className="col-span-3">
-                            <div className="h-4 w-16 bg-slate-200 dark:bg-white/10 rounded-sm" />
-                          </div>
-                          <div className="col-span-3 text-right">
-                            <div className="h-3 w-10 bg-slate-200 dark:bg-white/10 rounded-sm ml-auto" />
-                          </div>
-                        </div>
                       </div>
                     </div>
                   </div>
@@ -740,64 +623,64 @@ export const WorkCategoriesShowcase: React.FC = () => {
                 {/* ─────────────────────────────────────────────────────
                     Right Pane: Floating Doer Collaboration & Live Execution
                    ───────────────────────────────────────────────────── */}
-                <div className="w-full md:w-[320px] lg:w-[340px] bg-[#FBFBFC] dark:bg-[#0E0E11] p-4 sm:p-5 flex flex-col justify-between shrink-0 dark:border-l dark:border-white/10">
+                <div className="w-full md:w-[240px] lg:w-[260px] bg-[#FBFBFC] dark:bg-[#0A0A0E] p-3 flex flex-col justify-between shrink-0 border-t md:border-t-0 md:border-l border-slate-200 dark:border-white/10">
                   <div>
                     {/* Doer Top Profile Header */}
-                    <div className="flex items-center gap-3 pb-3.5 border-b border-slate-200 dark:border-white/10 dark:border-white/10">
+                    <div className="flex items-center gap-2 pb-2 border-b border-slate-200 dark:border-white/10">
                       <div className="relative">
                         <img
-                          className="w-10 h-10 rounded-full object-cover border-2 border-white shadow-xs"
-                          src={activeCategory.doerAvatar}
-                          alt={activeCategory.doerName}
+                          className="w-8 h-8 rounded-full object-cover border border-white dark:border-white/20 shadow-xs"
+                          src={category.doerAvatar}
+                          alt={category.doerName}
                         />
-                        <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-500 border-2 border-white rounded-full" />
+                        <span className="absolute bottom-0 right-0 w-2 h-2 bg-emerald-500 border border-white dark:border-[#0A0A0E] rounded-full" />
                       </div>
 
                       <div className="flex-1 min-w-0 text-left">
-                        <h5 className="text-xs sm:text-sm font-semibold text-slate-900 dark:text-slate-100 truncate">
-                          {activeCategory.doerName}
+                        <h5 className="text-xs font-semibold text-slate-900 dark:text-white truncate">
+                          {category.doerName}
                         </h5>
-                        <p className="text-[11px] text-slate-500 dark:text-slate-400 truncate">{activeCategory.doerMetric}</p>
+                        <p className="text-[9.5px] text-slate-500 dark:text-slate-400 truncate">{category.doerMetric}</p>
                       </div>
                     </div>
 
                     {/* Chat Bubble Thread */}
-                    <div className="mt-4 space-y-3.5 text-left">
+                    <div className="mt-2.5 space-y-2 text-left">
                       {/* User Request Bubble */}
-                      <div className="flex items-end justify-end gap-2">
-                        <div className="bg-[#FFE8E2] dark:bg-[#2A1815] text-slate-900 dark:text-orange-100 rounded-2xl rounded-tr-xs p-3 text-xs font-normal leading-relaxed shadow-2xs max-w-[85%]">
-                          {activeCategory.userPrompt}
+                      <div className="flex items-end justify-end gap-1.5">
+                        <div className="bg-[#FFE8E2] dark:bg-[#2A1815] text-slate-900 dark:text-orange-100 rounded-xl rounded-tr-xs p-2 text-[10.5px] font-normal leading-relaxed shadow-2xs max-w-[85%] border border-[#FA795C]/20">
+                          {category.userPrompt}
                         </div>
                         <img
-                          className="w-6 h-6 rounded-full object-cover shrink-0 border border-white shadow-2xs"
-                          src={activeCategory.userAvatar}
+                          className="w-4 h-4 rounded-full object-cover shrink-0 border border-white dark:border-white/20 shadow-2xs"
+                          src={category.userAvatar}
                           alt="User"
                         />
                       </div>
 
                       {/* Doer Response & Live Action Badge */}
-                      <div className="flex items-start gap-2 pt-1">
+                      <div className="flex items-start gap-1.5 pt-0.5">
                         <img
-                          className="w-6 h-6 rounded-full object-cover shrink-0 border border-white shadow-2xs mt-1"
-                          src={activeCategory.doerAvatar}
+                          className="w-4 h-4 rounded-full object-cover shrink-0 border border-white dark:border-white/20 shadow-2xs mt-0.5"
+                          src={category.doerAvatar}
                           alt="Doer"
                         />
                         <div className="flex-1 min-w-0">
-                          <p className="text-[11px] font-medium text-slate-500 dark:text-slate-300 mb-1.5 flex items-center gap-1.5">
-                            <span>{activeCategory.doerStatus}</span>
+                          <p className="text-[9.5px] font-medium text-slate-600 dark:text-slate-300 mb-1 flex items-center gap-1">
+                            <span>{category.doerStatus}</span>
                             <span className="flex h-1.5 w-1.5 relative">
                               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#FA795C] opacity-75" />
                               <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#EE6B50]" />
                             </span>
                           </p>
 
-                          {/* Execution Step Chip (LinkedIn / Vercel / Figma style badge) */}
-                          <div className="inline-flex items-center gap-1.5 bg-white dark:bg-[#0B0B0D] border border-slate-200 dark:border-white/10/90 rounded-xl px-2.5 py-1.5 text-[11px] font-medium text-slate-800 dark:text-slate-200 shadow-xs max-w-full">
+                          {/* Execution Step Chip */}
+                          <div className="inline-flex items-center gap-1 bg-white dark:bg-[#15151A] border border-slate-200 dark:border-white/10 rounded-lg px-2 py-0.5 text-[9.5px] font-medium text-slate-800 dark:text-slate-200 shadow-2xs max-w-full">
                             <span
-                              className="w-2 h-2 rounded-full shrink-0"
-                              style={{ backgroundColor: activeCategory.doerActionIconColor }}
+                              className="w-1.5 h-1.5 rounded-full shrink-0"
+                              style={{ backgroundColor: category.doerActionIconColor }}
                             />
-                            <span className="truncate">{activeCategory.doerActionText}</span>
+                            <span className="truncate">{category.doerActionText}</span>
                           </div>
                         </div>
                       </div>
@@ -805,17 +688,17 @@ export const WorkCategoriesShowcase: React.FC = () => {
                   </div>
 
                   {/* Interactive Prompt Trigger Box at Bottom */}
-                  <div className="mt-6 pt-3 border-t border-slate-200 dark:border-white/10/70">
-                    <div className="bg-white dark:bg-[#0B0B0D] rounded-xl border border-slate-200 dark:border-white/10 p-1.5 pl-3 flex items-center justify-between shadow-2xs">
-                      <span className="text-[11px] text-slate-400 truncate">
+                  <div className="mt-3 pt-2 border-t border-slate-200/80 dark:border-white/10">
+                    <div className="bg-white dark:bg-[#15151A] rounded-lg border border-slate-200 dark:border-white/10 p-1 pl-2 flex items-center justify-between shadow-2xs">
+                      <span className="text-[9.5px] text-slate-400 truncate">
                         Ask doer for a custom quote...
                       </span>
                       <button
                         onClick={() => handleAuthAndNavigate('/dashboard')}
-                        className="bg-gradient-to-b from-[#FA795C] to-[#D95236] hover:brightness-105 active:scale-98 text-white p-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer shadow-xs"
+                        className="bg-gradient-to-b from-[#FA795C] to-[#D95236] hover:brightness-105 active:scale-95 text-white p-1 rounded-md text-xs font-medium transition-all cursor-pointer shadow-xs ml-1"
                         title="Send task specification"
                       >
-                        <Send className="w-3 h-3" />
+                        <Send className="w-2.5 h-2.5" />
                       </button>
                     </div>
                   </div>
@@ -825,7 +708,36 @@ export const WorkCategoriesShowcase: React.FC = () => {
             </div>
           </div>
         </div>
+      </div>
+    )
+  }));
 
+  return (
+    <section id="work-categories" className="py-12 sm:py-16 lg:py-20 bg-transparent w-full text-center relative">
+      <div className="w-full max-w-[1340px] mx-auto px-3 sm:px-6 lg:px-8 relative">
+        {/* Title Section */}
+        <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-12">
+          <h2 className="text-3xl sm:text-5xl md:text-6xl lg:text-[62px] font-semibold text-slate-950 dark:text-white tracking-tight leading-tight max-w-[760px] mx-auto text-center">
+            Get more done with doers
+          </h2>
+          <p className="mt-2 sm:mt-4 text-xs sm:text-base md:text-lg text-slate-600 dark:text-slate-300 max-w-[560px] mx-auto leading-relaxed font-normal px-2">
+            Turn tasks into completed milestones — from web development and mobile apps to AI workflows and design.
+          </p>
+        </div>
+
+        {/* Ambient Glow Backdrop Behind 3D Card Stack */}
+        <div className="absolute top-[55%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[85%] max-w-5xl h-[420px] bg-gradient-to-r from-orange-500/12 via-rose-500/8 to-indigo-500/12 rounded-[40px] blur-3xl pointer-events-none -z-10" />
+
+        {/* Aceternity 3D Stacked Tabs Showcase */}
+        <div className="h-[800px] sm:h-[700px] lg:h-[560px] [perspective:1000px] relative flex flex-col max-w-6xl mx-auto w-full items-center justify-start">
+          <Tabs
+            tabs={tabItems}
+            containerClassName="justify-center gap-1.5 sm:gap-2 p-1 bg-[#F1F3F6]/90 dark:bg-[#0D0D0E] rounded-full border border-slate-200/90 dark:border-white/10 shadow-[0_4px_16px_rgba(0,0,0,0.06)] dark:shadow-none max-w-fit mx-auto"
+            tabClassName="px-3.5 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-950 dark:hover:text-white transition-colors"
+            activeTabClassName="bg-[#FEF3F0] dark:bg-[#2A1713] border-2 border-[#EE6B50] dark:border-[#FA795C] shadow-xs"
+            contentClassName="mt-12 sm:mt-16 lg:mt-20"
+          />
+        </div>
       </div>
     </section>
   );
