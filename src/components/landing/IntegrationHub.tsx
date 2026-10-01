@@ -1,10 +1,112 @@
 import React from 'react';
+import {
+  FileText,
+  Users,
+  ShieldCheck,
+  Zap,
+  Lock,
+  CheckCircle2
+} from 'lucide-react';
 
 export const IntegrationHub: React.FC = () => {
+  const mobileWorkflowSteps = [
+    {
+      step: '01',
+      title: 'You Describe the Goal',
+      subtitle: 'Plain English, no tech jargon needed',
+      icon: FileText,
+      color: 'from-[#FA795C] to-[#D95236]',
+      dotColor: 'bg-[#EE6B50]',
+    },
+    {
+      step: '02',
+      title: 'Expert Talent Assigned',
+      subtitle: 'Top 1% pre-screened specialists',
+      icon: Users,
+      color: 'from-emerald-500 to-teal-600',
+      dotColor: 'bg-emerald-500',
+    },
+    {
+      step: '03',
+      title: 'Dedicated Supervisor Leads',
+      subtitle: 'Architect manages daily progress & code',
+      icon: ShieldCheck,
+      color: 'from-indigo-500 to-blue-600',
+      dotColor: 'bg-indigo-500',
+    },
+    {
+      step: '04',
+      title: 'Async Progress (Zero Meetings)',
+      subtitle: 'Work happens without your calendar blocked',
+      icon: Zap,
+      color: 'from-amber-500 to-orange-500',
+      dotColor: 'bg-amber-500',
+    },
+    {
+      step: '05',
+      title: '100% Escrow Protection',
+      subtitle: 'Funds released stage-by-stage on approval',
+      icon: Lock,
+      color: 'from-blue-500 to-indigo-600',
+      dotColor: 'bg-blue-500',
+    },
+    {
+      step: '06',
+      title: 'Approve & Own 100% of Code',
+      subtitle: 'Review live preview & get final deliverables',
+      icon: CheckCircle2,
+      color: 'from-emerald-500 to-green-600',
+      dotColor: 'bg-emerald-500',
+    },
+  ];
+
   return (
-    <div className="mt-8 sm:mt-12 w-full max-w-[1600px] mx-auto relative overflow-x-auto overflow-y-visible py-6 scrollbar-none select-none">
-      {/* Aspect Ratio Canvas for the panoramic root network */}
-      <div className="relative min-w-[1080px] max-w-[1500px] mx-auto aspect-[1500/480]">
+    <div className="mt-6 sm:mt-10 lg:mt-12 w-full max-w-[1600px] mx-auto select-none">
+      {/* ─────────────────────────────────────────────────────────────
+          A. MOBILE VIEW (< md): Vertical Connected Flow Pipeline
+         ───────────────────────────────────────────────────────────── */}
+      <div className="block md:hidden w-full max-w-md mx-auto px-2 py-4">
+        <div className="relative flex flex-col items-center">
+          {/* Central Connecting Vertical Gradient Line */}
+          <div className="absolute top-6 bottom-6 left-6 w-0.5 bg-gradient-to-b from-[#FA795C] via-indigo-400 to-emerald-500 opacity-40 z-0" />
+
+          <div className="space-y-4 w-full relative z-10">
+            {mobileWorkflowSteps.map((step, idx) => {
+              const Icon = step.icon;
+              return (
+                <div key={idx} className="flex items-center gap-3.5 group">
+                  {/* Step Icon Badge */}
+                  <div className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${step.color} text-white flex items-center justify-center shrink-0 shadow-md shadow-slate-900/10 border border-white/20 relative z-10`}>
+                    <Icon className="w-5 h-5 text-white" />
+                  </div>
+
+                  {/* Step Info Card */}
+                  <div className="flex-1 bg-white dark:bg-[#111726] border border-slate-200/90 dark:border-white/10 rounded-2xl p-3 sm:p-3.5 shadow-2xs text-left group-hover:border-[#EE6B50]/60 transition-colors">
+                    <div className="flex items-center justify-between gap-1 mb-0.5">
+                      <span className="text-[13px] font-bold text-slate-950 dark:text-white tracking-tight">
+                        {step.title}
+                      </span>
+                      <span className="text-[10px] font-mono font-bold text-slate-400 dark:text-slate-500">
+                        {step.step}
+                      </span>
+                    </div>
+                    <p className="text-[11px] text-slate-500 dark:text-slate-400 font-normal leading-tight">
+                      {step.subtitle}
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+
+      {/* ─────────────────────────────────────────────────────────────
+          B. TABLET & DESKTOP VIEW (>= md): Full Panoramic Connected SVG Network
+         ───────────────────────────────────────────────────────────── */}
+      <div className="hidden md:block relative overflow-x-auto overflow-y-visible py-6 scrollbar-none">
+        {/* Aspect Ratio Canvas for the panoramic root network */}
+        <div className="relative min-w-[1080px] max-w-[1500px] mx-auto aspect-[1500/480]">
         {/* ─────────────────────────────────────────────────────────────
             1. Organic Root SVG Network with Gradient Strokes & Branching Paths
            ───────────────────────────────────────────────────────────── */}
@@ -280,7 +382,7 @@ export const IntegrationHub: React.FC = () => {
         </div>
 
         {/* ── LEFT FLANK NODES (AI Modern Minimalist Capsule Pills) ──── */}
-        
+
         {/* Node 1: AI Task Briefing (Outer Left Flank) */}
         <div
           className="absolute z-10 -translate-x-1/2 -translate-y-1/2"
@@ -499,6 +601,7 @@ export const IntegrationHub: React.FC = () => {
           </div>
         </div>
 
+        </div>
       </div>
     </div>
   );

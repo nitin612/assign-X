@@ -441,42 +441,42 @@ export const WorkCategoriesShowcase: React.FC = () => {
   const tabItems = CATEGORIES.map((category) => ({
     title: category.tabLabel,
     value: category.id,
+    icon: category.icon,
     content: (
-      <div className="w-full h-full min-h-[460px] lg:min-h-[440px] bg-gradient-to-b from-white via-white to-slate-50/90 dark:from-[#0E0E12] dark:via-[#0E0E12] dark:to-[#09090C] border border-slate-200/90 dark:border-white/12 rounded-3xl p-5 sm:p-7 lg:p-8 shadow-[0_25px_60px_-15px_rgba(15,23,42,0.2),0_12px_24px_-6px_rgba(15,23,42,0.12),0_0_1px_1px_rgba(15,23,42,0.08)] dark:shadow-[0_30px_70px_-15px_rgba(0,0,0,0.85),0_0_1px_1px_rgba(255,255,255,0.1)] ring-1 ring-slate-900/5 dark:ring-white/5 relative overflow-hidden backdrop-blur-2xl flex flex-col justify-between">
+      <div className="w-full h-full min-h-[460px] lg:min-h-[440px] bg-gradient-to-b from-white via-white to-slate-50/90 dark:from-[#0E0E12] dark:via-[#0E0E12] dark:to-[#09090C] border border-slate-200/90 dark:border-white/12 rounded-3xl p-4 sm:p-6 lg:p-8 shadow-[0_25px_60px_-15px_rgba(15,23,42,0.18),0_12px_24px_-6px_rgba(15,23,42,0.10),0_0_1px_1px_rgba(15,23,42,0.06)] dark:shadow-[0_30px_70px_-15px_rgba(0,0,0,0.85),0_0_1px_1px_rgba(255,255,255,0.08)] ring-1 ring-slate-900/5 dark:ring-white/5 relative overflow-hidden flex flex-col justify-between">
         {/* Subtle Ambient Card Glow */}
         <div className="absolute top-0 right-0 w-96 h-96 bg-[#EE6B50]/15 dark:bg-[#EE6B50]/15 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20" />
         <div className="absolute bottom-0 left-0 w-80 h-80 bg-purple-600/10 dark:bg-purple-600/15 rounded-full blur-3xl pointer-events-none -ml-20 -mb-20" />
 
-        <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center h-full">
+        <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 lg:gap-8 items-center h-full">
           {/* Left Column: Heading, Description & CTA */}
           <div className="lg:col-span-5 text-left flex flex-col items-start justify-center pr-0 lg:pr-2">
-            <h3 className="text-2xl sm:text-3xl lg:text-[38px] font-bold text-slate-950 dark:text-white tracking-tight leading-tight">
+            <h3 className="text-xl sm:text-2xl lg:text-[36px] font-bold text-slate-950 dark:text-white tracking-tight leading-snug">
               {category.headingPrefix}{' '}
               <span className="text-[#EE6B50] dark:text-[#FA795C] font-bold">{category.highlightWord}</span>
             </h3>
 
-            <p className="mt-3 sm:mt-4 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed font-normal">
+            <p className="mt-2 sm:mt-3.5 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed font-normal">
               {category.description}
             </p>
 
-            <div className="mt-5 sm:mt-6 flex flex-wrap items-center gap-3 sm:gap-4 w-full sm:w-auto">
+            <div className="mt-3.5 sm:mt-5 flex flex-wrap items-center gap-3 sm:gap-4 w-full sm:w-auto">
               <button
                 onClick={() => handleAuthAndNavigate('/dashboard')}
-                className="inline-flex items-center justify-center gap-2 px-6 py-2.5 sm:py-3 rounded-full bg-gradient-to-b from-[#FA795C] to-[#D95236] hover:brightness-105 active:scale-95 text-white font-semibold text-xs sm:text-sm shadow-md shadow-orange-500/25 transition-all cursor-pointer whitespace-nowrap"
+                className="inline-flex items-center justify-center gap-2 px-4.5 sm:px-6 py-2 sm:py-2.5 rounded-full bg-gradient-to-b from-[#FA795C] to-[#D95236] hover:brightness-105 active:scale-95 text-white font-semibold text-xs sm:text-sm shadow-md shadow-orange-500/25 transition-all cursor-pointer whitespace-nowrap"
               >
                 <span>Get Started</span>
-                <ArrowRight className="w-4 h-4" />
+                <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
               </button>
-
             </div>
           </div>
 
           {/* Right Column: High-Fidelity Interactive Dashboard Mockup */}
           <div className="lg:col-span-7 w-full h-full flex flex-col justify-center">
             {/* Outer Frame */}
-            <div className="bg-[#ECEEF2] dark:bg-[#18181F]/90 rounded-2xl p-2.5 sm:p-3.5 border border-slate-300/80 dark:border-white/10 shadow-inner">
+            <div className="bg-[#ECEEF2] dark:bg-[#18181F]/90 rounded-2xl p-2 sm:p-3.5 border border-slate-300/80 dark:border-white/10 shadow-inner">
               {/* Inner Dashboard Card */}
-              <div className="bg-white dark:bg-[#101015] rounded-xl border border-slate-200/90 dark:border-white/10 shadow-md shadow-slate-300/50 dark:shadow-2xl overflow-hidden flex flex-col md:flex-row min-h-[340px] sm:min-h-[360px]">
+              <div className="bg-white dark:bg-[#101015] rounded-xl border border-slate-200/90 dark:border-white/10 shadow-md shadow-slate-300/50 dark:shadow-2xl overflow-hidden flex flex-col md:flex-row min-h-[310px] sm:min-h-[360px]">
 
                 {/* ─────────────────────────────────────────────────────
                     Left Pane: Workspace Table (60% width)
@@ -484,8 +484,8 @@ export const WorkCategoriesShowcase: React.FC = () => {
                 <div className="flex-1 flex flex-col border-b md:border-b-0 md:border-r border-slate-200 dark:border-white/10 min-w-0 bg-white dark:bg-[#101015]">
 
                   {/* Top Workspace Header & Views Bar */}
-                  <div className="p-3.5 sm:p-4 pb-0 flex flex-col gap-2.5">
-                    <div className="flex items-center gap-2.5">
+                  <div className="p-3 sm:p-4 pb-0 flex flex-col gap-2">
+                    <div className="flex items-center gap-2">
                       {/* Left Multi-color mini 4-square App icon */}
                       <div className="w-5 h-5 rounded-md bg-gradient-to-br from-indigo-500 via-rose-500 to-amber-400 p-0.5 shadow-2xs flex items-center justify-center shrink-0">
                         <div className="grid grid-cols-2 gap-0.5 w-3 h-3">
@@ -503,13 +503,13 @@ export const WorkCategoriesShowcase: React.FC = () => {
                     </div>
 
                     {/* View Switcher Bar (Main Table, Gantt, Kanban, +) */}
-                    <div className="flex items-center gap-3 text-xs font-medium text-slate-500 dark:text-slate-400 border-b border-slate-150 dark:border-white/10 pt-1.5">
+                    <div className="flex items-center gap-2.5 sm:gap-3 text-xs font-medium text-slate-500 dark:text-slate-400 border-b border-slate-150 dark:border-white/10 pt-1">
                       <button
                         onClick={() => setActiveView('table')}
-                        className={`pb-2 flex items-center gap-1 transition-colors relative cursor-pointer text-[11px] sm:text-xs ${activeView === 'table' ? 'text-[#EE6B50] dark:text-[#FA795C] font-semibold' : 'hover:text-slate-900 dark:hover:text-white'
+                        className={`pb-1.5 sm:pb-2 flex items-center gap-1 transition-colors relative cursor-pointer text-[10.5px] sm:text-xs ${activeView === 'table' ? 'text-[#EE6B50] dark:text-[#FA795C] font-semibold' : 'hover:text-slate-900 dark:hover:text-white'
                           }`}
                       >
-                        <Table2 className="w-3.5 h-3.5" />
+                        <Table2 className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
                         <span>Main table</span>
                         {activeView === 'table' && (
                           <div className="absolute bottom-0 inset-x-0 h-0.5 bg-[#EE6B50] dark:bg-[#FA795C] rounded-full" />
@@ -518,10 +518,10 @@ export const WorkCategoriesShowcase: React.FC = () => {
 
                       <button
                         onClick={() => setActiveView('gantt')}
-                        className={`pb-2 flex items-center gap-1 transition-colors relative cursor-pointer text-[11px] sm:text-xs ${activeView === 'gantt' ? 'text-[#EE6B50] dark:text-[#FA795C] font-semibold' : 'hover:text-slate-900 dark:hover:text-white'
+                        className={`pb-1.5 sm:pb-2 flex items-center gap-1 transition-colors relative cursor-pointer text-[10.5px] sm:text-xs ${activeView === 'gantt' ? 'text-[#EE6B50] dark:text-[#FA795C] font-semibold' : 'hover:text-slate-900 dark:hover:text-white'
                           }`}
                       >
-                        <Calendar className="w-3.5 h-3.5" />
+                        <Calendar className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
                         <span>Gantt</span>
                         {activeView === 'gantt' && (
                           <div className="absolute bottom-0 inset-x-0 h-0.5 bg-[#EE6B50] dark:bg-[#FA795C] rounded-full" />
@@ -530,17 +530,17 @@ export const WorkCategoriesShowcase: React.FC = () => {
 
                       <button
                         onClick={() => setActiveView('kanban')}
-                        className={`pb-2 flex items-center gap-1 transition-colors relative cursor-pointer text-[11px] sm:text-xs ${activeView === 'kanban' ? 'text-[#EE6B50] dark:text-[#FA795C] font-semibold' : 'hover:text-slate-900 dark:hover:text-white'
+                        className={`pb-1.5 sm:pb-2 flex items-center gap-1 transition-colors relative cursor-pointer text-[10.5px] sm:text-xs ${activeView === 'kanban' ? 'text-[#EE6B50] dark:text-[#FA795C] font-semibold' : 'hover:text-slate-900 dark:hover:text-white'
                           }`}
                       >
-                        <Kanban className="w-3.5 h-3.5" />
+                        <Kanban className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
                         <span>Kanban</span>
                         {activeView === 'kanban' && (
                           <div className="absolute bottom-0 inset-x-0 h-0.5 bg-[#EE6B50] dark:bg-[#FA795C] rounded-full" />
                         )}
                       </button>
 
-                      <button className="pb-2 text-slate-400 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 cursor-pointer">
+                      <button className="pb-1.5 sm:pb-2 text-slate-400 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 cursor-pointer">
                         <Plus className="w-3 h-3" />
                       </button>
                     </div>
@@ -561,9 +561,9 @@ export const WorkCategoriesShowcase: React.FC = () => {
                     </div>
 
                     {/* Table Rows & Columns */}
-                    <div className="flex-1 flex flex-col w-full min-w-[240px] sm:min-w-[280px]">
+                    <div className="flex-1 flex flex-col w-full min-w-[230px] sm:min-w-[280px]">
                       {/* Column Headers */}
-                      <div className="grid grid-cols-12 text-[10px] font-semibold text-slate-500 dark:text-slate-400 border-b border-slate-100 dark:border-white/10 py-1.5 px-2 bg-slate-50/70 dark:bg-white/5">
+                      <div className="grid grid-cols-12 text-[9.5px] sm:text-[10px] font-semibold text-slate-500 dark:text-slate-400 border-b border-slate-100 dark:border-white/10 py-1.5 px-2 bg-slate-50/70 dark:bg-white/5">
                         <div className="col-span-6 flex items-center gap-1 text-[#EE6B50] dark:text-[#FA795C] font-medium">
                           <span>Deliverables</span>
                         </div>
@@ -579,28 +579,28 @@ export const WorkCategoriesShowcase: React.FC = () => {
                         {category.tableRows.map((row, index) => (
                           <div
                             key={index}
-                            className="grid grid-cols-12 items-center py-2 px-2 hover:bg-slate-50/80 dark:hover:bg-white/5 transition-colors pl-2.5 group text-left"
+                            className="grid grid-cols-12 items-center py-1.5 sm:py-2 px-2 hover:bg-slate-50/80 dark:hover:bg-white/5 transition-colors pl-2.5 group text-left"
                           >
                             {/* Deliverable Title & Tag */}
                             <div className="col-span-6 pr-1">
                               <div className="flex items-center gap-1">
-                                <span className="text-[11px] font-medium text-slate-900 dark:text-white truncate group-hover:text-[#EE6B50] dark:group-hover:text-[#FA795C] transition-colors">
+                                <span className="text-[10.5px] sm:text-[11px] font-medium text-slate-900 dark:text-white truncate group-hover:text-[#EE6B50] dark:group-hover:text-[#FA795C] transition-colors">
                                   {row.title}
                                 </span>
                               </div>
                               <div className="flex items-center gap-1 mt-0.5">
-                                <span className="text-[9px] px-1 py-0.2 bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-slate-300 rounded">
+                                <span className="text-[8.5px] sm:text-[9px] px-1 py-0.2 bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-slate-300 rounded">
                                   {row.tag}
                                 </span>
-                                <span className="text-[9px] text-slate-400">·</span>
-                                <span className="text-[9px] text-slate-500 dark:text-slate-400 truncate">{row.assignee}</span>
+                                <span className="text-[8.5px] text-slate-400">·</span>
+                                <span className="text-[8.5px] sm:text-[9px] text-slate-500 dark:text-slate-400 truncate">{row.assignee}</span>
                               </div>
                             </div>
 
                             {/* Status Pill */}
                             <div className="col-span-3">
                               <span
-                                className={`inline-block px-1.5 py-0.5 rounded text-[9.5px] font-medium leading-none text-center ${row.statusBg}`}
+                                className={`inline-block px-1.5 py-0.5 rounded text-[9px] sm:text-[9.5px] font-medium leading-none text-center ${row.statusBg}`}
                               >
                                 {row.statusText}
                               </span>
@@ -608,7 +608,7 @@ export const WorkCategoriesShowcase: React.FC = () => {
 
                             {/* Escrow Value */}
                             <div className="col-span-3 text-right">
-                              <span className="text-[11px] font-semibold text-slate-900 dark:text-white font-mono">
+                              <span className="text-[10.5px] sm:text-[11px] font-semibold text-slate-900 dark:text-white font-mono">
                                 {row.escrow}
                               </span>
                             </div>
@@ -622,13 +622,13 @@ export const WorkCategoriesShowcase: React.FC = () => {
                 {/* ─────────────────────────────────────────────────────
                     Right Pane: Floating Doer Collaboration & Live Execution
                    ───────────────────────────────────────────────────── */}
-                <div className="w-full md:w-[240px] lg:w-[260px] bg-[#FBFBFC] dark:bg-[#0A0A0E] p-3 flex flex-col justify-between shrink-0 border-t md:border-t-0 md:border-l border-slate-200 dark:border-white/10">
+                <div className="w-full md:w-[240px] lg:w-[260px] bg-[#FBFBFC] dark:bg-[#0A0A0E] p-2.5 sm:p-3 flex flex-col justify-between shrink-0 border-t md:border-t-0 md:border-l border-slate-200 dark:border-white/10">
                   <div>
                     {/* Doer Top Profile Header */}
                     <div className="flex items-center gap-2 pb-2 border-b border-slate-200 dark:border-white/10">
                       <div className="relative">
                         <img
-                          className="w-8 h-8 rounded-full object-cover border border-white dark:border-white/20 shadow-xs"
+                          className="w-7 h-7 sm:w-8 sm:h-8 rounded-full object-cover border border-white dark:border-white/20 shadow-xs"
                           src={category.doerAvatar}
                           alt={category.doerName}
                         />
@@ -639,15 +639,15 @@ export const WorkCategoriesShowcase: React.FC = () => {
                         <h5 className="text-xs font-semibold text-slate-900 dark:text-white truncate">
                           {category.doerName}
                         </h5>
-                        <p className="text-[9.5px] text-slate-500 dark:text-slate-400 truncate">{category.doerMetric}</p>
+                        <p className="text-[9px] sm:text-[9.5px] text-slate-500 dark:text-slate-400 truncate">{category.doerMetric}</p>
                       </div>
                     </div>
 
                     {/* Chat Bubble Thread */}
-                    <div className="mt-2.5 space-y-2 text-left">
+                    <div className="mt-2 space-y-1.5 sm:space-y-2 text-left">
                       {/* User Request Bubble */}
                       <div className="flex items-end justify-end gap-1.5">
-                        <div className="bg-[#FFE8E2] dark:bg-[#2A1815] text-slate-900 dark:text-orange-100 rounded-xl rounded-tr-xs p-2 text-[10.5px] font-normal leading-relaxed shadow-2xs max-w-[85%] border border-[#FA795C]/20">
+                        <div className="bg-[#FFE8E2] dark:bg-[#2A1815] text-slate-900 dark:text-orange-100 rounded-xl rounded-tr-xs p-1.5 sm:p-2 text-[10px] sm:text-[10.5px] font-normal leading-relaxed shadow-2xs max-w-[85%] border border-[#FA795C]/20">
                           {category.userPrompt}
                         </div>
                         <img
@@ -665,7 +665,7 @@ export const WorkCategoriesShowcase: React.FC = () => {
                           alt="Doer"
                         />
                         <div className="flex-1 min-w-0">
-                          <p className="text-[9.5px] font-medium text-slate-600 dark:text-slate-300 mb-1 flex items-center gap-1">
+                          <p className="text-[9px] sm:text-[9.5px] font-medium text-slate-600 dark:text-slate-300 mb-1 flex items-center gap-1">
                             <span>{category.doerStatus}</span>
                             <span className="flex h-1.5 w-1.5 relative">
                               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#FA795C] opacity-75" />
@@ -674,7 +674,7 @@ export const WorkCategoriesShowcase: React.FC = () => {
                           </p>
 
                           {/* Execution Step Chip */}
-                          <div className="inline-flex items-center gap-1 bg-white dark:bg-[#15151A] border border-slate-200 dark:border-white/10 rounded-lg px-2 py-0.5 text-[9.5px] font-medium text-slate-800 dark:text-slate-200 shadow-2xs max-w-full">
+                          <div className="inline-flex items-center gap-1 bg-white dark:bg-[#15151A] border border-slate-200 dark:border-white/10 rounded-lg px-2 py-0.5 text-[9px] sm:text-[9.5px] font-medium text-slate-800 dark:text-slate-200 shadow-2xs max-w-full">
                             <span
                               className="w-1.5 h-1.5 rounded-full shrink-0"
                               style={{ backgroundColor: category.doerActionIconColor }}
@@ -687,9 +687,9 @@ export const WorkCategoriesShowcase: React.FC = () => {
                   </div>
 
                   {/* Interactive Prompt Trigger Box at Bottom */}
-                  <div className="mt-3 pt-2 border-t border-slate-200/80 dark:border-white/10">
+                  <div className="mt-2.5 sm:mt-3 pt-2 border-t border-slate-200/80 dark:border-white/10">
                     <div className="bg-white dark:bg-[#15151A] rounded-lg border border-slate-200 dark:border-white/10 p-1 pl-2 flex items-center justify-between shadow-2xs">
-                      <span className="text-[9.5px] text-slate-400 truncate">
+                      <span className="text-[9px] sm:text-[9.5px] text-slate-400 truncate">
                         Ask doer for a custom quote...
                       </span>
                       <button
@@ -712,10 +712,10 @@ export const WorkCategoriesShowcase: React.FC = () => {
   }));
 
   return (
-    <section id="work-categories" className="py-12 sm:py-16 lg:py-20 bg-transparent w-full text-center relative">
+    <section id="work-categories" className="py-10 sm:py-16 lg:py-20 bg-transparent w-full text-center relative">
       <div className="w-full max-w-[1340px] mx-auto px-3 sm:px-6 lg:px-8 relative">
         {/* Title Section */}
-        <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-12">
+        <div className="text-center max-w-3xl mx-auto mb-6 sm:mb-10 lg:mb-12">
           <h2 className="text-3xl sm:text-5xl md:text-6xl lg:text-[62px] font-semibold text-slate-950 dark:text-white tracking-tight leading-tight max-w-[760px] mx-auto text-center">
             Get more done with doers
           </h2>
@@ -728,13 +728,13 @@ export const WorkCategoriesShowcase: React.FC = () => {
         <div className="absolute top-[55%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[85%] max-w-5xl h-[420px] bg-gradient-to-r from-orange-500/12 via-rose-500/8 to-indigo-500/12 rounded-[40px] blur-3xl pointer-events-none -z-10" />
 
         {/* Aceternity 3D Stacked Tabs Showcase */}
-        <div className="h-[800px] sm:h-[700px] lg:h-[560px] [perspective:1000px] relative flex flex-col max-w-6xl mx-auto w-full items-center justify-start">
+        <div className="h-[820px] sm:h-[720px] lg:h-[560px] [perspective:1000px] relative flex flex-col max-w-6xl mx-auto w-full items-center justify-start">
           <Tabs
             tabs={tabItems}
-            containerClassName="justify-center gap-1.5 sm:gap-2 p-1 bg-[#F1F3F6]/90 dark:bg-[#0D0D0E] rounded-full border border-slate-200/90 dark:border-white/10 shadow-[0_4px_16px_rgba(0,0,0,0.06)] dark:shadow-none max-w-fit mx-auto"
-            tabClassName="px-3.5 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-950 dark:hover:text-white transition-colors"
-            activeTabClassName="bg-[#FEF3F0] dark:bg-[#2A1713] border-2 border-[#EE6B50] dark:border-[#FA795C] shadow-xs"
-            contentClassName="mt-12 sm:mt-16 lg:mt-20"
+            containerClassName="justify-start sm:justify-center max-w-full overflow-x-auto no-visible-scrollbar mx-auto"
+            tabClassName="px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium whitespace-nowrap shrink-0"
+            activeTabClassName="bg-white dark:bg-[#20120F] border-2 border-[#EE6B50] dark:border-[#FA795C] shadow-sm shadow-[#EE6B50]/15"
+            contentClassName="mt-6 sm:mt-10 lg:mt-14"
           />
         </div>
       </div>

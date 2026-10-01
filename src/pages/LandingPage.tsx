@@ -203,13 +203,13 @@ export const LandingPage: React.FC = () => {
               {isDark ? <Sun className="w-4 h-4 text-amber-300" /> : <Moon className="w-4 h-4 text-slate-700" />}
             </button>
             <button
-              onClick={() => handleAuthAndNavigate('/dashboard')}
+              onClick={() => navigate('/login')}
               className="text-[15px] font-semibold text-slate-900 dark:text-white hover:text-[#EE6B50] transition-colors cursor-pointer"
             >
               Login
             </button>
             <button
-              onClick={() => handleAuthAndNavigate('/create')}
+              onClick={() => navigate('/create')}
               className="bg-gradient-to-b from-[#FA795C] to-[#D95236] hover:brightness-105 active:scale-98 text-white text-sm font-semibold px-6 py-2.5 rounded-full shadow-xs hover:shadow transition-all cursor-pointer"
             >
               + Create Work
@@ -219,7 +219,7 @@ export const LandingPage: React.FC = () => {
           {/* Right Actions (Mobile & Tablet): Quick + Create + Hamburger Menu */}
           <div className="flex md:hidden items-center gap-2">
             <button
-              onClick={() => handleAuthAndNavigate('/create')}
+              onClick={() => navigate('/create')}
               className="bg-gradient-to-b from-[#FA795C] to-[#D95236] hover:brightness-105 active:scale-95 text-white text-xs font-semibold px-3.5 py-1.5 rounded-full shadow-2xs transition-all cursor-pointer"
             >
               + Create
@@ -294,7 +294,7 @@ export const LandingPage: React.FC = () => {
               <button
                 onClick={() => {
                   setMobileMenuOpen(false);
-                  handleAuthAndNavigate('/dashboard');
+                  navigate('/login');
                 }}
                 className="text-xs font-semibold text-slate-900 dark:text-white hover:text-[#EE6B50] px-4 py-2 rounded-xl border border-slate-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 cursor-pointer shadow-2xs"
               >
@@ -335,16 +335,16 @@ export const LandingPage: React.FC = () => {
           ───────────────────────────────────────────────────────────── */}
       <ScrollBlurSection id="workspace-preview" className="!overflow-visible" maxScale={1.04} maxBlur={6} minOpacity={0.4}>
         <section className="py-6 sm:py-10 lg:py-12 bg-transparent w-full text-center border-t border-slate-200/50 dark:border-white/10">
-          <div className="w-full max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-12">
+          <div className="w-full max-w-[1400px] mx-auto px-4 sm:px-10 lg:px-12">
             {/* Lime Green Pill Badge */}
             <div className="inline-flex items-center px-4 py-1 rounded-full text-xs sm:text-sm font-semibold bg-[#D4F870] text-slate-950 font-semibold mb-3.5 shadow-2xs">
               Your Client Dashboard
             </div>
 
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium text-slate-950 dark:text-white dark:text-white tracking-tight leading-[1.15]">
+            <h2 className="text-2.5xl sm:text-4xl md:text-5xl font-medium text-slate-950 dark:text-white tracking-tight leading-[1.15]">
               See Every Update. Do Zero Managing.
             </h2>
-            <p className="mt-2.5 text-sm sm:text-base text-slate-600 dark:text-slate-300 max-w-2xl mx-auto leading-relaxed font-normal">
+            <p className="mt-2.5 text-xs sm:text-base text-slate-600 dark:text-slate-300 max-w-2xl mx-auto leading-relaxed font-normal">
               Check milestone progress, chat with your supervisor, and review completed work — all from one simple dashboard. No spreadsheets, no status meetings.
             </p>
 
@@ -366,23 +366,23 @@ export const LandingPage: React.FC = () => {
           ───────────────────────────────────────────────────────────── */}
       <ScrollBlurSection id="capabilities" maxScale={1.04} maxBlur={6} minOpacity={0.4}>
         <section className="py-6 sm:py-10 lg:py-12 bg-transparent w-full text-center">
-          <div className="w-full max-w-[1300px] mx-auto px-6 sm:px-10 lg:px-12">
+          <div className="w-full max-w-[1300px] mx-auto px-4 sm:px-10 lg:px-12">
             {/* Lime Green Pill Badge */}
             <div className="inline-flex items-center px-3.5 py-1 rounded-full text-xs font-semibold bg-[#D4F870] text-slate-950 font-semibold mb-3 shadow-2xs">
               How It Works
             </div>
 
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium text-slate-950 dark:text-white tracking-tight leading-[1.15]">
+            <h2 className="text-2.5xl sm:text-4xl md:text-5xl font-medium text-slate-950 dark:text-white tracking-tight leading-[1.15]">
               Three Steps from Idea to Delivered Product
             </h2>
-            <p className="mt-2.5 text-sm sm:text-base text-slate-600 dark:text-slate-300 max-w-2xl mx-auto leading-relaxed font-normal">
+            <p className="mt-2.5 text-xs sm:text-base text-slate-600 dark:text-slate-300 max-w-2xl mx-auto leading-relaxed font-normal">
               On other platforms, you hire freelancers and hope for the best. On AssignX, a dedicated supervisor manages the team, runs quality checks, and holds payments in escrow until you're satisfied.
             </p>
 
             {/* 3 Value Cards Grid */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8 sm:mt-10 text-left">
               {/* Card 1: Sunset Coral Accent */}
-              <div className="bg-white dark:bg-[#0D0D0E] rounded-2xl p-7 border border-[#FED7CF] dark:border-[#5E2A20] shadow-xs hover:shadow-md transition-all">
+              <div className="bg-white dark:bg-[#0D0D0E] rounded-2xl p-6 sm:p-7 border border-[#FED7CF] dark:border-[#5E2A20] shadow-xs hover:shadow-md transition-all">
                 <div className="w-12 h-12 rounded-xl bg-gradient-to-b from-[#FA795C] to-[#D95236] text-white flex items-center justify-center mb-5 shadow-xs">
                   <Zap className="w-6 h-6 text-white" />
                 </div>
@@ -395,7 +395,7 @@ export const LandingPage: React.FC = () => {
               </div>
 
               {/* Card 2: Cyan Accent */}
-              <div className="bg-white dark:bg-[#0D0D0E] rounded-2xl p-7 border border-[#D9F4FD] dark:border-[#1E4158] shadow-xs hover:shadow-md transition-all">
+              <div className="bg-white dark:bg-[#0D0D0E] rounded-2xl p-6 sm:p-7 border border-[#D9F4FD] dark:border-[#1E4158] shadow-xs hover:shadow-md transition-all">
                 <div className="w-12 h-12 rounded-xl bg-[#38BDF8] text-white flex items-center justify-center mb-5 shadow-xs">
                   <ShieldCheck className="w-6 h-6 text-white" />
                 </div>
@@ -408,7 +408,7 @@ export const LandingPage: React.FC = () => {
               </div>
 
               {/* Card 3: Amber / Yellow Accent */}
-              <div className="bg-white dark:bg-[#0D0D0E] rounded-2xl p-7 border border-[#FEEFC4] dark:border-[#4D3F1E] shadow-xs hover:shadow-md transition-all">
+              <div className="bg-white dark:bg-[#0D0D0E] rounded-2xl p-6 sm:p-7 border border-[#FEEFC4] dark:border-[#4D3F1E] shadow-xs hover:shadow-md transition-all">
                 <div className="w-12 h-12 rounded-xl bg-[#F5CD52] text-slate-950 flex items-center justify-center mb-5 shadow-xs">
                   <Lock className="w-6 h-6 text-slate-950 dark:text-white" />
                 </div>
@@ -438,29 +438,29 @@ export const LandingPage: React.FC = () => {
           ───────────────────────────────────────────────────────────── */}
       <ScrollBlurSection id="features" maxScale={1.04} maxBlur={6} minOpacity={0.4}>
         <section className="py-6 sm:py-10 lg:py-12 bg-transparent w-full text-center">
-          <div className="w-full max-w-[1300px] mx-auto px-6 sm:px-10 lg:px-12">
+          <div className="w-full max-w-[1300px] mx-auto px-4 sm:px-10 lg:px-12">
             {/* Lime Green Pill Badge */}
             <div className="inline-flex items-center px-3.5 py-1 rounded-full text-xs font-semibold bg-[#D4F870] text-slate-950 font-semibold mb-3 shadow-2xs">
               Platform Features
             </div>
 
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium text-slate-950 dark:text-white tracking-tight leading-[1.15]">
+            <h2 className="text-2.5xl sm:text-4xl md:text-5xl font-medium text-slate-950 dark:text-white tracking-tight leading-[1.15]">
               Built So You Stay in Control Without Doing the Work
             </h2>
-            <p className="mt-2.5 text-sm sm:text-base text-slate-600 dark:text-slate-300 max-w-2xl mx-auto leading-relaxed font-normal">
+            <p className="mt-2.5 text-xs sm:text-base text-slate-600 dark:text-slate-300 max-w-2xl mx-auto leading-relaxed font-normal">
               Your role is simple: share your idea, review progress, and approve the final result. AssignX takes care of everything in between.
             </p>
 
             {/* Bento Grid */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 mt-8 sm:mt-10 text-left">
               {/* Left Column (5 cols): Tall Workspace Photo Card */}
-              <div className="lg:col-span-5 relative rounded-3xl overflow-hidden min-h-[480px] lg:min-h-[580px] shadow-sm group">
+              <div className="lg:col-span-5 relative rounded-3xl overflow-hidden min-h-[360px] sm:min-h-[480px] lg:min-h-[580px] shadow-sm group">
                 <img
                   src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=900&auto=format&fit=crop&q=80"
                   alt="Client and Supervisor Collaboration"
                   className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent flex flex-col justify-end p-8">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent flex flex-col justify-end p-6 sm:p-8">
                   <div className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-[#D4F870] text-slate-950 font-semibold w-fit mb-3">
                     Direct Messaging
                   </div>
@@ -622,29 +622,29 @@ export const LandingPage: React.FC = () => {
           ───────────────────────────────────────────────────────────── */}
       <ScrollBlurSection id="insights" maxScale={1.04} maxBlur={6} minOpacity={0.4}>
         <section className="py-6 sm:py-10 lg:py-12 bg-transparent w-full text-center">
-          <div className="w-full max-w-[1300px] mx-auto px-6 sm:px-10 lg:px-12">
+          <div className="w-full max-w-[1300px] mx-auto px-4 sm:px-10 lg:px-12">
             {/* Lime Green Pill Badge */}
             <div className="inline-flex items-center px-3.5 py-1 rounded-full text-xs font-semibold bg-[#D4F870] text-slate-950 font-semibold mb-3 shadow-2xs">
               From Our Blog
             </div>
 
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium text-slate-950 dark:text-white tracking-tight leading-[1.15]">
+            <h2 className="text-2.5xl sm:text-4xl md:text-5xl font-medium text-slate-950 dark:text-white tracking-tight leading-[1.15]">
               Practical Guides for Founders Building with a Team
             </h2>
-            <p className="mt-2.5 text-sm sm:text-base text-slate-600 dark:text-slate-300 max-w-2xl mx-auto leading-relaxed font-normal">
+            <p className="mt-2.5 text-xs sm:text-base text-slate-600 dark:text-slate-300 max-w-2xl mx-auto leading-relaxed font-normal">
               Learn how to get software built without managing people — from protecting your budget with escrow to running smooth milestone reviews.
             </p>
 
             {/* 5-Card Blog Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8 sm:mt-10 text-left">
               {/* Blog Post 1 */}
-              <div className="rounded-3xl overflow-hidden relative min-h-[260px] shadow-xs group">
+              <div className="rounded-3xl overflow-hidden relative min-h-[240px] sm:min-h-[260px] shadow-xs group">
                 <img
                   src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&auto=format&fit=crop&q=80"
                   alt="Post 1"
                   className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex flex-col justify-end p-6">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex flex-col justify-end p-5 sm:p-6">
                   <span className="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-[#D4F870] text-slate-950 font-semibold w-fit mb-2">
                     Managed Delivery
                   </span>
@@ -655,13 +655,13 @@ export const LandingPage: React.FC = () => {
               </div>
 
               {/* Blog Post 2 (Center Tall Post spanning rows) */}
-              <div className="rounded-3xl overflow-hidden relative min-h-[260px] lg:row-span-2 lg:min-h-[544px] shadow-xs group">
+              <div className="rounded-3xl overflow-hidden relative min-h-[240px] sm:min-h-[260px] lg:row-span-2 lg:min-h-[544px] shadow-xs group">
                 <img
                   src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=600&auto=format&fit=crop&q=80"
                   alt="Post 2"
                   className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex flex-col justify-end p-8">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex flex-col justify-end p-6 sm:p-8">
                   <span className="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-[#D4F870] text-slate-950 font-semibold w-fit mb-2">
                     Client Guide
                   </span>
@@ -672,13 +672,13 @@ export const LandingPage: React.FC = () => {
               </div>
 
               {/* Blog Post 3 */}
-              <div className="rounded-3xl overflow-hidden relative min-h-[260px] shadow-xs group">
+              <div className="rounded-3xl overflow-hidden relative min-h-[240px] sm:min-h-[260px] shadow-xs group">
                 <img
                   src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=600&auto=format&fit=crop&q=80"
                   alt="Post 3"
                   className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex flex-col justify-end p-6">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex flex-col justify-end p-5 sm:p-6">
                   <span className="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-[#D4F870] text-slate-950 font-semibold w-fit mb-2">
                     Budget Security
                   </span>
@@ -689,13 +689,13 @@ export const LandingPage: React.FC = () => {
               </div>
 
               {/* Blog Post 4 */}
-              <div className="rounded-3xl overflow-hidden relative min-h-[260px] shadow-xs group">
+              <div className="rounded-3xl overflow-hidden relative min-h-[240px] sm:min-h-[260px] shadow-xs group">
                 <img
                   src="https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=600&auto=format&fit=crop&q=80"
                   alt="Post 4"
                   className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex flex-col justify-end p-6">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex flex-col justify-end p-5 sm:p-6">
                   <span className="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-[#D4F870] text-slate-950 font-semibold w-fit mb-2">
                     Case Study
                   </span>
@@ -713,8 +713,8 @@ export const LandingPage: React.FC = () => {
            ───────────────────────────────────────────────────────────── */}
         <section id="testimonials" className="py-6 sm:py-8 bg-transparent w-full overflow-hidden">
           {/* Left-Aligned Compact Header */}
-          <div className="w-full max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-12 mb-4 sm:mb-5 text-left">
-            <h2 className="text-3xl sm:text-4xl lg:text-[40px] font-medium text-slate-950 dark:text-white tracking-tight leading-[1.15]">
+          <div className="w-full max-w-[1400px] mx-auto px-4 sm:px-10 lg:px-12 mb-4 sm:mb-5 text-left">
+            <h2 className="text-2.5xl sm:text-4xl lg:text-[40px] font-medium text-slate-950 dark:text-white tracking-tight leading-[1.15]">
               What Our Clients <br />Are Saying
             </h2>
             <p className="mt-1.5 text-xs sm:text-sm text-slate-600 max-w-lg leading-relaxed font-normal">

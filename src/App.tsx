@@ -1,13 +1,12 @@
-/* Master Application Root for AssignX Client Panel */
 import React from 'react';
 import { NavigationProvider, useNavigation } from './context/NavigationContext';
 import { AppProvider, useApp } from './context/AppContext';
 import { ThemeProvider } from './context/ThemeContext';
 import { AppLayout } from './components/layout/AppLayout';
-import { SmoothScroll } from './components/common/SmoothScroll';
 
 // Pages
 import { LandingPage } from './pages/LandingPage';
+import { LoginPage } from './pages/LoginPage';
 import { DashboardPage } from './pages/DashboardPage';
 import { MyWorkPage } from './pages/MyWorkPage';
 import { CreateWorkFlow } from './pages/create-work/CreateWorkFlow';
@@ -22,6 +21,11 @@ import { SupportDisputesPage } from './pages/SupportDisputesPage';
 const AppRouter: React.FC = () => {
   const { currentRoute } = useNavigation();
   const { isLoggedIn } = useApp();
+
+  // Route to Login Page
+  if (currentRoute.path === '/login' || currentRoute.path === '/auth') {
+    return <LoginPage />;
+  }
 
   // When opening the site (initial root / or /landing) or if not logged in, render the Landing Page
   if (currentRoute.path === '/landing' || currentRoute.path === '/' || !isLoggedIn) {
@@ -74,11 +78,10 @@ export default function App() {
     <ThemeProvider>
       <NavigationProvider>
         <AppProvider>
-          <SmoothScroll>
-            <AppRouter />
-          </SmoothScroll>
+          <AppRouter />
         </AppProvider>
       </NavigationProvider>
     </ThemeProvider>
   );
 }
+

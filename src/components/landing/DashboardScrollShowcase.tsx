@@ -26,52 +26,52 @@ export const DashboardScrollShowcase: React.FC = () => {
             </div>
           }
         >
-          {/* Dashboard Window Header Bar */}
-          <div className="flex flex-col h-full w-full bg-slate-900/5 dark:bg-black/40">
-            <div className="flex items-center justify-between px-3 sm:px-4 py-2 border-b border-slate-200/80 dark:border-white/10 bg-slate-100/90 dark:bg-[#141418] shrink-0">
-              <div className="flex items-center gap-1.5 sm:gap-2">
-                <div className="w-2.5 sm:w-3 h-2.5 sm:h-3 rounded-full bg-[#FF5F56] shadow-2xs" />
-                <div className="w-2.5 sm:w-3 h-2.5 sm:h-3 rounded-full bg-[#FFBD2E] shadow-2xs" />
-                <div className="w-2.5 sm:w-3 h-2.5 sm:h-3 rounded-full bg-[#27C93F] shadow-2xs" />
-                <div className="hidden sm:flex items-center gap-1.5 ml-2 sm:ml-3 px-2.5 py-0.5 rounded-md bg-white/70 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-[10px] sm:text-xs font-mono text-slate-600 dark:text-slate-300">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                  <span>app.assignx.com/dashboard</span>
+            {/* Dashboard Window Header Bar */}
+            <div className="flex flex-col h-full w-full bg-slate-900/5 dark:bg-black/40">
+              <div className="flex items-center justify-between px-2.5 sm:px-4 py-1.5 sm:py-2 border-b border-slate-200/80 dark:border-white/10 bg-slate-100/90 dark:bg-[#141418] shrink-0">
+                <div className="flex items-center gap-1.5 sm:gap-2">
+                  <div className="w-2 sm:w-3 h-2 sm:h-3 rounded-full bg-[#FF5F56] shadow-2xs" />
+                  <div className="w-2 sm:w-3 h-2 sm:h-3 rounded-full bg-[#FFBD2E] shadow-2xs" />
+                  <div className="w-2 sm:w-3 h-2 sm:h-3 rounded-full bg-[#27C93F] shadow-2xs" />
+                  <div className="hidden sm:flex items-center gap-1.5 ml-2 sm:ml-3 px-2.5 py-0.5 rounded-md bg-white/70 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-[10px] sm:text-xs font-mono text-slate-600 dark:text-slate-300">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                    <span>app.assignx.com/dashboard</span>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-1.5 sm:gap-2">
+                  <span className="text-[8.5px] sm:text-[11px] font-semibold px-2 py-0.5 rounded-full bg-[#D4F870] text-slate-950 shadow-2xs">
+                    Live Preview
+                  </span>
+                  <span className="text-[8.5px] sm:text-[11px] text-slate-500 dark:text-slate-400 font-mono hidden sm:inline">
+                    v2.4.0
+                  </span>
                 </div>
               </div>
 
-              <div className="flex items-center gap-2">
-                <span className="text-[9px] sm:text-[11px] font-medium px-2 py-0.5 rounded-full bg-[#D4F870] text-slate-950 font-semibold shadow-2xs">
-                  Live Preview
-                </span>
-                <span className="text-[9px] sm:text-[11px] text-slate-500 dark:text-slate-400 font-mono hidden sm:inline">
-                  v2.4.0
-                </span>
+              {/* Dashboard Screenshot (Adaptive Light & Dark Mode) */}
+              <div className="relative flex-1 w-full h-full overflow-hidden bg-slate-900 dark:bg-[#070709]">
+                {/* Light Mode Screenshot */}
+                <img
+                  src="/dashboard-light.png"
+                  alt="AssignX Client Dashboard - Light Mode"
+                  className="w-full h-full object-fill dark:hidden block select-none"
+                  loading="eager"
+                  draggable={false}
+                />
+
+                {/* Dark Mode Screenshot */}
+                <img
+                  src="/dashboard-dark.png"
+                  alt="AssignX Client Dashboard - Dark Mode"
+                  className="w-full h-full object-fill hidden dark:block select-none"
+                  loading="eager"
+                  draggable={false}
+                />
               </div>
             </div>
-
-            {/* Dashboard Screenshot (Adaptive Light & Dark Mode) */}
-            <div className="relative flex-1 w-full h-full overflow-hidden bg-white dark:bg-[#070709]">
-              {/* Light Mode Screenshot */}
-              <img
-                src="/dashboard-light.png"
-                alt="AssignX Client Dashboard - Light Mode"
-                className="w-full h-full object-cover object-top dark:hidden block select-none"
-                loading="eager"
-                draggable={false}
-              />
-
-              {/* Dark Mode Screenshot */}
-              <img
-                src="/dashboard-dark.png"
-                alt="AssignX Client Dashboard - Dark Mode"
-                className="w-full h-full object-cover object-top hidden dark:block select-none"
-                loading="eager"
-                draggable={false}
-              />
-            </div>
-          </div>
-        </ContainerScroll>
-      </div>
-    </section>
-  );
-};
+          </ContainerScroll>
+        </div>
+      </section>
+    );
+  };

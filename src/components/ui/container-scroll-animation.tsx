@@ -30,23 +30,23 @@ export const ContainerScroll = ({
   }, []);
 
   const scaleDimensions = () => {
-    return isMobile ? [0.75, 0.9] : [1.05, 1];
+    return isMobile ? [0.96, 1] : [1.02, 1];
   };
 
-  const rotate = useTransform(scrollYProgress, [0, 1], [20, 0]);
+  const rotate = useTransform(scrollYProgress, [0, 1], [isMobile ? 6 : 18, 0]);
   const scale = useTransform(scrollYProgress, [0, 1], scaleDimensions());
-  const translate = useTransform(scrollYProgress, [0, 1], [0, -100]);
+  const translate = useTransform(scrollYProgress, [0, 1], [0, isMobile ? -16 : -80]);
 
   return (
     <div
       className={cn(
-        "h-[45rem] sm:h-[55rem] md:h-[65rem] lg:h-[75rem] flex items-center justify-center relative p-2 sm:p-6 md:p-14 lg:p-20 overflow-visible",
+        "h-[26rem] sm:h-[38rem] md:h-[50rem] lg:h-[62rem] flex items-center justify-center relative px-2 sm:px-6 md:px-12 lg:px-16 overflow-visible",
         className
       )}
       ref={containerRef}
     >
       <div
-        className="py-10 md:py-24 w-full relative"
+        className="py-4 sm:py-8 md:py-16 w-full relative"
         style={{
           perspective: "1000px",
         }}
@@ -88,12 +88,14 @@ export const Card = ({
       style={{
         rotateX: rotate,
         scale,
+        transformStyle: "preserve-3d",
+        willChange: "transform",
         boxShadow:
-          "0 0 #0000004d, 0 9px 20px #0000004a, 0 37px 37px #00000042, 0 84px 50px #00000026, 0 149px 60px #0000000a, 0 233px 65px #00000003",
+          "0 25px 60px -15px rgba(0, 0, 0, 0.35), 0 12px 24px -8px rgba(0, 0, 0, 0.2)",
       }}
-      className="max-w-6xl -mt-6 sm:-mt-10 md:-mt-12 mx-auto h-[22rem] sm:h-[30rem] md:h-[38rem] lg:h-[44rem] w-full border-4 border-slate-300/80 dark:border-[#444444] p-2 sm:p-3 md:p-5 bg-slate-100/90 dark:bg-[#1A1A1E] rounded-[24px] sm:rounded-[32px] md:rounded-[36px] shadow-2xl relative"
+      className="max-w-6xl -mt-2 sm:-mt-6 md:-mt-10 mx-auto h-[15rem] sm:h-[24rem] md:h-[34rem] lg:h-[43rem] w-full border border-slate-300/80 dark:border-white/10 p-1 sm:p-2.5 md:p-4 bg-slate-100/90 dark:bg-[#1A1A1E] rounded-[16px] sm:rounded-[26px] md:rounded-[34px] shadow-2xl relative"
     >
-      <div className="h-full w-full overflow-hidden rounded-xl sm:rounded-2xl bg-white dark:bg-[#0E0E12] border border-slate-200/90 dark:border-white/10 shadow-inner">
+      <div className="h-full w-full overflow-hidden rounded-[12px] sm:rounded-[20px] md:rounded-[24px] bg-white dark:bg-[#0E0E12] border border-slate-200/90 dark:border-white/10 shadow-inner flex flex-col">
         {children}
       </div>
     </motion.div>

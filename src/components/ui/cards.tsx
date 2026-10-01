@@ -436,10 +436,12 @@ export const Cards = ({
     const handleResize = () => {
       const width = window.innerWidth;
       setIsMobile(width < 640);
-      if (width < 480) {
-        setSpacing(44);
+      if (width < 360) {
+        setSpacing(34);
+      } else if (width < 480) {
+        setSpacing(42);
       } else if (width < 640) {
-        setSpacing(54);
+        setSpacing(52);
       } else if (width < 1024) {
         setSpacing(Math.round(cardSpacing * 0.5));
       } else {
@@ -466,7 +468,7 @@ export const Cards = ({
       <motion.div
         ref={ref}
         onClick={() => setActive(null)}
-        className="relative mx-auto flex h-[310px] sm:h-[480px] lg:h-[540px] w-full max-w-6xl items-center justify-center [--height:240px] [--width:165px] sm:[--height:380px] sm:[--width:270px] lg:[--height:430px] lg:[--width:300px]"
+        className="relative mx-auto flex h-[320px] sm:h-[480px] lg:h-[540px] w-full max-w-6xl items-center justify-center [--height:245px] [--width:155px] min-[380px]:[--width:170px] sm:[--height:380px] sm:[--width:270px] lg:[--height:430px] lg:[--width:300px]"
       >
         {cards.map((card, index) => {
           const offsetX = (index - middle) * spacing;
