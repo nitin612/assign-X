@@ -64,7 +64,7 @@ export const LandingPage: React.FC = () => {
   const row1Testimonials = [
     {
       quote:
-        "I used to start every morning fielding the same question from three contractors — 'what should I work on?' That question doesn't exist in our team anymore.",
+        "I used to start every morning answering the same question from three freelancers — 'what should I work on?' That question doesn't exist anymore.",
       author: 'Sophia Chen',
       role: 'Co-founder',
       avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80',
@@ -73,7 +73,7 @@ export const LandingPage: React.FC = () => {
     },
     {
       quote:
-        'The technical supervisor runs automated test suites and architectural audits before asking for milestone sign-off. My team doesn\'t just review deliverables, they trust them. That\'s the difference.',
+        'The supervisor checks everything before asking me to approve. My team doesn\'t just review the work — they actually trust it. That\'s the difference.',
       author: 'Dan Lowe',
       role: 'Founder',
       avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=80',
@@ -82,7 +82,7 @@ export const LandingPage: React.FC = () => {
     },
     {
       quote:
-        'Our team feels more aligned because priorities and acceptance criteria live in one verifiable place—not scattered across five messy tools.',
+        'Everyone on our team knows exactly what\'s happening because all the project details are in one place — not scattered across five different apps.',
       author: 'Daniel Samantha',
       role: 'CEO',
       avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&auto=format&fit=crop&q=80',
@@ -91,7 +91,7 @@ export const LandingPage: React.FC = () => {
     },
     {
       quote:
-        'AssignX caught an authentication race condition before our investor demo because of how the supervisor validated dependencies. That single catch justified the whole year.',
+        'AssignX found a critical bug before our investor demo because the supervisor caught it during their quality check. That single catch was worth the entire year.',
       author: 'Robert Helios',
       role: 'Founder',
       avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&auto=format&fit=crop&q=80',
@@ -104,7 +104,7 @@ export const LandingPage: React.FC = () => {
   const row2Testimonials = [
     {
       quote:
-        'It caught a customer-facing schema regression that would\'ve delayed our launch. The architectural reasoning behind every supervisor review made it easy to trust.',
+        'They caught a problem that would have delayed our launch by weeks. The supervisor explained exactly what was wrong and how they fixed it. Easy to trust.',
       author: 'Marcus Kim',
       role: 'Product Lead',
       avatar: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=100&auto=format&fit=crop&q=80',
@@ -113,7 +113,7 @@ export const LandingPage: React.FC = () => {
     },
     {
       quote:
-        'Milestone escrow completely eliminated our payment anxiety. Funds are only released when both our team and the technical supervisor verify acceptance criteria. Zero financial risk.',
+        'The payment protection completely removed our worry. Our money is only released when we\'re happy with the work. Zero financial risk.',
       author: 'Elena Rostova',
       role: 'Co-founder',
       avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=100&auto=format&fit=crop&q=80',
@@ -122,7 +122,7 @@ export const LandingPage: React.FC = () => {
     },
     {
       quote:
-        'We deployed a complete multi-tenant AI workflow in three 2-week sprints. The daily async standups and PR sign-offs felt like having an elite in-house engineering team.',
+        'We got our entire project built in just 6 weeks. Daily progress updates and quality reviews made it feel like having our own in-house team.',
       author: 'Aisha Patel',
       role: 'Head of Engineering',
       avatar: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=100&auto=format&fit=crop&q=80',
@@ -131,7 +131,7 @@ export const LandingPage: React.FC = () => {
     },
     {
       quote:
-        'Not once did we have to debate scope creep or missing requirements. Scopes are scored upfront, milestones are locked, and delivery is guaranteed.',
+        'Not once did we argue about what was included or what was extra. Everything was agreed upfront, milestones were clear, and delivery was guaranteed.',
       author: 'David Vance',
       role: 'Director of Tech',
       avatar: 'https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=100&auto=format&fit=crop&q=80',
@@ -462,13 +462,13 @@ export const LandingPage: React.FC = () => {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent flex flex-col justify-end p-6 sm:p-8">
                   <div className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-[#D4F870] text-slate-950 font-semibold w-fit mb-3">
-                    Direct Messaging
+                    Direct Chat
                   </div>
                   <h3 className="text-xl sm:text-2xl font-medium text-white leading-tight">
                     Always Know What's <br />Happening With Your Project
                   </h3>
                   <p className="text-xs text-slate-200 mt-2 leading-relaxed font-normal">
-                    Message your supervisor anytime. Get updates, share feedback, and preview completed work before approving it.
+                    Chat with your project lead anytime. Get quick updates, share feedback, and preview finished work before you say yes.
                   </p>
                 </div>
               </div>
@@ -479,13 +479,13 @@ export const LandingPage: React.FC = () => {
                 <div className="bg-[#FDECE7] dark:bg-[#24130F] rounded-3xl p-6 sm:p-8 border border-[#FCD3C9] dark:border-[#4D2319] flex flex-col md:flex-row items-center justify-between gap-6">
                   <div className="w-full md:w-5/12">
                     <span className="inline-block px-3 py-1 rounded-full text-[11px] font-semibold bg-gradient-to-b from-[#FA795C] to-[#D95236] text-white mb-3">
-                      Hands-Free Team Management
+                      Zero Hassle For You
                     </span>
                     <h3 className="text-xl sm:text-2xl font-medium text-slate-950 dark:text-white leading-snug">
-                      We Hire, Manage, and Coordinate the Team For You
+                      We Pick the Team & Handle All the Daily Work
                     </h3>
                     <p className="text-xs text-slate-600 dark:text-slate-300 mt-2 leading-relaxed">
-                      No recruiting, no daily check-ins, no task delegation. Your supervisor handles all of that.
+                      No hiring headaches, no daily follow-ups, no tech confusion. Your project lead takes care of everything.
                     </p>
                   </div>
 
@@ -493,7 +493,7 @@ export const LandingPage: React.FC = () => {
                   <div className="w-full md:w-7/12 bg-white rounded-2xl p-4 shadow-sm border border-slate-100">
                     <div className="flex items-center gap-1.5 bg-slate-50 px-2.5 py-1.5 rounded-lg border border-slate-150 text-[11px] text-slate-500 mb-3">
                       <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
-                      <span>Assigned Project Supervisor</span>
+                      <span>Your Dedicated Project Lead</span>
                     </div>
 
                     <div className="p-2.5 rounded-xl bg-[#FEF3F0] border border-[#FCD3C9] dark:bg-[#2A1713] dark:border-[#4E271D] mb-3 flex items-center justify-between">
@@ -505,7 +505,7 @@ export const LandingPage: React.FC = () => {
                         />
                         <div>
                           <p className="text-xs font-bold text-slate-900 dark:text-slate-100">Arjun Mehta</p>
-                          <p className="text-[10px] text-slate-500">Technical Supervisor ⭐ 4.9</p>
+                          <p className="text-[10px] text-slate-500">Project Lead ⭐ 4.9</p>
                         </div>
                       </div>
                       <span className="text-[10px] font-bold bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full">
@@ -515,15 +515,15 @@ export const LandingPage: React.FC = () => {
 
                     <div className="space-y-1.5 text-[11px] text-slate-600">
                       <div className="flex items-center justify-between py-1 border-b border-slate-100 dark:border-white/10">
-                        <span>Frontend Implementation</span>
-                        <span className="font-semibold text-emerald-600">QA Verified</span>
+                        <span>Design & Page Screens</span>
+                        <span className="font-semibold text-emerald-600">Checked & Approved</span>
                       </div>
                       <div className="flex items-center justify-between py-1 border-b border-slate-100 dark:border-white/10">
-                        <span>Backend & Database APIs</span>
+                        <span>Building the Features</span>
                         <span className="font-semibold text-[#EE6B50]">In Progress</span>
                       </div>
                       <div className="flex items-center justify-between py-1">
-                        <span>Automated CI/CD Pipeline</span>
+                        <span>Final Delivery</span>
                         <span className="font-semibold text-slate-500">Scheduled</span>
                       </div>
                     </div>
@@ -537,19 +537,18 @@ export const LandingPage: React.FC = () => {
                     <div>
                       <div className="flex items-center justify-between mb-3">
                         <div className="flex items-center gap-1.5 bg-amber-50 text-amber-800 border border-amber-200 px-2 py-0.5 rounded-full text-[10px] font-semibold">
-                          <span>🔔 Action Required</span>
-                          <span>Review Ready</span>
+                          <span>🔔 Ready for Review</span>
                         </div>
                         <span className="text-slate-400 text-sm">⋮</span>
                       </div>
 
                       <h4 className="text-sm font-medium text-slate-950 dark:text-white leading-snug">
-                        Restaurant Website Homepage & Reservation System
+                        Restaurant Website & Online Booking
                       </h4>
 
                       <div className="mt-4">
                         <div className="flex justify-between text-[11px] text-slate-500 font-normal mb-1">
-                          <span>Milestone 2 Progress</span>
+                          <span>Step 2 of 3 Progress</span>
                           <span className="font-semibold text-slate-900 dark:text-slate-100">68%</span>
                         </div>
                         <div className="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
@@ -560,7 +559,7 @@ export const LandingPage: React.FC = () => {
 
                     <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
                       <div className="flex items-center gap-1">
-                        <span className="text-[11px] text-slate-600 font-medium">Supervisor: Arjun Mehta</span>
+                        <span className="text-[11px] text-slate-600 font-medium">Lead: Arjun Mehta</span>
                       </div>
                       <div className="flex items-center gap-2 text-[10px] text-slate-400">
                         <span className="flex items-center gap-1">
@@ -573,13 +572,13 @@ export const LandingPage: React.FC = () => {
                   {/* Card 2: Soft Cyan Overview Card */}
                   <div className="bg-[#E2F7FD] dark:bg-[#081B26] rounded-3xl p-6 border border-[#CEEFF8] dark:border-[#13425A] flex flex-col justify-center items-start">
                     <span className="inline-block px-3 py-1 rounded-full text-[11px] font-semibold bg-[#38BDF8] text-white mb-3">
-                      Needs Your Attention
+                      Quick Approvals
                     </span>
                     <h3 className="text-xl font-normal text-slate-950 dark:text-white leading-snug">
-                      See Exactly What Needs Your Input Right Now
+                      Approve Finished Steps in One Click
                     </h3>
                     <p className="text-xs text-slate-600 mt-2 leading-relaxed">
-                      Approve a design, sign off on a milestone, or release payment — all in one click.
+                      Preview what's ready, give your thumbs up, and release payments whenever you're satisfied.
                     </p>
                   </div>
                 </div>
@@ -629,10 +628,10 @@ export const LandingPage: React.FC = () => {
             </div>
 
             <h2 className="text-2.5xl sm:text-4xl md:text-5xl font-medium text-slate-950 dark:text-white tracking-tight leading-[1.15]">
-              Practical Guides for Founders Building with a Team
+              Simple Guides to Bring Your Ideas to Life
             </h2>
             <p className="mt-2.5 text-xs sm:text-base text-slate-600 dark:text-slate-300 max-w-2xl mx-auto leading-relaxed font-normal">
-              Learn how to get software built without managing people — from protecting your budget with escrow to running smooth milestone reviews.
+              Learn how to get your app or website built stress-free — from keeping your budget safe to reviewing completed work step by step.
             </p>
 
             {/* 5-Card Blog Grid */}
@@ -646,10 +645,10 @@ export const LandingPage: React.FC = () => {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex flex-col justify-end p-5 sm:p-6">
                   <span className="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-[#D4F870] text-slate-950 font-semibold w-fit mb-2">
-                    Managed Delivery
+                    Hiring Advice
                   </span>
                   <h4 className="text-sm font-medium text-white leading-snug">
-                    Why Hiring Freelancers Directly Often Fails — And What to Do Instead
+                    Why Hiring Freelancers on Your Own is Hard — And the Better Way
                   </h4>
                 </div>
               </div>
@@ -663,10 +662,10 @@ export const LandingPage: React.FC = () => {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex flex-col justify-end p-6 sm:p-8">
                   <span className="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-[#D4F870] text-slate-950 font-semibold w-fit mb-2">
-                    Client Guide
+                    How It Works
                   </span>
                   <h4 className="text-base sm:text-lg font-medium text-white leading-snug">
-                    How AssignX Takes Your Idea from a Simple Description to a Live Product
+                    How AssignX Turns Your Idea into a Live, Working Product
                   </h4>
                 </div>
               </div>
@@ -680,10 +679,10 @@ export const LandingPage: React.FC = () => {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex flex-col justify-end p-5 sm:p-6">
                   <span className="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-[#D4F870] text-slate-950 font-semibold w-fit mb-2">
-                    Budget Security
+                    Safe Payments
                   </span>
                   <h4 className="text-sm font-medium text-white leading-snug">
-                    What is Milestone Escrow and Why It Keeps Your Budget Safe
+                    How Your Money Stays Protected Until You Approve the Work
                   </h4>
                 </div>
               </div>
@@ -697,10 +696,10 @@ export const LandingPage: React.FC = () => {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex flex-col justify-end p-5 sm:p-6">
                   <span className="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-[#D4F870] text-slate-950 font-semibold w-fit mb-2">
-                    Case Study
+                    Real Story
                   </span>
                   <h4 className="text-sm font-medium text-white leading-snug">
-                    How to Ship Software Without Becoming a Full-Time Project Manager
+                    How to Build and Launch Software Without Any Technical Skills
                   </h4>
                 </div>
               </div>
@@ -1085,14 +1084,14 @@ export const LandingPage: React.FC = () => {
             </button>
 
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-[#D4F870] text-slate-950 mb-2.5">
-              Supervised Delivery Walkthrough
+              See How It Works
             </div>
 
             <h3 className="text-xl sm:text-2xl font-bold text-slate-950 dark:text-white tracking-tight">
-              How AssignX Manages Your Deliverables
+              How AssignX Delivers Your Project
             </h3>
             <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-1 leading-relaxed">
-              From intake to final code review: See how a dedicated supervisor orchestrates vetted talent and releases escrow payments only on approval.
+              From your first request to the finished product: See how a dedicated supervisor manages the team, checks the quality, and only releases payment when you approve.
             </p>
 
             {/* Video Player Container */}
@@ -1111,25 +1110,25 @@ export const LandingPage: React.FC = () => {
             <div className="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-2.5 text-left">
               <div className="p-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200/80 dark:border-white/10">
                 <span className="text-[10px] font-bold text-[#EE6B50] uppercase tracking-wider block">Step 01</span>
-                <p className="text-xs font-bold text-slate-900 dark:text-white mt-0.5">Describe Your Task</p>
+                <p className="text-xs font-bold text-slate-900 dark:text-white mt-0.5">Tell Us What You Need</p>
                 <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5 leading-snug">
-                  Guided 6-step wizard locks in requirements & budget.
+                  A simple form helps you describe your project & set a budget.
                 </p>
               </div>
 
               <div className="p-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200/80 dark:border-white/10">
                 <span className="text-[10px] font-bold text-emerald-500 uppercase tracking-wider block">Step 02</span>
-                <p className="text-xs font-bold text-slate-900 dark:text-white mt-0.5">Supervisor Runs QA</p>
+                <p className="text-xs font-bold text-slate-900 dark:text-white mt-0.5">Supervisor Manages Everything</p>
                 <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5 leading-snug">
-                  Tech lead directs talent and verifies code & milestones.
+                  A project lead runs the team & checks work quality for you.
                 </p>
               </div>
 
               <div className="p-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200/80 dark:border-white/10">
                 <span className="text-[10px] font-bold text-indigo-500 uppercase tracking-wider block">Step 03</span>
-                <p className="text-xs font-bold text-slate-900 dark:text-white mt-0.5">Approve & Release</p>
+                <p className="text-xs font-bold text-slate-900 dark:text-white mt-0.5">Review & Pay Only If Happy</p>
                 <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5 leading-snug">
-                  100% escrow protection. Funds released on approval.
+                  Your money is safe. It's only released when you approve.
                 </p>
               </div>
             </div>
@@ -1137,7 +1136,7 @@ export const LandingPage: React.FC = () => {
             {/* Footer Modal CTA */}
             <div className="mt-5 flex flex-col sm:flex-row items-center justify-between gap-3 pt-4 border-t border-slate-150 dark:border-white/10">
               <span className="text-xs text-slate-500 dark:text-slate-400 text-center sm:text-left">
-                Start your sprint with zero management hassle.
+                Start your project with zero management hassle.
               </span>
               <button
                 onClick={() => {

@@ -57,24 +57,24 @@ const CATEGORIES: CategoryData[] = [
     id: 'web-dev',
     tabLabel: 'Web Development',
     icon: Code2,
-    headingPrefix: 'Web apps, APIs and SaaS platforms.',
+    headingPrefix: 'Websites, web apps and online platforms.',
     highlightWord: 'Done.',
     description:
-      'Vetted full-stack doers build production-ready frontends, robust backend APIs, and scalable databases while your supervisor validates code milestones.',
-    projectTitle: 'Enterprise Next.js SaaS Platform',
+      'Skilled developers build your website or web app from start to finish — while a project supervisor checks the quality at every step so you don\'t have to.',
+    projectTitle: 'Online Business Platform Build',
     doerName: 'Marcus Vance',
-    doerRole: 'Lead Full-Stack Doer',
-    doerMetric: '99% milestone pass rate',
+    doerRole: 'Lead Web Developer',
+    doerMetric: '99% of work approved first time',
     doerAvatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=120&auto=format&fit=crop&q=80',
     userAvatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120&auto=format&fit=crop&q=80',
-    userPrompt: 'Build responsive auth flow, Stripe subscriptions & Supabase API.',
+    userPrompt: 'Build a login system, payment subscriptions & a database for our app.',
     doerStatus: 'Processing your request',
     doerActionTool: 'Vercel / GitHub',
-    doerActionText: 'Deploying Next.js preview & running tests',
+    doerActionText: 'Setting up live preview & running quality checks',
     doerActionIconColor: '#000000',
     tableRows: [
       {
-        title: 'Supabase Auth & RBAC Schema',
+        title: 'User Login & Permissions Setup',
         tag: 'Backend',
         assignee: 'Marcus V.',
         avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=80&auto=format&fit=crop&q=80',
@@ -84,7 +84,7 @@ const CATEGORIES: CategoryData[] = [
         escrow: '$750'
       },
       {
-        title: 'Stripe Billing & Webhook Endpoints',
+        title: 'Payment System & Billing Setup',
         tag: 'Payments',
         assignee: 'Marcus V.',
         avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=80&auto=format&fit=crop&q=80',
@@ -104,8 +104,8 @@ const CATEGORIES: CategoryData[] = [
         escrow: '$800'
       },
       {
-        title: 'Automated CI/CD & Security Audit',
-        tag: 'DevOps',
+        title: 'Auto-Deploy & Security Review',
+        tag: 'Launch',
         assignee: 'Supervisor',
         avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&auto=format&fit=crop&q=80',
         status: 'Queued',
@@ -119,25 +119,25 @@ const CATEGORIES: CategoryData[] = [
     id: 'mobile',
     tabLabel: 'Mobile Apps',
     icon: Smartphone,
-    headingPrefix: 'iOS, Android and cross-platform apps.',
+    headingPrefix: 'iPhone, Android and cross-platform apps.',
     highlightWord: 'Done.',
     description:
-      'Expert mobile doers develop fluid React Native and Flutter apps, connect native hardware APIs, and deliver store-ready submission builds.',
+      'Expert app developers build smooth, beautiful mobile apps for both iPhone and Android — ready to publish on the App Store and Google Play.',
     projectTitle: 'Health & Fitness Mobile App v2',
     doerName: 'Elena Rostova',
-    doerRole: 'Senior Mobile Architect',
-    doerMetric: '42 apps shipped to stores',
+    doerRole: 'Senior App Developer',
+    doerMetric: '42 apps published to stores',
     doerAvatar: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=120&auto=format&fit=crop&q=80',
     userAvatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=120&auto=format&fit=crop&q=80',
-    userPrompt: 'Implement Apple HealthKit sync, workout tracker & offline caching.',
+    userPrompt: 'Build a fitness tracker that syncs with Apple Health & works offline.',
     doerStatus: 'Processing your request',
     doerActionTool: 'Apple TestFlight',
-    doerActionText: 'Building iOS release candidate #14',
+    doerActionText: 'Building the iPhone app for testing',
     doerActionIconColor: '#007AFF',
     tableRows: [
       {
-        title: 'Apple HealthKit & Google Fit Sync',
-        tag: 'Native API',
+        title: 'Health Data Sync (Apple & Google)',
+        tag: 'Health',
         assignee: 'Elena R.',
         avatar: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=80&auto=format&fit=crop&q=80',
         status: 'Done',
@@ -146,8 +146,8 @@ const CATEGORIES: CategoryData[] = [
         escrow: '$1,200'
       },
       {
-        title: 'Offline-First SQLite Cache Engine',
-        tag: 'Architecture',
+        title: 'Offline Mode (Works Without Internet)',
+        tag: 'Core',
         assignee: 'Elena R.',
         avatar: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=80&auto=format&fit=crop&q=80',
         status: 'In Progress',
@@ -156,7 +156,7 @@ const CATEGORIES: CategoryData[] = [
         escrow: '$850'
       },
       {
-        title: 'Push Notifications & Deep Linking',
+        title: 'Notifications & In-App Links',
         tag: 'Engagement',
         assignee: 'Kian P.',
         avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&auto=format&fit=crop&q=80',
@@ -166,8 +166,8 @@ const CATEGORIES: CategoryData[] = [
         escrow: '$600'
       },
       {
-        title: 'App Store Review Certification',
-        tag: 'Deploy',
+        title: 'App Store Submission & Approval',
+        tag: 'Launch',
         assignee: 'Supervisor',
         avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&auto=format&fit=crop&q=80',
         status: 'Queued',
@@ -181,25 +181,25 @@ const CATEGORIES: CategoryData[] = [
     id: 'ai-ml',
     tabLabel: 'AI & Machine Learning',
     icon: Bot,
-    headingPrefix: 'Autonomous agents, RAG & LLMs.',
+    headingPrefix: 'Smart AI assistants and chatbots.',
     highlightWord: 'Done.',
     description:
-      'AI researchers and engineers build intelligent agents, connect vector search databases, fine-tune models, and deploy automated multi-step workflows.',
-    projectTitle: 'Multi-Agent Support & Sales Pipeline',
+      'AI experts build smart chatbots, virtual assistants, and automated tools that understand your data and help your customers or team 24/7.',
+    projectTitle: 'AI-Powered Customer Support & Sales Bot',
     doerName: 'Dr. Kian Patel',
-    doerRole: 'AI Systems Specialist',
-    doerMetric: '50+ production LLM agents',
+    doerRole: 'AI Expert',
+    doerMetric: '50+ smart bots built & running',
     doerAvatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120&auto=format&fit=crop&q=80',
     userAvatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=120&auto=format&fit=crop&q=80',
-    userPrompt: 'Connect Pinecone vector store with Claude 3.5 Sonnet agent & Slack.',
+    userPrompt: 'Build a smart assistant that reads our documents and answers questions on Slack.',
     doerStatus: 'Processing your request',
-    doerActionTool: 'LangChain & Pinecone',
-    doerActionText: 'Indexing 14,000 vector embeddings',
+    doerActionTool: 'AI Tools',
+    doerActionText: 'Teaching the bot your company knowledge',
     doerActionIconColor: '#10B981',
     tableRows: [
       {
-        title: 'RAG Retrieval & Pinecone Index',
-        tag: 'Vector DB',
+        title: 'Smart Search Through Your Documents',
+        tag: 'Knowledge',
         assignee: 'Dr. Kian',
         avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&auto=format&fit=crop&q=80',
         status: 'Done',
@@ -208,8 +208,8 @@ const CATEGORIES: CategoryData[] = [
         escrow: '$1,400'
       },
       {
-        title: 'Autonomous Tool-Calling Agent',
-        tag: 'Logic',
+        title: 'Auto-Responding Smart Assistant',
+        tag: 'AI Brain',
         assignee: 'Dr. Kian',
         avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&auto=format&fit=crop&q=80',
         status: 'In Progress',
@@ -218,7 +218,7 @@ const CATEGORIES: CategoryData[] = [
         escrow: '$1,100'
       },
       {
-        title: 'Hallucination Guardrails & Eval Suite',
+        title: 'Accuracy Checks & Safety Filters',
         tag: 'Quality',
         assignee: 'Marcus V.',
         avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=80&auto=format&fit=crop&q=80',
@@ -228,8 +228,8 @@ const CATEGORIES: CategoryData[] = [
         escrow: '$700'
       },
       {
-        title: 'Slack Bot & Live Webhook Bridge',
-        tag: 'Integration',
+        title: 'Slack Bot & Live Notifications',
+        tag: 'Connection',
         assignee: 'Supervisor',
         avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&auto=format&fit=crop&q=80',
         status: 'Queued',
@@ -243,25 +243,25 @@ const CATEGORIES: CategoryData[] = [
     id: 'design',
     tabLabel: 'UI/UX Design',
     icon: Palette,
-    headingPrefix: 'Figma systems, UI/UX and wireframes.',
+    headingPrefix: 'Beautiful designs and app layouts.',
     highlightWord: 'Done.',
     description:
-      'Product designers craft high-converting web layouts, mobile UI kits, interactive Figma components, and polished design token libraries.',
-    projectTitle: 'Fintech Banking App & Web Redesign',
+      'Talented designers create stunning app and website designs — from the first sketch to a clickable prototype you can share with your team.',
+    projectTitle: 'Banking App & Website Redesign',
     doerName: 'Sophia Lindqvist',
-    doerRole: 'Lead UI/UX Designer',
-    doerMetric: 'Top 1% Figma Community Creator',
+    doerRole: 'Lead App Designer',
+    doerMetric: 'Top 1% Design Community Creator',
     doerAvatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=120&auto=format&fit=crop&q=80',
     userAvatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120&auto=format&fit=crop&q=80',
-    userPrompt: 'Design a sleek dark/light mode banking interface with interactive flow.',
+    userPrompt: 'Design a modern banking app with dark and light mode.',
     doerStatus: 'Processing your request',
-    doerActionTool: 'Figma Auto-Layout',
-    doerActionText: 'Publishing Design System v2.4 (240+ components)',
+    doerActionTool: 'Figma Design Tool',
+    doerActionText: 'Finalizing 240+ reusable design screens',
     doerActionIconColor: '#A259FF',
     tableRows: [
       {
-        title: 'Design System & Typography Tokens',
-        tag: 'Tokens',
+        title: 'Color Palette, Fonts & Style Guide',
+        tag: 'Style',
         assignee: 'Sophia L.',
         avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=80&auto=format&fit=crop&q=80',
         status: 'Done',
@@ -270,8 +270,8 @@ const CATEGORIES: CategoryData[] = [
         escrow: '$850'
       },
       {
-        title: 'Interactive High-Fidelity Prototype',
-        tag: 'Figma',
+        title: 'Clickable App Preview You Can Try',
+        tag: 'Prototype',
         assignee: 'Sophia L.',
         avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=80&auto=format&fit=crop&q=80',
         status: 'In Progress',
@@ -280,7 +280,7 @@ const CATEGORIES: CategoryData[] = [
         escrow: '$1,200'
       },
       {
-        title: 'Responsive Tablet & Mobile Screens',
+        title: 'Tablet & Phone Screen Designs',
         tag: 'Layout',
         assignee: 'Elena R.',
         avatar: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=80&auto=format&fit=crop&q=80',
@@ -290,7 +290,7 @@ const CATEGORIES: CategoryData[] = [
         escrow: '$750'
       },
       {
-        title: 'Developer Handoff Specs & Assets',
+        title: 'Ready-to-Build Files for Developers',
         tag: 'Handoff',
         assignee: 'Supervisor',
         avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&auto=format&fit=crop&q=80',
@@ -305,20 +305,20 @@ const CATEGORIES: CategoryData[] = [
     id: 'academic',
     tabLabel: 'Assignments & Research',
     icon: GraduationCap,
-    headingPrefix: 'Data models, papers and coursework.',
+    headingPrefix: 'Research papers, data work and studies.',
     highlightWord: 'Done.',
     description:
-      'Domain scholars and academic mentors assist with rigorous empirical research, mathematical computations, statistical models, and LaTeX documents.',
-    projectTitle: 'Econometric Forecasting & Research Paper',
+      'Academic experts help with research papers, data analysis, charts, and formatted documents — everything you need to submit polished, professional work.',
+    projectTitle: 'Economic Research & Data Analysis Paper',
     doerName: 'Prof. Arthur P.',
-    doerRole: 'Quantitative Researcher',
+    doerRole: 'Research Expert',
     doerMetric: 'Ph.D. Economics • 100% On-Time',
     doerAvatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=120&auto=format&fit=crop&q=80',
     userAvatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=120&auto=format&fit=crop&q=80',
-    userPrompt: 'Run multivariate regression models in R & format IEEE LaTeX paper.',
+    userPrompt: 'Analyze our data with statistical models and write a formatted research paper.',
     doerStatus: 'Processing your request',
-    doerActionTool: 'R Studio & LaTeX',
-    doerActionText: 'Fitting ARIMA model & generating confidence charts',
+    doerActionTool: 'Data Analysis Tools',
+    doerActionText: 'Running analysis & generating result charts',
     doerActionIconColor: '#2563EB',
     tableRows: [
       {
@@ -332,8 +332,8 @@ const CATEGORIES: CategoryData[] = [
         escrow: '$400'
       },
       {
-        title: 'Multivariate Regression & R Code',
-        tag: 'Modeling',
+        title: 'Statistical Analysis & Code',
+        tag: 'Analysis',
         assignee: 'Arthur P.',
         avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&auto=format&fit=crop&q=80',
         status: 'In Progress',
@@ -352,8 +352,8 @@ const CATEGORIES: CategoryData[] = [
         escrow: '$500'
       },
       {
-        title: 'Final Typeset PDF with Peer Review',
-        tag: 'Verification',
+        title: 'Final Formatted PDF & Review',
+        tag: 'Final Check',
         assignee: 'Supervisor',
         avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=80&auto=format&fit=crop&q=80',
         status: 'Queued',
@@ -367,25 +367,25 @@ const CATEGORIES: CategoryData[] = [
     id: 'custom',
     tabLabel: '+ Post any task',
     icon: Layers,
-    headingPrefix: 'Custom scripts, audits and migrations.',
+    headingPrefix: 'Any custom project or special request.',
     highlightWord: 'Done.',
     description:
-      'Have an unconventional project? Submit any custom specification. AssignX matches you with vetted doers and protects your funds with milestone escrow.',
-    projectTitle: 'Custom Multi-Cloud Migration & Security',
+      'Have something unique in mind? Just describe it. We\'ll match you with the right expert and keep your money safe until the work is approved.',
+    projectTitle: 'Custom Server Move & Security Upgrade',
     doerName: 'David Chen',
-    doerRole: 'DevOps & Cloud Specialist',
-    doerMetric: 'AWS & GCP Certified Pro',
+    doerRole: 'Server & Cloud Expert',
+    doerMetric: 'Certified Cloud Professional',
     doerAvatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120&auto=format&fit=crop&q=80',
     userAvatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=120&auto=format&fit=crop&q=80',
-    userPrompt: 'Zero-downtime Kubernetes migration from AWS to GCP with Terraform.',
+    userPrompt: 'Move our servers to a new provider without any downtime.',
     doerStatus: 'Processing your request',
-    doerActionTool: 'Terraform & Kubernetes',
-    doerActionText: 'Applying infra plans & validating SSL certificates',
+    doerActionTool: 'Server Tools',
+    doerActionText: 'Moving servers & checking security certificates',
     doerActionIconColor: '#7C3AED',
     tableRows: [
       {
-        title: 'Infrastructure as Code in Terraform',
-        tag: 'DevOps',
+        title: 'Automated Server Setup',
+        tag: 'Setup',
         assignee: 'David C.',
         avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&auto=format&fit=crop&q=80',
         status: 'Done',
@@ -394,7 +394,7 @@ const CATEGORIES: CategoryData[] = [
         escrow: '$1,300'
       },
       {
-        title: 'PostgreSQL Live Replica Switchover',
+        title: 'Database Transfer (Zero Data Loss)',
         tag: 'Database',
         assignee: 'David C.',
         avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&auto=format&fit=crop&q=80',
@@ -404,8 +404,8 @@ const CATEGORIES: CategoryData[] = [
         escrow: '$1,600'
       },
       {
-        title: 'DNS Failover & SSL Termination',
-        tag: 'Networking',
+        title: 'Web Address & Security Setup',
+        tag: 'Security',
         assignee: 'David C.',
         avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&auto=format&fit=crop&q=80',
         status: 'Review',
@@ -414,8 +414,8 @@ const CATEGORIES: CategoryData[] = [
         escrow: '$800'
       },
       {
-        title: 'Architecture Signoff & Documentation',
-        tag: 'Audit',
+        title: 'Final Review & Documentation',
+        tag: 'Review',
         assignee: 'Supervisor',
         avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&auto=format&fit=crop&q=80',
         status: 'Queued',
@@ -522,7 +522,7 @@ export const WorkCategoriesShowcase: React.FC = () => {
                           }`}
                       >
                         <Calendar className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
-                        <span>Gantt</span>
+                        <span>Timeline</span>
                         {activeView === 'gantt' && (
                           <div className="absolute bottom-0 inset-x-0 h-0.5 bg-[#EE6B50] dark:bg-[#FA795C] rounded-full" />
                         )}
@@ -534,7 +534,7 @@ export const WorkCategoriesShowcase: React.FC = () => {
                           }`}
                       >
                         <Kanban className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
-                        <span>Kanban</span>
+                        <span>Board</span>
                         {activeView === 'kanban' && (
                           <div className="absolute bottom-0 inset-x-0 h-0.5 bg-[#EE6B50] dark:bg-[#FA795C] rounded-full" />
                         )}
@@ -565,10 +565,10 @@ export const WorkCategoriesShowcase: React.FC = () => {
                       {/* Column Headers */}
                       <div className="grid grid-cols-12 text-[9.5px] sm:text-[10px] font-semibold text-slate-500 dark:text-slate-400 border-b border-slate-100 dark:border-white/10 py-1.5 px-2 bg-slate-50/70 dark:bg-white/5">
                         <div className="col-span-6 flex items-center gap-1 text-[#EE6B50] dark:text-[#FA795C] font-medium">
-                          <span>Deliverables</span>
+                          <span>Project Steps</span>
                         </div>
                         <div className="col-span-3">Status</div>
-                        <div className="col-span-3 text-right">Escrow</div>
+                        <div className="col-span-3 text-right">Protected Pay</div>
                       </div>
 
                       {/* Interactive Rows with Left Coral Border Accent */}
@@ -690,7 +690,7 @@ export const WorkCategoriesShowcase: React.FC = () => {
                   <div className="mt-2.5 sm:mt-3 pt-2 border-t border-slate-200/80 dark:border-white/10">
                     <div className="bg-white dark:bg-[#15151A] rounded-lg border border-slate-200 dark:border-white/10 p-1 pl-2 flex items-center justify-between shadow-2xs">
                       <span className="text-[9px] sm:text-[9.5px] text-slate-400 truncate">
-                        Ask doer for a custom quote...
+                        Ask about your project...
                       </span>
                       <button
                         onClick={() => handleAuthAndNavigate('/dashboard')}
@@ -717,10 +717,10 @@ export const WorkCategoriesShowcase: React.FC = () => {
         {/* Title Section */}
         <div className="text-center max-w-3xl mx-auto mb-6 sm:mb-10 lg:mb-12">
           <h2 className="text-3xl sm:text-5xl md:text-6xl lg:text-[62px] font-semibold text-slate-950 dark:text-white tracking-tight leading-tight max-w-[760px] mx-auto text-center">
-            Get more done with doers
+            Tell us what you need. We get it done.
           </h2>
           <p className="mt-2 sm:mt-4 text-xs sm:text-base md:text-lg text-slate-600 dark:text-slate-300 max-w-[560px] mx-auto leading-relaxed font-normal px-2">
-            Turn tasks into completed milestones — from web development and mobile apps to AI workflows and design.
+            Whether it's a website, mobile app, AI chatbot, design, or research — just describe your project and our experts will build it for you.
           </p>
         </div>
 

@@ -61,9 +61,9 @@ export const controls = {
    ───────────────────────────────────────────────────────────────── */
 export const assignXCards: Card[] = [
   {
-    title: "Milestone Tracking",
+    title: "Project Progress",
     description:
-      "Track sprint progress, deliverables, and deadlines in real-time with zero status meetings.",
+      "See exactly how far along your project is, what's done, and what's next — without a single meeting.",
     skeleton: (
       <div className="w-full h-26 sm:h-44 lg:h-52 rounded-xl bg-gradient-to-br from-black/40 via-black/25 to-black/40 backdrop-blur-md border border-white/20 p-2 sm:p-3.5 flex flex-col justify-between text-left text-white select-none">
         <div>
@@ -76,7 +76,7 @@ export const assignXCards: Card[] = [
           </div>
 
           <h4 className="text-[10px] sm:text-xs font-semibold text-white leading-snug line-clamp-1 sm:line-clamp-2">
-            Restaurant Redesign & API
+            Restaurant Website Redesign
           </h4>
 
           <div className="mt-1 sm:mt-3">
@@ -127,13 +127,13 @@ export const assignXCards: Card[] = [
   },
 
   {
-    title: "Dedicated Tech Lead",
+    title: "Your Project Lead",
     description:
-      "Direct chat with your technical supervisor. Every pull request and asset is QA-tested before your review.",
+      "Chat directly with your project supervisor. Every piece of work is quality-checked before it reaches you.",
     skeleton: (
       <div className="w-full h-26 sm:h-44 lg:h-52 rounded-xl bg-white/95 text-slate-900 border border-slate-200/80 p-2 sm:p-3.5 flex flex-col justify-between text-left shadow-sm select-none">
         <div>
-          <div className="text-[8px] sm:text-[10px] text-slate-400 font-medium mb-1 sm:mb-1.5">Supervisor Chat</div>
+          <div className="text-[8px] sm:text-[10px] text-slate-400 font-medium mb-1 sm:mb-1.5">Chat with Your Lead</div>
           <div className="flex items-center justify-between pb-1 sm:pb-2 mb-1 sm:mb-2 border-b border-slate-100 text-slate-600 text-[8px] sm:text-[10px]">
             <div className="flex items-center gap-1 sm:gap-1.5 font-semibold">
               <span className="hover:text-slate-950 cursor-pointer">B</span>
@@ -162,7 +162,7 @@ export const assignXCards: Card[] = [
               <span className="text-[7.5px] sm:text-[8.5px] text-emerald-600 font-semibold">Active</span>
             </div>
             <p className="text-[8px] sm:text-[9.5px] text-slate-600 mt-0.5 line-clamp-1 sm:line-clamp-2 leading-tight">
-              QA passed. Ready for sign-off!
+              All checks passed. Ready for your review!
             </p>
           </div>
         </div>
@@ -178,15 +178,15 @@ export const assignXCards: Card[] = [
   },
 
   {
-    title: "Escrow Protection",
+    title: "Payment Protection",
     description:
-      "Release payments stage-by-stage only after you verify deliverables. Complete escrow safety for every dollar.",
+      "Your money is held safely and only released step-by-step after you review and approve the work.",
     skeleton: (
       <div className="w-full h-26 sm:h-44 lg:h-52 rounded-xl bg-gradient-to-br from-black/45 via-black/30 to-black/45 backdrop-blur-md border border-white/20 p-2 sm:p-3 flex flex-col justify-center space-y-1 sm:space-y-2 text-left text-white select-none">
         <div className="flex items-center justify-between p-1 sm:p-2 rounded-lg bg-emerald-500/20 border border-emerald-400/30">
           <div className="flex items-center gap-1 sm:gap-1.5">
             <CheckCircle2 className="w-3 sm:w-3.5 h-3 sm:h-3.5 text-emerald-300 shrink-0" />
-            <span className="text-[8px] sm:text-[10.5px] font-medium text-white truncate">01 Scope Scoped</span>
+            <span className="text-[8px] sm:text-[10.5px] font-medium text-white truncate">01 Requirements Set</span>
           </div>
           <span className="text-[7px] sm:text-[9px] font-bold text-emerald-300 bg-emerald-950/40 px-1 sm:px-1.5 py-0.5 rounded">Done</span>
         </div>
@@ -202,7 +202,7 @@ export const assignXCards: Card[] = [
         <div className="flex items-center justify-between p-1 sm:p-2 rounded-lg bg-amber-500/20 border border-amber-400/30">
           <div className="flex items-center gap-1 sm:gap-1.5">
             <Clock className="w-3 sm:w-3.5 h-3 sm:h-3.5 text-amber-300 shrink-0" />
-            <span className="text-[8px] sm:text-[10.5px] font-medium text-white truncate">03 Frontend (68%)</span>
+            <span className="text-[8px] sm:text-[10.5px] font-medium text-white truncate">03 Website Pages (68%)</span>
           </div>
           <span className="text-[7px] sm:text-[9px] font-bold text-amber-300 bg-amber-950/40 px-1 sm:px-1.5 py-0.5 rounded">Review</span>
         </div>
@@ -218,18 +218,18 @@ export const assignXCards: Card[] = [
   },
 
   {
-    title: "Vetted Talent Pod",
+    title: "Expert Team",
     description:
-      "Top pre-vetted engineers and designers build behind the scenes while your lead coordinates everything.",
+      "Hand-picked developers and designers work behind the scenes while your project lead coordinates everything.",
     skeleton: (
       <div className="w-full h-26 sm:h-44 lg:h-52 rounded-xl bg-gradient-to-br from-black/45 via-black/30 to-black/45 backdrop-blur-md border border-white/20 p-2 sm:p-3.5 flex flex-col justify-between text-left text-white select-none">
         <div>
           <div className="flex items-center justify-between mb-1 sm:mb-2 pb-1 sm:pb-1.5 border-b border-white/15">
             <div className="flex items-center gap-1 text-[8px] sm:text-[10px] font-semibold text-purple-200">
               <ShieldCheck className="w-2.5 sm:w-3 h-2.5 sm:h-3 text-purple-300" />
-              <span>Managed Talent</span>
+              <span>Your Team</span>
             </div>
-            <span className="text-[7.5px] sm:text-[9.5px] font-bold text-yellow-300">★ 4.9 Supervised</span>
+            <span className="text-[7.5px] sm:text-[9.5px] font-bold text-yellow-300">★ 4.9 Rating</span>
           </div>
 
           <div className="space-y-1 sm:space-y-2">
@@ -241,8 +241,8 @@ export const assignXCards: Card[] = [
                   alt="Elena"
                 />
                 <div>
-                  <p className="text-[8px] sm:text-[10px] font-medium leading-tight">Elena (Frontend)</p>
-                  <p className="text-[6.5px] sm:text-[8px] text-white/60">QA Managed by Lead</p>
+                  <p className="text-[8px] sm:text-[10px] font-medium leading-tight">Elena (Web Pages)</p>
+                  <p className="text-[6.5px] sm:text-[8px] text-white/60">Checked by Lead</p>
                 </div>
               </div>
               <CheckSquare className="w-2.5 sm:w-3 h-2.5 sm:h-3 text-emerald-400" />
@@ -256,8 +256,8 @@ export const assignXCards: Card[] = [
                   alt="Marcus"
                 />
                 <div>
-                  <p className="text-[8px] sm:text-[10px] font-medium leading-tight">Marcus (Backend)</p>
-                  <p className="text-[6.5px] sm:text-[8px] text-white/60">QA Managed by Lead</p>
+                  <p className="text-[8px] sm:text-[10px] font-medium leading-tight">Marcus (Server)</p>
+                  <p className="text-[6.5px] sm:text-[8px] text-white/60">Checked by Lead</p>
                 </div>
               </div>
               <CheckSquare className="w-2.5 sm:w-3 h-2.5 sm:h-3 text-emerald-400" />
@@ -266,7 +266,7 @@ export const assignXCards: Card[] = [
         </div>
 
         <div className="text-center pt-0.5 sm:pt-1 border-t border-white/10">
-          <span className="text-[7.5px] sm:text-[9px] text-white/75 font-medium">Zero worker management for client</span>
+          <span className="text-[7.5px] sm:text-[9px] text-white/75 font-medium">You don't manage anyone — we do</span>
         </div>
       </div>
     ),
@@ -280,9 +280,9 @@ export const assignXCards: Card[] = [
   },
 
   {
-    title: "Live Staging & Sign-Off",
+    title: "Preview & Approve",
     description:
-      "Test preview builds directly in your browser. One-click approval to launch completed milestone deliverables.",
+      "See a live preview of your project in your browser. One click to approve and it goes live.",
     skeleton: (
       <div className="w-full h-26 sm:h-44 lg:h-52 rounded-xl bg-gradient-to-br from-neutral-900/95 via-neutral-950/90 to-neutral-900/95 border border-white/15 p-2 sm:p-3.5 flex flex-col justify-between text-left text-white select-none">
         <div>
@@ -296,11 +296,11 @@ export const assignXCards: Card[] = [
 
           <div className="space-y-1 sm:space-y-2">
             <div className="p-1 sm:p-2 rounded-lg bg-white/5 border border-white/10 flex items-center justify-between text-[7.5px] sm:text-[10px]">
-              <span className="text-slate-300">QA Automated Tests</span>
+              <span className="text-slate-300">Quality Checks</span>
               <span className="text-emerald-400 font-medium font-mono">48/48 Passed</span>
             </div>
             <div className="p-1 sm:p-2 rounded-lg bg-white/5 border border-white/10 flex items-center justify-between text-[7.5px] sm:text-[10px]">
-              <span className="text-slate-300">Supervisor Review</span>
+              <span className="text-slate-300">Lead Review</span>
               <span className="text-slate-200 font-medium">Approved</span>
             </div>
           </div>
@@ -308,7 +308,7 @@ export const assignXCards: Card[] = [
 
         <div className="p-1 sm:p-2 rounded-lg bg-white/10 hover:bg-white/15 border border-white/15 flex items-center justify-between text-white text-[8px] sm:text-[10px] font-medium transition-colors">
           <span className="flex items-center gap-1.5">
-            <ExternalLink className="w-2.5 sm:w-3.5 h-2.5 sm:h-3.5 text-slate-300" /> Open Staging Preview
+            <ExternalLink className="w-2.5 sm:w-3.5 h-2.5 sm:h-3.5 text-slate-300" /> Open Live Preview
           </span>
           <span className="text-[7px] sm:text-[8.5px] text-emerald-300 bg-emerald-950/60 px-1 sm:px-1.5 py-0.5 rounded font-mono">Live</span>
         </div>

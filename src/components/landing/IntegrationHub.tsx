@@ -13,7 +13,7 @@ export const IntegrationHub: React.FC = () => {
     {
       step: '01',
       title: 'You Describe the Goal',
-      subtitle: 'Plain English, no tech jargon needed',
+      subtitle: 'Just write what you want in simple words',
       icon: FileText,
       color: 'from-[#FA795C] to-[#D95236]',
       dotColor: 'bg-[#EE6B50]',
@@ -21,7 +21,7 @@ export const IntegrationHub: React.FC = () => {
     {
       step: '02',
       title: 'Expert Talent Assigned',
-      subtitle: 'Top 1% pre-screened specialists',
+      subtitle: 'We pick the best people for your project',
       icon: Users,
       color: 'from-emerald-500 to-teal-600',
       dotColor: 'bg-emerald-500',
@@ -29,31 +29,31 @@ export const IntegrationHub: React.FC = () => {
     {
       step: '03',
       title: 'Dedicated Supervisor Leads',
-      subtitle: 'Architect manages daily progress & code',
+      subtitle: 'A project lead manages the team & checks quality',
       icon: ShieldCheck,
       color: 'from-indigo-500 to-blue-600',
       dotColor: 'bg-indigo-500',
     },
     {
       step: '04',
-      title: 'Async Progress (Zero Meetings)',
-      subtitle: 'Work happens without your calendar blocked',
+      title: 'Work Happens Without Bothering You',
+      subtitle: 'No meetings needed — you get daily updates instead',
       icon: Zap,
       color: 'from-amber-500 to-orange-500',
       dotColor: 'bg-amber-500',
     },
     {
       step: '05',
-      title: '100% Escrow Protection',
-      subtitle: 'Funds released stage-by-stage on approval',
+      title: 'Your Money Is Always Protected',
+      subtitle: 'You only pay when you approve each step',
       icon: Lock,
       color: 'from-blue-500 to-indigo-600',
       dotColor: 'bg-blue-500',
     },
     {
       step: '06',
-      title: 'Approve & Own 100% of Code',
-      subtitle: 'Review live preview & get final deliverables',
+      title: 'Review, Approve & It\'s Yours',
+      subtitle: 'See a live preview & get all your finished files',
       icon: CheckCircle2,
       color: 'from-emerald-500 to-green-600',
       dotColor: 'bg-emerald-500',
@@ -396,7 +396,7 @@ export const IntegrationHub: React.FC = () => {
               </span>
             </div>
             <span className="text-[10px] text-slate-500 dark:text-zinc-400 font-normal pl-3 block leading-none">
-              Plain English, no tech jargon
+              Plain words, simple form
             </span>
           </div>
         </div>
@@ -414,7 +414,7 @@ export const IntegrationHub: React.FC = () => {
               </span>
             </div>
             <span className="text-[10px] text-slate-500 dark:text-zinc-400 font-normal pl-3 block leading-none">
-              Screened, senior specialists
+              Best people, hand-picked for you
             </span>
           </div>
         </div>

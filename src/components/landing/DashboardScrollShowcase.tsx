@@ -21,7 +21,7 @@ export const DashboardScrollShowcase: React.FC = () => {
               </h2>
 
               <p className="mt-2.5 sm:mt-3 text-xs sm:text-base md:text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto leading-relaxed font-normal">
-                Check milestone progress, inspect supervisor QA tests, approve escrow releases, and chat directly with your team lead — all from one simple dashboard.
+                See how your project is going, review completed work, approve payments, and message your project lead — all from one simple dashboard.
               </p>
             </div>
           }

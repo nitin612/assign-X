@@ -13,9 +13,7 @@ import {
   EyeOff,
   CheckCircle2,
   Lock,
-  AlertCircle,
-  UserCheck,
-  Zap
+  AlertCircle
 } from 'lucide-react';
 
 export const LoginPage: React.FC = () => {
@@ -111,63 +109,40 @@ export const LoginPage: React.FC = () => {
         <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-stretch max-w-5xl">
 
           {/* ─────────────────────────────────────────────────────────────
-              Left Column (Desktop): Clean Value Showcase & Client Guarantee
+              Left Column (Desktop): Creative Full-Card Typographic Statement
              ───────────────────────────────────────────────────────────── */}
-          <div className="hidden lg:flex lg:col-span-5 flex-col justify-between bg-gradient-to-br from-slate-950 via-[#101015] to-[#161214] text-white border border-slate-800/80 rounded-3xl p-8 lg:p-9 shadow-2xl relative overflow-hidden">
-            {/* Ambient Corner Glow */}
-            <div className="absolute -top-12 -right-12 w-64 h-64 bg-[#EE6B50]/15 rounded-full blur-3xl pointer-events-none" />
-            <div className="absolute -bottom-12 -left-12 w-64 h-64 bg-orange-600/10 rounded-full blur-3xl pointer-events-none" />
+          <div className="hidden lg:flex lg:col-span-5 flex-col justify-between bg-gradient-to-b from-slate-950 via-[#0F0F16] to-[#181116] text-white border border-slate-800/90 rounded-3xl p-8 lg:p-10 shadow-2xl relative overflow-hidden group">
+            {/* Ambient Corner Lighting & Glow Accents */}
+            <div className="absolute -top-24 -right-24 w-80 h-80 bg-[#EE6B50]/25 rounded-full blur-3xl pointer-events-none transition-transform duration-700 group-hover:scale-110" />
+            <div className="absolute -bottom-24 -left-24 w-80 h-80 bg-orange-600/20 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(238,107,80,0.08),transparent_60%)] pointer-events-none" />
 
-            {/* Top: Clean Headline & Intro */}
+            {/* Top Section: First Statement */}
             <div className="relative z-10">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.05] border border-white/10 backdrop-blur-md mb-6">
+                <span className="text-[11px] font-medium text-slate-300 tracking-wide">AssignX Platform</span>
+              </div>
 
-
-              <h2 className="text-2.5xl lg:text-[30px] font-bold text-white tracking-tight leading-[1.2]">
-                Get work done. <br />
-                <span className="bg-gradient-to-r from-[#FF758F] via-[#FA795C] to-[#F6CF57] bg-clip-text text-transparent">
-                  Zero management headache.
-                </span>
+              <h2 className="text-3xl lg:text-[40px] xl:text-[44px] font-extrabold text-white tracking-tight leading-[1.1]">
+                Get work <br />
+                done.
               </h2>
-
-              <p className="mt-3 text-xs sm:text-sm text-slate-400 leading-relaxed font-normal">
-                Post tasks, track progress in escrow, and let dedicated senior supervisors verify code quality before you pay.
-              </p>
             </div>
 
-            {/* Middle: 3 Clean Value Pillars */}
-            <div className="relative z-10 my-6 space-y-3.5">
-              <div className="flex items-start gap-3 p-3.5 rounded-2xl bg-white/[0.04] border border-white/10 backdrop-blur-sm">
-                <div className="w-8 h-8 rounded-xl bg-[#EE6B50]/15 border border-[#EE6B50]/20 flex items-center justify-center shrink-0 mt-0.5">
-                  <UserCheck className="w-4 h-4 text-[#FA795C]" />
-                </div>
-                <div>
-                  <h4 className="text-xs font-semibold text-white">Dedicated Tech Supervisors</h4>
-                  <p className="text-[11px] text-slate-400 mt-0.5 leading-normal">
-                    Senior tech leads review code quality, enforce deadlines, and manage doers.
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-3 p-3.5 rounded-2xl bg-white/[0.04] border border-white/10 backdrop-blur-sm">
-                <div className="w-8 h-8 rounded-xl bg-amber-500/15 border border-amber-500/20 flex items-center justify-center shrink-0 mt-0.5">
-                  <Zap className="w-4 h-4 text-amber-400" />
-                </div>
-                <div>
-                  <h4 className="text-xs font-semibold text-white">Zero Status Meetings</h4>
-                  <p className="text-[11px] text-slate-400 mt-0.5 leading-normal">
-                    Transparent async daily updates and live milestone progress in one dashboard.
-                  </p>
-                </div>
-              </div>
+            {/* Center Decorative Divider */}
+            <div className="relative z-10 my-4 flex items-center">
+              <div className="h-px flex-1 bg-gradient-to-r from-white/15 via-white/5 to-transparent" />
+              <div className="mx-3 w-1.5 h-1.5 rounded-full bg-[#FA795C]/60" />
+              <div className="h-px flex-1 bg-gradient-to-l from-white/15 via-white/5 to-transparent" />
             </div>
 
-            {/* Bottom Guarantee Banner */}
-            <div className="relative z-10 pt-4 border-t border-white/10 flex items-center justify-between text-xs text-slate-400">
-              <span className="flex items-center gap-1.5 text-emerald-400 font-medium">
-                <CheckCircle2 className="w-3.5 h-3.5" />
-                100% Satisfaction Guarantee
-              </span>
-              <span className="text-slate-500 text-[11px]">AssignX Verified</span>
+            {/* Bottom Section: Second Statement with Signature Gradient */}
+            <div className="relative z-10">
+              <h2 className="text-3xl lg:text-[36px] xl:text-[40px] font-extrabold tracking-tight leading-[1.12] bg-gradient-to-r from-[#FF758F] via-[#FA795C] to-[#F6CF57] bg-clip-text text-transparent">
+                Zero <br />
+                management <br />
+                headache.
+              </h2>
             </div>
           </div>
 
