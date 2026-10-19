@@ -25,6 +25,8 @@ export const Topbar: React.FC = () => {
         return 'Overview';
       case '/work':
         return currentRoute.params.projectId ? 'Project Workspace' : 'My Work';
+      case '/calendar':
+        return 'Work Calendar';
       case '/create':
         return 'Create New Work';
       case '/messages':

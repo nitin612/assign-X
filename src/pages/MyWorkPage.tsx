@@ -175,6 +175,7 @@ export const MyWorkPage: React.FC = () => {
         </div>
 
         {/* View Switcher */}
+        {/* View Switcher: Grid, List, and Apple-style Calendar */}
         <div className="flex items-center gap-1 p-1 rounded-xl bg-slate-100 dark:bg-zinc-800">
           <button
             className={`p-1.5 rounded-lg transition-all cursor-pointer ${

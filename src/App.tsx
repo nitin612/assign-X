@@ -17,6 +17,7 @@ import { CentralPaymentsPage } from './pages/CentralPaymentsPage';
 import { NotificationsPage } from './pages/NotificationsPage';
 import { ProfileSettingsPage } from './pages/ProfileSettingsPage';
 import { SupportDisputesPage } from './pages/SupportDisputesPage';
+import { CalendarPage } from './pages/CalendarPage';
 
 const AppRouter: React.FC = () => {
   const { currentRoute } = useNavigation();
@@ -42,6 +43,9 @@ const AppRouter: React.FC = () => {
           return <ProjectDetailPage />;
         }
         return <MyWorkPage />;
+
+      case '/calendar':
+        return <CalendarPage />;
 
       case '/create':
       case '/work/new':

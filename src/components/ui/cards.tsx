@@ -3,8 +3,6 @@ import React, { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import {
-  FileText,
-  MessageSquare,
   Paperclip,
   Send,
   ShieldCheck,
@@ -61,59 +59,65 @@ export const controls = {
    ───────────────────────────────────────────────────────────────── */
 export const assignXCards: Card[] = [
   {
-    title: "Project Progress",
+    title: "Daily Task Calendar",
     description:
-      "See exactly how far along your project is, what's done, and what's next — without a single meeting.",
+      "Apple-style day schedule tracking completed and pending deliverables, milestone deadlines, and supervisor sign-offs — without a single meeting.",
     skeleton: (
-      <div className="w-full h-26 sm:h-44 lg:h-52 rounded-xl bg-gradient-to-br from-black/40 via-black/25 to-black/40 backdrop-blur-md border border-white/20 p-2 sm:p-3.5 flex flex-col justify-between text-left text-white select-none">
+      <div className="w-full h-26 sm:h-44 lg:h-52 rounded-xl bg-gradient-to-br from-black/50 via-black/35 to-black/50 backdrop-blur-md border border-white/20 p-2 sm:p-3 flex flex-col justify-between text-left text-white select-none">
         <div>
-          <div className="flex items-center justify-between mb-1 sm:mb-2">
-            <span className="inline-flex items-center gap-1 bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 px-1.5 sm:px-2 py-0.5 rounded-full text-[8px] sm:text-[10px] font-medium">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-              In Progress
+          {/* Apple Calendar Top Bar */}
+          <div className="flex items-center justify-between mb-1 sm:mb-1.5 pb-1 sm:pb-1.5 border-b border-white/15">
+            <div className="flex items-center gap-1.5">
+              <span className="w-4 h-4 sm:w-5 sm:h-5 rounded-md bg-white text-orange-600 font-bold text-[8px] sm:text-[10px] flex items-center justify-center shadow-xs">
+                10
+              </span>
+              <div>
+                <p className="text-[8px] sm:text-[10px] font-bold leading-none">Thursday, Sep 10</p>
+                <p className="text-[6.5px] sm:text-[8px] text-white/70">2 Done • 1 Pending</p>
+              </div>
+            </div>
+            <span className="bg-emerald-400/20 text-emerald-300 border border-emerald-400/30 text-[7px] sm:text-[8.5px] px-1.5 py-0.5 rounded-full font-semibold">
+              67% Done
             </span>
-            <span className="text-[8px] sm:text-[10px] text-white/70 font-normal">24th Sep</span>
           </div>
 
-          <h4 className="text-[10px] sm:text-xs font-semibold text-white leading-snug line-clamp-1 sm:line-clamp-2">
-            Restaurant Website Redesign
-          </h4>
-
-          <div className="mt-1 sm:mt-3">
-            <div className="flex justify-between text-[8px] sm:text-[10px] text-white/80 font-normal mb-0.5 sm:mb-1">
-              <span>Progress</span>
-              <span className="font-semibold text-emerald-300">68%</span>
+          {/* Day Tasks List */}
+          <div className="space-y-1 sm:space-y-1.5 mt-1 sm:mt-1.5">
+            {/* Task 1: Done */}
+            <div className="flex items-center justify-between p-1 sm:p-1.5 rounded-lg bg-emerald-500/15 border border-emerald-400/25 text-[7.5px] sm:text-[9.5px]">
+              <div className="flex items-center gap-1 sm:gap-1.5 truncate">
+                <span className="w-3 h-3 sm:w-3.5 sm:h-3.5 rounded-full bg-emerald-400 text-slate-950 flex items-center justify-center text-[7px] sm:text-[8.5px] font-black shrink-0">
+                  ✓
+                </span>
+                <span className="truncate line-through text-white/80">Menu catalog & wireframes</span>
+              </div>
+              <span className="text-[6.5px] sm:text-[8px] text-emerald-300 font-bold shrink-0">Done</span>
             </div>
-            <div className="w-full h-1 sm:h-1.5 bg-white/20 rounded-full overflow-hidden">
-              <div className="h-full bg-emerald-400 rounded-full w-[68%]" />
+
+            {/* Task 2: Pending */}
+            <div className="flex items-center justify-between p-1 sm:p-1.5 rounded-lg bg-white/10 border border-white/15 text-[7.5px] sm:text-[9.5px]">
+              <div className="flex items-center gap-1 sm:gap-1.5 truncate">
+                <span className="w-3 h-3 sm:w-3.5 sm:h-3.5 rounded-full border border-orange-300/80 shrink-0" />
+                <span className="truncate font-medium">Table booking modal engine</span>
+              </div>
+              <span className="text-[6.5px] sm:text-[8px] text-amber-300 font-bold shrink-0">75%</span>
+            </div>
+
+            {/* Task 3: Action Required */}
+            <div className="flex items-center justify-between p-1 sm:p-1.5 rounded-lg bg-rose-500/20 border border-rose-400/30 text-[7.5px] sm:text-[9.5px]">
+              <div className="flex items-center gap-1 sm:gap-1.5 truncate">
+                <span className="w-1.5 h-1.5 rounded-full bg-rose-400 animate-pulse shrink-0" />
+                <span className="truncate font-medium text-rose-100">Review homepage preview</span>
+              </div>
+              <span className="text-[6.5px] sm:text-[8px] text-rose-300 font-bold shrink-0">Action</span>
             </div>
           </div>
         </div>
 
-        <div className="pt-1 sm:pt-2.5 border-t border-white/15 flex items-center justify-between">
-          <div className="flex items-center">
-            <div className="flex -space-x-1.5">
-              <img
-                className="w-4 h-4 sm:w-5 sm:h-5 rounded-full border border-white object-cover"
-                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=60&auto=format&fit=crop&q=80"
-                alt="Supervisor Arjun"
-              />
-              <img
-                className="w-4 h-4 sm:w-5 sm:h-5 rounded-full border border-white object-cover"
-                src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=60&auto=format&fit=crop&q=80"
-                alt="Developer Elena"
-              />
-            </div>
-            <span className="text-[8px] sm:text-[9.5px] text-white/80 pl-1 sm:pl-1.5 font-medium">Arjun (Lead)</span>
-          </div>
-          <div className="flex items-center gap-1.5 sm:gap-2 text-[8px] sm:text-[10px] text-white/70">
-            <span className="flex items-center gap-0.5">
-              <FileText className="w-2.5 h-2.5" /> 8
-            </span>
-            <span className="flex items-center gap-0.5">
-              <MessageSquare className="w-2.5 h-2.5" /> 14
-            </span>
-          </div>
+        {/* Footer */}
+        <div className="pt-1 sm:pt-1.5 border-t border-white/15 flex items-center justify-between text-[7px] sm:text-[8.5px] text-white/80">
+          <span>Supervisor: Arjun Mehta</span>
+          <span className="text-white/60">Next: Sep 12</span>
         </div>
       </div>
     ),

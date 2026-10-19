@@ -7,6 +7,7 @@ import {
   Search,
   Bell,
   MessageSquare,
+  Calendar,
   Briefcase,
   LayoutDashboard,
   CreditCard,
@@ -36,6 +37,11 @@ export const TopNavbar: React.FC = () => {
       path: '/work',
       icon: Briefcase,
       badge: activeWorkCount > 0 ? activeWorkCount : undefined
+    },
+    {
+      label: 'Calendar',
+      path: '/calendar',
+      icon: Calendar
     },
     {
       label: 'Messages',
