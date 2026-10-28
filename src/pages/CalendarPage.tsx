@@ -4,7 +4,6 @@ import { useApp } from '../context/AppContext';
 import { useNavigation } from '../context/NavigationContext';
 import { WorkCalendarView } from '../components/project/WorkCalendarView';
 import {
-  Calendar as CalendarIcon,
   ArrowRight,
   Briefcase
 } from 'lucide-react';

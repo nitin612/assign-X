@@ -26,6 +26,7 @@ import { BackgroundMesh } from '../components/landing/BackgroundMesh';
 import VariableFontHoverByLetter from '../components/originkit/ui/variable-font-hover';
 import { Cards } from '../components/ui/cards';
 import { DashboardScrollShowcase } from '../components/landing/DashboardScrollShowcase';
+import { QuickCreateModal } from '../components/modals/QuickCreateModal';
 
 export const LandingPage: React.FC = () => {
   const { navigate } = useNavigation();
@@ -42,6 +43,9 @@ export const LandingPage: React.FC = () => {
 
   // Video Demo Modal
   const [showDemoModal, setShowDemoModal] = useState(false);
+
+  // Quick Create Work Modal (first-time visitor flow)
+  const [showQuickCreate, setShowQuickCreate] = useState(false);
 
   // Newsletter Form State for Priora-style Footer
   const [newsletterEmail, setNewsletterEmail] = useState('');
@@ -209,7 +213,7 @@ export const LandingPage: React.FC = () => {
               Login
             </button>
             <button
-              onClick={() => navigate('/create')}
+              onClick={() => setShowQuickCreate(true)}
               className="bg-gradient-to-b from-[#FA795C] to-[#D95236] hover:brightness-105 active:scale-98 text-white text-sm font-semibold px-6 py-2.5 rounded-full shadow-xs hover:shadow transition-all cursor-pointer"
             >
               + Create Work
@@ -219,7 +223,7 @@ export const LandingPage: React.FC = () => {
           {/* Right Actions (Mobile & Tablet): Quick + Create + Hamburger Menu */}
           <div className="flex md:hidden items-center gap-2">
             <button
-              onClick={() => navigate('/create')}
+              onClick={() => setShowQuickCreate(true)}
               className="bg-gradient-to-b from-[#FA795C] to-[#D95236] hover:brightness-105 active:scale-95 text-white text-xs font-semibold px-3.5 py-1.5 rounded-full shadow-2xs transition-all cursor-pointer"
             >
               + Create
@@ -1141,7 +1145,7 @@ export const LandingPage: React.FC = () => {
               <button
                 onClick={() => {
                   setShowDemoModal(false);
-                  handleAuthAndNavigate('/create');
+                  setShowQuickCreate(true);
                 }}
                 className="w-full sm:w-auto bg-gradient-to-b from-[#FA795C] to-[#D95236] hover:brightness-105 active:scale-98 text-white font-semibold px-6 py-2.5 rounded-full text-xs shadow-md shadow-[#EE6B50]/30 transition-all cursor-pointer"
               >
@@ -1151,6 +1155,9 @@ export const LandingPage: React.FC = () => {
           </div>
         </div>
       )}
+
+      {/* ── Quick Create Work Modal (Landing Page — first-time visitor flow) ── */}
+      <QuickCreateModal isOpen={showQuickCreate} onClose={() => setShowQuickCreate(false)} />
     </div>
   );
 };
