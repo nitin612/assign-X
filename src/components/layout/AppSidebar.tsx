@@ -23,8 +23,13 @@ export const AppSidebar: React.FC = () => {
     setMobileMenuOpen,
     sidebarCollapsed,
     toggleSidebar,
-    logout
+    logout,
+    currentUser
   } = useApp();
+
+  const displayName = currentUser?.fullName || (currentUser?.firstName ? `${currentUser.firstName} ${currentUser.lastName || ''}`.trim() : 'Alex Vance');
+  const displayEmail = currentUser?.email || 'alex.vance@apexgroup.com';
+  const displayAvatar = currentUser?.avatarUrl || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&auto=format&fit=crop&q=80';
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -180,7 +185,7 @@ export const AppSidebar: React.FC = () => {
         className={`fixed lg:sticky top-0 left-0 h-screen z-40 flex flex-col p-2.5 bg-[#FAF8F5] dark:bg-[#000000] transition-all duration-200 select-none ${sidebarCollapsed ? 'w-[72px] items-center' : 'w-[244px]'
           } ${mobileMenuOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}`}
       >
-        {/* Top Header Card — Apple Frosted Glass */}
+        {/* Top Header Card â€” Apple Frosted Glass */}
         <div className={`relative overflow-hidden w-full flex mb-2.5 bg-slate-950/75 dark:bg-black/65 backdrop-blur-2xl border border-white/15 dark:border-white/10 rounded-2xl text-white shadow-[inset_0_1px_1px_rgba(255,255,255,0.2),0_8px_24px_rgba(0,0,0,0.2)] transition-all ${sidebarCollapsed ? 'flex-col items-center py-2.5 px-1 gap-2' : 'items-center justify-between px-3.5 py-2.5'
           }`}>
           {/* Apple Specular Top Highlight Glow */}
@@ -438,16 +443,16 @@ export const AppSidebar: React.FC = () => {
             >
               <div className="w-7 h-7 rounded-full overflow-hidden bg-[#F7E7B5] flex items-center justify-center shrink-0 border border-white/30 shadow-2xs">
                 <img
-                  src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&auto=format&fit=crop&q=80"
-                  alt="Robert Sofia"
+                  src={displayAvatar}
+                  alt={displayName}
                   className="w-full h-full object-cover"
                 />
               </div>
               {!sidebarCollapsed && (
                 <>
                   <div className="flex flex-col min-w-0 flex-1 leading-tight text-left">
-                    <span className="text-[12px] font-bold text-white truncate drop-shadow-2xs">Robert Sofia</span>
-                    <span className="text-[10px] text-white/60 truncate">robert34@gmail.com</span>
+                    <span className="text-[12px] font-bold text-white truncate drop-shadow-2xs">{displayName}</span>
+                    <span className="text-[10px] text-white/60 truncate">{displayEmail}</span>
                   </div>
                   <ChevronRight
                     size={15}
@@ -460,7 +465,7 @@ export const AppSidebar: React.FC = () => {
               {/* Floating Section Tooltip on Profile Hover when Minimized & Menu Closed */}
               {sidebarCollapsed && !profileMenuOpen && (
                 <div className="pointer-events-none absolute left-full ml-3.5 top-1/2 -translate-y-1/2 px-3 py-1.5 bg-slate-950/95 dark:bg-zinc-900/95 backdrop-blur-xl text-white text-[12px] font-semibold rounded-xl shadow-2xl whitespace-nowrap opacity-0 group-hover:opacity-100 group-hover:translate-x-0 -translate-x-1.5 transition-all duration-150 z-50 flex items-center gap-1.5 border border-white/20">
-                  <span>Robert Sofia</span>
+                  <span>{displayName}</span>
                   <span className="text-[10.5px] text-white/70 font-normal">(Account Menu)</span>
                   <div className="absolute right-full top-1/2 -translate-y-1/2 border-4 border-transparent border-r-slate-950/95" />
                 </div>

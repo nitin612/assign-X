@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigation } from '../context/NavigationContext';
 import { useApp } from '../context/AppContext';
 import { useTheme } from '../context/ThemeContext';
+import { authService } from '../services';
 import {
   ArrowLeft,
   ArrowRight,
@@ -13,12 +14,13 @@ import {
   EyeOff,
   CheckCircle2,
   Lock,
-  AlertCircle
+  AlertCircle,
+  KeyRound
 } from 'lucide-react';
 
 export const LoginPage: React.FC = () => {
   const { navigate, currentRoute } = useNavigation();
-  const { login } = useApp();
+  const { loginUser, registerUser, socialLoginUser, validate2FAUser } = useApp();
   const { isDark, toggleTheme } = useTheme();
 
   const [mode, setMode] = useState<'login' | 'register'>('login');
@@ -29,11 +31,22 @@ export const LoginPage: React.FC = () => {
   const [rememberMe, setRememberMe] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  // Forgot Password Modal State
   const [showForgotModal, setShowForgotModal] = useState(false);
   const [forgotEmail, setForgotEmail] = useState('');
   const [forgotSent, setForgotSent] = useState(false);
+  const [forgotLoading, setForgotLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // 2FA Challenge Modal State
+  const [showTwoFactorModal, setShowTwoFactorModal] = useState(false);
+  const [twoFactorCode, setTwoFactorCode] = useState('');
+  const [twoFactorTempToken, setTwoFactorTempToken] = useState('');
+  const [twoFactorEmail, setTwoFactorEmail] = useState('');
+  const [twoFactorLoading, setTwoFactorLoading] = useState(false);
+  const [twoFactorError, setTwoFactorError] = useState<string | null>(null);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
 
@@ -48,21 +61,68 @@ export const LoginPage: React.FC = () => {
     }
 
     setIsLoading(true);
-    setTimeout(() => {
-      login();
+    try {
+      if (mode === 'login') {
+        const res = await loginUser(email.trim(), password, rememberMe);
+        if (res.requires2FA) {
+          setTwoFactorEmail(res.email || email.trim());
+          setTwoFactorTempToken(res.tempToken || '');
+          setShowTwoFactorModal(true);
+          setIsLoading(false);
+          return;
+        }
+      } else {
+        await registerUser(name.trim(), email.trim(), password);
+      }
       setIsLoading(false);
       const redirectTarget = currentRoute.query.redirect || '/dashboard';
       navigate(redirectTarget);
-    }, 500);
+    } catch (err: any) {
+      setIsLoading(false);
+      setError(err?.message || 'Authentication failed. Please check your credentials.');
+    }
   };
 
-  const handleSocialLogin = (_provider: string) => {
+  const handleSocialLogin = async (provider: 'Google' | 'GitHub') => {
     setIsLoading(true);
-    setTimeout(() => {
-      login();
+    setError(null);
+    try {
+      await socialLoginUser(provider.toLowerCase() as 'google' | 'github');
       setIsLoading(false);
       navigate('/dashboard');
-    }, 450);
+    } catch (err: any) {
+      setIsLoading(false);
+      setError(err?.message || `Failed to sign in with ${provider}.`);
+    }
+  };
+
+  const handleSendResetLink = async () => {
+    if (!forgotEmail.trim()) return;
+    setForgotLoading(true);
+    try {
+      await authService.forgotPassword(forgotEmail.trim());
+      setForgotSent(true);
+    } catch (err: any) {
+      setError(err?.message || 'Could not send reset link.');
+    } finally {
+      setForgotLoading(false);
+    }
+  };
+
+  const handleVerify2FACode = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!twoFactorCode.trim()) return;
+    setTwoFactorLoading(true);
+    setTwoFactorError(null);
+    try {
+      await validate2FAUser(twoFactorEmail, twoFactorCode.trim(), twoFactorTempToken);
+      setTwoFactorLoading(false);
+      setShowTwoFactorModal(false);
+      navigate('/dashboard');
+    } catch (err: any) {
+      setTwoFactorLoading(false);
+      setTwoFactorError(err?.message || 'Invalid 2FA code. Please try again.');
+    }
   };
 
   return (
@@ -71,7 +131,7 @@ export const LoginPage: React.FC = () => {
       <div className="absolute top-0 left-1/4 w-72 sm:w-96 h-72 sm:h-96 bg-orange-500/10 dark:bg-orange-500/15 rounded-full blur-3xl pointer-events-none -translate-y-1/2" />
       <div className="absolute bottom-0 right-1/4 w-72 sm:w-96 h-72 sm:h-96 bg-slate-400/10 dark:bg-indigo-500/10 rounded-full blur-3xl pointer-events-none translate-y-1/2" />
 
-      {/* ── Top Navigation Header ── */}
+      {/* â”€â”€ Top Navigation Header â”€â”€ */}
       <header className="w-full max-w-7xl mx-auto px-3.5 sm:px-6 lg:px-8 py-3 sm:py-5 flex items-center justify-between z-20 relative">
         {/* Brand Left */}
         <div
@@ -104,13 +164,13 @@ export const LoginPage: React.FC = () => {
         </div>
       </header>
 
-      {/* ── Main Content Container ── */}
+      {/* â”€â”€ Main Content Container â”€â”€ */}
       <main className="w-full max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-2 sm:py-6 flex-1 flex items-center justify-center z-10 relative">
         <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-stretch max-w-5xl">
 
-          {/* ─────────────────────────────────────────────────────────────
+          {/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
               Left Column (Desktop): Creative Full-Card Typographic Statement
-             ───────────────────────────────────────────────────────────── */}
+             â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
           <div className="hidden lg:flex lg:col-span-5 flex-col justify-between bg-gradient-to-b from-slate-950 via-[#0F0F16] to-[#181116] text-white border border-slate-800/90 rounded-3xl p-8 lg:p-10 shadow-2xl relative overflow-hidden group">
             {/* Ambient Corner Lighting & Glow Accents */}
             <div className="absolute -top-24 -right-24 w-80 h-80 bg-[#EE6B50]/25 rounded-full blur-3xl pointer-events-none transition-transform duration-700 group-hover:scale-110" />
@@ -146,9 +206,9 @@ export const LoginPage: React.FC = () => {
             </div>
           </div>
 
-          {/* ─────────────────────────────────────────────────────────────
+          {/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
               Right Column: Client Auth Form Card (Responsive & Smooth Height)
-             ───────────────────────────────────────────────────────────── */}
+             â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
           <div className="col-span-1 lg:col-span-7 flex flex-col justify-center">
             <motion.div
               layout
@@ -211,7 +271,7 @@ export const LoginPage: React.FC = () => {
                 </p>
               </div>
 
-              {/* ── Social Login Buttons (Google / GitHub) ── */}
+              {/* â”€â”€ Social Login Buttons (Google / GitHub) â”€â”€ */}
               <div className="grid grid-cols-2 gap-2.5 sm:gap-3 mb-4 sm:mb-5">
                 <button
                   type="button"
@@ -279,7 +339,7 @@ export const LoginPage: React.FC = () => {
                 )}
               </AnimatePresence>
 
-              {/* ── Interactive Form with Smooth Layout Transitions ── */}
+              {/* â”€â”€ Interactive Form with Smooth Layout Transitions â”€â”€ */}
               <motion.form layout transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }} onSubmit={handleSubmit} className="space-y-3 sm:space-y-3.5">
                 {/* Registration: Full Name */}
                 <AnimatePresence initial={false}>
@@ -350,7 +410,7 @@ export const LoginPage: React.FC = () => {
                       type={showPassword ? 'text' : 'password'}
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
-                      placeholder="••••••••••••"
+                      placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢"
                       required
                       className="w-full px-3.5 py-2 sm:py-2.5 pr-10 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-xs sm:text-sm font-medium text-slate-900 dark:text-white focus:outline-hidden focus:border-[#EE6B50] focus:ring-2 focus:ring-[#EE6B50]/20 transition-all placeholder:text-slate-400"
                     />
@@ -415,18 +475,18 @@ export const LoginPage: React.FC = () => {
         </div>
       </main>
 
-      {/* ── Footer ── */}
+      {/* â”€â”€ Footer â”€â”€ */}
       <footer className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 text-center text-[11px] text-slate-400 border-t border-slate-200/60 dark:border-white/5 z-10 relative flex flex-col sm:flex-row items-center justify-between gap-2">
         <div className="flex items-center gap-1.5">
           <ShieldCheck className="w-3.5 h-3.5 text-emerald-500" />
           <span>256-bit SSL Encrypted & Escrow Protected</span>
         </div>
         <div>
-          © {new Date().getFullYear()} AssignX Inc. All rights reserved.
+          Â© {new Date().getFullYear()} AssignX Inc. All rights reserved.
         </div>
       </footer>
 
-      {/* ── Forgot Password Modal ── */}
+      {/* â”€â”€ Forgot Password Modal â”€â”€ */}
       {showForgotModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in">
           <div className="bg-white dark:bg-[#15151A] rounded-2xl border border-slate-200 dark:border-white/10 p-6 max-w-md w-full shadow-2xl text-left">
@@ -453,12 +513,16 @@ export const LoginPage: React.FC = () => {
                   className="w-full px-3.5 py-2 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-xs font-medium text-slate-900 dark:text-white focus:outline-hidden focus:border-[#EE6B50]"
                 />
                 <button
-                  onClick={() => {
-                    if (forgotEmail) setForgotSent(true);
-                  }}
-                  className="w-full py-2 bg-gradient-to-r from-[#FA795C] to-[#D95236] text-white rounded-xl text-xs font-semibold cursor-pointer shadow-xs hover:brightness-105"
+                  type="button"
+                  disabled={forgotLoading}
+                  onClick={handleSendResetLink}
+                  className="w-full py-2 bg-gradient-to-r from-[#FA795C] to-[#D95236] text-white rounded-xl text-xs font-semibold cursor-pointer shadow-xs hover:brightness-105 disabled:opacity-60 flex items-center justify-center gap-2"
                 >
-                  Send Reset Link
+                  {forgotLoading ? (
+                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                  ) : (
+                    <span>Send Reset Link</span>
+                  )}
                 </button>
               </div>
             )}
@@ -472,6 +536,62 @@ export const LoginPage: React.FC = () => {
               className="mt-4 w-full py-2 text-xs font-medium text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white cursor-pointer"
             >
               Close
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Two-Factor Authentication Login Challenge Modal */}
+      {showTwoFactorModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in">
+          <div className="bg-white dark:bg-[#15151A] rounded-2xl border border-slate-200 dark:border-white/10 p-6 max-w-md w-full shadow-2xl text-left">
+            <h4 className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              <KeyRound className="w-5 h-5 text-[#EE6B50]" />
+              <span>Two-Factor Authentication</span>
+            </h4>
+            <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
+              Please enter the 6-digit verification code from your Authenticator app (or a backup code) to sign in to <strong className="text-slate-800 dark:text-slate-200">{twoFactorEmail}</strong>.
+            </p>
+
+            {twoFactorError && (
+              <div className="mt-3 p-2.5 rounded-xl bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-900/50 flex items-center gap-2 text-xs text-rose-700 dark:text-rose-300">
+                <AlertCircle className="w-4 h-4 shrink-0" />
+                <span>{twoFactorError}</span>
+              </div>
+            )}
+
+            <form onSubmit={handleVerify2FACode} className="mt-4 space-y-3">
+              <input
+                type="text"
+                autoFocus
+                maxLength={8}
+                value={twoFactorCode}
+                onChange={(e) => setTwoFactorCode(e.target.value)}
+                placeholder="123456"
+                className="w-full text-center tracking-widest text-lg font-mono font-bold px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white focus:outline-hidden focus:border-[#EE6B50]"
+              />
+              <button
+                type="submit"
+                disabled={twoFactorLoading || !twoFactorCode.trim()}
+                className="w-full py-2.5 bg-gradient-to-r from-[#FA795C] to-[#D95236] text-white rounded-xl text-xs font-semibold cursor-pointer shadow-xs hover:brightness-105 disabled:opacity-60 flex items-center justify-center gap-2"
+              >
+                {twoFactorLoading ? (
+                  <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                ) : (
+                  <span>Verify and Sign In</span>
+                )}
+              </button>
+            </form>
+
+            <button
+              onClick={() => {
+                setShowTwoFactorModal(false);
+                setTwoFactorCode('');
+                setTwoFactorError(null);
+              }}
+              className="mt-3 w-full py-2 text-xs font-medium text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white cursor-pointer"
+            >
+              Cancel
             </button>
           </div>
         </div>

@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 import type {
   Project,
   Message,
@@ -16,6 +16,14 @@ import {
   mockTickets,
   mockSupervisors
 } from '../data/mockData';
+import {
+  authService,
+  userService,
+  notificationService,
+  ticketService,
+  type UserProfile,
+  type AuthSuccessResult
+} from '../services';
 
 export type ActiveModalType =
   | 'request_changes'
@@ -45,11 +53,19 @@ interface AppContextType {
   activeModal: { type: ActiveModalType; payload?: ModalPayload };
   openModal: (type: ActiveModalType, payload?: ModalPayload) => void;
   closeModal: () => void;
-  
+
   // Auth State
   isLoggedIn: boolean;
+  currentUser: UserProfile | null;
+  isLoadingUser: boolean;
   login: () => void;
   logout: () => void;
+  loginUser: (email: string, password: string, rememberMe?: boolean) => Promise<AuthSuccessResult>;
+  registerUser: (name: string, email: string, password: string) => Promise<AuthSuccessResult>;
+  socialLoginUser: (provider: 'google' | 'github') => Promise<AuthSuccessResult>;
+  validate2FAUser: (email: string, code: string, tempToken?: string) => Promise<AuthSuccessResult>;
+  logoutUser: () => Promise<void>;
+  refreshUserProfile: () => Promise<void>;
 
   // Sidebar State
   sidebarCollapsed: boolean;
@@ -75,14 +91,93 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     return localStorage.getItem('assignx_logged_in') === 'true';
   });
 
+  const [currentUser, setCurrentUser] = useState<UserProfile | null>(() => {
+    const saved = localStorage.getItem('assignx_current_user');
+    return saved ? JSON.parse(saved) : null;
+  });
+  const [isLoadingUser, setIsLoadingUser] = useState<boolean>(false);
+
+  const refreshUserProfile = async () => {
+    if (!localStorage.getItem('assignx_access_token')) return;
+    try {
+      setIsLoadingUser(true);
+      const profile = await userService.getProfile();
+      if (profile) {
+        setCurrentUser(profile);
+        localStorage.setItem('assignx_current_user', JSON.stringify(profile));
+      }
+    } catch (err) {
+      console.warn('Failed to fetch user profile from backend:', err);
+    } finally {
+      setIsLoadingUser(false);
+    }
+  };
+
+  const loginUser = async (email: string, password: string, rememberMe = true): Promise<AuthSuccessResult> => {
+    const res = await authService.login({ email, password, rememberMe });
+    if (res.requires2FA) {
+      return res;
+    }
+    if (res.user) {
+      setCurrentUser(res.user);
+      localStorage.setItem('assignx_current_user', JSON.stringify(res.user));
+    }
+    setIsLoggedIn(true);
+    localStorage.setItem('assignx_logged_in', 'true');
+    return res;
+  };
+
+  const registerUser = async (name: string, email: string, password: string): Promise<AuthSuccessResult> => {
+    const res = await authService.register({ name, email, password });
+    if (res.user) {
+      setCurrentUser(res.user);
+      localStorage.setItem('assignx_current_user', JSON.stringify(res.user));
+    }
+    setIsLoggedIn(true);
+    localStorage.setItem('assignx_logged_in', 'true');
+    return res;
+  };
+
+  const socialLoginUser = async (provider: 'google' | 'github'): Promise<AuthSuccessResult> => {
+    const res = await authService.socialLogin({
+      provider,
+      idToken: `social_token_${Date.now()}`,
+    });
+    if (res.user) {
+      setCurrentUser(res.user);
+      localStorage.setItem('assignx_current_user', JSON.stringify(res.user));
+    }
+    setIsLoggedIn(true);
+    localStorage.setItem('assignx_logged_in', 'true');
+    return res;
+  };
+
+  const validate2FAUser = async (email: string, code: string, tempToken?: string): Promise<AuthSuccessResult> => {
+    const res = await authService.validate2FA({ email, code, tempToken });
+    if (res.user) {
+      setCurrentUser(res.user);
+      localStorage.setItem('assignx_current_user', JSON.stringify(res.user));
+    }
+    setIsLoggedIn(true);
+    localStorage.setItem('assignx_logged_in', 'true');
+    return res;
+  };
+
+  const logoutUser = async () => {
+    await authService.logout();
+    setCurrentUser(null);
+    localStorage.removeItem('assignx_current_user');
+    setIsLoggedIn(false);
+    localStorage.removeItem('assignx_logged_in');
+  };
+
   const login = () => {
     setIsLoggedIn(true);
     localStorage.setItem('assignx_logged_in', 'true');
   };
 
   const logout = () => {
-    setIsLoggedIn(false);
-    localStorage.removeItem('assignx_logged_in');
+    logoutUser();
   };
 
   const [projects, setProjects] = useState<Project[]>(initialProjects);
@@ -125,7 +220,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   const createWorkRequest = (data: NewWorkRequest): string => {
     const newId = `proj-${Date.now().toString().slice(-4)}`;
-    
+
     // Pick appropriate supervisor based on category
     let assignedSupervisor = mockSupervisors.arjun;
     if (data.category === 'Mobile App Development') assignedSupervisor = mockSupervisors.priya;
@@ -137,8 +232,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       data.budgetType === 'fixed'
         ? (data.budgetFixed || 60000)
         : data.budgetType === 'range'
-        ? Math.round(((data.budgetMin || 40000) + (data.budgetMax || 80000)) / 2)
-        : 75000;
+          ? Math.round(((data.budgetMin || 40000) + (data.budgetMax || 80000)) / 2)
+          : 75000;
 
     const newProject: Project = {
       id: newId,
@@ -358,7 +453,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
               id: `act-${Date.now()}`,
               type: 'payment',
               title: 'Milestone payment released',
-              description: `₹${amount.toLocaleString('en-IN')} released for "${milestone?.name}".`,
+              description: `â‚¹${amount.toLocaleString('en-IN')} released for "${milestone?.name}".`,
               timestamp: 'Just now',
               author: 'Alex (You)'
             },
@@ -377,7 +472,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       milestoneName: milestone?.name || 'Milestone Delivery',
       amount,
       date: 'Today',
-      method: 'Corporate Visa •••• 4242',
+      method: 'Corporate Visa â€¢â€¢â€¢â€¢ 4242',
       status: 'Paid',
       invoiceUrl: '#'
     };
@@ -410,21 +505,69 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     }));
   };
 
+  // Load user profile, notifications, and tickets when logged in
+  useEffect(() => {
+    if (isLoggedIn) {
+      refreshUserProfile();
+
+      // Load backend notifications
+      notificationService.getNotifications().then(res => {
+        if (res?.notifications && res.notifications.length > 0) {
+          setNotifications(res.notifications.map((n: any) => ({
+            id: n.id,
+            category: (n.category || 'system') as any,
+            title: n.title,
+            message: n.message,
+            projectId: n.projectId,
+            projectTitle: n.projectTitle,
+            timestamp: n.createdAt ? new Date(n.createdAt).toLocaleDateString() : 'Recent',
+            isRead: Boolean(n.isRead),
+            actionRoute: n.actionRoute,
+          })));
+        }
+      }).catch(() => {
+        // Fallback to local mock notifications if offline
+      });
+
+      // Load backend tickets
+      ticketService.getTickets().then(backendTickets => {
+        if (backendTickets && backendTickets.length > 0) {
+          setTickets(backendTickets.map((t: any) => ({
+            id: t.id,
+            subject: t.subject,
+            projectId: t.projectId,
+            projectTitle: t.projectTitle,
+            issueType: t.issueType,
+            status: (t.status || 'Open') as any,
+            lastUpdated: t.updatedAt ? new Date(t.updatedAt).toLocaleDateString() : 'Recent',
+            createdAt: t.createdAt ? new Date(t.createdAt).toLocaleDateString() : 'Recent',
+            description: t.description,
+          })));
+        }
+      }).catch(() => {
+        // Fallback to local mock tickets if offline
+      });
+    }
+  }, [isLoggedIn]);
+
   const markNotificationAsRead = (id: string) => {
     setNotifications(prev =>
       prev.map(n => (n.id === id ? { ...n, isRead: true } : n))
     );
+    notificationService.markAsRead(id).catch(() => {});
   };
 
   const markAllNotificationsAsRead = () => {
     setNotifications(prev => prev.map(n => ({ ...n, isRead: true })));
+    notificationService.markAllAsRead().catch(() => {});
   };
 
   const createTicket = (
     ticketData: Omit<SupportTicket, 'id' | 'createdAt' | 'lastUpdated' | 'status'>
   ) => {
+    const tempId = `tkt-${Date.now().toString().slice(-4)}`;
     const newTicket: SupportTicket = {
-      id: `tkt-${Date.now().toString().slice(-4)}`,
+      id: tempId,
       ...ticketData,
       status: 'Open',
       createdAt: 'Today',
@@ -432,6 +575,21 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     };
 
     setTickets(prev => [newTicket, ...prev]);
+
+    // Persist to backend
+    ticketService.createTicket({
+      projectId: ticketData.projectId,
+      projectTitle: ticketData.projectTitle,
+      issueType: ticketData.issueType,
+      subject: ticketData.subject,
+      description: ticketData.description,
+    }).then(res => {
+      if (res?.ticket?.id) {
+        setTickets(prev => prev.map(t => (t.id === tempId ? { ...t, id: res.ticket.id } : t)));
+      }
+    }).catch(err => {
+      console.warn('Failed to save ticket to backend:', err);
+    });
   };
 
   return (
@@ -450,8 +608,16 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         openModal,
         closeModal,
         isLoggedIn,
+        currentUser,
+        isLoadingUser,
         login,
         logout,
+        loginUser,
+        registerUser,
+        socialLoginUser,
+        validate2FAUser,
+        logoutUser,
+        refreshUserProfile,
         sidebarCollapsed,
         setSidebarCollapsed: handleSetSidebarCollapsed,
         toggleSidebar,
