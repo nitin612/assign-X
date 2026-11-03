@@ -99,7 +99,6 @@ export interface PersonalInfoPayload {
   firstName?: string;
   lastName?: string;
   fullName?: string;
-  email?: string;
   phone?: string;
   phoneE164?: string;
   designation?: string;
@@ -174,3 +173,4 @@ export interface CreateTicketPayload {
   subject: string;
   description: string;
 }
+

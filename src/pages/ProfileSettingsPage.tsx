@@ -26,10 +26,10 @@ export const ProfileSettingsPage: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   // 1. Personal Information State
+  const [userEmail, setUserEmail] = useState(currentUser?.email || 'alex.vance@apexgroup.com');
   const [personalInfo, setPersonalInfo] = useState({
     firstName: currentUser?.firstName || 'Alex',
     lastName: currentUser?.lastName || 'Vance',
-    email: currentUser?.email || 'alex.vance@apexgroup.com',
     phone: currentUser?.phoneE164 || currentUser?.phone || '+91 98200 55112',
     designation: currentUser?.designation || 'Managing Director',
     department: currentUser?.department || 'Executive Operations',
@@ -98,10 +98,10 @@ export const ProfileSettingsPage: React.FC = () => {
       // 1. Fetch user profile
       const profile = await userService.getProfile();
       if (profile) {
+        if (profile.email) setUserEmail(profile.email);
         setPersonalInfo({
           firstName: profile.firstName || profile.fullName?.split(' ')[0] || 'Alex',
           lastName: profile.lastName || profile.fullName?.split(' ').slice(1).join(' ') || 'Vance',
-          email: profile.email || '',
           phone: profile.phoneE164 || profile.phone || '',
           designation: profile.designation || 'Managing Director',
           department: profile.department || 'Executive Operations',
@@ -461,14 +461,18 @@ export const ProfileSettingsPage: React.FC = () => {
                 </div>
 
                 <div className="form-group md:col-span-2">
-                  <label className="form-label">Work Email Address</label>
+                  <div className="flex items-center justify-between mb-1">
+                    <label className="form-label mb-0">Work Email Address</label>
+                    <span className="text-[11px] font-normal text-slate-400">Primary credential (cannot be modified)</span>
+                  </div>
                   <input
                     type="email"
-                    className="form-input"
-                    value={personalInfo.email}
-                    onChange={(e) => setPersonalInfo({ ...personalInfo, email: e.target.value })}
+                    disabled
+                    readOnly
+                    className="form-input opacity-75 cursor-not-allowed bg-slate-100 dark:bg-zinc-800/60 text-slate-600 dark:text-zinc-400 select-none"
+                    value={userEmail}
                   />
-                  <span className="form-hint">Used for all milestone approvals, supervisor updates, and GST tax invoice receipts.</span>
+                  <span className="form-hint">Used for all milestone approvals, supervisor updates, and GST tax invoice receipts. Contact support to change your account email.</span>
                 </div>
 
                 <div className="form-group">

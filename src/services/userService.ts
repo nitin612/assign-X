@@ -18,10 +18,12 @@ export const userService = {
   },
 
   /**
-   * Update personal profile info (name, email, designation, department, timezone)
+   * Update personal profile info (name, phone, designation, department, timezone).
+   * Note: email cannot be changed and must never be sent in payload.
    */
   async updatePersonalInfo(payload: PersonalInfoPayload): Promise<{ success: boolean; message: string; user?: any }> {
-    return apiClient.put('/users/me/personal-info', payload);
+    const { email: _email, ...safePayload } = payload as any;
+    return apiClient.put('/users/me/personal-info', safePayload);
   },
 
   /**
@@ -112,3 +114,4 @@ export const userService = {
     return apiClient.put('/users/me/notification-preferences', payload);
   },
 };
+
