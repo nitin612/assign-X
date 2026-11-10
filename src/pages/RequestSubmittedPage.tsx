@@ -1,7 +1,9 @@
 /* Calm & Reassuring Request Submitted Confirmation Page */
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigation } from '../context/NavigationContext';
 import { useApp } from '../context/AppContext';
+import { workService } from '../services';
+import type { Project } from '../types';
 import {
   CheckCircle2,
   ArrowRight,
@@ -18,7 +20,22 @@ export const RequestSubmittedPage: React.FC = () => {
   const { projects } = useApp();
 
   const requestId = currentRoute.params.requestId || 'proj-1';
-  const project = projects.find(p => p.id === requestId) || projects[0];
+  const localProject = projects.find(p => p.id === requestId || (p as any).projectCode === requestId);
+  const [project, setProject] = useState<Project>(localProject || projects[0]);
+
+  useEffect(() => {
+    if (localProject) {
+      setProject(localProject);
+    } else if (requestId) {
+      workService.getWorkRequest(requestId)
+        .then(res => {
+          if (res) setProject(res);
+        })
+        .catch(err => {
+          console.debug('Could not load project by id from API:', err);
+        });
+    }
+  }, [requestId, localProject]);
 
   const steps = [
     {

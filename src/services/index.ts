@@ -5,3 +5,5 @@ export * from './authService';
 export * from './userService';
 export * from './notificationService';
 export * from './ticketService';
+export * from './workService';
+

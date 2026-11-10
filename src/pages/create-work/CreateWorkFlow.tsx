@@ -1,8 +1,9 @@
 /* Modern Create Work Flow - High-converting SaaS Job Wizard */
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useApp } from '../../context/AppContext';
 import { useNavigation } from '../../context/NavigationContext';
 import type { WorkCategory, NewWorkRequest } from '../../types';
+import { workService } from '../../services';
 import {
   Globe,
   Smartphone,
@@ -19,7 +20,9 @@ import {
   Plus,
   CheckCircle2,
   Video,
-  Bot
+  Bot,
+  Loader2,
+  AlertCircle
 } from 'lucide-react';
 
 export const CreateWorkFlow: React.FC = () => {
@@ -31,6 +34,10 @@ export const CreateWorkFlow: React.FC = () => {
 
   const [step, setStep] = useState<number>(1);
   const totalSteps = 6;
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [isUploading, setIsUploading] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Form State
   const [formData, setFormData] = useState<NewWorkRequest>({
@@ -102,6 +109,23 @@ export const CreateWorkFlow: React.FC = () => {
       budget: 80000
     }
   ];
+
+  const [templates, setTemplates] = useState(promptTemplates);
+
+  useEffect(() => {
+    workService.getTemplates()
+      .then(res => {
+        if (Array.isArray(res) && res.length > 0) {
+          setTemplates(res.map(t => ({
+            ...t,
+            category: t.category as WorkCategory,
+          })));
+        }
+      })
+      .catch(err => {
+        console.debug('Used fallback prompt templates:', err);
+      });
+  }, []);
 
   // Categories setup with theme colors
   const categories: {
@@ -212,16 +236,67 @@ export const CreateWorkFlow: React.FC = () => {
     }));
   };
 
-  const handleSubmit = (isDraft = false) => {
-    if (isDraft) {
-      navigate('/work');
-      return;
+  const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (!files || files.length === 0) return;
+    setIsUploading(true);
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      try {
+        const uploaded = await workService.uploadAttachment(file);
+        setFormData(prev => ({
+          ...prev,
+          attachments: [...prev.attachments, uploaded.fileName],
+          attachmentsData: [
+            ...(prev.attachmentsData || []),
+            {
+              fileName: uploaded.fileName,
+              fileUrl: uploaded.fileUrl,
+              fileType: uploaded.fileType,
+              fileSize: uploaded.fileSize,
+            },
+          ],
+        }));
+      } catch (err) {
+        console.warn('API file upload failed, using local filename:', err);
+        setFormData(prev => ({
+          ...prev,
+          attachments: [...prev.attachments, file.name],
+        }));
+      }
     }
-    const newId = createWorkRequest({
-      ...formData,
-      title: formData.title || formData.outcomeDescription.slice(0, 45) + '...'
-    });
-    navigate(`/submitted/${newId}`);
+    setIsUploading(false);
+    if (fileInputRef.current) fileInputRef.current.value = '';
+  };
+
+  const handleRemoveAttachment = (indexToRemove: number) => {
+    setFormData(prev => ({
+      ...prev,
+      attachments: prev.attachments.filter((_, i) => i !== indexToRemove),
+      attachmentsData: prev.attachmentsData?.filter((_, i) => i !== indexToRemove),
+    }));
+  };
+
+  const handleSubmit = async (isDraft = false) => {
+    try {
+      setIsSubmitting(true);
+      setSubmitError(null);
+      const newId = await createWorkRequest({
+        ...formData,
+        title: formData.title || formData.outcomeDescription.slice(0, 45) + '...'
+      }, isDraft);
+
+      if (isDraft) {
+        navigate('/work');
+      } else {
+        navigate(`/submitted/${newId}`);
+      }
+    } catch (err: any) {
+      console.error('Work request submission error:', err);
+      setSubmitError(err?.message || 'Failed to submit work request. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -336,7 +411,7 @@ export const CreateWorkFlow: React.FC = () => {
                 <button
                   type="button"
                   className="flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-orange-50 to-amber-50 dark:from-orange-950/60 dark:to-amber-950/60 text-[#EE6B50] dark:text-orange-300 hover:text-[#D95236] dark:hover:text-white border border-orange-200 dark:border-orange-900 text-xs font-semibold shadow-2xs hover:shadow-xs transition-all cursor-pointer"
-                  onClick={() => handleSelectTemplate(promptTemplates[0])}
+                  onClick={() => handleSelectTemplate(templates[0])}
                 >
                   <Sparkles size={14} className="text-[#EE6B50] dark:text-orange-400" />
                   <span>Use Sample Prompt</span>
@@ -374,7 +449,7 @@ export const CreateWorkFlow: React.FC = () => {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {promptTemplates.map((tmpl, idx) => (
+              {templates.map((tmpl, idx) => (
                 <div
                   key={idx}
                   onClick={() => handleSelectTemplate(tmpl)}
@@ -574,15 +649,33 @@ export const CreateWorkFlow: React.FC = () => {
                   <label className="block text-xs font-semibold text-slate-900 dark:text-white mb-1.5">
                     Attachments (Optional)
                   </label>
+                  <input
+                    type="file"
+                    ref={fileInputRef}
+                    className="hidden"
+                    multiple
+                    accept=".pdf,.zip,.png,.jpg,.jpeg,.doc,.docx"
+                    onChange={handleFileSelect}
+                  />
                   <div
                     onClick={() => {
-                      const demoFile = `Scope_Brief_${Date.now().toString().slice(-4)}.pdf`;
-                      setFormData(prev => ({ ...prev, attachments: [...prev.attachments, demoFile] }));
+                      if (fileInputRef.current) {
+                        fileInputRef.current.click();
+                      } else {
+                        const demoFile = `Scope_Brief_${Date.now().toString().slice(-4)}.pdf`;
+                        setFormData(prev => ({ ...prev, attachments: [...prev.attachments, demoFile] }));
+                      }
                     }}
                     className="border-2 border-dashed border-stone-200 dark:border-zinc-800 rounded-2xl p-5 text-center bg-stone-50/50 dark:bg-zinc-900/30 hover:bg-orange-50/30 transition-colors cursor-pointer"
                   >
-                    <UploadCloud size={24} className="text-[#EE6B50] mx-auto mb-1.5" />
-                    <div className="text-xs font-semibold text-slate-800 dark:text-white">Click to attach mockups, briefs, or assets</div>
+                    {isUploading ? (
+                      <Loader2 size={24} className="text-[#EE6B50] mx-auto mb-1.5 animate-spin" />
+                    ) : (
+                      <UploadCloud size={24} className="text-[#EE6B50] mx-auto mb-1.5" />
+                    )}
+                    <div className="text-xs font-semibold text-slate-800 dark:text-white">
+                      {isUploading ? 'Uploading attachments to backend...' : 'Click to attach mockups, briefs, or assets'}
+                    </div>
                     <div className="text-[11px] text-slate-400 dark:text-zinc-500 mt-0.5">PDF, ZIP, PNG, DOCX up to 50MB</div>
                   </div>
 
@@ -594,6 +687,16 @@ export const CreateWorkFlow: React.FC = () => {
                           className="inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1 rounded-full bg-orange-50 text-[#D95236] dark:bg-orange-950/60 dark:text-orange-300 border border-orange-100 dark:border-orange-900"
                         >
                           📎 {att}
+                          <button
+                            type="button"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleRemoveAttachment(i);
+                            }}
+                            className="ml-1 text-xs hover:text-red-600 font-bold cursor-pointer"
+                          >
+                            ×
+                          </button>
                         </span>
                       ))}
                     </div>
@@ -1005,22 +1108,40 @@ export const CreateWorkFlow: React.FC = () => {
             </div>
           </div>
 
+          {submitError && (
+            <div className="flex items-center gap-2.5 p-3.5 mb-4 rounded-xl bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-900/50 text-xs text-red-600 dark:text-red-400 font-medium">
+              <AlertCircle size={16} className="shrink-0" />
+              <span>{submitError}</span>
+            </div>
+          )}
+
           <div className="flex items-center justify-between pt-4 border-t border-stone-200/80 dark:border-zinc-800">
             <button
               type="button"
-              className="px-4 py-2.5 rounded-xl border border-stone-200 dark:border-zinc-800 text-slate-700 dark:text-zinc-300 font-semibold text-sm hover:bg-stone-50 dark:hover:bg-zinc-800 transition-colors cursor-pointer"
+              disabled={isSubmitting}
+              className="px-4 py-2.5 rounded-xl border border-stone-200 dark:border-zinc-800 text-slate-700 dark:text-zinc-300 font-semibold text-sm hover:bg-stone-50 dark:hover:bg-zinc-800 disabled:opacity-50 transition-colors cursor-pointer"
               onClick={() => handleSubmit(true)}
             >
-              Save as Draft
+              {isSubmitting ? 'Saving...' : 'Save as Draft'}
             </button>
 
             <button
               type="button"
-              className="flex items-center gap-2 px-7 py-3 rounded-xl bg-gradient-to-b from-[#FA795C] to-[#D95236] hover:brightness-105 active:scale-98 shadow-md text-white font-semibold text-sm shadow-sm hover:shadow-md transition-all cursor-pointer"
+              disabled={isSubmitting}
+              className="flex items-center gap-2 px-7 py-3 rounded-xl bg-gradient-to-b from-[#FA795C] to-[#D95236] hover:brightness-105 active:scale-98 shadow-md text-white font-semibold text-sm shadow-sm hover:shadow-md disabled:opacity-60 transition-all cursor-pointer"
               onClick={() => handleSubmit(false)}
             >
-              <span>Submit Work Request</span>
-              <ArrowRight size={16} />
+              {isSubmitting ? (
+                <>
+                  <Loader2 size={16} className="animate-spin" />
+                  <span>Submitting Work Request...</span>
+                </>
+              ) : (
+                <>
+                  <span>Submit Work Request</span>
+                  <ArrowRight size={16} />
+                </>
+              )}
             </button>
           </div>
         </div>

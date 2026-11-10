@@ -7,6 +7,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useApp } from '../../context/AppContext';
 import { useNavigation } from '../../context/NavigationContext';
 import type { WorkCategory } from '../../types';
+import { workService } from '../../services';
 import {
   X,
   ArrowRight,
@@ -239,26 +240,54 @@ export const QuickCreateModal: React.FC<QuickCreateModalProps> = ({ isOpen, onCl
       estimate: { min: 50000, max: 150000, fixed: 100000 },
     };
     const bm = budgetMap[step2.budgetType];
-    await new Promise(r => setTimeout(r, 1200));
-    login();
-    createWorkRequest({
-      outcomeDescription: step1.outcomeDescription,
-      category: step1.category,
-      title: step1.outcomeDescription.slice(0, 55) + (step1.outcomeDescription.length > 55 ? '\u2026' : ''),
-      detailedDescription: step1.outcomeDescription,
-      requiredFeatures: [''],
-      referenceLinks: [''],
-      attachments: [],
-      preferredTech: '',
-      additionalNotes: '',
-      budgetType: step2.budgetType === 'estimate' ? 'estimate' : 'range',
-      budgetMin: bm.min,
-      budgetMax: bm.max,
-      budgetFixed: bm.fixed,
-      currency: 'INR (\u20b9)',
-      timelineType: step2.timelineType === 'asap' ? 'asap' : step2.timelineType === 'flexible' ? 'flexible' : 'deadline',
-      deadlineDate: step2.timelineType === 'within_month' ? '2026-11-28' : '2027-01-28',
-    });
+    const deadlineDate = step2.timelineType === 'within_month'
+      ? new Date(Date.now() + 30 * 86400000).toISOString().split('T')[0]
+      : new Date(Date.now() + 90 * 86400000).toISOString().split('T')[0];
+
+    try {
+      const res = await workService.quickCreateWork({
+        outcomeDescription: step1.outcomeDescription,
+        category: step1.category,
+        budgetType: step2.budgetType === 'estimate' ? 'estimate' : 'range',
+        budgetMin: bm.min,
+        budgetMax: bm.max,
+        budgetFixed: bm.fixed,
+        timelineType: step2.timelineType === 'asap' ? 'asap' : step2.timelineType === 'flexible' ? 'flexible' : 'deadline',
+        deadlineDate,
+        guestAuth: {
+          email: step3.email,
+          password: step3.password,
+          fullName: step3.fullName,
+          companyName: step3.companyName,
+        },
+      });
+
+      if (res.auth?.user) {
+        login();
+      }
+    } catch (err: any) {
+      console.warn('Quick create backend API unavailable, falling back to local creation:', err);
+      login();
+      await createWorkRequest({
+        outcomeDescription: step1.outcomeDescription,
+        category: step1.category,
+        title: step1.outcomeDescription.slice(0, 55) + (step1.outcomeDescription.length > 55 ? '\u2026' : ''),
+        detailedDescription: step1.outcomeDescription,
+        requiredFeatures: [''],
+        referenceLinks: [''],
+        attachments: [],
+        preferredTech: '',
+        additionalNotes: '',
+        budgetType: step2.budgetType === 'estimate' ? 'estimate' : 'range',
+        budgetMin: bm.min,
+        budgetMax: bm.max,
+        budgetFixed: bm.fixed,
+        currency: 'INR (\u20b9)',
+        timelineType: step2.timelineType === 'asap' ? 'asap' : step2.timelineType === 'flexible' ? 'flexible' : 'deadline',
+        deadlineDate,
+      });
+    }
+
     setIsSubmitting(false);
     setIsSuccess(true);
     setTimeout(() => { onClose(); navigate('/dashboard'); }, 2600);

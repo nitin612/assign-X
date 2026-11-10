@@ -51,3 +51,4 @@ export const notificationService = {
     return apiClient.patch('/notifications/read-all');
   },
 };
+

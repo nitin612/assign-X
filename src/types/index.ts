@@ -127,6 +127,7 @@ export interface ProjectActivity {
 
 export interface Project {
   id: string;
+  projectCode?: string;
   title: string;
   category: WorkCategory;
   description: string;
@@ -212,6 +213,12 @@ export interface NewWorkRequest {
   requiredFeatures: string[];
   referenceLinks: string[];
   attachments: string[];
+  attachmentsData?: Array<{
+    fileName: string;
+    fileUrl: string;
+    fileType: string;
+    fileSize: number;
+  }>;
   preferredTech?: string;
   additionalNotes?: string;
   budgetType: 'fixed' | 'range' | 'estimate';

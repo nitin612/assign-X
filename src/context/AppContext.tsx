@@ -21,6 +21,8 @@ import {
   userService,
   notificationService,
   ticketService,
+  workService,
+  type CreateWorkRequestPayload,
   type UserProfile,
   type AuthSuccessResult
 } from '../services';
@@ -73,7 +75,7 @@ interface AppContextType {
   toggleSidebar: () => void;
 
   // Interactive Actions
-  createWorkRequest: (data: NewWorkRequest) => string; // returns new requestId
+  createWorkRequest: (data: NewWorkRequest, isDraft?: boolean) => Promise<string>; // returns new requestId
   approveMilestone: (projectId: string, milestoneId: string) => void;
   requestChanges: (projectId: string, milestoneId: string, feedback: string) => void;
   payMilestone: (projectId: string, milestoneId: string) => void;
@@ -218,128 +220,222 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setActiveModal({ type: null });
   };
 
-  const createWorkRequest = (data: NewWorkRequest): string => {
-    const newId = `proj-${Date.now().toString().slice(-4)}`;
+  const createWorkRequest = async (data: NewWorkRequest, isDraft = false): Promise<string> => {
+    // 1. Attempt to create project on backend API
+    try {
+      const backendPayload: CreateWorkRequestPayload = {
+        outcomeDescription: data.outcomeDescription,
+        category: data.category,
+        title: data.title,
+        detailedDescription: data.detailedDescription,
+        requiredFeatures: (data.requiredFeatures || []).filter(f => f.trim().length > 0),
+        referenceLinks: (data.referenceLinks || []).filter(l => l.trim().length > 0),
+        attachments: data.attachmentsData && data.attachmentsData.length > 0
+          ? data.attachmentsData
+          : (data.attachments || []).map(att => ({
+              fileName: typeof att === 'string' ? att : (att as any).fileName,
+              fileUrl: typeof att === 'string' ? `/uploads/projects/${att}` : (att as any).fileUrl,
+              fileType: typeof att === 'string' ? 'application/octet-stream' : (att as any).fileType,
+              fileSize: typeof att === 'string' ? 1024 * 1024 : (att as any).fileSize,
+            })),
+        preferredTech: data.preferredTech,
+        additionalNotes: data.additionalNotes,
+        budgetType: data.budgetType,
+        budgetMin: data.budgetMin,
+        budgetMax: data.budgetMax,
+        budgetFixed: data.budgetFixed,
+        currency: data.currency,
+        timelineType: data.timelineType,
+        deadlineDate: data.deadlineDate,
+        isDraft,
+      };
 
-    // Pick appropriate supervisor based on category
-    let assignedSupervisor = mockSupervisors.arjun;
-    if (data.category === 'Mobile App Development') assignedSupervisor = mockSupervisors.priya;
-    else if (data.category === 'UI/UX Design') assignedSupervisor = mockSupervisors.rohan;
-    else if (data.category === 'Graphic Design') assignedSupervisor = mockSupervisors.vikram;
-    else if (data.category === 'Other') assignedSupervisor = mockSupervisors.ananya;
+      const backendProject = await workService.createWorkRequest(backendPayload);
 
-    const estimatedBudget =
-      data.budgetType === 'fixed'
-        ? (data.budgetFixed || 60000)
-        : data.budgetType === 'range'
-          ? Math.round(((data.budgetMin || 40000) + (data.budgetMax || 80000)) / 2)
-          : 75000;
+      setProjects(prev => [backendProject, ...prev]);
 
-    const newProject: Project = {
-      id: newId,
-      title: data.title || 'Untitled Work Request',
-      category: data.category,
-      description: data.detailedDescription || data.outcomeDescription,
-      status: 'Under Review',
-      progress: 5,
-      supervisor: assignedSupervisor,
-      currentPhase: 'Requirement Review',
-      deadline: data.deadlineDate || 'Flexible Timeline',
-      startDate: 'Just now',
-      budget: estimatedBudget,
-      paidAmount: 0,
-      currentMilestone: 'Requirement Review & Technical Plan',
-      phases: [
+      // Add initial message thread
+      setMessages(prev => ({
+        ...prev,
+        [backendProject.id]: [
+          {
+            id: `msg-${Date.now()}`,
+            projectId: backendProject.id,
+            projectTitle: backendProject.title,
+            sender: 'supervisor',
+            senderName: backendProject.supervisor.name,
+            senderAvatar: backendProject.supervisor.avatar,
+            content: `Hello! I am ${backendProject.supervisor.name}, and AssignX has assigned me to lead your "${backendProject.title}" work request. I am reviewing the details right now and will formulate your project plan.`,
+            timestamp: 'Just now',
+            dateGroup: 'Today',
+            isRead: true,
+          },
+        ],
+        // Also map by projectCode if available
+        ...(backendProject.projectCode
+          ? {
+              [backendProject.projectCode]: [
+                {
+                  id: `msg-code-${Date.now()}`,
+                  projectId: backendProject.projectCode,
+                  projectTitle: backendProject.title,
+                  sender: 'supervisor',
+                  senderName: backendProject.supervisor.name,
+                  senderAvatar: backendProject.supervisor.avatar,
+                  content: `Hello! I am ${backendProject.supervisor.name}, and AssignX has assigned me to lead your "${backendProject.title}" work request. I am reviewing the details right now and will formulate your project plan.`,
+                  timestamp: 'Just now',
+                  dateGroup: 'Today',
+                  isRead: true,
+                },
+              ],
+            }
+          : {}),
+      }));
+
+      // Add notification
+      setNotifications(prev => [
         {
-          id: `p-${newId}-1`,
-          name: 'Requirement Review & Scope Alignment',
-          status: 'In Progress',
-          tasks: [
-            { id: `t-${newId}-1`, name: 'Initial scope analysis by supervisor', status: 'In Progress', expectedDate: 'Within 24h', progress: 50 }
-          ]
-        },
-        {
-          id: `p-${newId}-2`,
-          name: 'Supervisor Assignment & Plan Delivery',
-          status: 'Upcoming',
-          tasks: [
-            { id: `t-${newId}-2`, name: 'Milestone structure & milestone breakdown', status: 'Upcoming', expectedDate: 'Within 48h', progress: 0 }
-          ]
-        }
-      ],
-      milestones: [
-        {
-          id: `m-${newId}-1`,
-          name: 'Requirement Review & Technical Plan',
-          description: 'Detailed specification, architecture document, and milestone sign-off.',
-          amount: Math.round(estimatedBudget * 0.3),
-          dueDate: 'Estimated in 5 days',
-          status: 'Upcoming',
-          deliverablesCount: 0,
-          deliverableIds: [],
-          approvalStatus: 'In Review'
-        }
-      ],
-      deliverables: [],
-      files: data.attachments.map((att, idx) => ({
-        id: `f-${newId}-${idx}`,
-        name: att,
-        type: 'my_upload',
-        uploadedBy: 'Alex (You)',
-        uploadedDate: 'Just now',
-        size: 'Attached'
-      })),
-      activities: [
-        {
-          id: `act-${newId}-1`,
-          type: 'supervisor',
-          title: 'Work request received by AssignX',
-          description: 'Your requirement is currently undergoing supervisor assignment.',
+          id: `notif-${Date.now()}`,
+          category: 'work',
+          title: isDraft ? 'Draft Saved' : 'Work Request Submitted',
+          message: isDraft
+            ? `Your draft for "${backendProject.title}" has been saved.`
+            : `Your request "${backendProject.title}" was submitted. Supervisor assigned.`,
+          projectId: backendProject.id,
+          projectTitle: backendProject.title,
           timestamp: 'Just now',
-          author: 'AssignX System'
-        }
-      ],
-      lastActivity: 'Just now'
-    };
+          isRead: false,
+          actionRoute: `#/work/${backendProject.id}`,
+        },
+        ...prev,
+      ]);
 
-    setProjects(prev => [newProject, ...prev]);
+      return backendProject.id;
+    } catch (apiError) {
+      console.warn('Backend API submission unavailable or returned an error, falling back to local state:', apiError);
 
-    // Add initial message thread
-    setMessages(prev => ({
-      ...prev,
-      [newId]: [
+      const newId = `proj-${Date.now().toString().slice(-4)}`;
+
+      // Pick appropriate supervisor based on category
+      let assignedSupervisor = mockSupervisors.arjun;
+      if (data.category === 'Mobile App Development') assignedSupervisor = mockSupervisors.priya;
+      else if (data.category === 'UI/UX Design') assignedSupervisor = mockSupervisors.rohan;
+      else if (data.category === 'Graphic Design') assignedSupervisor = mockSupervisors.vikram;
+      else if (data.category === 'Other') assignedSupervisor = mockSupervisors.ananya;
+
+      const estimatedBudget =
+        data.budgetType === 'fixed'
+          ? (data.budgetFixed || 60000)
+          : data.budgetType === 'range'
+            ? Math.round(((data.budgetMin || 40000) + (data.budgetMax || 80000)) / 2)
+            : 75000;
+
+      const newProject: Project = {
+        id: newId,
+        title: data.title || 'Untitled Work Request',
+        category: data.category,
+        description: data.detailedDescription || data.outcomeDescription,
+        status: isDraft ? 'Under Review' : 'Under Review',
+        progress: 5,
+        supervisor: assignedSupervisor,
+        currentPhase: 'Requirement Review',
+        deadline: data.deadlineDate || 'Flexible Timeline',
+        startDate: 'Just now',
+        budget: estimatedBudget,
+        paidAmount: 0,
+        currentMilestone: 'Requirement Review & Technical Plan',
+        phases: [
+          {
+            id: `p-${newId}-1`,
+            name: 'Requirement Review & Scope Alignment',
+            status: 'In Progress',
+            tasks: [
+              { id: `t-${newId}-1`, name: 'Initial scope analysis by supervisor', status: 'In Progress', expectedDate: 'Within 24h', progress: 50 },
+            ],
+          },
+          {
+            id: `p-${newId}-2`,
+            name: 'Supervisor Assignment & Plan Delivery',
+            status: 'Upcoming',
+            tasks: [
+              { id: `t-${newId}-2`, name: 'Milestone structure & milestone breakdown', status: 'Upcoming', expectedDate: 'Within 48h', progress: 0 },
+            ],
+          },
+        ],
+        milestones: [
+          {
+            id: `m-${newId}-1`,
+            name: 'Requirement Review & Technical Plan',
+            description: 'Detailed specification, architecture document, and milestone sign-off.',
+            amount: Math.round(estimatedBudget * 0.3),
+            dueDate: 'Estimated in 5 days',
+            status: 'Upcoming',
+            deliverablesCount: 0,
+            deliverableIds: [],
+            approvalStatus: 'In Review',
+          },
+        ],
+        deliverables: [],
+        files: (data.attachments || []).map((att, idx) => ({
+          id: `f-${newId}-${idx}`,
+          name: att,
+          type: 'my_upload',
+          uploadedBy: 'Alex (You)',
+          uploadedDate: 'Just now',
+          size: 'Attached',
+        })),
+        activities: [
+          {
+            id: `act-${newId}-1`,
+            type: 'supervisor',
+            title: isDraft ? 'Work Draft Saved' : 'Work request received by AssignX',
+            description: 'Your requirement is currently undergoing supervisor assignment.',
+            timestamp: 'Just now',
+            author: 'AssignX System',
+          },
+        ],
+        lastActivity: 'Just now',
+      };
+
+      setProjects(prev => [newProject, ...prev]);
+
+      // Add initial message thread
+      setMessages(prev => ({
+        ...prev,
+        [newId]: [
+          {
+            id: `msg-${Date.now()}`,
+            projectId: newId,
+            projectTitle: newProject.title,
+            sender: 'supervisor',
+            senderName: assignedSupervisor.name,
+            senderAvatar: assignedSupervisor.avatar,
+            content: `Hello Alex! I am ${assignedSupervisor.name}, and AssignX has assigned me to lead your "${newProject.title}" work request. I am reviewing the details right now and will prepare the full project plan.`,
+            timestamp: 'Just now',
+            dateGroup: 'Today',
+            isRead: true,
+          },
+        ],
+      }));
+
+      // Add notification
+      setNotifications(prev => [
         {
-          id: `msg-${Date.now()}`,
+          id: `notif-${Date.now()}`,
+          category: 'work',
+          title: isDraft ? 'Draft Saved' : 'Work Request Submitted',
+          message: `Your request "${newProject.title}" was submitted. Supervisor assigned.`,
           projectId: newId,
           projectTitle: newProject.title,
-          sender: 'supervisor',
-          senderName: assignedSupervisor.name,
-          senderAvatar: assignedSupervisor.avatar,
-          content: `Hello Alex! I am ${assignedSupervisor.name}, and AssignX has assigned me to lead your "${newProject.title}" work request. I am reviewing the details right now and will prepare the full project plan.`,
           timestamp: 'Just now',
-          dateGroup: 'Today',
-          isRead: true
-        }
-      ]
-    }));
+          isRead: false,
+          actionRoute: `#/work/${newId}`,
+        },
+        ...prev,
+      ]);
 
-    // Add notification
-    setNotifications(prev => [
-      {
-        id: `notif-${Date.now()}`,
-        category: 'work',
-        title: 'Work Request Submitted',
-        message: `Your request "${newProject.title}" was submitted. Supervisor assigned.`,
-        projectId: newId,
-        projectTitle: newProject.title,
-        timestamp: 'Just now',
-        isRead: false,
-        actionRoute: `#/work/${newId}`
-      },
-      ...prev
-    ]);
-
-    return newId;
+      return newId;
+    }
   };
 
   const approveMilestone = (projectId: string, milestoneId: string) => {
